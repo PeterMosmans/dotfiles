@@ -51,8 +51,8 @@ DISABLE_AUTO_UPDATE="true"
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
 
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+export ZSH_TMUX_AUTOSTART=true
+export ZSH_TMUX_UNICODE=true
 
 # default plugins - is overruled by .zshenv
 [ -z "$plugins" ] && plugins=(git)
