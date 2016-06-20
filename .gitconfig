@@ -1,0 +1,45 @@
+[user]
+  name = Peter Mosmans
+  email = support@go-forward.net
+[gui]
+  fontdiff = -family \"Source Code Pro\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
+[core]
+  autocrlf = false
+[rerere]
+  enabled = true
+[alias]
+  st = status
+  br = branch
+  ci = commit
+  co = checkout
+[color "status"]
+# format: foreground [background] [attribute]
+# attributes: bold, dim ul, blink, reverse
+  header = 253
+  added = 252 242 bold
+  updated = green
+  changed = 220 bold
+  untracked = 252 239
+  branch = 7 131 bold
+  detached = red bold
+  nobranch = bold
+[color "diff"]
+  plain = normal
+  meta = 15 bold
+  frag = 15 237 bold
+  old = 196 bold
+  new = 118 bold
+  commit = yellow
+  whitespace = normal red
+[color "branch"]
+  current = green
+  local = normal
+  remote = red
+  plain = normal
+[color "grep"]
+  match = normal
+[color "interactive"]
+  prompt = normal
+  header = bold
+  help = normal
+  error = normal
