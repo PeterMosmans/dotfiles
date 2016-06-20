@@ -6,12 +6,9 @@ plugins=(git pylint tmux vagrant)
 # standard programs
 export BROWSER=\"$(echo "${PROGRAMFILES} (x86)/Mozilla Firefox/firefox.exe"|sed -e 's/\\/\//')\"
 export PDFREADER=\"$(echo "${PROGRAMFILES}/SumatraPDF/SumatraPDF.exe"|sed -e 's/\\/\//')\"
-export WRITER=\"$(echo "${PROGRAMFILES}/OpenOffice 4/program/swriter.exe"|sed -e 's/\\/\//')\"
+export WRITER=\"$(echo "${PROGRAMFILES} (x86)/OpenOffice 4/program/swriter.exe"|sed -e 's/\\/\//')\"
 
-alias -s htm=${BROWSER}
-alias -s html=${BROWSER}
-alias -s odt=${WRITER}
-alias -s pdf=${PDFREADER}
+# Add some typical Windows suffix aliases
 alias -s bat="c:/windows/system32/cmd.exe" '/c'
 alias -s cmd="c:/windows/system32/cmd.exe" '/c'
 

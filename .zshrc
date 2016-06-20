@@ -75,9 +75,14 @@ alias -g GF="grep -ilR"
 alias -g N=">/dev/null"
 alias -g L="|less"
 alias -g M="|more"
+
+# Add some generic suffix aliases
 alias -s txt=emacs
 alias -s xml=emacs
-
+[ ! -z ${BROWSER} ] && alias -s htm=${BROWSER}
+[ ! -z ${BROWSER} ] && alias -s html=${BROWSER}
+[ ! -z ${WRITER} ] && alias -s odt=${WRITER}
+[ ! -z ${PDFREADER} ] && alias -s pdf=${PDFREADER}
 
 show_colors() {
     for i in {0..255} ; do
@@ -94,7 +99,6 @@ urlencode() {
     print ${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-])/%${(l:2::0:)$(([##16]#match))}}
 }
 
-# customizations
 # Using the AUTOCD option, you can simply type the name of a directory,
 # and it will become the current directory. 
 setopt AUTOCD
@@ -111,7 +115,7 @@ setopt HIST_FIND_NO_DUPS
 # + INC_APPEND_HISTORY :: adds entries to history as they are typed (don't wait for exit)
 setopt INC_APPEND_HISTORY
 # + SHARE_HISTORY :: share history between different zsh processes
-setopt SHARE_HISTORY
+# setopt SHARE_HISTORY
 
 ## Line editor
 setopt NO_BEEP
