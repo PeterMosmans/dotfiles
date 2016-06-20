@@ -19,7 +19,7 @@ OSSPECIFIC=".zshenv .ssh/config"
 
 
 ## Don't change anything below this line
-VERSION=0.1
+VERSION=0.2
 
 OS=$(uname -o|sed "s/\//-/")
 REALPATH=$(dirname $0)
@@ -45,7 +45,7 @@ done
 
 # operating-system specific
 for link in ${OSSPECIFIC}; do
-    if [[ -f "${OS}/${link}" ]]; then
+    if [[ -f "${REALPATH}/${OS}/${link}" ]]; then
         echo linking ${OS}-specific ${link}
         ln -f --symbolic "${REALPATH}/${OS}/${link}" "${DESTINATIONPATH}/${link}"
     fi
