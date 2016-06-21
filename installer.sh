@@ -19,7 +19,7 @@ OSSPECIFIC=".zshenv .ssh/config"
 
 
 ## Don't change anything below this line
-VERSION=0.2
+VERSION=0.3
 
 OS=$(uname -o|sed "s/\//-/")
 REALPATH=$(dirname $0)
@@ -28,12 +28,14 @@ readlink -f $0 &>/dev/null && REALPATH=$(dirname $(readlink -f $0))
 mkdir -p ${DESTINATIONPATH} 2>/dev/null
 
 for link in ${SOURCEFILES}; do
+    if echo ${link} | grep -q "/" ; then
+        mkdir -p "$(dirname ${DESTINATIONPATH}/${link}/)"
+    fi
     if [ -f ${REALPATH}/${link} ]; then
         echo linking ${link}
         ln --force --symbolic "${REALPATH}/${link}" "${DESTINATIONPATH}/${link}"
     fi
-    if [ -d "${REALPATH}/${link}" ]; then
-        mkdir -p "${DESTINATIONPATH}/${link}/"
+    if [ -d ${REALPATH}/${link} ]; then
         echo linking ${link}
         pushd ${link} &>/dev/null
         for i in *; do
