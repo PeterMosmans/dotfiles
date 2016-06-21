@@ -11,7 +11,7 @@ export WRITER=\"$(echo "${PROGRAMFILES} (x86)/OpenOffice 4/program/swriter.exe"|
 # Add some typical Windows suffix aliases
 alias -s bat="c:/windows/system32/cmd.exe" '/c'
 alias -s cmd="c:/windows/system32/cmd.exe" '/c'
-
+alias emacs=$EDITOR
 export GIT_EDITOR=$EDITOR
 # Emacs variables
 EMACSVARIABLES="-g 111x60+0+0"
