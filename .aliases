@@ -13,7 +13,6 @@ alias less='less -X'
 # show numbered directory stack
 alias ds='dirs -v -p'
 # programs
-alias emacs=${EDITOR}
 alias editor=emacs
 # pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
