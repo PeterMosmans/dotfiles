@@ -25,4 +25,4 @@ export tmp=/tmp
 export TERM=xterm-256color
 
 # update shortcut
-alias update='Pacman -Syu'
+alias update='pacman --color=auto -Syu '
