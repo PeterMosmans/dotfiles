@@ -34,23 +34,23 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 
-(if (file-exists-p "~/.emacs.d/variables.el")
-    (load "~/.emacs.d/variables.el"))
+;; uncomment for some debugging options and to byte compile on exit
+;; (setq debug-on-error t)
 
-;; The following parameters are recognized, and can be added to
-;; ~/.emacs.d/variables.el
+;; The following parameters can be added to ~/.emacs.d/variables.el
 ;;
 ;; my-font
 ;; my-theme
 ;; my-scratch-file
+;;
 ;; below are the defaults
 
 (setq my-font "Source Code Pro"
       my-scratch-file "~/scratch.txt"
       my-theme 'misterioso)
 
-;; uncomment for some debugging options and to byte compile on exit
-;; (setq debug-on-error t)
+(if (file-exists-p "~/.emacs.d/variables.el")
+    (load "~/.emacs.d/variables.el"))
 
 (package-initialize)
 ;; Bootstrap `use-package'
