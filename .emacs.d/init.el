@@ -34,16 +34,16 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 
-;; uncomment for some debugging options and to byte compile on exit
-;; (setq debug-on-error t)
-
-;; The following parameters can be added to ~/.emacs.d/variables.el
+;; The following parameters are recognized, and can be added to
+;; ~/.emacs.d/variables.el
 ;;
 ;; my-font
 ;; my-theme
 ;; my-scratch-file
-;;
 ;; below are the defaults
+
+(setq frame-initial-geometry-arguments '((height . 50) (width . 110) (left . 1385) (top . 0)))
+(setq initial-frame-alist '((height . 50) (width . 110)))
 
 (setq my-font "Source Code Pro"
       my-scratch-file "~/scratch.txt"
@@ -51,6 +51,9 @@
 
 (if (file-exists-p "~/.emacs.d/variables.el")
     (load "~/.emacs.d/variables.el"))
+
+;; uncomment for some debugging options and to byte compile on exit
+;; (setq debug-on-error t)
 
 (package-initialize)
 ;; Bootstrap `use-package'
@@ -111,7 +114,14 @@
 ;; config:   execute code after a package is loaded
 ;; defer:    defer loading (automatic when comands and bind
 ;; disabled: (temporarily) disable a package
+;; ensure:   make sure the package is installed
 ;; init:     execute code before a package is loaded
+
+(use-package bm
+  :ensure t
+  :bind (("M-b" . bm-toggle)
+         ("C-b" . bm-next))
+)
 
 (use-package dash
   :defer t
@@ -294,14 +304,11 @@
                 'set-bfr-to-utf-8-unix
                 )
 ;; make sure that utf8 Unix line endings (LF) are default
-(setq default-buffer-file-coding-system 'utf-8-unix)
 (setq-default buffer-file-coding-system 'utf-8-unix)
-(set-default-coding-systems 'utf-8-unix)
+;(set-default-coding-systems 'utf-8-unix)
 (prefer-coding-system 'utf-8-unix)
 
-(setq ;initial-frame-alist '((width . 88) (height . 44))
- ;; make sure that ediff doesn't create a new floating window
- ;; file locations
+(setq 
  dired-listing-switches "-agoh"
  recentf-save-file "~/.emacs.d/recentfiles.emacs"
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
@@ -503,13 +510,13 @@
  '(cursor-color "#839496")
  '(custom-safe-themes
    (quote
-    ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+    ("4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(ediff-patch-options "-f -N --strip=1 --binary")
  '(foreground-color "#839496")
  '(line-spacing nil)
  '(package-selected-packages
    (quote
-    (helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key php-mode helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
+    (bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key php-mode helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
  '(safe-local-variable-values
    (quote
     ((pandoc/write . "html")
@@ -794,13 +801,17 @@ Return a list of one element based on major mode."
 ;; final statements
 
 ;; emacs-startup-hook
-(add-hook 'window-setup-hook
-          (lambda ()
-            (when (display-graphic-p)
-              (setq initial-frame-alist '((width . (mf-max-columns 88)) (height . 42))
-                    default-frame-alist '((width . 88) (height . 42))))))
+;(add-hook 'window-setup-hook
+;          (lambda ()
+;            (when (display-graphic-p)
+;              (setq initial-frame-alist '((width . (mf-max-columns 88)) (height . 42))
+;             (setq default-frame-alist '((width . 88) (height . 39))))))
+                                        ;                    initial-frame-alist '((width . 88) (height . 42))))))
+;            (setq default-frame-alist '((width . 88) (height . 39)))
 
 ;; steps which can be performed after loading all repository functions
+
+
 (add-hook 'after-init-hook
           (lambda ()
             (if (boundp 'my-scratch-file)
@@ -1261,5 +1272,9 @@ If the file is emacs lisp, run the byte compiled version if exist."
   (set-fontset-font t 'unicode "Symbola" nil 'prepend))
 ;;; init.el ends here
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
  '(org-level-2 ((t (:inherit outline-1 :height 1.1)))))
