@@ -816,7 +816,8 @@ Return a list of one element based on major mode."
           (lambda ()
             (if (boundp 'my-scratch-file)
                 (progn
-                  (setq initial-buffer-choice my-scratch-file)
+                  (find-file my-scratch-file)  ;; only show it if it's the only file
+;                  (setq initial-buffer-choice my-scratch-file)  
                   (if (get-buffer "*scratch*")
                       (kill-buffer "*scratch*"))))
                                         ;            (if after-init-time (sml/setup)
