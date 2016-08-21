@@ -281,7 +281,7 @@
     (when (member my-font (font-family-list))
       (set-face-attribute 'default nil :font my-font)
       (set-frame-font my-font nil t)))
-(setq ;default-frame-alist '((font . "Source Code Pro 10"))
+(setq
  compilation-ask-about-save nil
  compile-command "make "
  compilation-read-command nil
@@ -305,10 +305,11 @@
                 )
 ;; make sure that utf8 Unix line endings (LF) are default
 (setq-default buffer-file-coding-system 'utf-8-unix)
-;(set-default-coding-systems 'utf-8-unix)
+(set-default-coding-systems 'utf-8-unix)
+(setq-default default-buffer-file-coding-system 'utf-8-unix)
 (prefer-coding-system 'utf-8-unix)
 
-(setq 
+(setq
  dired-listing-switches "-agoh"
  recentf-save-file "~/.emacs.d/recentfiles.emacs"
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
@@ -516,7 +517,7 @@
  '(line-spacing nil)
  '(package-selected-packages
    (quote
-    (bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key php-mode helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
+    (speed-type bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key php-mode helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
  '(safe-local-variable-values
    (quote
     ((pandoc/write . "html")
@@ -1270,7 +1271,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
 ;; grab installed packages using  C-0 M-: package-activated-list RET
 
 (when (member "Symbola" (font-family-list))
-  (set-fontset-font t 'unicode "Symbola" nil 'prepend))
+    (set-fontset-font "fontset-default" nil (font-spec :name "Symbola")))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
