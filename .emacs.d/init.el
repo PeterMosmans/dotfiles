@@ -1168,8 +1168,7 @@ See help of `format-time-string' for possible replacements")
   "insert the current date and time into current buffer.
 Uses `current-date-time-format' for the formatting the date/time."
   (interactive)
-  (insert (format-time-string current-date-time-format (current-time)))
-  (insert " "))
+  (insert (format-time-string current-date-time-format (current-time))))
 
 (defun toggle-selective-display (column)
   (interactive "P")
