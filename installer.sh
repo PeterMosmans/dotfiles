@@ -33,13 +33,21 @@ for link in ${SOURCEFILES}; do
     fi
     if [ -f ${REALPATH}/${link} ]; then
         echo linking ${link}
-        ln --force --symbolic "${REALPATH}/${link}" "${DESTINATIONPATH}/${link}"
+        if [ "OS"=="Msys" ]; then
+            ln --force "${REALPATH}/${link}" "${DESTINATIONPATH}/${link}"
+        else
+            ln --force --symbolic "${REALPATH}/${link}" "${DESTINATIONPATH}/${link}"
+        fi
     fi
     if [ -d ${REALPATH}/${link} ]; then
         echo linking ${link}
         pushd ${link} &>/dev/null
         for i in *; do
-            ln --force --symbolic "${i}" "${DESTINATIONPATH}/${link}/${i}"
+            if [ "OS"=="Msys" ]; then
+                ln --force "${i}" "${DESTINATIONPATH}/${link}/${i}"
+            else
+                ln --force --symbolic "${i}" "${DESTINATIONPATH}/${link}/${i}"
+            fi
         done
         popd &>/dev/null
     fi
