@@ -91,8 +91,6 @@
   (if (featurep 'fci-mode)
       (fci-mode 1)))               ;; fci last, as it interferes with linum-mode
 
-(if (boundp 'my-theme)
-    (load-theme my-theme t))
 
 ;; bootstrap
 ;; bootstrap use-package
@@ -209,9 +207,7 @@
   :config
   (setq sml/theme 'dark)
   (setq sml/mode-width 10)             ;; adjust the width of the smart-mode-line
-  (setq custom-safe-themes
-        (quote
-         ("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+    (add-to-list 'custom-safe-themes '"6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f")
   (sml/setup)
   :ensure t
   )
@@ -272,6 +268,11 @@
   (yas-reload-all)
   :ensure t
   )
+
+
+;; let's get the show on the road
+(if (boundp 'my-theme)
+    (load-theme my-theme t))
 
 ;; file locations
 
@@ -509,12 +510,10 @@
  '(c-basic-offset 4)
  '(current-language-environment "UTF-8")
  '(cursor-color "#839496")
- '(custom-safe-themes
-   (quote
-    ("4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(ediff-patch-options "-f -N --strip=1 --binary")
  '(foreground-color "#839496")
  '(line-spacing nil)
+ '(org-agenda-files (quote ("g:/GOFWD/TODO/process_improvement.org")))
  '(package-selected-packages
    (quote
     (speed-type bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key php-mode helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
