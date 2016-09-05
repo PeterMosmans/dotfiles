@@ -139,8 +139,9 @@
 (use-package guide-key
   :config
   (setq guide-key/guide-key-sequence '("C-c p" "C-x r" "C-c !"
+                                       (artist-mode "C-c C-a")
                                        (neotree-mode "C-c"))
-        guide-key/idle-delay 0.1)
+        guide-key/idle-delay 0.2)
   (guide-key-mode t)
   :ensure t
   )
@@ -207,7 +208,8 @@
   :config
   (setq sml/theme 'dark)
   (setq sml/mode-width 10)             ;; adjust the width of the smart-mode-line
-    (add-to-list 'custom-safe-themes '"6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f")
+  (add-to-list 'custom-safe-themes '"3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa")
+  (add-to-list 'custom-safe-themes '"6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f")
   (sml/setup)
   :ensure t
   )
@@ -802,13 +804,6 @@ Return a list of one element based on major mode."
 
 ;; emacs-startup-hook
 ;(add-hook 'window-setup-hook
-;          (lambda ()
-;            (when (display-graphic-p)
-;              (setq initial-frame-alist '((width . (mf-max-columns 88)) (height . 42))
-;             (setq default-frame-alist '((width . 88) (height . 39))))))
-                                        ;                    initial-frame-alist '((width . 88) (height . 42))))))
-;            (setq default-frame-alist '((width . 88) (height . 39)))
-
 ;; steps which can be performed after loading all repository functions
 
 
@@ -903,8 +898,6 @@ Return a list of one element based on major mode."
              :underline nil
              :box '(:line-width 5 :color "#f57900" :style nil))
             ))
-
-
 
 ;; testcode ediff
 ;; http://stackoverflow.com/questions/9656311/conflict-resolution-with-emacs-ediff-how-can-i-take-the-changes-of-both-version
