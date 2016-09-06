@@ -119,7 +119,7 @@
   :ensure t
   :bind (("M-b" . bm-toggle)
          ("C-b" . bm-next))
-)
+  )
 
 (use-package dash
   :defer t
@@ -294,18 +294,17 @@
    ("CET-1CET" "AMS")
    )))
 
-(setq-default fill-column 80           ; width of the screen for wrapping
+;; OS-specific settings
+(if (string= system-type "windows-nt")
+    (progn
+      (setq find-program "c:/tools/find.exe" ;; use GNU find instead of Microsoft's
+            w32-enable-caps-lock nil)))      ;; free the capslock key for useful stuff
+
+
+(setq-default fill-column 80           ;; width of the screen for wrapping
               line-spacing 0
               indent-tabs-mode nil)    ; spaces are used when indenting
 
-(defun set-bfr-to-utf-8-unix ()
-  (interactive)
-  (set-buffer-file-coding-system
-   'utf-8-unix)
-  )
-(global-set-key (kbd "C-c u")
-                'set-bfr-to-utf-8-unix
-                )
 ;; make sure that utf8 Unix line endings (LF) are default
 (setq-default buffer-file-coding-system 'utf-8-unix)
 (set-default-coding-systems 'utf-8-unix)
@@ -363,8 +362,37 @@
 (size-indication-mode 0)               ;; disable file size mode
 (setq display-time-24hr-format t
       display-time-format "%H:%m"
-      display-time-default-load-average nil);; hide load average
+      display-time-default-load-average nil)  ;; hide load average
 (display-time)                         ;; show time in modeline
+
+;; org mode settings
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c t") 'org-todo-list)
+(setq org-fontify-done-headline t      ;; change headline face when marked DONE
+      org-log-into-drawer t            ;; insert state change notes & time stamps into drawer
+      org-todo-keywords                ;; ! indicates timestamp, @ indicates note and timestamp
+      '((sequence "TODO(t)" "WORKING(w!)" "|" "DONE(d!)" "CANCELED(c@)")))
+(custom-set-faces                      ;; use strike through for DONE state
+ '(org-done ((t (:strike-through t)))))
+(add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
+(defun place-agenda-tags ()
+  "Put the agenda tags by the right border of the agenda window."
+  (setq org-agenda-tags-column (- 4 (window-width)))
+  (org-agenda-align-tags))
+
+(setq org-src-fontify-natively t)
+(defvar org-tag-alist)
+(defvar org-time-clocksum-format)
+(defvar org-src-fontify-natively)
+;; format string used when creating CLOCKSUM lines and when generating a
+;; time duration (avoid showing days)
+(defvar org-time-clocksum-format
+  '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t))
+
+(defvar org-log-done t)
+(defvar org-catch-invisible-edit 'error)
 
 
 ;; associate certain files with modes
@@ -420,17 +448,6 @@
             (yas-minor-mode 1)
                                         ;            (org-bullets-mode 1)
             (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)))
-(setq org-src-fontify-natively t)
-(defvar org-tag-alist)
-(defvar org-time-clocksum-format)
-(defvar org-src-fontify-natively)
-;; format string used when creating CLOCKSUM lines and when generating a
-;; time duration (avoid showing days)
-(defvar org-time-clocksum-format
-  '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t))
-
-(defvar org-log-done t)
-(defvar org-catch-invisible-edit 'error)
 
 (add-hook 'org-clock-in-hook  ;; autmatically save buffer when clocking in..
           (lambda ()
@@ -515,7 +532,6 @@
  '(ediff-patch-options "-f -N --strip=1 --binary")
  '(foreground-color "#839496")
  '(line-spacing nil)
- '(org-agenda-files (quote ("g:/GOFWD/TODO/process_improvement.org")))
  '(package-selected-packages
    (quote
     (speed-type bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key php-mode helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
@@ -720,9 +736,6 @@ Return a list of one element based on major mode."
 ;; bookmarks
 (global-set-key (kbd "<f11>") 'bookmark-jump)
 (global-set-key (kbd "S-<f11>") 'xah-run-current-file)
-                                        ;(global-set-key (kbd "S-<f11>") (
-                                        ;                                 lambda () (interactive)
-                                        ;                                        (bookmark-jump "Info.nl")))
 (global-set-key (kbd "C-<f11>") 'bookmark-set)
 
 
@@ -803,7 +816,7 @@ Return a list of one element based on major mode."
 ;; final statements
 
 ;; emacs-startup-hook
-;(add-hook 'window-setup-hook
+                                        ;(add-hook 'window-setup-hook
 ;; steps which can be performed after loading all repository functions
 
 
@@ -812,7 +825,7 @@ Return a list of one element based on major mode."
             (if (boundp 'my-scratch-file)
                 (progn
                   (find-file my-scratch-file)  ;; only show it if it's the only file
-;                  (setq initial-buffer-choice my-scratch-file)  
+                                        ;                  (setq initial-buffer-choice my-scratch-file)
                   (if (get-buffer "*scratch*")
                       (kill-buffer "*scratch*"))))
                                         ;            (if after-init-time (sml/setup)
@@ -1036,6 +1049,14 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 
 
 ;; functions --- Custom functions
+
+(defun set-bfr-to-utf-8-unix ()
+  (interactive)
+  (set-buffer-file-coding-system
+   'utf-8-unix)
+  )
+(global-set-key (kbd "C-c u")
+                'set-bfr-to-utf-8-unix)
 
 (defun my-beautify-json ()
   "Beautify json using Python."
@@ -1262,7 +1283,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
 ;; grab installed packages using  C-0 M-: package-activated-list RET
 
 (when (member "Symbola" (font-family-list))
-    (set-fontset-font "fontset-default" nil (font-spec :name "Symbola")))
+  (set-fontset-font "fontset-default" nil (font-spec :name "Symbola")))
 ;;; init.el ends here
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
