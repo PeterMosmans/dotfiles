@@ -370,10 +370,16 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c t") 'org-todo-list)
-(setq org-fontify-done-headline t      ;; change headline face when marked DONE
+(setq org-agenda-sorting-strategy
+      '((agenda habit-down time-up priority-down category-keep)
+;; order the todo list based on the state first
+        (todo todo-state-down priority-down category-keep)
+        (tags priority-down category-keep)
+        (search category-keep))
+      org-fontify-done-headline t      ;; change headline face when marked DONE
       org-log-into-drawer t            ;; insert state change notes & time stamps into drawer
       org-todo-keywords                ;; ! indicates timestamp, @ indicates note and timestamp
-      '((sequence "TODO(t)" "WORKING(w!)" "|" "DONE(d!)" "CANCELED(c@)")))
+      '((sequence "TODO(t)" "WORKING(w!)" "WAITING(3@)" "|" "DONE(d!)")))
 (custom-set-faces                      ;; use strike through for DONE state
  '(org-done ((t (:strike-through t)))))
 (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
