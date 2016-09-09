@@ -55,9 +55,6 @@
   "Format of date to insert with `insert-current-date-time' func
 See help of `format-time-string' for possible replacements")
 
-(setq frame-initial-geometry-arguments '((height . 50) (width . 110) (left . 1385) (top . 0)))
-(setq initial-frame-alist '((height . 50) (width . 110)))
-
 ;; uncomment for some debugging options
 ;; (setq debug-on-error t)
 
