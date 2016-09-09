@@ -38,6 +38,7 @@
 ;; ~/.emacs.d/variables.el
 ;;
 ;; my-font
+;; my-snippet-dirs         a list of snippet dirs
 ;; my-theme
 ;; my-scratch-file
 ;; below are the defaults
@@ -254,7 +255,7 @@
       (when (member my-font (font-family-list))
         (set-face-attribute 'default nil :font my-font)))
   (when (display-graphic-p)
-    (tool-bar-mode -1))        ;; enable the tabbar by default
+    (tool-bar-mode -1))                ;; enable the tabbar by default
   (tabbar-mode t)
   :ensure t
   )
@@ -268,6 +269,9 @@
   :commands yas-minor-mode
   :config
   (yas-reload-all)
+  (if (boundp 'my-snippet-dirs)
+      (dolist (item my-snippet-dirs)   ;; add item per item
+        (add-to-list 'yas-snippet-dirs item)))
   :ensure t
   )
 
@@ -372,21 +376,17 @@
 (global-set-key (kbd "C-c t") 'org-todo-list)
 (setq org-agenda-sorting-strategy
       '((agenda habit-down time-up priority-down category-keep)
-;; order the todo list based on the state first
+        ;; order todo list based on the state
         (todo todo-state-down priority-down category-keep)
         (tags priority-down category-keep)
         (search category-keep))
       org-fontify-done-headline t      ;; change headline face when marked DONE
-      org-log-into-drawer t            ;; insert state change notes & time stamps into drawer
-      org-todo-keywords                ;; ! indicates timestamp, @ indicates note and timestamp
-      '((sequence "TODO(t)" "WORKING(w!)" "WAITING(3@)" "|" "DONE(d!)")))
+      org-log-into-drawer t            ;; insert notes & time stamps into drawer
+      org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
+      '((sequence "TODO(t)" "DOING(d!)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@)")))
 (custom-set-faces                      ;; use strike through for DONE state
  '(org-done ((t (:strike-through t)))))
 (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
-(defun place-agenda-tags ()
-  "Put the agenda tags by the right border of the agenda window."
-  (setq org-agenda-tags-column (- 4 (window-width)))
-  (org-agenda-align-tags))
 
 (setq org-src-fontify-natively t)
 (defvar org-tag-alist)
@@ -403,6 +403,9 @@
 
 ;; associate certain files with modes
 (add-to-list 'auto-mode-alist '("\\COMMIT_EDITMSG\\'" . diff-mode))
+(add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))
+(add-to-list 'auto-mode-alist '("\\.ini\\'" . ntcmd-mode))
+
 ;; hooks for various BUILT IN modes (alphabetically)
 (add-hook 'c-mode-hook
           (lambda ()
@@ -445,21 +448,31 @@
 (add-hook 'ntcmd-mode-hook
           (lambda ()
             (enable-programmer-mode)))
-(add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))
-(add-to-list 'auto-mode-alist '("\\.ini\\'" . ntcmd-mode))
+
+;; (add-hook 'org-agenda-mode-hook
+;;           (lambda ()
+;;             (save-buffer)))
+
+;; (add-hook 'org-after-todo-state-change-hook
+;;           (lambda ()
+;;             (save-current-buffer
+;;               (dolist (buffer (buffer-list t))
+;;                 (set-buffer buffer)
+;;                 (when (member (buffer-file-name)
+;;                               (mapcar 'expand-file-name (org-agenda-files t)))
+;;                   (save-buffer))))))
 
 (add-hook 'org-mode-hook
           (lambda ()
             (linum-mode 0)
             (yas-minor-mode 1)
-                                        ;            (org-bullets-mode 1)
             (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)))
 
-(add-hook 'org-clock-in-hook  ;; autmatically save buffer when clocking in..
+(add-hook 'org-clock-in-hook           ;; autmatically save buffer when clocking in..
           (lambda ()
             (save-buffer)))
 
-(add-hook 'org-clock-out-hook ;; ..and clocking out
+(add-hook 'org-clock-out-hook          ;; ..and clocking out
           (lambda ()
             (save-buffer)))
 
@@ -470,7 +483,6 @@
 (add-hook 'php-mode-hook
           (lambda ()
             (enable-programmer-mode)))
-(add-to-list 'auto-mode-alist '("\\.inc\\'" . php-mode))
 
 (add-hook 'python-mode-hook
           (lambda ()
@@ -654,7 +666,7 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
 (global-set-key (kbd "C-n") 'find-file)
 (global-set-key (kbd "C-f") 'isearch-forward)
-                                        ; (global-set-key (kbd "C-s") 'save-buffer)
+(global-set-key (kbd "C-c u") 'set-bfr-to-utf-8-unix)
 (global-set-key (kbd "C-w") (lambda () (interactive) (kill-buffer nil)))
 (global-set-key (kbd "C-S-b") 'bookmark-bmenu-list)
 (global-set-key (kbd "C-(") 'check-parens) ;; matching parens
@@ -1056,13 +1068,16 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 
 ;; functions --- Custom functions
 
+(defun place-agenda-tags ()
+  "Put the agenda tags by the right border of the agenda window."
+  (setq org-agenda-tags-column (- 4 (window-width)))
+  (org-agenda-align-tags))
+
 (defun set-bfr-to-utf-8-unix ()
   (interactive)
   (set-buffer-file-coding-system
    'utf-8-unix)
   )
-(global-set-key (kbd "C-c u")
-                'set-bfr-to-utf-8-unix)
 
 (defun my-beautify-json ()
   "Beautify json using Python."
