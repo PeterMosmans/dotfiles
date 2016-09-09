@@ -37,23 +37,28 @@
 ;; The following parameters are recognized, and can be added to
 ;; ~/.emacs.d/variables.el
 ;;
-;; my-font
-;; my-snippet-dirs         a list of snippet dirs
-;; my-theme
-;; my-scratch-file
-;; below are the defaults
+;; Note that the defaults will be used if they aren't defined...
 
-(setq frame-initial-geometry-arguments '((height . 50) (width . 110) (left . 1385) (top . 0)))
-(setq initial-frame-alist '((height . 50) (width . 110)))
-
-(setq my-font "Source Code Pro"
-      my-scratch-file "~/scratch.txt"
-      my-theme 'misterioso)
+(defvar my-font "Source Code Pro"
+  "Font that will be used (if it is installed)")
+(defvar my-scratch-file "~/scratch.txt"
+  "Persistent scratch file that automatically will be opened on startup")
+(defvar my-snippets-dir nil
+  "A list of snippet directories that will be loaded by yasnippet")
+(defvar my-theme 'misterioso
+  "Theme that will be used")
 
 (if (file-exists-p "~/.emacs.d/variables.el")
     (load "~/.emacs.d/variables.el"))
 
-;; uncomment for some debugging options and to byte compile on exit
+(defvar current-date-time-format "%d-%m-%Y %H:%M"
+  "Format of date to insert with `insert-current-date-time' func
+See help of `format-time-string' for possible replacements")
+
+(setq frame-initial-geometry-arguments '((height . 50) (width . 110) (left . 1385) (top . 0)))
+(setq initial-frame-alist '((height . 50) (width . 110)))
+
+;; uncomment for some debugging options
 ;; (setq debug-on-error t)
 
 (package-initialize)
@@ -380,26 +385,17 @@
         (todo todo-state-down priority-down category-keep)
         (tags priority-down category-keep)
         (search category-keep))
+      org-catch-invisible-edit 'show-and-error
       org-fontify-done-headline t      ;; change headline face when marked DONE
       org-log-into-drawer t            ;; insert notes & time stamps into drawer
+      org-src-fontify-natively t       ;; fontify code in blocks
+      org-time-clocksum-format         ;; don't show days
+      '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
-      '((sequence "TODO(t)" "DOING(d!)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@)")))
+      '((sequence "TODO(t)" "DOING(d!)" "WAITING(w@!)" "|" "DONE(d!)" "CANCELLED(c@!)")))
 (custom-set-faces                      ;; use strike through for DONE state
  '(org-done ((t (:strike-through t)))))
 (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
-
-(setq org-src-fontify-natively t)
-(defvar org-tag-alist)
-(defvar org-time-clocksum-format)
-(defvar org-src-fontify-natively)
-;; format string used when creating CLOCKSUM lines and when generating a
-;; time duration (avoid showing days)
-(defvar org-time-clocksum-format
-  '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t))
-
-(defvar org-log-done t)
-(defvar org-catch-invisible-edit 'error)
-
 
 ;; associate certain files with modes
 (add-to-list 'auto-mode-alist '("\\COMMIT_EDITMSG\\'" . diff-mode))
@@ -849,11 +845,6 @@ Return a list of one element based on major mode."
                                         ;            (if after-init-time (sml/setup)
                                         ;             (add-hook 'after-init-hook 'sml/setup))
             ))
-;; steps which will be performed when closing emacs
-(add-hook 'kill-emacs-hook              ;; recompile scripts when exiting
-          (lambda ()
-            (if (eq debug-on-error t)
-                (byte-compile-file user-init-file))))
 
 (add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
 
@@ -1066,7 +1057,7 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
 
-;; functions --- Custom functions
+;; functions --- Custom functions and variables
 
 (defun place-agenda-tags ()
   "Put the agenda tags by the right border of the agenda window."
@@ -1100,7 +1091,6 @@ ARG is a prefix argument.  If nil, copy the current difference region."
               str (concat str "--")))
       (concat str "-> "))))
 
-;; generic functions
 (defun my-replace-symbols-with-entity-names (start end)
   (interactive "r")
   (let ((count (count-matches "&")))
@@ -1131,10 +1121,6 @@ ARG is a prefix argument.  If nil, copy the current difference region."
            (y-or-n-p "You are currently clocking time, clock out? "))
       (org-clock-out)
     t))                             ; only fails on keyboard quit or error
-
-(defvar current-date-time-format "%d-%m-%Y %H:%M"
-  "Format of date to insert with `insert-current-date-time' func
-See help of `format-time-string' for possible replacements")
 
 ;; http://emacswiki.org/emacs/SwitchingBuffers
 (defun switch-to-previous-buffer ()
@@ -1213,23 +1199,18 @@ Uses `current-date-time-format' for the formatting the date/time."
   (interactive)
   (message (describe-variable buffer-file-coding-system)))
 
-(defvar hs-all-hidden nil "Current state of hideshow for toggling all.")
+;; (defvar hs-all-hidden nil "Current state of hideshow for toggling all.")
 
-                                        ;(defun toggle-hide-all ()
-                                        ;  (interactive)
-                                        ;  (setq hs-all-hidden (not hs-all-hidden))
-                                        ;  (if hs-all-hidden
-                                        ;         (hs-hide-all)
-                                        ;       (hs-show-all)))
+;; (defun toggle-hide-all ()
+;;   (interactive)
+;;   (setq hs-all-hidden (not hs-all-hidden))
+;;   (if hs-all-hidden
+;;       (hs-hide-all)
+;;     (hs-show-all)))
 ;;  (setq explicit-bash-args '("--login" "-i"))
-;; ote that M-x shell uses explicit-PROGRAM-args,
+;; Note that M-x shell uses explicit-PROGRAM-args,
 ;; where PROGRAM is the filename part of the shell's pathname.
 ;; This is why you should not include the .exe when setting the shell.
-                                        ;(setq explicit-bash-args '("--login"))
-                                        ;(setq explicit-bash-args '("--noediting"))
-                                        ;(setq explicit-bash-args '("-i /msys2.ico" "/usr/bin/bash"))
-                                        ;(setq shell-file-name  "C:/programs/msys2/usr/bin/bash"
-                                        ;      explicit-shell-file-name "C:/programs/msys2/usr/bin/mintty")
 
 (defun msys-shell ()
   "Run msys bash in shell mode."
