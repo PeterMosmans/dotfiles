@@ -51,10 +51,6 @@
 (if (file-exists-p "~/.emacs.d/variables.el")
     (load "~/.emacs.d/variables.el"))
 
-(defvar current-date-time-format "%d-%m-%Y %H:%M"
-  "Format of date to insert with `insert-current-date-time' func
-See help of `format-time-string' for possible replacements")
-
 ;; uncomment for some debugging options
 ;; (setq debug-on-error t)
 
@@ -389,7 +385,7 @@ See help of `format-time-string' for possible replacements")
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
-      '((sequence "TODO(t)" "DOING(d!)" "WAITING(w@!)" "|" "DONE(d!)" "CANCELLED(c@!)")))
+      '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@!)" "|" "DONE(d!)" "CANCELLED(c@!)")))
 (custom-set-faces                      ;; use strike through for DONE state
  '(org-done ((t (:strike-through t)))))
 (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
@@ -1185,7 +1181,7 @@ ARG is a prefix argument.  If nil, copy the current difference region."
   "insert the current date and time into current buffer.
 Uses `current-date-time-format' for the formatting the date/time."
   (interactive)
-  (insert (format-time-string current-date-time-format (current-time))))
+  (insert (format-time-string "%d-%m-%Y %H:%M" (current-time))))
 
 (defun toggle-selective-display (column)
   (interactive "P")
