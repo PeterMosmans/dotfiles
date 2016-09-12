@@ -59,7 +59,7 @@
 (unless (package-installed-p 'use-package)
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/")
-               '("melpa-stable" . "https://stable.melpa.org/packages/"))
+               '("melpa-stable" . "https://stable.melpa.org/packages/") t)
   (package-refresh-contents)
   (package-install 'use-package))
 
@@ -102,9 +102,9 @@
 ;; add this first, as some packages need to be installed from unstable sources
 (use-package package
   :config
-  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/") t)
+  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-  (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t))
+  (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/")))
 
 ;; define all necessary EXTERNAL alphabetically
 ;; bind:     keybindings
@@ -266,10 +266,10 @@
 (use-package yasnippet
   :commands yas-minor-mode
   :config
-  (yas-reload-all)
   (if (boundp 'my-snippet-dirs)
       (dolist (item my-snippet-dirs)   ;; add item per item
         (add-to-list 'yas-snippet-dirs item)))
+  (yas-reload-all)
   :ensure t
   )
 
@@ -385,7 +385,7 @@
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
-      '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@!)" "|" "DONE(d!)" "CANCELLED(c@!)")))
+      '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@)")))
 (custom-set-faces                      ;; use strike through for DONE state
  '(org-done ((t (:strike-through t)))))
 (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
@@ -484,6 +484,7 @@
 
 (add-hook 'shell-mode-hook
           (lambda ()
+            (ansi-color-for-comint-mode-on)
             (linum-mode 0)
             (toggle-truncate-lines 1))) ;; turn off word wrap for shell mode
 
@@ -735,10 +736,10 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "M-<f9>") 'color-theme-select)
 
 ;; show / display
-(global-set-key (kbd "<f10>") 'projectile-ibuffer)
+(global-set-key (kbd "<f10>") 'ibuffer)
 (global-set-key (kbd "S-<f10>") 'recentf-open-files)
 (global-set-key (kbd "C-<f10>") 'calendar)
-(global-set-key (kbd "M-<f10>") 'ibuffer)
+(global-set-key (kbd "M-<f10>") 'projectile-ibuffer)
 
 ;; bookmarks
 (global-set-key (kbd "<f11>") 'bookmark-jump)
