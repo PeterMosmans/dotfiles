@@ -171,7 +171,8 @@
   )
 
 (use-package magit
-  :config (setq magit-diff-auto-show nil)
+  :config
+  (setq magit-diff-auto-show nil)
   :defer t
   :ensure t
   )
@@ -386,9 +387,12 @@
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
       '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@)")))
-(custom-set-faces                      ;; use strike through for DONE state
- '(org-done ((t (:strike-through t)))))
+(custom-set-faces
+ '(org-done ((t (:strike-through t))))
+ '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
+ '(org-level-2 ((t (:inherit outline-1 :height 1.1)))))
 (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
+(add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
 
 ;; associate certain files with modes
 (add-to-list 'auto-mode-alist '("\\COMMIT_EDITMSG\\'" . diff-mode))
@@ -490,8 +494,8 @@
 
 (add-hook 'text-mode-hook
           (lambda ()
-            (visual-line-mode 0) ;; show a symbol for wrapping lines,
-            (setq word-wrap 1))) ;; but still wrap words nicely
+            (visual-line-mode 0)       ;; show a symbol for wrapping lines,
+            (setq word-wrap 1)))       ;; but still wrap words nicely
 
 (add-hook 'whitespace-mode
           (lambda ()
@@ -823,24 +827,16 @@ Return a list of one element based on major mode."
 
 ;; final statements
 
-;; emacs-startup-hook
-                                        ;(add-hook 'window-setup-hook
 ;; steps which can be performed after loading all repository functions
-
-
 (add-hook 'after-init-hook
           (lambda ()
             (if (boundp 'my-scratch-file)
                 (progn
                   (find-file my-scratch-file)  ;; only show it if it's the only file
-                                        ;                  (setq initial-buffer-choice my-scratch-file)
                   (if (get-buffer "*scratch*")
                       (kill-buffer "*scratch*"))))
-                                        ;            (if after-init-time (sml/setup)
-                                        ;             (add-hook 'after-init-hook 'sml/setup))
             ))
 
-(add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
 
 ;; tango theme for tabbar-mode
 ;; tango colors defined, see http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines
@@ -1281,10 +1277,4 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (when (member "Symbola" (font-family-list))
   (set-fontset-font "fontset-default" nil (font-spec :name "Symbola")))
 ;;; init.el ends here
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
- '(org-level-2 ((t (:inherit outline-1 :height 1.1)))))
+
