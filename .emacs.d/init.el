@@ -282,11 +282,14 @@
 ;; file locations
 
 ;; workaround for removed function
-(defalias 'calendar-absolute-from-iso 'calendar-iso-to-absolute)
+;; (defalias 'calendar-absolute-from-iso 'calendar-iso-to-absolute)
 (if (boundp 'my-font)
     (when (member my-font (font-family-list))
       (set-face-attribute 'default nil :font my-font)
       (set-frame-font my-font nil t)))
+;; define font for Unicode Private Use Area block
+(when (member "Symbol" (font-family-list))
+  (set-fontset-font "fontset-default" '(#xf000 . #xffff) (font-spec :name "Symbol")))
 (setq
  compilation-ask-about-save nil
  compile-command "make "
@@ -1272,9 +1275,6 @@ If the file is emacs lisp, run the byte compiled version if exist."
 ;; end testcode ediff
 (put 'downcase-region 'disabled nil)
 
-;; grab installed packages using  C-0 M-: package-activated-list RET
 
-(when (member "Symbola" (font-family-list))
-  (set-fontset-font "fontset-default" nil (font-spec :name "Symbola")))
+
 ;;; init.el ends here
-
