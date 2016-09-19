@@ -6,7 +6,7 @@ plugins=(git pylint tmux vagrant)
 # standard programs
 export BROWSER=\"$(echo "${PROGRAMFILES} (x86)/Mozilla Firefox/firefox.exe"|sed -e 's/\\/\//')\"
 export PDFREADER=\"$(echo "${PROGRAMFILES}/SumatraPDF/SumatraPDF.exe"|sed -e 's/\\/\//')\"
-export WRITER=\"$(echo "${PROGRAMFILES} (x86)/OpenOffice 4/program/swriter.exe"|sed -e 's/\\/\//')\"
+export WRITER=\"$(echo "${PROGRAMFILES} (x86)/LibreOffice 5/program/swriter.exe"|sed -e 's/\\/\//')\"
 
 # Add some typical Windows suffix aliases
 alias -s bat="c:/windows/system32/cmd.exe" '/c'
@@ -25,4 +25,4 @@ export tmp=/tmp
 export TERM=xterm-256color
 
 # update shortcut
-alias update='pacman --color=auto -Syu '
+alias update='pacman --color=auto -Syuu '
