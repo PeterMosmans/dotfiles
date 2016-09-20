@@ -154,6 +154,11 @@
   :ensure t
   )
 
+(use-package helm-ag
+  :ensure t
+  )
+
+
 (use-package helm-projectile
   :ensure t
   )
@@ -379,7 +384,7 @@
 (setq org-agenda-sorting-strategy
       '((agenda habit-down time-up priority-down category-keep)
         ;; order todo list based on the state
-        (todo todo-state-down priority-down category-keep)
+        (todo todo-state-up priority-down category-keep)
         (tags priority-down category-keep)
         (search category-keep))
       org-catch-invisible-edit 'show-and-error
@@ -389,7 +394,7 @@
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
-      '((sequence "TODO(t)" "STARTED(s!)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@)")))
+      '((sequence "NEXT(n!)" "TODO(t)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@)")))
 (custom-set-faces
  '(org-done ((t (:strike-through t))))
  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
@@ -743,8 +748,8 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "M-<f9>") 'color-theme-select)
 
 ;; show / display
-(global-set-key (kbd "<f10>") 'ibuffer)
-(global-set-key (kbd "S-<f10>") 'recentf-open-files)
+(global-set-key (kbd "<f10>") 'helm-buffers-list)
+(global-set-key (kbd "S-<f10>") 'helm-recentf)
 (global-set-key (kbd "C-<f10>") 'calendar)
 (global-set-key (kbd "M-<f10>") 'projectile-ibuffer)
 
