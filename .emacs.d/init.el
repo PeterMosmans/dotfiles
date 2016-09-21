@@ -62,6 +62,8 @@
                '("melpa-stable" . "https://stable.melpa.org/packages/") t)
   (package-refresh-contents)
   (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
 
 ;; Load this keybinding first to facilitate editing init.el
 (global-set-key (kbd "M-<f11>") (lambda () (interactive) (find-file user-init-file)))
@@ -74,15 +76,6 @@
                            (server-start))
                        (message "gc-cons-threshold restored to %S"
                                 gc-cons-threshold)))
-
-
-
-;; bootstrap use-package
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-(eval-when-compile
-  (require 'use-package))
 
 ;; add this first, as some packages need to be installed from unstable sources
 (use-package package
