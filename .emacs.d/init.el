@@ -92,7 +92,7 @@
   (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/")))
 
 ;; define all necessary EXTERNAL alphabetically
-;; bind:     keybindings
+;; bind:     keybindings (all keys before :map are bound globally)
 ;; config:   execute code after a package is loaded
 ;; defer:    defer loading (automatic when comands and bind
 ;; disabled: (temporarily) disable a package
@@ -161,6 +161,7 @@
   )
 
 (use-package magit
+  :bind ([f1] . magit-status)
   :config
   (setq magit-diff-auto-show nil)
   :defer t
@@ -255,6 +256,7 @@
   )
 
 (use-package yasnippet
+  :bind ([f4] . yas-insert-snippet)
   :commands yas-minor-mode
   :config
   (if (boundp 'my-snippet-dirs)
@@ -664,7 +666,6 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
 
 ;; function keys
-(global-set-key (kbd "<f1>") 'magit-status)
 (global-set-key (kbd "S-<f1>") 'petermosmans/cleanup)
 (global-set-key (kbd "C-<f1>") 'show-file-name)
 (global-set-key (kbd "M-<f1>") 'code-review-region)
@@ -687,7 +688,6 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "M-<f3>") 'org-show-todo-key)
 
 ;; scratchpad, text modes, closing
-(global-set-key (kbd "<f4>") 'yas-insert-snippet)
 (global-set-key (kbd "S-<f4>") (lambda () (interactive) (switch-to-buffer "scratch.txt")))
 (global-set-key (kbd "C-<f4>") 'org-mode)
 (global-set-key (kbd "M-<f4>") 'save-buffers-kill-terminal)
