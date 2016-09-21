@@ -75,23 +75,8 @@
                        (message "gc-cons-threshold restored to %S"
                                 gc-cons-threshold)))
 
-(defun enable-programmer-mode ()
-  "Enable handy programming features / defaults."
-  (interactive)
-  (linum-mode 1)
-  (if (featurep 'higlight-indentation-mode)
-      (higlight-indentation-mode 1))
-  (if (featurep 'yafolding-mode)
-      (progn (
-              (yafolding-mode 1)
-              (yas-minor-mode 1))))
-  (if (featurep 'flycheck-mode)
-      (flycheck-mode 1))
-  (if (featurep 'fci-mode)
-      (fci-mode 1)))               ;; fci last, as it interferes with linum-mode
 
 
-;; bootstrap
 ;; bootstrap use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -680,16 +665,9 @@ Return a list of one element based on major mode."
 
 ;; function keys
 (global-set-key (kbd "<f1>") 'magit-status)
-                                        ;(global-set-key (kbd "S-<f1>") (lambda () (interactive) (bookmark-jump "keys")))
 (global-set-key (kbd "S-<f1>") 'petermosmans/cleanup)
-                                        ;(global-set-key (kbd "C-<f1>") 'org-ctrl-c-ctrl-c)
 (global-set-key (kbd "C-<f1>") 'show-file-name)
-                                        ;(global-set-key (kbd "M-<f1>") 'compile-quietly)
 (global-set-key (kbd "M-<f1>") 'code-review-region)
-                                        ;'neotree-toggle)
-                                        ;(global-set-key (kbd "M-<f1>") 'org-align-all-tags)
-                                        ;(global-set-key (kbd "C-<f1>") 'shrink-window)
-                                        ;(global-set-key (kbd "M-<f1>") 'enlarge-window)
 
 ;; navigation in buffer (file)
 (global-set-key (kbd "<f2>") 'switch-to-previous-buffer)
@@ -1057,6 +1035,21 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 
 ;; functions --- Custom functions and variables
 
+(defun enable-programmer-mode ()
+  "Enable handy programming features / defaults."
+  (interactive)
+  (linum-mode 1)
+  (if (featurep 'higlight-indentation-mode)
+      (higlight-indentation-mode 1))
+  (if (featurep 'yafolding-mode)
+      (progn (
+              (yafolding-mode 1)
+              (yas-minor-mode 1))))
+  (if (featurep 'flycheck-mode)
+      (flycheck-mode 1))
+  (if (featurep 'fci-mode)
+      (fci-mode 1)))               ;; fci last, as it interferes with linum-mode
+
 (defun place-agenda-tags ()
   "Put the agenda tags by the right border of the agenda window."
   (setq org-agenda-tags-column (- 4 (window-width)))
@@ -1125,7 +1118,7 @@ ARG is a prefix argument.  If nil, copy the current difference region."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
-                                        ; http://www.blogbyben.com/2015/04/the-joy-of-elisp-powered-code-review.html
+;; http://www.blogbyben.com/2015/04/the-joy-of-elisp-powered-code-review.html
 (defun code-review-region (beg end)
   "Copies a region of source code, adds line numbers."
   (interactive "r")
@@ -1157,14 +1150,12 @@ ARG is a prefix argument.  If nil, copy the current difference region."
     (comment-or-uncomment-region beg end)
     (next-logical-line)))
 
-
 (defun petermosmans/cleanup ()
   "Enable handy programming features / defaults"
   (interactive)
   (whitespace-cleanup)
-                                        ;  (fill-paragraph)
+  ;; (fill-paragraph)
   (indent-region (point-min) (point-max)))
-
 
 (defun show-file-name ()
   "Show the full path file name in the minibuffer."
