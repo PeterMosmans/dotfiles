@@ -168,6 +168,7 @@
   )
 
 (use-package neotree
+  :bind ("M-<f8>" . neotree-toggle)
   :commands (neotree)
   :config
   (setq neo-window-width 30)
@@ -223,7 +224,11 @@
          ("C-S-<tab>" . tabbar-backward)
          ("C-S-<iso-lefttab>" . tabbar-backward)
          ("M-<down>" . tabbar-forward-group)
-         ("M-<up>" . tabbar-backward-group))
+         ("M-<up>" . tabbar-backward-group)
+         ("<f8>" . tabbar-backward)
+         ("S-<f8>" . tabbar-backward-group)
+         ("<f9>" . tabbar-forward)
+         ("S-<f9>" . tabbar-forward-group))
   :config
   (set-face-attribute
    'tabbar-default nil                 ;; left hand side tabbar...
@@ -259,11 +264,6 @@
    :foreground "#2e3436"
    :underline nil
    :box '(:line-width 5 :color "#f57900" :style nil))
-  ;; (if (boundp 'my-font)
-  ;;     (when (member my-font (font-family-list))
-  ;;       (set-face-attribute 'default nil :font my-font)))
-  ;; (when (display-graphic-p)
-
   :ensure t
   :init
   (tool-bar-mode -1)
@@ -457,8 +457,6 @@
             (linum-mode 1)
             (yas-minor-mode 1)))
 
-
-
 ;; (add-hook 'org-agenda-mode-hook
 ;;           (lambda ()
 ;;             (save-buffer)))
@@ -540,8 +538,6 @@
       )
 
 
-;; Change padding of the tabs
-;; we also need to set separator to avoid overlapping tabs by highlighted tabs
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -716,15 +712,9 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "C-<f7>") 'delete-frame)
 (global-set-key (kbd "M-<f7>") 'balance-windows)
 
-;; tabbar navigation
-(global-set-key (kbd "<f8>") 'tabbar-backward)
-(global-set-key (kbd "S-<f8>") 'tabbar-backward-group)
 (global-set-key (kbd "C-<f8>") 'open-dired)
-(global-set-key (kbd "M-<f8>") 'neotree-toggle)
 
 ;; browsing / exploring
-(global-set-key (kbd "<f9>") 'tabbar-forward)
-(global-set-key (kbd "S-<f9>") 'tabbar-forward-group)
 (global-set-key (kbd "C-<f9>") 'browse-url-of-buffer)
 (global-set-key (kbd "M-<f9>") 'color-theme-select)
 
@@ -737,8 +727,7 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "<f12>") 'insert-current-date-time)
 
 
-;;; PUTTY HACKS
-
+;;; SSH / PUTTY HACKS
 (if (eq system-uses-terminfo t)         ;; terminal
     (progn                              ;; PuTTY needs to be in SCO mode
       (xterm-mouse-mode 0)              ;; use mouse even in terminal mode
@@ -754,7 +743,6 @@ Return a list of one element based on major mode."
       (define-key input-decode-map "\e[C" [S-right])
       (define-key input-decode-map "\e[I" [prior])
       (define-key input-decode-map "\e[G" [next])
-
       (define-key input-decode-map "\e[M" [f1])
       (define-key input-decode-map "\e[Y" [S-f1])
       (define-key input-decode-map "\e[k" [C-f1])
@@ -804,8 +792,6 @@ Return a list of one element based on major mode."
       (define-key input-decode-map "\e[v" [C-f12])
       (define-key input-decode-map "\e\e[X" [M-f12])))
 
-;; final statements
-
 ;; steps which can be performed after loading all repository functions
 (add-hook 'after-init-hook
           (lambda ()
@@ -816,42 +802,6 @@ Return a list of one element based on major mode."
                       (kill-buffer "*scratch*"))))
             ))
 
-
-;; tango theme for tabbar-mode
-;; tango colors defined, see http://tango.freedesktop.org/Tango_Icon_Theme_Guidelines
-(defconst aluminium-1 "#eeeeec")
-(setq aluminium-2 "#d3d7cf"
-      aluminium-3 "#babdb6"
-      aluminium-4 "#888a85"
-      aluminium-5 "#555753"
-      aluminium-6 "#2e3436"
-      butter-1 "#fce94f"
-      butter-2 "#edd400"
-      butter-3 "#c4a000"
-      orange-1 "#fcaf3e"
-      orange-2 "#f57900"
-      orange-3 "#ce5c00"
-      chocolate-1 "#e9b96e"
-      chocolate-2 "#c17d11"
-      chocolate-3 "#9f5902"
-      chameleon-1 "#8ae234"
-      chameleon-2 "#73d216"
-      chameleon-3 "#4e9a06"
-      sky-blue-1 "#729fcf"
-      sky-blue-2 "#3465a4"
-      sky-blue-3 "#204a87"
-      plum-1 "#ad7fa8"
-      plum-2 "#75507b"
-      plum-3 "#5c3566"
-      scarlet-red-1 "#ef2929"
-      scarlet-red-2 "#cc0000"
-      scarlet-red-3 "#a40000"
-      tabbar-inactive "#1f2427"
-      tabbar-inactive-text "#555753"
-      tabbar-active "#262b2c"
-      tabbar-active-text orange-2
-      tabbar-background "#0c191c")
-
 ;; testcode ediff
 ;; http://stackoverflow.com/questions/9656311/conflict-resolution-with-emacs-ediff-how-can-i-take-the-changes-of-both-version
 
@@ -861,8 +811,6 @@ Return a list of one element based on major mode."
          ((memq ,arg '(?c ?C)) 'C)
          ((memq ,arg '(?d ?D)) 'D)
          ))
-
-                                        ;(require 'ediff)
 
 ;; Literally copied from ediff-util
 ;; need to re-evaluate because it uses the macro defined above
