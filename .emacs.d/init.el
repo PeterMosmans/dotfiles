@@ -14,16 +14,6 @@
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
 
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-;; Please contact support AT go-forward.net for questions and/or feedback
-
 ;;; Commentary:
 
 ;; Customized Emacs initialization file
@@ -119,7 +109,9 @@
 
 (use-package guide-key
   :config
-  (setq guide-key/guide-key-sequence '("C-c p" "C-x r" "C-c !"
+  (setq guide-key/guide-key-sequence '("C-x r"  ;; register functions
+                                       "C-c !"
+                                       "C-c p"
                                        (artist-mode "C-c C-a")
                                        (neotree-mode "C-c"))
         guide-key/idle-delay 0.2)
@@ -128,7 +120,10 @@
   )
 
 (use-package helm
-  :bind ("M-x" . helm-M-x)
+  :bind (("M-x" . helm-M-x)
+         ("M-<f5>" . helm-find-files)
+         ("<f10>" . helm-buffers-list)
+         ("S-<f10>" . helm-recentf))
   :config
   (helm-mode t)
   (helm-autoresize-mode t)
@@ -141,8 +136,8 @@
   )
 
 (use-package helm-projectile
-  :bind (([f5] . helm-projectile-find-file))
-         ;; ("C-"[f10] . helm-projectile-switch-project))
+  :bind (([f5] . helm-projectile-find-file)
+         ("C-<f10>" . helm-projectile-switch-project))
   :commands helm-projectile
   :ensure t
   )
@@ -190,7 +185,16 @@
          ("\\.ini\\'" . ntcmd-mode))
   )
 
+(use-package php-mode
+  :ensure t
+  :init
+  (add-hook 'php-mode-hook
+          (lambda ()
+            (enable-programmer-mode)))
+  )
+
 (use-package projectile
+  :bind ("M-<f10>" . projectile-ibuffer)
   :config
   (setq projectile-completion-system 'helm)
   (helm-projectile-on)
@@ -215,6 +219,11 @@
   )
 
 (use-package tabbar
+  :bind (("C-<tab>" . tabbar-forward)
+         ("C-S-<tab>" . tabbar-backward)
+         ("C-S-<iso-lefttab>" . tabbar-backward)
+         ("M-<down>" . tabbar-forward-group)
+         ("M-<up>" . tabbar-backward-group))
   :config
   (set-face-attribute
    'tabbar-default nil       ;; left hand side tabbar...
@@ -260,6 +269,8 @@
   )
 
 (use-package yafolding
+  :bind (("C-|" . yafolding-toggle-element)
+         ("C-\\" . yafolding-toggle-all))
   :defer t
   :ensure t
   )
@@ -283,7 +294,6 @@
 ;; file locations
 
 ;; workaround for removed function
-;; (defalias 'calendar-absolute-from-iso 'calendar-iso-to-absolute)
 (if (boundp 'my-font)
     (when (member my-font (font-family-list))
       (set-face-attribute 'default nil :font my-font)
@@ -306,7 +316,6 @@
     (progn
       (setq find-program "c:/tools/find.exe" ;; use GNU find instead of Microsoft's
             w32-enable-caps-lock nil)))      ;; free the capslock key for useful stuff
-
 
 (setq-default fill-column 80           ;; width of the screen for wrapping
               line-spacing 0
@@ -377,6 +386,9 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c t") 'org-todo-list)
+(global-set-key (kbd "S-<f12>") 'org-clock-in)
+(global-set-key (kbd "C-<f12>") 'org-clock-out)
+(global-set-key (kbd "M-<f12>") 'org-dblock-update)
 (setq org-agenda-sorting-strategy
       '((agenda habit-down time-up priority-down category-keep)
         ;; order todo list based on the state
@@ -473,10 +485,6 @@
             (save-buffer)))
 
 (add-hook 'perl-mode-hook
-          (lambda ()
-            (enable-programmer-mode)))
-
-(add-hook 'php-mode-hook
           (lambda ()
             (enable-programmer-mode)))
 
@@ -651,12 +659,7 @@ Return a list of one element based on major mode."
 
 ;;; KEY BINDINGS
 
-;; tabbar
-(global-set-key (kbd "C-<tab>") 'tabbar-forward)
-(global-set-key (kbd "C-S-<tab>") 'tabbar-backward)
-(global-set-key (kbd "C-S-<iso-lefttab>") 'tabbar-backward)
-(global-set-key (kbd "M-<down>") 'tabbar-forward-group)
-(global-set-key (kbd "M-<up>") 'tabbar-backward-group)
+
 (global-set-key (kbd "<scroll>") 'scroll-lock-mode)
 
 ;; miscellaneous (for consistency)
@@ -668,9 +671,6 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "C-S-b") 'bookmark-bmenu-list)
 (global-set-key (kbd "C-(") 'check-parens) ;; matching parens
 (global-set-key (kbd "C-=") 'er/expand-region) ;; make selection bigger and bigger
-(global-set-key (kbd "C-|") 'yafolding-toggle-element)
-(global-set-key (kbd "C-\\") 'yafolding-toggle-all)
-(global-set-key (kbd "C-+") 'yafolding-toggle-element)
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
 
 ;; function keys
@@ -683,17 +683,13 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "S-<f2>") 'describe-line-endings)
                                         ; word count on region
 (global-set-key (kbd "C-<f2>") (lambda () (interactive) (shell-command-on-region (point) (mark) "wc -w")))
-                                        ;(global-set-key (kbd "C-<f2>") (lambda () (interactive) (
-                                        ; (narrow-to-region (point-min) (point-max)) (count-matches "\\sw+"))))
-                                        ;(global-set-key (kbd "M-<f2>") 'view-echo-area-messages)
-                                        ;(global-set-key (kbd "M-<f2>") 'linum-mode)
 (global-set-key (kbd "M-<f2>") (lambda () (interactive) (browse-url-of-file (buffer-name))))
 
 ;; searching
 (global-set-key (kbd "<f3>") 'isearch-repeat-forward)
 (global-set-key (kbd "S-<f3>") 'find-grep-dired)
 (global-set-key (kbd "C-<f3>") 'diff)
-(global-set-key (kbd "M-<f3>") 'org-show-todo-key)
+;; (global-set-key (kbd "M-<f3>") 'org-show-todo-key)
 
 ;; scratchpad, text modes, closing
 (global-set-key (kbd "S-<f4>") (lambda () (interactive) (switch-to-buffer "scratch.txt")))
@@ -701,10 +697,8 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "M-<f4>") 'save-buffers-kill-terminal)
 
 ;; buffer (file) operations
-                                        ;(global-set-key (kbd "<f5>") (lambda () (interactive) (load-file (buffer-name))))
 (global-set-key (kbd "S-<f5>") 'revert-buffer)
 (global-set-key (kbd "C-<f5>") 'save-buffer)
-(global-set-key (kbd "M-<f5>") 'helm-find-files)
 
 ;; windows
 (global-set-key (kbd "<f6>") 'other-window)
@@ -732,23 +726,13 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "C-<f9>") 'browse-url-of-buffer)
 (global-set-key (kbd "M-<f9>") 'color-theme-select)
 
-;; show / display
-(global-set-key (kbd "<f10>") 'helm-buffers-list)
-(global-set-key (kbd "S-<f10>") 'helm-recentf)
-
-(global-set-key (kbd "M-<f10>") 'projectile-ibuffer)
-
 ;; bookmarks
 (global-set-key (kbd "<f11>") 'bookmark-jump)
 (global-set-key (kbd "S-<f11>") 'xah-run-current-file)
 (global-set-key (kbd "C-<f11>") 'bookmark-set)
 
-
 ;; date / time
 (global-set-key (kbd "<f12>") 'insert-current-date-time)
-(global-set-key (kbd "S-<f12>") 'org-clock-in)
-(global-set-key (kbd "C-<f12>") 'org-clock-out)
-(global-set-key (kbd "M-<f12>") 'org-dblock-update)
 
 
 ;;; PUTTY HACKS
@@ -1235,7 +1219,6 @@ If the file is emacs lisp, run the byte compiled version if exist."
   (let* (
          (suffixMap
           `(
-                                        ;            ("cmd" . ,(if (getenv "ProgramW6432") "c:\\windows\\sysnative\\cmd.exe /c" "c:\\windows\\system32\\cmd.exe /c"))
             ("cmd" . "cmd /c ")
             ("md" . "\"c:\\program files (x86)\\mozilla firefox\\firefox.exe\" file://")
             ("php" . "php ")
@@ -1249,7 +1232,6 @@ If the file is emacs lisp, run the byte compiled version if exist."
             ("vbs" . "cscript ")
             )
           )
-                                        ;         (fName (subst-char-in-string ?/ ?\\ (expand-file-name buffer-file-name)))
          (fName (expand-file-name buffer-file-name))
          (fSuffix (file-name-extension fName))
          (progName (cdr (assoc fSuffix suffixMap)))
@@ -1260,11 +1242,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
         (save-buffer) ) )
     (if (string-equal fSuffix "md") ; special case for markdown file
         (progn
-                                        ; run pandoc on the file, and, convert the filename .md to .html
-                                        ;          (pandoc-run-pandoc fName)
-                                        ;          (shell-command (concat "\"c:\\program files (x86)\\mozilla firefox\\firefox.exe\" file://" (concat (file-name-sans-extension fName) ".html"))))
           (shell-command (concat (concat "bash " (file-name-directory fName) "build.sh"))))
-                                        ;    (cmdStr (concat progName fName))
       (if (string-equal fSuffix "el") ; special case for emacs lisp
           (load (file-name-sans-extension fName))
         (message "Running...")
