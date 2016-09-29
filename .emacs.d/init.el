@@ -85,12 +85,16 @@
   (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/")))
 
 ;; define all necessary EXTERNAL alphabetically
-;; bind:     keybindings (all keys before :map are bound globally)
-;; config:   execute code after a package is loaded
-;; defer:    defer loading (automatic when comands and bind
-;; disabled: (temporarily) disable a package
-;; ensure:   make sure the package is installed
-;; init:     execute code before a package is loaded
+;; bind:      keybindings (all keys before :map are bound globally)
+;; commands:  load the package (execute config) when these commands are executed
+;; config:    execute code after a package is loaded
+;; defer:     defer loading (implied when using commands, bind or mode)
+;; disabled:  (temporarily) disable a package
+;; ensure:    make sure the package is installed
+;; idle:      delay steps until Emacs is idle
+;; init:      execute code before a package is loaded
+;; load-path: path of the files for local packages
+;; mode:      deferred binding
 
 (use-package bm
   :ensure t
@@ -136,16 +140,18 @@
   :ensure t
   )
 
-
 (use-package helm-projectile
+  :bind (([f5] . helm-projectile-find-file))
+         ;; ("C-"[f10] . helm-projectile-switch-project))
+  :commands helm-projectile
   :ensure t
   )
 
 (use-package highlight-indentation
+  :commands highlight-indentation-mode
   :config
   (set-face-background 'highlight-indentation-face "light slate grey")
   (set-face-background 'highlight-indentation-current-column-face "light slate grey")
-  (highlight-indentation-mode t)
   :ensure t
   )
 
@@ -172,6 +178,16 @@
   (setq neo-window-width 30)
   (setq neo-theme 'ascii)              ;; Don't use fancy icons
   :ensure t
+  )
+
+(use-package ntcmd
+  :ensure t
+  :init
+  (add-hook 'ntcmd-mode-hook
+          (lambda ()
+            (enable-programmer-mode)))
+  :mode (("\\.cmd\\'" . ntcmd-mode)
+         ("\\.ini\\'" . ntcmd-mode))
   )
 
 (use-package projectile
@@ -368,13 +384,16 @@
         (tags priority-down category-keep)
         (search category-keep))
       org-catch-invisible-edit 'show-and-error
+      org-columns-default-format "#+COLUMNS: %40ITEM(Task) %8TIME{:} %6CLOCKSUM"
       org-fontify-done-headline t      ;; change headline face when marked DONE
+      org-global-properties
+      '(("Effort_ALL" . "0 0:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
       org-log-into-drawer t            ;; insert notes & time stamps into drawer
       org-src-fontify-natively t       ;; fontify code in blocks
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
-      '((sequence "NEXT(n!)" "TODO(t)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@)")))
+      '((sequence "TODO(t)" "NEXT(n!)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@)")))
 (custom-set-faces
  '(org-done ((t (:strike-through t))))
  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
@@ -384,8 +403,6 @@
 
 ;; associate certain files with modes
 (add-to-list 'auto-mode-alist '("\\COMMIT_EDITMSG\\'" . diff-mode))
-(add-to-list 'auto-mode-alist '("\\.cmd\\'" . ntcmd-mode))
-(add-to-list 'auto-mode-alist '("\\.ini\\'" . ntcmd-mode))
 
 ;; hooks for various BUILT IN modes (alphabetically)
 (add-hook 'c-mode-hook
@@ -426,9 +443,7 @@
             (linum-mode 1)
             (yas-minor-mode 1)))
 
-(add-hook 'ntcmd-mode-hook
-          (lambda ()
-            (enable-programmer-mode)))
+
 
 ;; (add-hook 'org-agenda-mode-hook
 ;;           (lambda ()
@@ -687,7 +702,6 @@ Return a list of one element based on major mode."
 
 ;; buffer (file) operations
                                         ;(global-set-key (kbd "<f5>") (lambda () (interactive) (load-file (buffer-name))))
-(global-set-key (kbd "<f5>") 'projectile-find-file)
 (global-set-key (kbd "S-<f5>") 'revert-buffer)
 (global-set-key (kbd "C-<f5>") 'save-buffer)
 (global-set-key (kbd "M-<f5>") 'helm-find-files)
@@ -721,7 +735,7 @@ Return a list of one element based on major mode."
 ;; show / display
 (global-set-key (kbd "<f10>") 'helm-buffers-list)
 (global-set-key (kbd "S-<f10>") 'helm-recentf)
-(global-set-key (kbd "C-<f10>") 'calendar)
+
 (global-set-key (kbd "M-<f10>") 'projectile-ibuffer)
 
 ;; bookmarks
