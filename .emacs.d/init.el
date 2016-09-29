@@ -226,46 +226,48 @@
          ("M-<up>" . tabbar-backward-group))
   :config
   (set-face-attribute
-   'tabbar-default nil       ;; left hand side tabbar...
+   'tabbar-default nil                 ;; left hand side tabbar...
    :background "#0c191c"
    :foreground "#0c191c"
    :box '(:line-width 1 :style nil))
   (set-face-attribute
-   'tabbar-button nil                     ;; ...top & bottom
+   'tabbar-button nil                  ;; ...top & bottom
    :box '(:line-width 1 :color "#1f2427" :style nil))
   (set-face-attribute
-   'tabbar-separator nil                  ;; generic left & right separator
+   'tabbar-separator nil               ;; generic left & right separator
    :background  "#1f2427"
    :height 0.1)
   (set-face-attribute
-   'tabbar-selected nil                   ;; currently active tab
+   'tabbar-selected nil                ;; currently active tab
    :background "#262b2c"
    :foreground "#f57900"
-   :bold 1                                ;; top & bottom separator
+   :bold 1                             ;; top & bottom separator
    :box '(:line-width 1 :color "#262b2c" :style nil))
   (set-face-attribute
-   'tabbar-unselected nil                 ;; passive tab
+   'tabbar-unselected nil              ;; passive tab
    :background "#1f2427"
-   :foreground "#555753"       ;; top & bottom separator
+   :foreground "#555753"               ;; top & bottom separator
    :box '(:line-width 5 :color "#1f2427" :style nil))
   (set-face-attribute
-   'tabbar-modified nil                 ;; modified tab
+   'tabbar-modified nil                ;; modified tab
    :background "#1f2427"
    :foreground "#c4a000"
    :box '(:line-width 5 :color "#1f2427" :style nil))
   (set-face-attribute
-   'tabbar-highlight nil                ;; highlighted
+   'tabbar-highlight nil               ;; highlighted
    :background "#ef2929"
    :foreground "#2e3436"
    :underline nil
    :box '(:line-width 5 :color "#f57900" :style nil))
-  (if (boundp 'my-font)
-      (when (member my-font (font-family-list))
-        (set-face-attribute 'default nil :font my-font)))
-  (when (display-graphic-p)
-    (tool-bar-mode -1))                ;; enable the tabbar by default
-  (tabbar-mode t)
+  ;; (if (boundp 'my-font)
+  ;;     (when (member my-font (font-family-list))
+  ;;       (set-face-attribute 'default nil :font my-font)))
+  ;; (when (display-graphic-p)
+
   :ensure t
+  :init
+  (tool-bar-mode -1)
+  (tabbar-mode t)                      ;; enable the tabbar by default
   )
 
 (use-package yafolding
@@ -849,44 +851,6 @@ Return a list of one element based on major mode."
       tabbar-active "#262b2c"
       tabbar-active-text orange-2
       tabbar-background "#0c191c")
-;; note that specifying color names doesn't work in the box attribute
-(add-hook 'tabbar-mode-hook
-          (lambda ()
-            (set-face-attribute
-             'tabbar-default nil
-             :background tabbar-background            ;; left hand side tabbar...
-             :foreground tabbar-background
-             :box '(:line-width 1 :style nil))
-            (set-face-attribute
-             'tabbar-button nil                     ;; ...top & bottom
-             :box '(:line-width 1 :color "#1f2427" :style nil))
-            (set-face-attribute
-             'tabbar-separator nil                  ;; generic left & right separator
-             :background tabbar-inactive
-             :height 0.1)
-            (set-face-attribute
-             'tabbar-selected nil                   ;; currently active tab
-             :background tabbar-active
-             :foreground tabbar-active-text
-             :bold 1                                ;; top & bottom separator
-             :box '(:line-width 1 :color "#262b2c" :style nil))
-            (set-face-attribute
-             'tabbar-unselected nil                 ;; passive tab
-             :background tabbar-inactive
-             :foreground tabbar-inactive-text       ;; top & bottom separator
-             :box '(:line-width 5 :color "#1f2427" :style nil))
-            (set-face-attribute
-             'tabbar-modified nil                 ;; modified tab
-             :background tabbar-inactive
-             :foreground butter-3
-             :box '(:line-width 5 :color "#1f2427" :style nil))
-            (set-face-attribute
-             'tabbar-highlight nil
-             :background scarlet-red-1                  ;; highlighted
-             :foreground aluminium-6
-             :underline nil
-             :box '(:line-width 5 :color "#f57900" :style nil))
-            ))
 
 ;; testcode ediff
 ;; http://stackoverflow.com/questions/9656311/conflict-resolution-with-emacs-ediff-how-can-i-take-the-changes-of-both-version
