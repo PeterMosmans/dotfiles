@@ -122,8 +122,8 @@
 (use-package helm
   :bind (("M-x" . helm-M-x)
          ("M-<f5>" . helm-find-files)
-         ("<f10>" . helm-buffers-list)
-         ("S-<f10>" . helm-recentf))
+         ([f10] . helm-buffers-list)
+         ([S-f10] . helm-recentf))
   :config
   (helm-mode t)
   (helm-autoresize-mode t)
@@ -179,9 +179,7 @@
 (use-package ntcmd
   :ensure t
   :init
-  (add-hook 'ntcmd-mode-hook
-          (lambda ()
-            (enable-programmer-mode)))
+  (add-hook 'ntcmd-mode-hook 'enable-programmer-mode)
   :mode (("\\.cmd\\'" . ntcmd-mode)
          ("\\.ini\\'" . ntcmd-mode))
   )
@@ -189,9 +187,7 @@
 (use-package php-mode
   :ensure t
   :init
-  (add-hook 'php-mode-hook
-          (lambda ()
-            (enable-programmer-mode)))
+  (add-hook 'php-mode-hook 'enable-programmer-mode)
   )
 
 (use-package projectile
@@ -412,16 +408,22 @@
  '(org-done ((t (:strike-through t))))
  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
  '(org-level-2 ((t (:inherit outline-1 :height 1.1)))))
+;; hooks
 (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
 (add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
+(add-hook 'org-clock-in-hook 'save-buffer) ;; save buffer when clocking in...
+(add-hook 'org-clock-out-hook 'save-buffer)  ;; ...and clocking out
+(add-hook 'org-mode-hook
+          (lambda ()
+            (linum-mode 0)
+            (yas-minor-mode 1)
+            (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)))
 
 ;; associate certain files with modes
 (add-to-list 'auto-mode-alist '("\\COMMIT_EDITMSG\\'" . diff-mode))
 
 ;; hooks for various BUILT IN modes (alphabetically)
-(add-hook 'c-mode-hook
-          (lambda ()
-            (enable-programmer-mode)))
+(add-hook 'c-mode-hook 'enable-programmer-mode)
 
 (add-hook 'calendar-mode-hook
           (lambda ()
@@ -438,59 +440,22 @@
             (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
             (setq comint-process-echoes t))) ;; prevent echoing
 
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (enable-programmer-mode)))
+(add-hook 'emacs-lisp-mode-hook 'enable-programmer-mode)
 
-(add-hook 'javascript-mode-hook
-          (lambda ()
-            (enable-programmer-mode)))
+(add-hook 'javascript-mode-hook 'enable-programmer-mode)
 
-(add-hook 'makefile-mode-hook
-          (lambda ()
-            (enable-programmer-mode)))
+(add-hook 'makefile-mode-hook 'enable-programmer-mode)
 
 (add-hook 'nxml-mode-hook
           (lambda ()
             (auto-fill-mode 1)
-            (highlight-indentation-mode 1)
+            (highlight-indentation-mode t)
             (linum-mode 1)
             (yas-minor-mode 1)))
 
-;; (add-hook 'org-agenda-mode-hook
-;;           (lambda ()
-;;             (save-buffer)))
+(add-hook 'perl-mode-hook 'enable-programmer-mode)
 
-;; (add-hook 'org-after-todo-state-change-hook
-;;           (lambda ()
-;;             (save-current-buffer
-;;               (dolist (buffer (buffer-list t))
-;;                 (set-buffer buffer)
-;;                 (when (member (buffer-file-name)
-;;                               (mapcar 'expand-file-name (org-agenda-files t)))
-;;                   (save-buffer))))))
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (linum-mode 0)
-            (yas-minor-mode 1)
-            (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)))
-
-(add-hook 'org-clock-in-hook           ;; autmatically save buffer when clocking in..
-          (lambda ()
-            (save-buffer)))
-
-(add-hook 'org-clock-out-hook          ;; ..and clocking out
-          (lambda ()
-            (save-buffer)))
-
-(add-hook 'perl-mode-hook
-          (lambda ()
-            (enable-programmer-mode)))
-
-(add-hook 'python-mode-hook
-          (lambda ()
-            (enable-programmer-mode)))
+(add-hook 'python-mode-hook 'enable-programmer-mode)
 
 (add-hook 'sh-mode-hook
           (lambda ()
@@ -536,7 +501,6 @@
         ([(control a)] . [(shift control a)])
         ([(shift control left)] . [(shift meta left)]))
       )
-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -588,7 +552,6 @@
      (340 . "#94BFF3")
      (360 . "#DC8CC3"))))
  '(vc-annotate-very-old-color "#DC8CC3"))
-
 
 ;; adding spaces
 (defun tabbar-buffer-tab-label (tab)
@@ -799,8 +762,7 @@ Return a list of one element based on major mode."
                 (progn
                   (find-file my-scratch-file)  ;; only show it if it's the only file
                   (if (get-buffer "*scratch*")
-                      (kill-buffer "*scratch*"))))
-            ))
+                      (kill-buffer "*scratch*"))))))
 
 ;; testcode ediff
 ;; http://stackoverflow.com/questions/9656311/conflict-resolution-with-emacs-ediff-how-can-i-take-the-changes-of-both-version
@@ -811,6 +773,17 @@ Return a list of one element based on major mode."
          ((memq ,arg '(?c ?C)) 'C)
          ((memq ,arg '(?d ?D)) 'D)
          ))
+
+(defun enable-programmer-mode ()
+  "Enable handy programming features / defaults."
+  (interactive)
+  (linum-mode 1)
+  (highlight-indentation-mode 1)
+  (yafolding-mode 1)
+  (yas-minor-mode 1)
+  (if (featurep 'flycheck-mode)
+      (flycheck-mode 1))
+  (fci-mode 1))
 
 ;; Literally copied from ediff-util
 ;; need to re-evaluate because it uses the macro defined above
@@ -937,21 +910,6 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 
 
 ;; functions --- Custom functions and variables
-
-(defun enable-programmer-mode ()
-  "Enable handy programming features / defaults."
-  (interactive)
-  (linum-mode 1)
-  (if (featurep 'higlight-indentation-mode)
-      (higlight-indentation-mode 1))
-  (if (featurep 'yafolding-mode)
-      (progn (
-              (yafolding-mode 1)
-              (yas-minor-mode 1))))
-  (if (featurep 'flycheck-mode)
-      (flycheck-mode 1))
-  (if (featurep 'fci-mode)
-      (fci-mode 1)))               ;; fci last, as it interferes with linum-mode
 
 (defun place-agenda-tags ()
   "Put the agenda tags by the right border of the agenda window."
@@ -1167,7 +1125,5 @@ If the file is emacs lisp, run the byte compiled version if exist."
 
 ;; end testcode ediff
 (put 'downcase-region 'disabled nil)
-
-
 
 ;;; init.el ends here
