@@ -107,6 +107,10 @@
   :config (setq flycheck-highlighting-mode 'lines) ;; highlight whole line
   )
 
+(use-package flymd
+  :ensure t
+  )
+
 (use-package guide-key
   :config
   (setq guide-key/guide-key-sequence '("C-x r"  ;; register functions
@@ -330,11 +334,11 @@
  recentf-save-file "~/.emacs.d/recentfiles.emacs"
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
  ediff-window-setup-function 'ediff-setup-windows-plain
- inhibit-startup-message t        ; remove welcome message
+ inhibit-startup-message t             ;; remove welcome message
  inhibit-startup-echo-area-message nil
- visible-bell nil                 ; mute bell sound
- message-log-max t                ; keep and log all messages
- bookmark-save-flag nil           ; do not save bookmark when emacs quits
+ visible-bell nil                      ;; mute bell sound
+ message-log-max t                     ;; keep and log all messages
+; bookmark-save-flag nil           ; do not save bookmark when emacs quits
  make-backup-files nil            ;; do not create backups
  completion-ignore-case t         ;; ignore case when completing
  read-file-name-completion-ignore-case t
@@ -344,7 +348,7 @@
  recentf-max-saved-items 100      ;; recent files max save 100
  recentf-max-menu-items 15        ;; recent files max 15 in menu
  auto-save-interval 1000            ;; automatically save after 500 characters
- sentence-end-double-space nil    ;; don't use double spaces after a dot
+ sentence-end-double-space nil         ;; don't use double spaces after a dot
  scroll-margin 1
  scroll-step 1
  scroll-conservatively 10000
@@ -405,6 +409,10 @@
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
       '((sequence "TODO(t)" "NEXT(n!)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@)")))
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(org-done ((t (:strike-through t))))
  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
  '(org-level-2 ((t (:inherit outline-1 :height 1.1)))))
@@ -519,7 +527,7 @@
  '(line-spacing nil)
  '(package-selected-packages
    (quote
-    (speed-type bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key php-mode helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
+    (flymd speed-type bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key php-mode helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
  '(safe-local-variable-values
    (quote
     ((pandoc/write . "html")
