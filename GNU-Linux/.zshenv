@@ -1,4 +1,6 @@
 # GNU/Linux
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/.oh-my-zsh
 
 # Emacs variables
 export REPOSPUB=/var/git

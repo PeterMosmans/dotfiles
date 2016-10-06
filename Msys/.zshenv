@@ -1,5 +1,8 @@
 # MSYS2
 
+# Path to your oh-my-zsh installation.
+export ZSH=$HOME/repos/oh-my-zsh
+
 # zsh settings
 plugins=(git pylint tmux vagrant)
 

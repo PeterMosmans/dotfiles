@@ -1,5 +1,3 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/repos/oh-my-zsh
 export NCURSES_NO_UTF8_ACS=1
 
 # Check for and load terminal-specific keybindings
