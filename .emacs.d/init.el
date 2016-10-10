@@ -181,7 +181,7 @@
   )
 
 (use-package ntcmd
-  :ensure t
+  ;; :ensure t
   :init
   (add-hook 'ntcmd-mode-hook 'enable-programmer-mode)
   :mode (("\\.cmd\\'" . ntcmd-mode)
@@ -211,10 +211,16 @@
 
 (use-package smart-mode-line
   :config
-  (setq sml/theme 'dark)
-  (setq sml/mode-width 10)             ;; adjust the width of the smart-mode-line
   (add-to-list 'custom-safe-themes '"3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa")
   (add-to-list 'custom-safe-themes '"6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f")
+  (size-indication-mode 0)             ;; disable file size mode
+  (setq display-time-24hr-format t
+        display-time-format "%H:%M"
+        display-time-default-load-average nil  ;; hide load average
+        sml/name-width 40
+        sml/mode-width 'full
+        sml/theme 'dark)
+  (display-time)                       ;; show time in modeline
   (sml/setup)
   :ensure t
   )
@@ -330,6 +336,7 @@
 (prefer-coding-system 'utf-8-unix)
 
 (setq
+ column-number-mode t                  ;; show column-number
  dired-listing-switches "-agoh"
  recentf-save-file "~/.emacs.d/recentfiles.emacs"
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
@@ -374,14 +381,6 @@
                   (calendar-absolute-from-gregorian
                    (list month day year)))))
         'font-lock-face 'calendar-iso-week-face))
-;; the modeline
-(column-number-mode 1)                 ;; show column-number
-;; these can be selectively enabled using linum-mode 1
-(size-indication-mode 0)               ;; disable file size mode
-(setq display-time-24hr-format t
-      display-time-format "%H:%m"
-      display-time-default-load-average nil)  ;; hide load average
-(display-time)                         ;; show time in modeline
 
 ;; org mode settings
 (global-set-key (kbd "C-c l") 'org-store-link)
