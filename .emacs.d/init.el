@@ -336,33 +336,33 @@
 (prefer-coding-system 'utf-8-unix)
 
 (setq
- column-number-mode t                  ;; show column-number
- dired-listing-switches "-agoh"
- recentf-save-file "~/.emacs.d/recentfiles.emacs"
+ auto-save-interval 1000               ;; automatically save after x characters
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
+ column-number-mode t                  ;; show column-number
+ comint-prompt-read-only t             ;; read only prompt for shell mode
+ completion-ignore-case t              ;; ignore case when completing
+ dired-listing-switches "-agoh"
  ediff-window-setup-function 'ediff-setup-windows-plain
- inhibit-startup-message t             ;; remove welcome message
  inhibit-startup-echo-area-message nil
- visible-bell nil                      ;; mute bell sound
+ inhibit-startup-message t             ;; remove welcome message
+ line-spacing nil
+ make-backup-files nil                 ;; do not create backups
  message-log-max t                     ;; keep and log all messages
-; bookmark-save-flag nil           ; do not save bookmark when emacs quits
- make-backup-files nil            ;; do not create backups
- completion-ignore-case t         ;; ignore case when completing
- read-file-name-completion-ignore-case t
- comint-prompt-read-only t        ;; read only prompt for shell mode
- show-paren-style 'expression     ;; highlight entire bracket expression
- tab-width 4                      ;; default tab width
- recentf-max-saved-items 100      ;; recent files max save 100
- recentf-max-menu-items 15        ;; recent files max 15 in menu
- auto-save-interval 1000            ;; automatically save after 500 characters
- sentence-end-double-space nil         ;; don't use double spaces after a dot
- scroll-margin 1
- scroll-step 1
- scroll-conservatively 10000
- scroll-preserve-screen-position 1
  mouse-wheel-follow-mouse 't
  mouse-wheel-scroll-amount '(1 ((shift) . 1))
+ read-file-name-completion-ignore-case t
+ recentf-max-menu-items 15             ;; show maximum x recent menu items
+ recentf-max-saved-items 100           ;; save maximum x recent files
+ recentf-save-file "~/.emacs.d/recentfiles.emacs"
+ scroll-conservatively 10000
+ scroll-margin 1
+ scroll-preserve-screen-position 1
+ scroll-step 1
+ sentence-end-double-space nil         ;; don't use double spaces after a dot
+ show-paren-style 'expression          ;; highlight entire bracket expression
+ tab-width 4                           ;; default tab width
  use-package-always-ensure t           ;; always install missing packages
+ visible-bell nil                      ;; mute bell sound
  )
 (fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no
 (show-paren-mode t)                    ;; show matching parentheses
@@ -523,7 +523,6 @@
  '(cursor-color "#839496")
  '(ediff-patch-options "-f -N --strip=1 --binary")
  '(foreground-color "#839496")
- '(line-spacing nil)
  '(package-selected-packages
    (quote
     (flymd speed-type bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key php-mode helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
@@ -1055,19 +1054,6 @@ Uses `current-date-time-format' for the formatting the date/time."
 (defun describe-line-endings ()
   (interactive)
   (message (describe-variable buffer-file-coding-system)))
-
-;; (defvar hs-all-hidden nil "Current state of hideshow for toggling all.")
-
-;; (defun toggle-hide-all ()
-;;   (interactive)
-;;   (setq hs-all-hidden (not hs-all-hidden))
-;;   (if hs-all-hidden
-;;       (hs-hide-all)
-;;     (hs-show-all)))
-;;  (setq explicit-bash-args '("--login" "-i"))
-;; Note that M-x shell uses explicit-PROGRAM-args,
-;; where PROGRAM is the filename part of the shell's pathname.
-;; This is why you should not include the .exe when setting the shell.
 
 (defun msys-shell ()
   "Run msys bash in shell mode."
