@@ -643,7 +643,7 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "C-S-b") 'bookmark-bmenu-list)
 (global-set-key (kbd "C-(") 'check-parens) ;; matching parens
 (global-set-key (kbd "C-=") 'er/expand-region) ;; make selection bigger and bigger
-(global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
+(global-set-key (kbd "M-;") 'comment-line)
 
 ;; function keys
 (global-set-key (kbd "S-<f1>") 'petermosmans/cleanup)
@@ -1010,17 +1010,6 @@ ARG is a prefix argument.  If nil, copy the current difference region."
       (goto-char (point-max))
       (insert "\n+---\n")
       (kill-region (point-min) (point-max)))))
-
-;; http://stackoverflow.com/questions/9688748/emacs-comment-uncomment-current-line
-(defun comment-or-uncomment-region-or-line ()
-  "Comments or uncomments the region or the current line if there's no active region."
-  (interactive)
-  (let (beg end)
-    (if (region-active-p)
-        (setq beg (region-beginning) end (region-end))
-      (setq beg (line-beginning-position) end (line-end-position)))
-    (comment-or-uncomment-region beg end)
-    (next-logical-line)))
 
 (defun petermosmans/cleanup ()
   "Enable handy programming features / defaults"
