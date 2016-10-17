@@ -77,12 +77,12 @@
 ;; define all necessary EXTERNAL alphabetically
 ;; bind:      keybindings (all keys before :map are bound globally)
 ;; commands:  load the package (execute config) when these commands are executed
-;; config:    execute code after a package is loaded
+;; config:    execute code *after* a package is loaded
 ;; defer:     defer loading (implied when using commands, bind or mode)
 ;; disabled:  (temporarily) disable a package
 ;; ensure:    make sure the package is installed
-;; idle:      delay steps until Emacs is idle
-;; init:      execute code before a package is loaded
+;; idle:      delay steps until Emacs is idle (before or after package loading)
+;; init:      always execute code *before* a package is loaded
 ;; load-path: path of the files for local packages
 ;; mode:      deferred binding
 
@@ -108,6 +108,10 @@
   )
 
 (use-package flymd
+  :ensure t
+  )
+
+(use-package focus
   :ensure t
   )
 
@@ -191,7 +195,7 @@
 (use-package php-mode
   :ensure t
   ;; :init
-  ;; (add-hook 'php-mode-hook 'enable-programmer-mode)
+  ;; (add-hook 'php-mode-hook 'prog-mode)
   )
 
 (use-package projectile
@@ -448,8 +452,6 @@
             (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
             (setq comint-process-echoes t))) ;; prevent echoing
 
-;; (add-hook 'emacs-lisp-mode-hook 'enable-programmer-mode)
-
 ;; (add-hook 'javascript-mode-hook 'enable-programmer-mode)
 
 ;; (add-hook 'makefile-mode-hook 'enable-programmer-mode)
@@ -463,12 +465,9 @@
 
 ;; (add-hook 'perl-mode-hook 'enable-programmer-mode)
 
-;; (add-hook 'python-mode-hook 'enable-programmer-mode)
-
 (add-hook 'sh-mode-hook
           (lambda ()
             (reveal-mode 1)))
-            ;; (enable-programmer-mode)))
 
 (add-hook 'shell-mode-hook
           (lambda ()
@@ -485,11 +484,11 @@
           (lambda ()
             (setq whitespace-style
                   (quote
-                   (empty        ;; remove empty lines at beginning and end
+                   (empty              ;; remove empty lines at beginning and end
                     spaces
                     tabs
-                    trailing     ;; remove trailing characters
-                    indentation  ;; fix indentation according to tab-mode
+                    trailing           ;; remove trailing characters
+                    indentation        ;; fix indentation according to tab-mode
                     ;;                    newline      ;; remove new line char ?
                     space-mark
                     tab-mark
@@ -530,7 +529,7 @@
  '(line-spacing nil)
  '(package-selected-packages
    (quote
-    (zenburn-theme flymd speed-type bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key php-mode helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
+    (focus zenburn-theme flymd speed-type bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key php-mode helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
  '(safe-local-variable-values
    (quote
     ((pandoc/write . "html")
@@ -887,10 +886,8 @@ ARG is a prefix argument.  If nil, copy the current difference region."
                 (ediff-with-current-buffer to-buf
                                            ;; to prevent flags from interfering if buffer is writable
                                            (let ((inhibit-read-only (null buffer-read-only)))
-
                                              (goto-char reg-to-delete-end)
                                              (insert reg-to-copy)
-
                                              (if (> reg-to-delete-end reg-to-delete-beg)
                                                  (kill-region reg-to-delete-beg reg-to-delete-end))
                                              ))
