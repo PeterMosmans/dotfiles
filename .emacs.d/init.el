@@ -182,16 +182,16 @@
 
 (use-package ntcmd
   ;; :ensure t
-  :init
-  (add-hook 'ntcmd-mode-hook 'enable-programmer-mode)
+  ;; :init
+  ;; (add-hook 'ntcmd-mode-hook 'enable-programmer-mode)
   :mode (("\\.cmd\\'" . ntcmd-mode)
          ("\\.ini\\'" . ntcmd-mode))
   )
 
 (use-package php-mode
   :ensure t
-  :init
-  (add-hook 'php-mode-hook 'enable-programmer-mode)
+  ;; :init
+  ;; (add-hook 'php-mode-hook 'enable-programmer-mode)
   )
 
 (use-package projectile
@@ -431,7 +431,7 @@
 (add-to-list 'auto-mode-alist '("\\COMMIT_EDITMSG\\'" . diff-mode))
 
 ;; hooks for various BUILT IN modes (alphabetically)
-(add-hook 'c-mode-hook 'enable-programmer-mode)
+;; (add-hook 'c-mode-hook 'enable-programmer-mode)
 
 (add-hook 'calendar-mode-hook
           (lambda ()
@@ -448,11 +448,11 @@
             (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
             (setq comint-process-echoes t))) ;; prevent echoing
 
-(add-hook 'emacs-lisp-mode-hook 'enable-programmer-mode)
+;; (add-hook 'emacs-lisp-mode-hook 'enable-programmer-mode)
 
-(add-hook 'javascript-mode-hook 'enable-programmer-mode)
+;; (add-hook 'javascript-mode-hook 'enable-programmer-mode)
 
-(add-hook 'makefile-mode-hook 'enable-programmer-mode)
+;; (add-hook 'makefile-mode-hook 'enable-programmer-mode)
 
 (add-hook 'nxml-mode-hook
           (lambda ()
@@ -461,14 +461,14 @@
             (linum-mode 1)
             (yas-minor-mode 1)))
 
-(add-hook 'perl-mode-hook 'enable-programmer-mode)
+;; (add-hook 'perl-mode-hook 'enable-programmer-mode)
 
-(add-hook 'python-mode-hook 'enable-programmer-mode)
+;; (add-hook 'python-mode-hook 'enable-programmer-mode)
 
 (add-hook 'sh-mode-hook
           (lambda ()
-            (reveal-mode 1)
-            (enable-programmer-mode)))
+            (reveal-mode 1)))
+            ;; (enable-programmer-mode)))
 
 (add-hook 'shell-mode-hook
           (lambda ()
@@ -646,6 +646,7 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "M-;") 'comment-line)
 
 ;; function keys
+;; f1: magit
 (global-set-key (kbd "S-<f1>") 'petermosmans/cleanup)
 (global-set-key (kbd "C-<f1>") 'show-file-name)
 (global-set-key (kbd "M-<f1>") 'code-review-region)
@@ -661,9 +662,10 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "<f3>") 'isearch-repeat-forward)
 (global-set-key (kbd "S-<f3>") 'find-grep-dired)
 (global-set-key (kbd "C-<f3>") 'diff)
-;; (global-set-key (kbd "M-<f3>") 'org-show-todo-key)
+(global-set-key (kbd "M-<f3>") 'mark-whole-buffer)
 
 ;; scratchpad, text modes, closing
+;; f4: yas-insert-snippet
 (global-set-key (kbd "S-<f4>") (lambda () (interactive) (switch-to-buffer "scratch.txt")))
 (global-set-key (kbd "C-<f4>") 'org-mode)
 (global-set-key (kbd "M-<f4>") 'save-buffers-kill-terminal)
@@ -785,18 +787,29 @@ Return a list of one element based on major mode."
          ((memq ,arg '(?d ?D)) 'D)
          ))
 
-(defun enable-programmer-mode ()
-  "Enable handy programming features / defaults."
-  (interactive)
-  (linum-mode 1)
-  (highlight-indentation-mode 1)
-  (yafolding-mode 1)
-  (yas-minor-mode 1)
-  (if (featurep 'flycheck-mode)
-      (flycheck-mode 1))
-  (fci-mode 1))
+(add-hook 'prog-mode-hook
+  (lambda ()
+      (linum-mode 1)
+      (highlight-indentation-mode 1)
+      (yafolding-mode 1)
+      (yas-minor-mode 1)
+      (if (featurep 'flycheck-mode)
+          (flycheck-mode 1))
+      (fci-mode 1)))
 
-;; Literally copied from ediff-util
+;; (defun enable-programmer-mode ()
+;;   "Enable handy programming features / defaults."
+;;   )
+;;   ;; (interactive)
+;;   ;; (linum-mode 1)
+;;   ;; (highlight-indentation-mode 1)
+;;   ;; (yafolding-mode 1)
+;;   ;; (yas-minor-mode 1)
+;;   ;; (if (featurep 'flycheck-mode)
+;;   ;;     (flycheck-mode 1))
+;;   ;; (fci-mode 1))
+
+;; ;; Literally copied from ediff-util
 ;; need to re-evaluate because it uses the macro defined above
 ;; and the compiled version needs to be re-compiled with the new definition
 ;; why a macro????
