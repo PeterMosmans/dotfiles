@@ -49,7 +49,7 @@
 (unless (package-installed-p 'use-package)
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/")
-               '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+               '("melpa-stable" . "https://stable.melpa.org/packages/"))
   (package-refresh-contents)
   (package-install 'use-package))
 (eval-when-compile
