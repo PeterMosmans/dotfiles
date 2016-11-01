@@ -100,11 +100,13 @@
   :commands fci-mode
   :config
   (setq fci-rule-color "light slate grey")
+  :ensure t
   )
 
 (use-package flycheck
   :commands flycheck-mode
   :config (setq flycheck-highlighting-mode 'lines) ;; highlight whole line
+  :ensure t
   )
 
 (use-package flymd
