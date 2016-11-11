@@ -10,7 +10,7 @@ plugins=(git pylint tmux vagrant)
 export BROWSER=\"$(echo "${PROGRAMFILES} (x86)/Mozilla Firefox/firefox.exe"|sed -e 's/\\/\//')\"
 export PDFREADER=\"$(echo "${PROGRAMFILES}/SumatraPDF/SumatraPDF.exe"|sed -e 's/\\/\//')\"
 export WRITER=\"$(echo "${PROGRAMFILES} (x86)/LibreOffice 5/program/swriter.exe"|sed -e 's/\\/\//')\"
-
+export CALC=\"$(echo "${PROGRAMFILES} (x86)/LibreOffice 5/program/scalc.exe"|sed -e 's/\\/\//')\"
 # Add some typical Windows suffix aliases
 alias -s bat="c:/windows/system32/cmd.exe" '/c'
 alias -s cmd="c:/windows/system32/cmd.exe" '/c'

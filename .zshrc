@@ -79,6 +79,7 @@ alias -s txt=emacs
 alias -s xml=emacs
 [ ! -z ${BROWSER} ] && alias -s htm=${BROWSER}
 [ ! -z ${BROWSER} ] && alias -s html=${BROWSER}
+[ ! -z ${CALC} ] && alias -s xlsx=${CALC}
 [ ! -z ${WRITER} ] && alias -s odt=${WRITER}
 [ ! -z ${WRITER} ] && alias -s odp=${WRITER}
 [ ! -z ${PDFREADER} ] && alias -s pdf=${PDFREADER}
