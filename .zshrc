@@ -113,7 +113,7 @@ setopt HIST_IGNORE_ALL_DUPS
 # + HIST_FIND_NO_DUPS :: ignore duplicates when match has been found
 setopt HIST_FIND_NO_DUPS
 # + INC_APPEND_HISTORY :: adds entries to history as they are typed (don't wait for exit)
-setopt INC_APPEND_HISTORY
+# setopt INC_APPEND_HISTORY
 # + SHARE_HISTORY :: share history between different zsh processes
 # setopt SHARE_HISTORY
 # Don't error out on zero matches
