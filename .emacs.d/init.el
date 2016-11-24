@@ -194,12 +194,6 @@
          ("\\.ini\\'" . ntcmd-mode))
   )
 
-(use-package php-mode
-  :ensure t
-  ;; :init
-  ;; (add-hook 'php-mode-hook 'prog-mode)
-  )
-
 (use-package projectile
   :bind ("M-<f10>" . projectile-ibuffer)
   :config
@@ -283,6 +277,12 @@
   (tabbar-mode t)                      ;; enable the tabbar by default
   )
 
+(use-package web-mode
+  :ensure t
+  ;; :init
+  ;; (add-hook 'php-mode-hook 'prog-mode)
+  )
+
 (use-package yafolding
   :bind (("C-|" . yafolding-toggle-element)
          ("C-\\" . yafolding-toggle-all))
@@ -306,9 +306,6 @@
 (if (boundp 'my-theme)
     (load-theme my-theme t))
 
-;; file locations
-
-;; workaround for removed function
 (if (boundp 'my-font)
     (when (member my-font (font-family-list))
       (set-face-attribute 'default nil :font my-font)
@@ -425,7 +422,7 @@
 ;; hooks
 (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
 (add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
-(add-hook 'org-clock-in-hook 'save-buffer) ;; save buffer when clocking in...
+(add-hook 'org-clock-in-hook 'save-buffer)   ;; save buffer when clocking in...
 (add-hook 'org-clock-out-hook 'save-buffer)  ;; ...and clocking out
 (add-hook 'org-mode-hook
           (lambda ()
