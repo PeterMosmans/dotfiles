@@ -63,9 +63,7 @@
                        (setq gc-cons-threshold 800000)
                        (require 'server)
                        (or (server-running-p)
-                           (server-start))
-                       (message "gc-cons-threshold restored to %S"
-                                gc-cons-threshold)))
+                           (server-start))))
 
 ;; add this first, as some packages need to be installed from unstable sources
 (use-package package
@@ -181,8 +179,9 @@
   :bind ("M-<f8>" . neotree-toggle)
   :commands (neotree)
   :config
-  (setq neo-window-width 30)
-  (setq neo-theme 'ascii)              ;; Don't use fancy icons
+  (setq  neo-show-hidden-files t
+         neo-theme 'ascii              ;; Don't use fancy icons
+         neo-window-width 30)
   :ensure t
   )
 
@@ -279,8 +278,10 @@
 
 (use-package web-mode
   :ensure t
-  ;; :init
-  ;; (add-hook 'php-mode-hook 'prog-mode)
+  :mode (("\\.phtml\\'" . web-mode)
+         ("\\.tpl\\.php\\'" . web-mode)
+         ("\\.[agj]sp\\'" . web-mode)
+         ("\\.as[cp]x\\'" . web-mode))
   )
 
 (use-package yafolding
@@ -366,7 +367,7 @@
  show-paren-style 'expression          ;; highlight entire bracket expression
  tab-width 4                           ;; default tab width
  use-package-always-ensure t           ;; always install missing packages
- visible-bell nil                      ;; mute bell sound
+ ;; visible-bell nil                      ;; mute bell sound
  )
 (fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no
 (show-paren-mode t)                    ;; show matching parentheses
@@ -410,7 +411,21 @@
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
-      '((sequence "TODO(t)" "NEXT(n!)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@)")))
+      '((sequence "TODO(t)" "NEXT(n!)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@)"))
+      org-replace-disputed-keys t
+      org-disputed-keys
+      '(([(shift up)] . [(ctrl up)])
+        ([(shift down)] . [(ctrl down)])
+        ([(shift left)] . [(ctrl left)])
+        ([(shift right)] . [(ctrl right)])
+        ([(shift meta right)] . [(shift control right)])
+        ([(shift meta left)] . [(shift control left)])
+        ([(shift meta up)] . [(shift control up)])
+        ([(shift meta down)] . [(shift control down)])
+        ([(shift control right)] . [(shift meta right)])
+        ([(control a)] . [(shift control a)])
+        ([(shift control left)] . [(shift meta left)]))
+      )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -492,21 +507,6 @@
                     space-mark
                     tab-mark
                     )))))
-
-(setq org-replace-disputed-keys t
-      org-disputed-keys
-      '(([(shift up)] . [(ctrl up)])
-        ([(shift down)] . [(ctrl down)])
-        ([(shift left)] . [(ctrl left)])
-        ([(shift right)] . [(ctrl right)])
-        ([(shift meta right)] . [(shift control right)])
-        ([(shift meta left)] . [(shift control left)])
-        ([(shift meta up)] . [(shift control up)])
-        ([(shift meta down)] . [(shift control down)])
-        ([(shift control right)] . [(shift meta right)])
-        ([(control a)] . [(shift control a)])
-        ([(shift control left)] . [(shift meta left)]))
-      )
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
