@@ -677,8 +677,6 @@ Return a list of one element based on major mode."
 (global-set-key (kbd "S-<f6>") 'split-window-vertically)
 (global-set-key (kbd "C-<f6>") 'delete-other-windows)
 (global-set-key (kbd "M-<f6>") 'split-window-horizontally)
-;; balance-windows
-;; enlarge window
 
 ;; frames
 (global-set-key (kbd "<f7>") 'other-frame)
