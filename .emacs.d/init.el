@@ -20,10 +20,6 @@
 
 ;;; Code:
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-
 ;; The following parameters are recognized, and can be added to
 ;; ~/.emacs.d/variables.el
 ;;
@@ -32,7 +28,7 @@
 (defvar my-font "Source Code Pro"
   "Font that will be used (if it is installed)")
 (defvar my-scratch-file "~/scratch.txt"
-  "Persistent scratch file that automatically will be opened on startup")
+  "Persistent scratch file which is opened on startup")
 (defvar my-snippets-dir nil
   "A list of snippet directories that will be loaded by yasnippet")
 (defvar my-theme 'misterioso
@@ -54,6 +50,7 @@
   (package-install 'use-package))
 (eval-when-compile
   (require 'use-package))
+;; (require 'bind-key)
 
 ;; Load this keybinding first to facilitate editing init.el
 (global-set-key (kbd "M-<f11>") (lambda () (interactive) (find-file user-init-file)))
@@ -160,6 +157,10 @@
 
 (use-package let-alist
   :defer t
+  )
+
+(use-package litable
+  :ensure t
   )
 
 (use-package magit
