@@ -21,7 +21,10 @@
 ;;; Code:
 
 ;; The following parameters are recognized, and can be added to
-;; ~/.emacs.d/variables.el
+;; ~/.emacs.d/variables.el:
+;; my-font
+;; my-replacer-list:  sml/replacer-regexp-list 
+;; my-theme
 ;;
 ;; Note that the defaults will be used if they aren't defined...
 
@@ -159,10 +162,6 @@
   :defer t
   )
 
-(use-package litable
-  :ensure t
-  )
-
 (use-package magit
   :bind ([f1] . magit-status)
   :config
@@ -222,6 +221,8 @@
         sml/mode-width 'full
         sml/theme 'dark)
   (display-time)                       ;; show time in modeline
+  (if (boundp 'my-replacer-list)
+      (setq sml/replacer-regexp-list my-replacer-list))
   (sml/setup)
   :ensure t
   )
