@@ -281,10 +281,13 @@
 
 (use-package web-mode
   :ensure t
-  :mode (("\\.phtml\\'" . web-mode)
-         ("\\.tpl\\.php\\'" . web-mode)
-         ("\\.[agj]sp\\'" . web-mode)
-         ("\\.as[cp]x\\'" . web-mode))
+  :config
+  (setq web-mode-markup-indent-offset 2)
+  :mode (("\\.[agj]sp\\'" . web-mode)
+         ("\\.as[cp]x\\'" . web-mode)
+         ("\\.html?\\'" . web-mode)
+         ("\\.phtml\\'" . web-mode)
+         ("\\.tpl\\.php\\'" . web-mode))
   )
 
 (use-package yafolding
@@ -335,7 +338,7 @@
 
 (setq-default fill-column 80           ;; width of the screen for wrapping
               line-spacing 0
-              indent-tabs-mode nil)    ; spaces are used when indenting
+              indent-tabs-mode nil)    ;; always use spaces for indentation
 
 ;; make sure that utf8 Unix line endings (LF) are default
 (setq-default buffer-file-coding-system 'utf-8-unix)
