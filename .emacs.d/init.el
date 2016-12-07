@@ -197,6 +197,7 @@
   :bind ("M-<f10>" . projectile-ibuffer)
   :config
   (setq projectile-completion-system 'helm
+        projectile-globally-ignored-file-suffixes '(".fo" ".pdf" ".png")
         projectile-indexing-method 'alien)  ;; use the fastest indexing method
   (helm-projectile-on)
   (projectile-global-mode 1)
