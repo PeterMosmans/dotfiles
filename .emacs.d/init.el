@@ -197,7 +197,9 @@
   :bind ("M-<f10>" . projectile-ibuffer)
   :config
   (setq projectile-completion-system 'helm
-        projectile-globally-ignored-file-suffixes '(".fo" ".pdf" ".png")
+        projectile-globally-ignored-file-suffixes '(".avi" ".fo" ".jpg" ".mp4"
+                                                    ".pdf" ".png" ".pptx" ".svg"
+                                                    ".xlsx" ".zip")
         projectile-indexing-method 'alien)  ;; use the fastest indexing method
   (helm-projectile-on)
   (projectile-global-mode 1)
@@ -212,8 +214,9 @@
 
 (use-package smart-mode-line
   :config
-  (add-to-list 'custom-safe-themes '"3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa")
-  (add-to-list 'custom-safe-themes '"6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f")
+  (add-to-list 'custom-safe-themes
+               '"3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa"
+               '"6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f")
   (size-indication-mode 0)             ;; disable file size mode
   (setq display-time-24hr-format t
         display-time-format "%H:%M"
@@ -286,6 +289,7 @@
   :mode (("\\.[agj]sp\\'" . web-mode)
          ("\\.as[cp]x\\'" . web-mode)
          ("\\.html?\\'" . web-mode)
+         ("\\.php\\'" . web-mode)
          ("\\.phtml\\'" . web-mode)
          ("\\.tpl\\.php\\'" . web-mode))
   )
@@ -534,7 +538,7 @@
  '(line-spacing nil)
  '(package-selected-packages
    (quote
-    (focus zenburn-theme flymd speed-type bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key php-mode helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
+    (focus zenburn-theme flymd speed-type bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line ntcmd nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
  '(safe-local-variable-values
    (quote
     ((pandoc/write . "html")
