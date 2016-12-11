@@ -19,7 +19,7 @@ OSSPECIFIC=".zshenv .ssh/config"
 
 
 ## Don't change anything below this line
-VERSION=0.4
+VERSION=0.5
 
 OS=$(uname -o|sed "s/\//-/")
 REALPATH=$(dirname $0)
@@ -33,17 +33,13 @@ for link in ${SOURCEFILES}; do
     fi
     if [ -f ${REALPATH}/${link} ]; then
         echo linking ${link}
-        ln --force --symbolic "${REALPATH}/${link}" "${DESTINATIONPATH}/${link}"
+        ln --force "${REALPATH}/${link}" "${DESTINATIONPATH}/${link}"
     fi
     if [ -d ${REALPATH}/${link} ]; then
         echo linking ${link}
         pushd ${link} &>/dev/null
         for i in *; do
-            if [ "OS"=="Msys" ]; then
-                ln --force "${i}" "${DESTINATIONPATH}/${link}/${i}"
-            else
-                ln --force --symbolic "${i}" "${DESTINATIONPATH}/${link}/${i}"
-            fi
+            ln --force "${i}" "${DESTINATIONPATH}/${link}/${i}"
         done
         popd &>/dev/null
     fi
