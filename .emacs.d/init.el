@@ -30,6 +30,8 @@
 
 (defvar my-font "Source Code Pro"
   "Font that will be used (if it is installed)")
+;; Hardcoded (not so nice) - use font when started up as daemon
+(add-to-list 'default-frame-alist '(font . "Source Code Pro 10"))
 (defvar my-scratch-file "~/scratch.txt"
   "Persistent scratch file which is opened on startup")
 (defvar my-snippets-dir nil
