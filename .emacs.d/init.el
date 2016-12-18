@@ -35,7 +35,7 @@
 (defvar my-snippets-dir nil
   "A list of snippet directories that will be loaded by yasnippet")
 (defvar my-theme 'misterioso
-  "Theme that will be used")
+  "Theme that will be applied")
 
 (if (file-exists-p "~/.emacs.d/variables.el")
     (load "~/.emacs.d/variables.el"))
@@ -798,8 +798,10 @@ Return a list of one element based on major mode."
         (set-face-attribute 'default nil :font my-font)
         (set-frame-font my-font nil t)
         (remove-hook 'window-configuration-change-hook (lambda ()
-                                              (set-default-font my-font))))
-      (message "Font %s is not installed" my-font)))
+                                                         (set-default-font my-font))))
+    (progn
+      (message "Font %s is not installed" my-font)
+      (print (font-family-list)))))
 
 
 ;; http://stackoverflow.com/questions/9656311/conflict-resolution-with-emacs-ediff-how-can-i-take-the-chan
@@ -1105,6 +1107,27 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (defun add-d-to-ediff-mode-map ()
   (define-key ediff-mode-map "d" 'ediff-copy-D-to-C))
 
+;; http://zck.me/emacs-move-file
+(defun move-file (new-location)
+  "Write this file to NEW-LOCATION, and delete the old one."
+  (interactive (list (expand-file-name
+                      (if buffer-file-name
+                          (read-file-name "Move file to: ")
+                        (read-file-name "Move file to: "
+                                        default-directory
+                                        (expand-file-name (file-name-nondirectory (buffer-name))
+                                                          default-directory))))))
+  (when (file-exists-p new-location)
+    (delete-file new-location))
+  (let ((old-location (expand-file-name (buffer-file-name))))
+    (message "old file is %s and new file is %s"
+             old-location
+             new-location)
+    (write-file new-location t)
+    (when (and old-location
+               (file-exists-p new-location)
+               (not (string-equal old-location new-location)))
+      (delete-file old-location))))
 ;; enable disabled function
 (put 'downcase-region 'disabled nil)
 
