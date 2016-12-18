@@ -30,8 +30,6 @@
 
 (defvar my-font "Source Code Pro"
   "Font that will be used (if it is installed)")
-;; Hardcoded (not so nice) - use font when started up as daemon
-(add-to-list 'default-frame-alist '(font . "Source Code Pro 10"))
 (defvar my-scratch-file "~/scratch.txt"
   "Persistent scratch file which is opened on startup")
 (defvar my-snippets-dir nil
@@ -44,6 +42,21 @@
 
 ;; uncomment for some debugging options
 ;; (setq debug-on-error t)
+
+(defun set-default-font (my-font)
+  "Set default font for clients as well as daemons"
+  (if (member my-font (font-family-list))
+      (progn
+        (set-face-attribute 'default nil :font my-font)
+        (set-frame-font my-font nil t)
+        (remove-hook 'window-configuration-change-hook (lambda ()
+                                              (set-default-font my-font))))
+      (message "Font %s is not installed" my-font)))
+
+(set-default-font my-font)
+;; workaround to make sure that font is being set when running in daemon mode
+(add-hook 'window-configuration-change-hook (lambda ()
+                                              (set-default-font my-font)))
 
 (package-initialize)
 ;; Bootstrap `use-package'
@@ -318,10 +331,7 @@
 (if (boundp 'my-theme)
     (load-theme my-theme t))
 
-(if (boundp 'my-font)
-    (when (member my-font (font-family-list))
-      (set-face-attribute 'default nil :font my-font)
-      (set-frame-font my-font nil t)))
+
 ;; define font for Unicode Private Use Area block
 (when (member "Symbol" (font-family-list))
   (set-fontset-font "fontset-default" '(#xf000 . #xffff) (font-spec :name "Symbol")))
