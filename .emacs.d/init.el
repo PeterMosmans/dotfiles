@@ -43,21 +43,6 @@
 ;; uncomment for some debugging options
 ;; (setq debug-on-error t)
 
-(defun set-default-font (my-font)
-  "Set default font for clients as well as daemons"
-  (if (member my-font (font-family-list))
-      (progn
-        (set-face-attribute 'default nil :font my-font)
-        (set-frame-font my-font nil t)
-        (remove-hook 'window-configuration-change-hook (lambda ()
-                                              (set-default-font my-font))))
-      (message "Font %s is not installed" my-font)))
-
-(set-default-font my-font)
-;; workaround to make sure that font is being set when running in daemon mode
-(add-hook 'window-configuration-change-hook (lambda ()
-                                              (set-default-font my-font)))
-
 (package-initialize)
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
@@ -71,12 +56,12 @@
 
 ;; Load this keybinding first to facilitate editing init.el
 (global-set-key (kbd "M-<f11>") (lambda () (interactive) (find-file user-init-file)))
-(setq gc-cons-threshold 500000000)
+(setq gc-cons-threshold 500000000)     ;; improve startup time
 (run-with-idle-timer 5 nil
                      (lambda ()
                        (setq gc-cons-threshold 800000)
-                       (require 'server)
-                       (or (server-running-p)
+                       (require 'server) 
+                       (or (server-running-p) ;; start server if not already running
                            (server-start))))
 
 ;; add this first, as some packages need to be installed from unstable sources
@@ -448,10 +433,6 @@
         ([(shift control left)] . [(shift meta left)]))
       )
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(org-done ((t (:strike-through t))))
  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
  '(org-level-2 ((t (:inherit outline-1 :height 1.1)))))
@@ -469,9 +450,8 @@
 ;; associate certain files with modes
 (add-to-list 'auto-mode-alist '("\\COMMIT_EDITMSG\\'" . diff-mode))
 
-;; hooks for various BUILT IN modes (alphabetically)
-;; (add-hook 'c-mode-hook 'enable-programmer-mode)
-
+;;; HOOKS
+;; various built in modes
 (add-hook 'calendar-mode-hook
           (lambda ()
             (define-key calendar-mode-map (kbd "<tab>") 'calendar-forward-month)
@@ -487,9 +467,7 @@
             (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
             (setq comint-process-echoes t))) ;; prevent echoing
 
-;; (add-hook 'javascript-mode-hook 'enable-programmer-mode)
-
-;; (add-hook 'makefile-mode-hook 'enable-programmer-mode)
+(add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
 (add-hook 'nxml-mode-hook
           (lambda ()
@@ -498,7 +476,15 @@
             (linum-mode 1)
             (yas-minor-mode 1)))
 
-;; (add-hook 'perl-mode-hook 'enable-programmer-mode)
+(add-hook 'prog-mode-hook
+  (lambda ()
+      (linum-mode 1)
+      (highlight-indentation-mode 1)
+      (yafolding-mode 1)
+      (yas-minor-mode 1)
+      (if (featurep 'flycheck-mode)
+          (flycheck-mode 1))
+      (fci-mode 1)))
 
 (add-hook 'sh-mode-hook
           (lambda ()
@@ -528,6 +514,20 @@
                     space-mark
                     tab-mark
                     )))))
+
+;; builtin hooks
+(add-hook 'after-init-hook
+          (lambda ()
+            (set-default-font my-font)
+            (if (boundp 'my-scratch-file)
+                (progn
+                  (find-file my-scratch-file)  ;; only show it if it's the only file
+                  (if (get-buffer "*scratch*")
+                      (kill-buffer "*scratch*"))))))
+
+;; workaround to make sure that font is being set when running in daemon mode
+(add-hook 'window-configuration-change-hook (lambda ()
+                                              (set-default-font my-font)))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -583,74 +583,8 @@
      (360 . "#DC8CC3"))))
  '(vc-annotate-very-old-color "#DC8CC3"))
 
-;; adding spaces
-(defun tabbar-buffer-tab-label (tab)
-  "Return a label for TAB.
-That is, a string used to represent it on the tab bar."
-  (let ((label  (if tabbar--buffer-show-groups
-                    (format "[%s]  " (tabbar-tab-tabset tab))
-                  (format "%s  " (tabbar-tab-value tab)))))
-    ;; Unless the tab bar auto scrolls to keep the selected tab
-    ;; visible, shorten the tab label to keep as many tabs as possible
-    ;; in the visible area of the tab bar.
-    (if tabbar-auto-scroll-flag
-        label
-      (tabbar-shorten
-       label (max 1 (/ (window-width)
-                       (length (tabbar-view
-                                (tabbar-current-tabset)))))))))
-
-;; customization: overwrite default function in tabbar.el
-(defun tabbar-buffer-groups ()
-  "Return the list of group names the current buffer belongs to.
-Return a list of one element based on major mode."
-  (list
-   (cond
-    ((or (get-buffer-process (current-buffer))
-         ;; Check if the major mode derives from `comint-mode' or
-         ;; `compilation-mode'.
-         (tabbar-buffer-mode-derived-p
-          major-mode '(comint-mode compilation-mode)))
-     "Process"
-     )
-    ((member (buffer-name)
-             '("*scratch*" "*Messages*" "*Completions*" "*Warnings*" "*Bookmark Annotation*"))
-     "Common"
-     )
-    ((memq major-mode
-           '(dired-mode nav-mode))
-     "Browsing"
-     )
-    ((memq major-mode
-           '(org-mode text-mode))
-     "Text"
-     )
-    ((memq major-mode
-           '(help-mode apropos-mode Info-mode Man-mode))
-     "Help"
-     )
-    ((memq major-mode
-           '(rmail-mode
-             rmail-edit-mode vm-summary-mode vm-mode mail-mode
-             mh-letter-mode mh-show-mode mh-folder-mode
-             gnus-summary-mode message-mode gnus-group-mode
-             gnus-article-mode score-mode gnus-browse-killed-mode))
-     "Mail"
-     )
-    (t
-     ;; Return `mode-name' if not blank, `major-mode' otherwise.
-     (if (and (stringp mode-name)
-              ;; Take care of preserving the match-data because this
-              ;; function is called when updating the header line.
-              (save-match-data (string-match "[^ ]" mode-name)))
-         mode-name
-       (symbol-name major-mode))
-     ))))
-
 
 ;;; KEY BINDINGS
-
-
 (global-set-key (kbd "<scroll>") 'scroll-lock-mode)
 
 ;; miscellaneous (for consistency)
@@ -785,17 +719,70 @@ Return a list of one element based on major mode."
       (define-key input-decode-map "\e[v" [C-f12])
       (define-key input-decode-map "\e\e[X" [M-f12])))
 
-;; steps which can be performed after loading all repository functions
-(add-hook 'after-init-hook
-          (lambda ()
-            (if (boundp 'my-scratch-file)
-                (progn
-                  (find-file my-scratch-file)  ;; only show it if it's the only file
-                  (if (get-buffer "*scratch*")
-                      (kill-buffer "*scratch*"))))))
+;;; FUNCTIONS
+;; adding spaces
+(defun tabbar-buffer-tab-label (tab)
+  "Return a label for TAB.
+That is, a string used to represent it on the tab bar."
+  (let ((label  (if tabbar--buffer-show-groups
+                    (format "[%s]  " (tabbar-tab-tabset tab))
+                  (format "%s  " (tabbar-tab-value tab)))))
+    ;; Unless the tab bar auto scrolls to keep the selected tab
+    ;; visible, shorten the tab label to keep as many tabs as possible
+    ;; in the visible area of the tab bar.
+    (if tabbar-auto-scroll-flag
+        label
+      (tabbar-shorten
+       label (max 1 (/ (window-width)
+                       (length (tabbar-view
+                                (tabbar-current-tabset)))))))))
 
-;; testcode ediff
-;; http://stackoverflow.com/questions/9656311/conflict-resolution-with-emacs-ediff-how-can-i-take-the-changes-of-both-version
+;; customization: overwrite default function in tabbar.el
+(defun tabbar-buffer-groups ()
+  "Return the list of group names the current buffer belongs to.
+Return a list of one element based on major mode."
+  (list
+   (cond
+    ((or (get-buffer-process (current-buffer))
+         ;; Check if the major mode derives from `comint-mode' or
+         ;; `compilation-mode'.
+         (tabbar-buffer-mode-derived-p
+          major-mode '(comint-mode compilation-mode)))
+     "Process"
+     )
+    ((member (buffer-name)
+             '("*scratch*" "*Messages*" "*Completions*" "*Warnings*" "*Bookmark Annotation*"))
+     "Common"
+     )
+    ((memq major-mode
+           '(dired-mode nav-mode))
+     "Browsing"
+     )
+    ((memq major-mode
+           '(org-mode text-mode))
+     "Text"
+     )
+    ((memq major-mode
+           '(help-mode apropos-mode Info-mode Man-mode))
+     "Help"
+     )
+    ((memq major-mode
+           '(rmail-mode
+             rmail-edit-mode vm-summary-mode vm-mode mail-mode
+             mh-letter-mode mh-show-mode mh-folder-mode
+             gnus-summary-mode message-mode gnus-group-mode
+             gnus-article-mode score-mode gnus-browse-killed-mode))
+     "Mail"
+     )
+    (t
+     ;; Return `mode-name' if not blank, `major-mode' otherwise.
+     (if (and (stringp mode-name)
+              ;; Take care of preserving the match-data because this
+              ;; function is called when updating the header line.
+              (save-match-data (string-match "[^ ]" mode-name)))
+         mode-name
+       (symbol-name major-mode))
+     ))))
 
 (defmacro ediff-char-to-buftype (arg)
   `(cond ((memq ,arg '(?a ?A)) 'A)
@@ -804,32 +791,18 @@ Return a list of one element based on major mode."
          ((memq ,arg '(?d ?D)) 'D)
          ))
 
-(add-hook 'prog-mode-hook
-  (lambda ()
-      (linum-mode 1)
-      (highlight-indentation-mode 1)
-      (yafolding-mode 1)
-      (yas-minor-mode 1)
-      (if (featurep 'flycheck-mode)
-          (flycheck-mode 1))
-      (fci-mode 1)))
+(defun set-default-font (my-font)
+  "Set default font for clients as well as daemons if it's installed"
+  (if (member my-font (font-family-list))
+      (progn
+        (set-face-attribute 'default nil :font my-font)
+        (set-frame-font my-font nil t)
+        (remove-hook 'window-configuration-change-hook (lambda ()
+                                              (set-default-font my-font))))
+      (message "Font %s is not installed" my-font)))
 
-;; (defun enable-programmer-mode ()
-;;   "Enable handy programming features / defaults."
-;;   )
-;;   ;; (interactive)
-;;   ;; (linum-mode 1)
-;;   ;; (highlight-indentation-mode 1)
-;;   ;; (yafolding-mode 1)
-;;   ;; (yas-minor-mode 1)
-;;   ;; (if (featurep 'flycheck-mode)
-;;   ;;     (flycheck-mode 1))
-;;   ;; (fci-mode 1))
 
-;; ;; Literally copied from ediff-util
-;; need to re-evaluate because it uses the macro defined above
-;; and the compiled version needs to be re-compiled with the new definition
-;; why a macro????
+;; http://stackoverflow.com/questions/9656311/conflict-resolution-with-emacs-ediff-how-can-i-take-the-chan
 (defun ediff-diff-to-diff (arg &optional keys)
   "Copy buffer-X'th difference region to buffer Y \(X,Y are A, B, or C\).
 If numerical prefix argument, copy the difference specified in the arg.
@@ -943,12 +916,6 @@ ARG is a prefix argument.  If nil, copy the current difference region."
       ;; by the user
       (message "%s" messg))
     ))
-
-;; add keybinding in a hook b/c the keymap isn't defined until the hook is run
-(add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
-
-
-;; functions --- Custom functions and variables
 
 (defun place-agenda-tags ()
   "Put the agenda tags by the right border of the agenda window."
@@ -1138,7 +1105,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (defun add-d-to-ediff-mode-map ()
   (define-key ediff-mode-map "d" 'ediff-copy-D-to-C))
 
-;; end testcode ediff
+;; enable disabled function
 (put 'downcase-region 'disabled nil)
 
 ;;; init.el ends here
