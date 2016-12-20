@@ -414,6 +414,7 @@
       '(("Effort_ALL" . "0 0:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
       org-log-into-drawer t            ;; insert notes & time stamps into drawer
       org-src-fontify-natively t       ;; fontify code in blocks
+      org-tags-column -112             ;; optimized for 112 column display
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
@@ -802,7 +803,6 @@ Return a list of one element based on major mode."
     (progn
       (message "Font %s is not installed" my-font)
       (print (font-family-list)))))
-
 
 ;; http://stackoverflow.com/questions/9656311/conflict-resolution-with-emacs-ediff-how-can-i-take-the-chan
 (defun ediff-diff-to-diff (arg &optional keys)
