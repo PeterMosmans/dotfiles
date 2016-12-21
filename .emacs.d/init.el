@@ -30,6 +30,8 @@
 
 (defvar my-font "Source Code Pro"
   "Font that will be used (if it is installed)")
+(defvar my-replacer-list nil
+  "List of pairs of strings used (by ‘sml/replacer’) to create prefixes")
 (defvar my-scratch-file "~/scratch.txt"
   "Persistent scratch file which is opened on startup")
 (defvar my-snippets-dir nil
