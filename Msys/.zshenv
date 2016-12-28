@@ -25,7 +25,13 @@ hash -d kb={KNOWLEDGEBASE}
 
 export temp=/tmp
 export tmp=/tmp
-export TERM=xterm-256color
+
+if [[ "$TERM" == "emacs" ]]; then
+    # Make sure that shell-mode properly works with Emacs
+    export TERM=eterm-color
+else
+   export TERM=xterm-256color
+fi
 
 # update shortcut
 alias update='pacman --color=auto -Syuu '
