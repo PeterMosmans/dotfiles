@@ -421,7 +421,7 @@
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
-      '((sequence "TODO(t)" "NEXT(n!)" "WAITING(w@)" "|" "DONE(d!)" "CANCELLED(c@)"))
+      '((sequence "TODO(t)" "NEXT(n!)" "WAITING(w!)" "|" "DONE(d!)" "CANCELLED(c!)"))
       org-replace-disputed-keys t
       org-disputed-keys
       '(([(shift up)] . [(ctrl up)])
