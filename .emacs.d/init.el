@@ -805,7 +805,8 @@ Return a list of one element based on major mode."
                                                          (set-default-font my-font))))
     (progn
       (message "Font %s is not installed" my-font)
-      (print (font-family-list)))))
+      (if (font-family-list)
+          (print (font-family-list))))))
 
 ;; http://stackoverflow.com/questions/9656311/conflict-resolution-with-emacs-ediff-how-can-i-take-the-chan
 (defun ediff-diff-to-diff (arg &optional keys)
