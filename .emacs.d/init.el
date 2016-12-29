@@ -374,6 +374,7 @@
  sentence-end-double-space nil         ;; don't use double spaces after a dot
  show-paren-style 'expression          ;; highlight entire bracket expression
  tab-width 4                           ;; default tab width
+ tramp-default-method "sshx"           ;; faster than the default scp
  use-package-always-ensure t           ;; always install missing packages
  ;; visible-bell nil                      ;; mute bell sound
  )
