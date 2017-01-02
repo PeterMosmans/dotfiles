@@ -530,8 +530,9 @@
                       (kill-buffer "*scratch*"))))))
 
 ;; workaround to make sure that font is being set when running in daemon mode
-(add-hook 'window-configuration-change-hook (lambda ()
-                                              (set-default-font my-font)))
+(if window-system
+    (add-hook 'window-configuration-change-hook (lambda ()
+                                                  (set-default-font my-font))))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -659,7 +660,7 @@
 
 
 ;;; SSH / PUTTY HACKS
-(if (eq system-uses-terminfo t)         ;; terminal
+(if (eq window-system nil)             ;; terminal
     (progn                              ;; PuTTY needs to be in SCO mode
       (xterm-mouse-mode 0)              ;; use mouse even in terminal mode
       (menu-bar-mode 0)                 ;; disable menu bar
@@ -797,16 +798,17 @@ Return a list of one element based on major mode."
 
 (defun set-default-font (my-font)
   "Set default font for clients as well as daemons if it's installed"
-  (if (member my-font (font-family-list))
-      (progn
-        (set-face-attribute 'default nil :font my-font)
-        (set-frame-font my-font nil t)
-        (remove-hook 'window-configuration-change-hook (lambda ()
-                                                         (set-default-font my-font))))
-    (progn
-      (message "Font %s is not installed" my-font)
-      (if (font-family-list)
-          (print (font-family-list))))))
+  (if window-system
+      (if (member my-font (font-family-list))
+          (progn
+            (set-face-attribute 'default nil :font my-font)
+            (set-frame-font my-font nil t)
+            (remove-hook 'window-configuration-change-hook (lambda ()
+                                                             (set-default-font my-font))))
+        (progn
+          (message "Font %s is not installed" my-font)
+          (if (font-family-list)
+              (print (font-family-list)))))))
 
 ;; http://stackoverflow.com/questions/9656311/conflict-resolution-with-emacs-ediff-how-can-i-take-the-chan
 (defun ediff-diff-to-diff (arg &optional keys)
