@@ -1,6 +1,6 @@
 ;;; init.el --- Emacs initialization file
 
-;; Copyright (c) 2011-2016 Peter Mosmans
+;; Copyright (c) 2011-2017 Peter Mosmans
 
 ;; Author: Peter Mosmans <support AT go-forward.net>
 ;; Created: 2011
