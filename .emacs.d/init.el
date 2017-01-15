@@ -23,13 +23,19 @@
 ;; The following parameters are recognized, and can be added to
 ;; ~/.emacs.d/variables.el:
 ;; my-font
-;; my-replacer-list:  sml/replacer-regexp-list 
+;; my-capture-file
+;; my-org-directory
+;; my-replacer-list
 ;; my-theme
 ;;
-;; Note that the defaults will be used if they aren't defined...
+;; Note that the defaults will be used if the variables aren't defined
 
 (defvar my-font "Source Code Pro"
   "Font that will be used (if it is installed)")
+(defvar my-capture-file "/capture-org"
+  "Default org-mode capture file relative to org-directory")
+(defvar my-org-directory "~/org"
+  "(Non-standard) org-directory")
 (defvar my-replacer-list nil
   "List of pairs of strings used (by ‘sml/replacer’) to create prefixes")
 (defvar my-scratch-file "~/scratch.txt"
@@ -404,20 +410,55 @@
 (global-set-key (kbd "S-<f12>") 'org-clock-in)
 (global-set-key (kbd "C-<f12>") 'org-clock-out)
 (global-set-key (kbd "M-<f12>") 'org-dblock-update)
-(setq org-agenda-sorting-strategy
+(setq org-directory my-org-directory
+      org-default-notes-file (concat org-directory my-capture-file)
+      org-agenda-compact-blocks t      ;; skip long block separators
+      org-agenda-files (list org-directory) ;; all files in the org-directory
+      org-agenda-prefix-format '((agenda . "%6e ")  ;; org-agenda
+                                 (search . "search %i %-12:c")
+                                 (tags . "%6e %t")
+                                 (timeline . "timeline % s")
+                                 (todo . "%6e "))  ;; org-todo-list
+      org-agenda-sorting-strategy
       '((agenda habit-down time-up priority-down category-keep)
         ;; order todo list based on the state
         (todo todo-state-up priority-down category-keep)
         (tags priority-down category-keep)
         (search category-keep))
+      org-agenda-repeating-timestamp-show-all nil
+      org-agenda-todo-keyword-format "[ ]"
+      org-capture-templates
+      '(("j" "Journal Entry"
+         entry (file+datetree org-default-notes-file)
+         "* TODO %?")
+        ("r" "reminder"
+         entry (file+headline org-default-notes-file  "Tasks")
+         "* TODO %?\n  DEADLINE: <%(org-read-date nil nil \"+1d\")>")
+        ("t" "TODO"
+         entry (file+headline org-default-notes-file  "Tasks")
+         "* TODO %?\n  %u")
+        ("l" "TODO with link to current buffer"
+         entry (file+headline org-default-notes-file  "Tasks")
+         "* TODO %?\n  %i\n   %a")
+        ("r" "reference"
+         entry (file+headline (concat org-directory "/reference.org") "reference")
+         "* %?\n")
+        ("s" "someday/maybe"
+         entry (file+headline (concat org-directory "/someday-maybe.org") "someday/maybe")
+         "* %?\n  %u"))
       org-catch-invisible-edit 'show-and-error
       org-columns-default-format "#+COLUMNS: %40ITEM(Task) %8TIME{:} %6CLOCKSUM"
       org-fontify-done-headline t      ;; change headline face when marked DONE
       org-global-properties
-      '(("Effort_ALL" . "0 0:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
+      '(("Effort_ALL" . "0 0:05 0:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
       org-log-into-drawer t            ;; insert notes & time stamps into drawer
+      org-refile-targets '(("clients.org" :level . 1)
+                           ("general.org" :maxlevel . 2)
+                           ("projects.org" :level . 2)
+                           ("reference.org" :level . 2)
+                           ("someday-maybe.org" :level . 1))
       org-src-fontify-natively t       ;; fontify code in blocks
-      org-tags-column -112             ;; optimized for 112 column display
+      org-tags-column -102             ;; optimized for org-mode heading 1/2
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
