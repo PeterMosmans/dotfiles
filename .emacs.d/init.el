@@ -309,7 +309,6 @@
   )
 
 (use-package yasnippet
-  :bind ([f4] . yas-insert-snippet)
   :commands yas-minor-mode
   :config
   (if (boundp 'my-snippet-dirs)
