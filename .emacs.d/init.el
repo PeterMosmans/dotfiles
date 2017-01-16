@@ -521,14 +521,14 @@
             (yas-minor-mode 1)))
 
 (add-hook 'prog-mode-hook
-  (lambda ()
-      (linum-mode 1)
-      (highlight-indentation-mode 1)
-      (yafolding-mode 1)
-      (yas-minor-mode 1)
-      (if (featurep 'flycheck-mode)
-          (flycheck-mode 1))
-      (fci-mode 1)))
+          (lambda ()
+            (linum-mode 1)
+            (highlight-indentation-mode 1)
+            (yafolding-mode 1)
+            (yas-minor-mode 1)
+            (if (featurep 'flycheck-mode)
+                (flycheck-mode 1))
+            (fci-mode 1)))
 
 (add-hook 'sh-mode-hook
           (lambda ()
@@ -664,7 +664,7 @@
 (global-set-key (kbd "M-<f3>") 'mark-whole-buffer)
 
 ;; scratchpad, text modes, closing
-;; f4: yas-insert-snippet
+;; f4: execute macro (kmacro-end-and-call-macro)
 (global-set-key (kbd "S-<f4>") (lambda () (interactive) (switch-to-buffer "scratch.txt")))
 (global-set-key (kbd "C-<f4>") 'org-mode)
 (global-set-key (kbd "M-<f4>") 'save-buffers-kill-terminal)
