@@ -701,7 +701,7 @@
 
 
 ;;; SSH / PUTTY HACKS
-(if (eq window-system nil)             ;; terminal
+(if (eq system-uses-terminfo t)         ;; terminal
     (progn                              ;; PuTTY needs to be in SCO mode
       (xterm-mouse-mode 0)              ;; use mouse even in terminal mode
       (menu-bar-mode 0)                 ;; disable menu bar
