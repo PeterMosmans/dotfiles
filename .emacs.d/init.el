@@ -447,6 +447,7 @@
          "* %?\n  %u"))
       org-catch-invisible-edit 'show-and-error
       org-columns-default-format "#+COLUMNS: %40ITEM(Task) %8TIME{:} %6CLOCKSUM"
+      org-cycle-separator-lines 0      ;; no empty lines needed between subtrees
       org-fontify-done-headline t      ;; change headline face when marked DONE
       org-global-properties
       '(("Effort_ALL" . "0 0:05 0:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
