@@ -974,7 +974,7 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 
 (defun place-agenda-tags ()
   "Put the agenda tags by the right border of the agenda window."
-  (setq org-agenda-tags-column (- 4 (window-width)))
+  (setq org-agenda-tags-column (- (window-width)))
   (org-agenda-align-tags))
 
 (defun set-bfr-to-utf-8-unix ()
