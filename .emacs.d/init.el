@@ -482,10 +482,11 @@
  '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
  '(org-level-2 ((t (:inherit outline-1 :height 1.1)))))
 ;; hooks
-(add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
 (add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
 (add-hook 'org-clock-in-hook 'save-buffer)   ;; save buffer when clocking in...
+(add-hook 'org-clock-in-prepare-hook 'my-org-mode-ask-effort)
 (add-hook 'org-clock-out-hook 'save-buffer)  ;; ...and clocking out
+(add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
 (add-hook 'org-mode-hook
           (lambda ()
             (linum-mode 0)
@@ -830,6 +831,16 @@ Return a list of one element based on major mode."
          mode-name
        (symbol-name major-mode))
      ))))
+
+(defun my-org-mode-ask-effort ()
+  "Ask for an effort estimate when clocking in."
+  (unless (org-entry-get (point) "Effort")
+    (let ((effort
+           (completing-read
+            "Effort: "
+            (org-entry-get-multivalued-property (point) "Effort"))))
+      (unless (equal effort "")
+        (org-set-property "Effort" effort)))))
 
 (defmacro ediff-char-to-buftype (arg)
   `(cond ((memq ,arg '(?a ?A)) 'A)
