@@ -569,7 +569,9 @@
                 (progn
                   (find-file my-scratch-file)  ;; only show it if it's the only file
                   (if (get-buffer "*scratch*")
-                      (kill-buffer "*scratch*"))))))
+                      (kill-buffer "*scratch*"))))
+            (open-custom-agenda)
+            ))
 
 ;; workaround to make sure that font is being set when running in daemon mode
 (if (daemonp)
