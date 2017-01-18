@@ -446,7 +446,7 @@
          entry (file+headline (concat org-directory "/someday-maybe.org") "someday/maybe")
          "* %?\n  %u"))
       org-catch-invisible-edit 'show-and-error
-      org-columns-default-format "#+COLUMNS: %40ITEM(Task) %8TIME{:} %6CLOCKSUM"
+      org-columns-default-format "#+COLUMNS: %60ITEM(Task) %8Effort(estimate){:} %8CLOCKSUM(clocked){:} %8CLOCKSUM_T(today){:}"
       org-cycle-separator-lines 0      ;; no empty lines needed between subtrees
       org-fontify-done-headline t      ;; change headline face when marked DONE
       org-global-properties
