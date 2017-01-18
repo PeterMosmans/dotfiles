@@ -406,6 +406,7 @@
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c t") 'org-todo-list)
+(global-set-key (kbd "<f12>") 'open-custom-agenda)
 (global-set-key (kbd "S-<f12>") 'org-clock-in)
 (global-set-key (kbd "C-<f12>") 'org-clock-out)
 (global-set-key (kbd "M-<f12>") 'org-dblock-update)
