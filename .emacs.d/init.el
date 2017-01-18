@@ -649,6 +649,7 @@
 (global-set-key (kbd "C-(") 'check-parens) ;; matching parens
 (global-set-key (kbd "C-=") 'er/expand-region) ;; make selection bigger and bigger
 (global-set-key (kbd "M-;") 'comment-line)
+(global-set-key (kbd "C-M-t") 'insert-current-date-time)
 
 ;; function keys
 ;; f1: magit
@@ -701,9 +702,6 @@
 (global-set-key (kbd "<f11>") 'bookmark-jump)
 (global-set-key (kbd "S-<f11>") 'xah-run-current-file)
 (global-set-key (kbd "C-<f11>") 'bookmark-set)
-
-;; date / time
-(global-set-key (kbd "<f12>") 'insert-current-date-time)
 
 
 ;;; SSH / PUTTY HACKS
@@ -1195,6 +1193,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
 
 (defun open-custom-agenda ()
   "Opens custom agenda view"
+  (interactive)
   (org-agenda nil "o")
   )
 (run-with-idle-timer 600 t 'jump-to-org-agenda) ;; automatically show agenda
