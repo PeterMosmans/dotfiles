@@ -427,6 +427,7 @@
         (search category-keep))
       org-agenda-repeating-timestamp-show-all nil
       org-agenda-todo-keyword-format "[ ]"
+      org-archive-location (concat "archive/%s." (format-time-string "%Y" (current-time)) ".archive::")
       org-capture-templates
       '(("j" "Journal Entry"
          entry (file+datetree org-default-notes-file)
