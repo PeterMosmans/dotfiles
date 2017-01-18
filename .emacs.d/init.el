@@ -1171,6 +1171,30 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (defun add-d-to-ediff-mode-map ()
   (define-key ediff-mode-map "d" 'ediff-copy-D-to-C))
 
+(defun jump-to-org-agenda ()
+  (interactive)
+  (let ((buf (get-buffer "*Org Agenda*"))
+        wind)
+    (if buf
+        (if (setq wind (get-buffer-window buf))
+            (select-window wind)
+          (if (called-interactively-p)
+              (progn
+                (select-window (display-buffer buf t t))
+                (org-fit-window-to-buffer)
+                )
+            (with-selected-window (display-buffer buf)
+              (org-fit-window-to-buffer)
+              )))
+      (open-custom-agenda)))
+  )
+
+(defun open-custom-agenda ()
+  "Opens custom agenda view"
+  (org-agenda nil "o")
+  )
+(run-with-idle-timer 600 t 'jump-to-org-agenda) ;; automatically show agenda
+
 ;; http://zck.me/emacs-move-file
 (defun move-file (new-location)
   "Write this file to NEW-LOCATION, and delete the old one."
