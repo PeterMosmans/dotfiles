@@ -16,3 +16,4 @@ alias ds='dirs -v -p'
 alias editor=emacs
 # pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
+which winpty &>/dev/null && alias ipython='winpty ipython'
