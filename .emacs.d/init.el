@@ -413,12 +413,38 @@
 (setq org-directory my-org-directory
       org-default-notes-file (concat org-directory my-capture-file)
       org-agenda-compact-blocks t      ;; skip long block separators
+      org-agenda-custom-commands
+      '(
+        ("p" "Progress" agenda ""
+         ((org-agenda-entry-types '(:deadline))
+          (org-agenda-show-all-dates nil)  ;; hide dates with no appointment
+          (org-agenda-start-on-weekday nil)  ;; calendar begins today
+          (org-agenda-use-time-grid nil)  ;; don't show timegrid
+          (org-agenda-view-columns-initially t) ;; turn on column view
+          (org-deadline-warning-days 365)
+          ))
+        ("o" "Overview"
+         ((agenda "" ((org-agenda-ndays 14)
+                      (org-agenda-remove-tags t)
+                      (org-agenda-repeating-timestamp-show-all t)
+                      (org-agenda-show-all-dates nil)  ;; hide dates with no appointment
+                      (org-agenda-start-on-weekday nil)  ;; calendar begins today
+                      (org-agenda-todo-keyword-format "") ;1
+                      (org-agenda-use-time-grid nil)
+                      (org-agenda-entry-types '(:scheduled :deadline))
+                      ))
+          (tags "PRIORITY=\"A\"+TODO=\"TODO\""
+                ((org-agenda-overriding-header "\n============================================================")
+                 (org-agenda-todo-keyword-format ""))
+                )
+          )))
       org-agenda-files (list org-directory) ;; all files in the org-directory
       org-agenda-prefix-format '((agenda . "%6e ")  ;; org-agenda
                                  (search . "search %i %-12:c")
                                  (tags . "%6e %t")
                                  (timeline . "timeline % s")
                                  (todo . "%6e "))  ;; org-todo-list
+      org-agenda-remove-tags nil
       org-agenda-sorting-strategy
       '((agenda habit-down time-up priority-down category-keep)
         ;; order todo list based on the state
@@ -450,6 +476,7 @@
       org-catch-invisible-edit 'show-and-error
       org-columns-default-format "#+COLUMNS: %60ITEM(Task) %8Effort(estimate){:} %8CLOCKSUM(clocked){:} %8CLOCKSUM_T(today){:}"
       org-cycle-separator-lines 0      ;; no empty lines needed between subtrees
+      org-hide-leading-stars t         ;; only show one star per heading
       org-fontify-done-headline t      ;; change headline face when marked DONE
       org-global-properties
       '(("Effort_ALL" . "0 0:05 0:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
