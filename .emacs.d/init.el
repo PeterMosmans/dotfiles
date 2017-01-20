@@ -424,7 +424,8 @@
           (org-deadline-warning-days 365)
           ))
         ("o" "Overview"
-         ((agenda "" ((org-agenda-ndays 14)
+         ((agenda "" ((org-agenda-filter-by-tag "TODO=\"TODO\"")
+                      (org-agenda-ndays 14)
                       (org-agenda-remove-tags t)
                       (org-agenda-repeating-timestamp-show-all t)
                       (org-agenda-show-all-dates nil)  ;; hide dates with no appointment
