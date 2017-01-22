@@ -427,7 +427,7 @@
          ((agenda "" ((org-agenda-filter-by-tag "TODO=\"TODO\"")
                       (org-agenda-ndays 14)
                       (org-agenda-remove-tags t)
-                      (org-agenda-repeating-timestamp-show-all t)
+                      (org-agenda-repeating-timestamp-show-all nil)
                       (org-agenda-show-all-dates nil)  ;; hide dates with no appointment
                       (org-agenda-start-on-weekday nil)  ;; calendar begins today
                       (org-agenda-todo-keyword-format "") ;1
@@ -440,7 +440,7 @@
                 )
           )))
       org-agenda-files (list org-directory) ;; all files in the org-directory
-      org-agenda-prefix-format '((agenda . "%6e ")  ;; org-agenda
+      org-agenda-prefix-format '((agenda . "%7e")  ;; org-agenda
                                  (search . "search %i %-12:c")
                                  (tags . "%6e %t")
                                  (timeline . "timeline % s")
