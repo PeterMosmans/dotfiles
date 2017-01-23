@@ -409,7 +409,7 @@
 (global-set-key (kbd "<f12>") 'open-custom-agenda)
 (global-set-key (kbd "S-<f12>") 'org-clock-in)
 (global-set-key (kbd "C-<f12>") 'org-clock-out)
-(global-set-key (kbd "M-<f12>") 'org-dblock-update)
+(global-set-key (kbd "M-<f12>") 'calendar)
 (setq org-directory my-org-directory
       org-default-notes-file (concat org-directory my-capture-file)
       org-agenda-compact-blocks t      ;; skip long block separators
