@@ -348,10 +348,9 @@
               indent-tabs-mode nil)    ;; always use spaces for indentation
 
 ;; make sure that utf8 Unix line endings (LF) are default
-(setq-default buffer-file-coding-system 'utf-8-unix)
-(set-default-coding-systems 'utf-8-unix)
-(setq-default default-buffer-file-coding-system 'utf-8-unix)
-(prefer-coding-system 'utf-8-unix)
+
+;(set-default-coding-systems 'utf-8-unix)
+
 
 (setq
  auto-save-interval 1000               ;; automatically save after x characters
@@ -594,6 +593,9 @@
 ;; builtin hooks
 (add-hook 'after-init-hook
           (lambda ()
+            (setq-default default-buffer-file-coding-system 'utf-8-unix)
+            (setq-default buffer-file-coding-system 'utf-8-unix)
+            (prefer-coding-system 'utf-8-unix)
             (set-default-font my-font)
             (if (boundp 'my-scratch-file)
                 (progn
