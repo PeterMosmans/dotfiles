@@ -413,8 +413,7 @@
       org-default-notes-file (concat org-directory my-capture-file)
       org-agenda-compact-blocks t      ;; skip long block separators
       org-agenda-custom-commands
-      '(
-        ("p" "Progress" agenda ""
+      '(("p" "Progress" agenda ""
          ((org-agenda-entry-types '(:deadline))
           (org-agenda-show-all-dates nil)  ;; hide dates with no appointment
           (org-agenda-start-on-weekday nil)  ;; calendar begins today
@@ -423,17 +422,17 @@
           (org-deadline-warning-days 365)
           ))
         ("o" "Overview"
-         ((agenda "" ((org-agenda-filter-by-tag "TODO=\"TODO\"")
-                      (org-agenda-ndays 14)
-                      (org-agenda-remove-tags t)
+         ((agenda "" ((org-agenda-ndays 14)
+                      (org-agenda-skip-function '
+                       (org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
                       (org-agenda-repeating-timestamp-show-all nil)
                       (org-agenda-show-all-dates nil)  ;; hide dates with no appointment
                       (org-agenda-start-on-weekday nil)  ;; calendar begins today
-                      (org-agenda-todo-keyword-format "") ;1
+                      (org-agenda-todo-keyword-format "")
                       (org-agenda-use-time-grid nil)
                       (org-agenda-entry-types '(:scheduled :deadline))
                       ))
-          (tags "PRIORITY=\"A\"+TODO=\"TODO\""
+          (tags "+TODO=\"TODO\""
                 ((org-agenda-overriding-header "\n============================================================")
                  (org-agenda-todo-keyword-format ""))
                 )
@@ -446,11 +445,10 @@
                                  (todo . "%6e "))  ;; org-todo-list
       org-agenda-remove-tags nil
       org-agenda-sorting-strategy
-      '((agenda habit-down time-up priority-down category-keep)
-        ;; order todo list based on the state
-        (todo todo-state-up priority-down category-keep)
-        (tags priority-down category-keep)
-        (search category-keep))
+      '((agenda priority-down category-up time-up)
+        (todo priority-down category-up todo-state-up priority-down)
+        (tags priority-down category-up)
+        (search priority-down category-up))
       org-agenda-repeating-timestamp-show-all nil
       org-agenda-todo-keyword-format "[ ]"
       org-archive-location (concat "archive/%s." (format-time-string "%Y" (current-time)) ".archive::")
