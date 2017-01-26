@@ -1012,7 +1012,7 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 
 (defun place-agenda-tags ()
   "Put the agenda tags by the right border of the agenda window."
-  (setq org-agenda-tags-column (- (window-width)))
+  (setq org-agenda-tags-column (- 2 (window-width)))
   (org-agenda-align-tags))
 
 (defun set-bfr-to-utf-8-unix ()
@@ -1220,7 +1220,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
   "Clock in from within an org page as well as from within the agenda"
   (interactive)
   (condition-case nil
-       (org-clock-in)
+      (org-clock-in)
     (error (org-agenda-clock-in))))
 
 (defun open-custom-agenda ()
