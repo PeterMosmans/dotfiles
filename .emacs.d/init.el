@@ -404,7 +404,7 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c t") 'org-todo-list)
 (global-set-key (kbd "<f12>") 'open-custom-agenda)
-(global-set-key (kbd "S-<f12>") 'org-clock-in)
+(global-set-key (kbd "S-<f12>") 'org-clock-in-everywhere)
 (global-set-key (kbd "C-<f12>") 'org-clock-out)
 (global-set-key (kbd "M-<f12>") 'calendar)
 (setq org-directory my-org-directory
@@ -448,7 +448,7 @@
         (tags priority-down category-up)
         (search priority-down category-up))
       org-agenda-repeating-timestamp-show-all nil
-      org-agenda-todo-keyword-format "[ ]"
+      org-agenda-todo-keyword-format ""
       org-archive-location (concat "archive/%s." (format-time-string "%Y" (current-time)) ".archive::")
       org-capture-templates
       '(("j" "Journal Entry"
@@ -477,17 +477,13 @@
       org-global-properties
       '(("Effort_ALL" . "0 0:05 0:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
       org-log-into-drawer t            ;; insert notes & time stamps into drawer
-      org-refile-targets '(("clients.org" :level . 1)
-                           ("general.org" :maxlevel . 2)
-                           ("projects.org" :level . 2)
-                           ("reference.org" :level . 2)
-                           ("someday-maybe.org" :level . 1))
+      org-refile-targets '((org-agenda-files :maxlevel . 2))
       org-src-fontify-natively t       ;; fontify code in blocks
       org-tags-column -102             ;; optimized for org-mode heading 1/2
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
-      '((sequence "TODO(t)" "WAITING(w!)" "|" "DONE(d!)" "CANCELLED(c!)"))
+      '((sequence "TODO(t)" "WAITING(w!)" "|" "CANCELLED(c!)" "DONE(d!)" ))
       org-replace-disputed-keys t
       org-disputed-keys
       '(([(shift up)] . [(ctrl up)])
@@ -1217,6 +1213,13 @@ If the file is emacs lisp, run the byte compiled version if exist."
               )))
       (open-custom-agenda)))
   )
+
+(defun org-clock-in-everywhere ()
+  "Clock in from within an org page as well as from within the agenda"
+  (interactive)
+  (condition-case nil
+       (org-clock-in)
+    (error (org-agenda-clock-in))))
 
 (defun open-custom-agenda ()
   "Opens custom agenda view"
