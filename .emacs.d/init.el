@@ -411,36 +411,38 @@
       org-default-notes-file (concat org-directory my-capture-file)
       org-agenda-compact-blocks t      ;; skip long block separators
       org-agenda-custom-commands
-      '(("p" "Progress" agenda ""
+      '(("o" "Overview"
+         ((agenda "" (
+                      (org-agenda-entry-types '(:scheduled :deadline))
+                      (org-agenda-ndays 14)
+                      (org-agenda-remove-tags t)
+                      (org-agenda-repeating-timestamp-show-all nil)
+                      (org-agenda-show-all-dates nil)  ;; hide dates with no appointment
+                      (org-agenda-skip-deadline-if-done t)
+                      (org-agenda-skip-scheduled-if-done t)
+                      (org-agenda-start-on-weekday nil)  ;; calendar begins today
+                      (org-agenda-use-time-grid nil)
+                      ))
+          (tags "+TODO=\"TODO\""
+                (
+                 (org-agenda-overriding-header "\n= = = = = = = = = = = = =")
+                 (org-agenda-prefix-format " %i")
+                 (org-agenda-sorting-strategy '(priority-down category-up tag-up))
+                 ))))
+        ("p" "Progress" agenda ""
          ((org-agenda-entry-types '(:deadline))
           (org-agenda-show-all-dates nil)  ;; hide dates with no appointment
           (org-agenda-start-on-weekday nil)  ;; calendar begins today
           (org-agenda-use-time-grid nil)  ;; don't show timegrid
           (org-agenda-view-columns-initially t) ;; turn on column view
           (org-deadline-warning-days 365)
-          ))
-        ("o" "Overview"
-         ((agenda "" ((org-agenda-ndays 14)
-                      (org-agenda-skip-function '
-                       (org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
-                      (org-agenda-repeating-timestamp-show-all nil)
-                      (org-agenda-show-all-dates nil)  ;; hide dates with no appointment
-                      (org-agenda-start-on-weekday nil)  ;; calendar begins today
-                      (org-agenda-todo-keyword-format "")
-                      (org-agenda-use-time-grid nil)
-                      (org-agenda-entry-types '(:scheduled :deadline))
-                      ))
-          (tags "+TODO=\"TODO\""
-                ((org-agenda-overriding-header "\n============================================================")
-                 (org-agenda-todo-keyword-format ""))
-                )
           )))
       org-agenda-files (list org-directory) ;; all files in the org-directory
-      org-agenda-prefix-format '((agenda . "%7e")  ;; org-agenda
-                                 (search . "search %i %-12:c")
-                                 (tags . "%6e %t")
+      org-agenda-prefix-format '((agenda . " %i%7e ")  ;; org-agenda
+                                 (search . "search %-12:c")
+                                 (tags . " %6e %t")
                                  (timeline . "timeline % s")
-                                 (todo . "%6e "))  ;; org-todo-list
+                                 (todo . " %i%6e"))  ;; org-todo-list
       org-agenda-remove-tags nil
       org-agenda-sorting-strategy
       '((agenda priority-down category-up time-up)
