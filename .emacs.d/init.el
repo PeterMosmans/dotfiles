@@ -68,7 +68,7 @@
 (run-with-idle-timer 5 nil
                      (lambda ()
                        (setq gc-cons-threshold 800000)
-                       (require 'server) 
+                       (require 'server)
                        (or (server-running-p) ;; start server if not already running
                            (server-start))))
 
@@ -93,8 +93,8 @@
 
 (use-package bm
   :ensure t
-  :bind (("M-b" . bm-toggle)
-         ("C-b" . bm-next))
+  :bind (("C-<f2>" . bm-toggle)
+         ("M-<f2>" . bm-next))
   )
 
 (use-package dash
