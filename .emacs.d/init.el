@@ -224,12 +224,21 @@
   (add-to-list 'custom-safe-themes
                '"3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa"
                '"6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f")
-  (size-indication-mode 0)             ;; disable file size mode
-  (setq display-time-24hr-format t
+  (setq display-time-default-load-average nil  ;; hide load average
         display-time-format "%H:%M"
-        display-time-default-load-average nil  ;; hide load average
-        sml/name-width 40
-        sml/mode-width 'full
+        display-time-24hr-format t
+        rm-blacklist
+        (format "^ \\(%s\\)$"          ;; hide some generic modes
+                (mapconcat #'identity
+                           '("ARev"
+                             "Fill"
+                             "Helm"
+                             "ws"
+                             "Wrap"
+                             "Guide")
+                           "\\|"))
+        sml/name-width 20
+        ;; sml/mode-width t
         sml/theme 'dark)
   (display-time)                       ;; show time in modeline
   (if (boundp 'my-replacer-list)
