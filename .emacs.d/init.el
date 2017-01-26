@@ -502,7 +502,7 @@
       )
 (custom-set-faces
  '(org-done ((t (:strike-through t))))
- '(org-level-1 ((t (:inherit outline-1 :height 1.2))))
+ '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
  '(org-level-2 ((t (:inherit outline-1 :height 1.1)))))
 ;; hooks
 (add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
