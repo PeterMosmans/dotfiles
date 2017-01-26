@@ -347,9 +347,7 @@
               line-spacing 0
               indent-tabs-mode nil)    ;; always use spaces for indentation
 
-;; make sure that utf8 Unix line endings (LF) are default
 
-;(set-default-coding-systems 'utf-8-unix)
 
 
 (setq
@@ -591,6 +589,7 @@
 ;; builtin hooks
 (add-hook 'after-init-hook
           (lambda ()
+            ;; make sure that utf8 Unix line endings (LF) are default
             (setq-default default-buffer-file-coding-system 'utf-8-unix)
             (setq-default buffer-file-coding-system 'utf-8-unix)
             (prefer-coding-system 'utf-8-unix)
