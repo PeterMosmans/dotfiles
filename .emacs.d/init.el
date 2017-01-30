@@ -496,13 +496,13 @@
       org-global-properties
       '(("Effort_ALL" . "0 0:05 0:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
       org-log-into-drawer t            ;; insert notes & time stamps into drawer
-      org-refile-targets '((org-agenda-files :maxlevel . 3))
+      org-refile-targets '((org-agenda-files :level . 2))
       org-src-fontify-natively t       ;; fontify code in blocks
       org-tags-column -102             ;; optimized for org-mode heading 1/2
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
-      '((sequence "TODO(t)" "WAITING(w!)" "|" "CANCELLED(c!)" "DONE(d!)" ))
+      '((sequence "TODO(t)" "REGISTRATION(r)" "WAITING(w!)" "|" "CANCELLED(c!)" "DONE(d!)" ))
       org-replace-disputed-keys t
       org-disputed-keys
       '(([(shift up)] . [(ctrl up)])
