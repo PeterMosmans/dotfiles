@@ -420,7 +420,15 @@
       org-default-notes-file (concat org-directory my-capture-file)
       org-agenda-compact-blocks t      ;; skip long block separators
       org-agenda-custom-commands
-      '(("o" "Overview"
+      '(("c" "category / tag ordened tasks for clocking purposes"
+         (
+          (tags "+TODO=\"TODO\""
+                (
+                 (org-agenda-overriding-header "Ordened by category / tag")
+                 (org-agenda-prefix-format " %i %b")
+                 (org-agenda-sorting-strategy '(category-up tag-up))
+                 ))))
+        ("o" "Overview"
          ((agenda "" (
                       (org-agenda-entry-types '(:scheduled :deadline))
                       (org-agenda-ndays 14)
