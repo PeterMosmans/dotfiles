@@ -230,7 +230,8 @@
         rm-blacklist
         (format "^ \\(%s\\)$"          ;; hide some generic modes
                 (mapconcat #'identity
-                           '("ARev"
+                           '("||"
+                             "ARev"
                              "Fill"
                              "Helm"
                              "ws"
