@@ -415,7 +415,7 @@
 (global-set-key (kbd "<f12>") 'open-custom-agenda)
 (global-set-key (kbd "S-<f12>") 'org-clock-in-everywhere)
 (global-set-key (kbd "C-<f12>") 'org-clock-out)
-(global-set-key (kbd "M-<f12>") 'calendar)
+(global-set-key (kbd "M-<f12>") 'org-clock-show-list)
 (setq org-directory my-org-directory
       org-default-notes-file (concat org-directory my-capture-file)
       org-agenda-compact-blocks t      ;; skip long block separators
@@ -1236,9 +1236,15 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (defun org-clock-in-everywhere ()
   "Clock in from within an org page as well as from within the agenda"
   (interactive)
-  (condition-case nil
-      (org-clock-in)
-    (error (org-agenda-clock-in))))
+  (if (equal major-mode 'org-agenda-mode)
+      (org-agenda-clock-in)
+    (org-clock-in)))
+
+(defun org-clock-show-list ()
+  "Show org clock history list"
+  (interactive)
+    (let ((current-prefix-arg '(4)))
+      (call-interactively 'org-clock-in)))
 
 (defun open-custom-agenda ()
   "Opens custom agenda view"
