@@ -497,27 +497,19 @@
       '(("Effort_ALL" . "0 0:05 0:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
       org-log-into-drawer t            ;; insert notes & time stamps into drawer
       org-refile-targets '((org-agenda-files :level . 2))
+      org-support-shift-select t       ;; keep using shift as selector
       org-src-fontify-natively t       ;; fontify code in blocks
       org-tags-column -102             ;; optimized for org-mode heading 1/2
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
-      '((sequence "TODO(t)" "REGISTRATION(r)" "WAITING(w!)" "|" "CANCELLED(c!)" "DONE(d!)" ))
-      org-replace-disputed-keys t
-      org-disputed-keys
-      '(([(shift up)] . [(ctrl up)])
-        ([(shift down)] . [(ctrl down)])
-        ([(shift left)] . [(ctrl left)])
-        ([(shift right)] . [(ctrl right)])
-        ([(shift meta right)] . [(shift control right)])
-        ([(shift meta left)] . [(shift control left)])
-        ([(shift meta up)] . [(shift control up)])
-        ([(shift meta down)] . [(shift control down)])
-        ([(shift control right)] . [(shift meta right)])
-        ([(control a)] . [(shift control a)])
-        ([(shift control left)] . [(shift meta left)]))
+      '((sequence "TODO(t)" "REGISTRATION(r)" "WAITING(w!)" "DELEGATED(e@)" "|" "CANCELLED(c!)" "DONE(d!)" ))
       )
 (custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(org-done ((t (:strike-through t))))
  '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
  '(org-level-2 ((t (:inherit outline-1 :height 1.1)))))
