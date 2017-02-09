@@ -138,7 +138,8 @@
   :bind (("M-x" . helm-M-x)
          ("M-<f5>" . helm-find-files)
          ([f10] . helm-buffers-list)
-         ([S-f10] . helm-recentf))
+         ([S-f10] . helm-recentf)
+         ([capslock] . helm-M-x))
   :config
   (helm-mode t)
   (helm-autoresize-mode t)
@@ -395,8 +396,7 @@
 (global-font-lock-mode 1)              ;; syntax highlighting on by default
 (global-linum-mode 0)                  ;; disable global line numbers
 (global-visual-line-mode 1)            ;; act on visual lines, enable word wrap
-(global-set-key [capslock] 'helm-M-x)
-(cua-mode t)                           ;; enable CUA mode (C-z, C-x, C-c, C-v)
+
 (recentf-mode 1)                       ;; turn recently opened files mode on
 ;; show week numbers
 (setq calendar-intermonth-text
