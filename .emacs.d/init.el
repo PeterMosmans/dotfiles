@@ -369,6 +369,7 @@
  completion-ignore-case t              ;; ignore case when completing
  dired-listing-switches "-agoh"
  ediff-window-setup-function 'ediff-setup-windows-plain
+ inhibit-compacting-font-caches t      ;; speed up displaying Unicode glyphs
  inhibit-startup-echo-area-message nil
  inhibit-startup-message t             ;; remove welcome message
  line-spacing nil
