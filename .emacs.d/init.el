@@ -676,10 +676,6 @@
 
 ;; miscellaneous (for consistency)
 (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
-(global-set-key (kbd "C-n") 'find-file)
-(global-set-key (kbd "C-f") 'isearch-forward)
-(global-set-key (kbd "C-c u") 'set-bfr-to-utf-8-unix)
-;; (global-set-key (kbd "C-w") (lambda () (interactive) (kill-buffer nil)))
 (global-set-key (kbd "C-S-b") 'bookmark-bmenu-list)
 (global-set-key (kbd "C-(") 'check-parens) ;; matching parens
 (global-set-key (kbd "C-=") 'er/expand-region) ;; make selection bigger and bigger
