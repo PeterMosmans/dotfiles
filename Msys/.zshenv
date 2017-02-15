@@ -29,6 +29,8 @@ export tmp=/tmp
 if [[ "$TERM" == "emacs" ]]; then
     # Make sure that shell-mode properly works with Emacs
     export TERM=eterm-color
+elif [[ "$TERM" == "xterm" ]]; then
+    export TERM=xterm-256color
 fi
 
 # update shortcut
