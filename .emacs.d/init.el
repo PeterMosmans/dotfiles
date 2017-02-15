@@ -359,8 +359,6 @@
               indent-tabs-mode nil)    ;; always use spaces for indentation
 
 
-
-
 (setq
  auto-save-interval 1000               ;; automatically save after x characters
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
@@ -369,9 +367,13 @@
  completion-ignore-case t              ;; ignore case when completing
  dired-listing-switches "-agoh"
  ediff-window-setup-function 'ediff-setup-windows-plain
+ global-font-lock-mode 1               ;; syntax highlighting on by default
+ global-linum-mode 0                   ;; disable global line numbers
+ global-visual-line-mode 1             ;; act on visual lines, enable word wrap
  inhibit-compacting-font-caches t      ;; speed up displaying Unicode glyphs
  inhibit-startup-echo-area-message nil
  inhibit-startup-message t             ;; remove welcome message
+ kill-whole-line t                     ;; kill whole line including newline
  line-spacing nil
  make-backup-files nil                 ;; do not create backups
  message-log-max t                     ;; keep and log all messages
@@ -380,26 +382,22 @@
  read-file-name-completion-ignore-case t
  recentf-max-menu-items 15             ;; show maximum x recent menu items
  recentf-max-saved-items 100           ;; save maximum x recent files
+ recentf-mode 1                        ;; enable recently opened files mode
  recentf-save-file "~/.emacs.d/recentfiles.emacs"
  scroll-conservatively 10000
  scroll-margin 1
  scroll-preserve-screen-position 1
  scroll-step 1
- sentence-end-double-space nil         ;; don't use double spaces after a dot
+ sentence-end-double-space t           ;; consider single space a sentence break
+ show-paren-mode t                     ;; show matching parentheses
  show-paren-style 'expression          ;; highlight entire bracket expression
  size-indication-mode nil              ;; disable file size mode
  tab-width 4                           ;; default tab width
  tramp-default-method "sshx"           ;; faster than the default scp
  use-package-always-ensure t           ;; always install missing packages
- ;; visible-bell nil                      ;; mute bell sound
  )
-(fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no
-(show-paren-mode t)                    ;; show matching parentheses
-(global-font-lock-mode 1)              ;; syntax highlighting on by default
-(global-linum-mode 0)                  ;; disable global line numbers
-(global-visual-line-mode 1)            ;; act on visual lines, enable word wrap
+(fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no questions
 
-(recentf-mode 1)                       ;; turn recently opened files mode on
 ;; show week numbers
 (setq calendar-intermonth-text
       '(propertize
