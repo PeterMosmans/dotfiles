@@ -158,6 +158,10 @@
   :ensure t
   )
 
+(use-package helm-tramp
+  :ensure t
+  )
+
 (use-package highlight-indentation
   :commands highlight-indentation-mode
   :config
@@ -389,13 +393,14 @@
  scroll-preserve-screen-position 1
  scroll-step 1
  sentence-end-double-space t           ;; consider single space a sentence break
- show-paren-mode t                     ;; show matching parentheses
+ show-paren-delay 0
  show-paren-style 'expression          ;; highlight entire bracket expression
  size-indication-mode nil              ;; disable file size mode
  tab-width 4                           ;; default tab width
  tramp-default-method "sshx"           ;; faster than the default scp
  use-package-always-ensure t           ;; always install missing packages
  )
+(show-paren-mode 1)
 (fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no questions
 
 ;; show week numbers
