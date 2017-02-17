@@ -681,7 +681,6 @@
 
 ;; miscellaneous (for consistency)
 (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
-(global-set-key (kbd "C-S-b") 'bookmark-bmenu-list)
 (global-set-key (kbd "C-(") 'check-parens) ;; matching parens
 (global-set-key (kbd "C-=") 'er/expand-region) ;; make selection bigger and bigger
 (global-set-key (kbd "M-;") 'comment-line)
