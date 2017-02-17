@@ -509,7 +509,7 @@
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
-      '((sequence "TODO(t)" "REGISTRATION(r)" "WAITING(w!)" "DELEGATED(e@)" "|" "CANCELLED(c!)" "DONE(d!)" ))
+      '((sequence "TODO(t)" "REGISTRATION(r)" "WAITING(w)" "DELEGATED(e)" "|" "CANCELLED(c)" "DONE(d)" ))
       )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
