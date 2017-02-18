@@ -122,11 +122,11 @@ setopt NULL_GLOB
 setopt NO_BEEP
 
 # create hashes for all subdirectories / repositories
-for sub in ${REPOSPUB} ${REPOSPRIV}; do
-    if [ -d ${sub} ]; then
-        pushd ${sub} &>/dev/null
+for sub in public private projects; do
+    if [ -d ${REPOS}/${sub} ]; then
+        pushd ${REPOS}/${sub} &>/dev/null
         for repo in echo *(/); do
-            hash -d ${repo}=${sub}/${repo}
+            hash -d ${repo}=${REPOS}/${sub}/${repo}
         done
         popd &>/dev/null
     fi
