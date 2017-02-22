@@ -97,8 +97,23 @@
          ("M-<f2>" . bm-next))
   )
 
+(use-package company
+  :ensure t
+  )
+
+(use-package company-jedi
+  :ensure t
+  )
+
 (use-package dash
   :defer t
+  )
+
+(use-package elpy
+  :config
+  (setq elpy-rpc-backend "jedi")
+  (elpy-enable)
+  :ensure t
   )
 
 (use-package fill-column-indicator
