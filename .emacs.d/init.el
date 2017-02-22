@@ -386,7 +386,6 @@
  read-file-name-completion-ignore-case t
  recentf-max-menu-items 15             ;; show maximum x recent menu items
  recentf-max-saved-items 100           ;; save maximum x recent files
- recentf-mode 1                        ;; enable recently opened files mode
  recentf-save-file "~/.emacs.d/recentfiles.emacs"
  scroll-conservatively 10000
  scroll-margin 1
@@ -400,6 +399,8 @@
  tramp-default-method "sshx"           ;; faster than the default scp
  use-package-always-ensure t           ;; always install missing packages
  )
+(delete-selection-mode 1)              ;; automatically overwrite selected text
+(recentf-mode 1)                       ;; enable recently opened files mode
 (show-paren-mode 1)
 (fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no questions
 
