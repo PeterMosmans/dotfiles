@@ -576,10 +576,13 @@
             (auto-fill-mode 1)
             (highlight-indentation-mode t)
             (linum-mode 1)
-            (yas-minor-mode 1)))
+            (yas-minor-mode 1)
+            (local-set-key "\C-y\C-y" 'yank)
+            ))
 
 (add-hook 'prog-mode-hook
           (lambda ()
+            (company-mode 1)
             (linum-mode 1)
             (highlight-indentation-mode 1)
             (yafolding-mode 1)
