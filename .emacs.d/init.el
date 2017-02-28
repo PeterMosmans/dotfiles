@@ -1249,8 +1249,8 @@ If the file is emacs lisp, run the byte compiled version if exist."
 
 (defun my-org-confirm-babel-evaluate (lang body)
   "Do not ask for confirmation to evaluate code for specified languages."
-  (not (member lang '(("plantuml")
-                      ("python")))))
+ (member lang '(("plantuml")
+                ("python"))))
 
 (defun org-clock-in-everywhere ()
   "Clock in from within an org page as well as from within the agenda"
