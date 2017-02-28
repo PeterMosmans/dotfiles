@@ -512,6 +512,7 @@
          "* %?\n  %u"))
       org-catch-invisible-edit 'show-and-error
       org-columns-default-format "#+COLUMNS: %60ITEM(Task) %8Effort(estimate){:} %8CLOCKSUM(clocked){:} %8CLOCKSUM_T(today){:}"
+      org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate
       org-cycle-separator-lines 0      ;; no empty lines needed between subtrees
       org-hide-leading-stars t         ;; only show one star per heading
       org-fontify-done-headline t      ;; change headline face when marked DONE
@@ -537,6 +538,7 @@
  '(org-level-2 ((t (:inherit outline-1 :height 1.1)))))
 ;; hooks
 (add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 (add-hook 'org-clock-in-hook 'save-buffer)   ;; save buffer when clocking in...
 (add-hook 'org-clock-in-prepare-hook 'my-org-mode-ask-effort)
 (add-hook 'org-clock-out-hook 'save-buffer)  ;; ...and clocking out
@@ -1241,6 +1243,11 @@ If the file is emacs lisp, run the byte compiled version if exist."
               )))
       (open-custom-agenda)))
   )
+
+(defun my-org-confirm-babel-evaluate (lang body)
+  "Do not ask for confirmation to evaluate code for specified languages."
+  (not (member lang '(("plantuml")
+                      ("python")))))
 
 (defun org-clock-in-everywhere ()
   "Clock in from within an org page as well as from within the agenda"
