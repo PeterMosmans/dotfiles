@@ -430,8 +430,9 @@
 (global-set-key (kbd "S-<f12>") 'org-clock-in-everywhere)
 (global-set-key (kbd "C-<f12>") 'org-clock-out)
 (global-set-key (kbd "M-<f12>") 'org-clock-show-list)
-(setq org-directory my-org-directory
-      org-default-notes-file (concat org-directory my-capture-file)
+(if (file-exists-p my-org-directory)  ;; use my-org-directory if it exists
+    (setq org-directory my-org-directory))
+(setq org-default-notes-file (concat org-directory my-capture-file)
       org-agenda-compact-blocks t      ;; skip long block separators
       org-agenda-custom-commands
       '(("c" "category / tag ordened tasks for clocking purposes"
