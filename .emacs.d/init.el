@@ -1260,7 +1260,13 @@ If the file is emacs lisp, run the byte compiled version if exist."
   (interactive)
   (org-agenda nil "o")
   )
-(run-with-idle-timer 600 t 'jump-to-org-agenda) ;; automatically show agenda
+;(run-with-idle-timer 600 t 'jump-to-org-agenda) ;; automatically show agenda
+
+(defun save-kill-buffer ()
+  "Saves buffer and kills (closes) it"
+  (interactive
+   ((save-buffer)
+   (kill-this-buffer))))
 
 ;; http://zck.me/emacs-move-file
 (defun move-file (new-location)
