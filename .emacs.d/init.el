@@ -212,14 +212,6 @@
   :ensure t
   )
 
-(use-package ntcmd
-  ;; :ensure t
-  ;; :init
-  ;; (add-hook 'ntcmd-mode-hook 'enable-programmer-mode)
-  :mode (("\\.cmd\\'" . ntcmd-mode)
-         ("\\.ini\\'" . ntcmd-mode))
-  )
-
 (use-package projectile
   :bind ("M-<f10>" . projectile-ibuffer)
   :config
