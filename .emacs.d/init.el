@@ -522,7 +522,6 @@
       org-refile-targets '((org-agenda-files :level . 2))
       org-support-shift-select t       ;; keep using shift as selector
       org-src-fontify-natively t       ;; fontify code in blocks
-      org-tags-column -102             ;; optimized for org-mode heading 1/2
       org-time-clocksum-format         ;; don't show days
       '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
@@ -635,6 +634,11 @@
                       (kill-buffer "*scratch*"))))
             (open-custom-agenda)
             ))
+
+(add-hook 'window-configuration-change-hook
+          (lambda()
+            (my-align-org-tags)))
+
 
 ;; workaround to make sure that font is being set when running in daemon mode
 (if (daemonp)
@@ -1251,6 +1255,11 @@ If the file is emacs lisp, run the byte compiled version if exist."
   "Do not ask for confirmation to evaluate code for specified languages."
  (member lang '(("plantuml")
                 ("python"))))
+
+(defun my-align-org-tags ()
+  "Align org-mode tags to the right border of the screen."
+  (interactive)
+  (setq org-tags-column (- 15 (window-width))))
 
 (defun org-clock-in-everywhere ()
   "Clock in from within an org page as well as from within the agenda"
