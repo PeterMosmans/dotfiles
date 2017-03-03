@@ -190,7 +190,8 @@
   )
 
 (use-package magit
-  :bind ([f1] . magit-status)
+  :bind (([f1] . magit-status)
+        ("C-c m" . magit-status))
   :config
   (setq magit-diff-auto-show nil)
   :defer t
