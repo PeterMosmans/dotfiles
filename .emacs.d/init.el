@@ -204,7 +204,8 @@
   )
 
 (use-package neotree
-  :bind ("M-<f8>" . neotree-toggle)
+  :bind (("M-<f8>" . neotree-toggle)
+         ("C-c n" . neotree-toggle))
   :commands (neotree)
   :config
   (setq  neo-show-hidden-files t
