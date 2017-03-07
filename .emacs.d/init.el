@@ -1255,9 +1255,11 @@ If the file is emacs lisp, run the byte compiled version if exist."
   )
 
 (defun my-org-confirm-babel-evaluate (lang body)
-  "Do not ask for confirmation to evaluate code for specified languages."
- (member lang '(("plantuml")
-                ("python"))))
+  "When the language is known, return false (don't ask for confirmation).
+   If true, ask for confirmation to evaluate code."
+  (message "Check language %s" lang)
+  (member lang '(("plantuml")
+                 ("python"))))
 
 (defun my-align-org-tags ()
   "Align org-mode tags to the right border of the screen."
