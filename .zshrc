@@ -115,7 +115,7 @@ setopt HIST_FIND_NO_DUPS
 # + INC_APPEND_HISTORY :: adds entries to history as they are typed (don't wait for exit)
 # setopt INC_APPEND_HISTORY
 # + SHARE_HISTORY :: share history between different zsh processes
-# setopt SHARE_HISTORY
+unsetopt SHARE_HISTORY
 # Don't error out on zero matches
 setopt NULL_GLOB
 ## Line editor
