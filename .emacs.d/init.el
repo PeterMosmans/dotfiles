@@ -367,14 +367,11 @@
 
 ;; OS-specific settings
 (if (string= system-type "windows-nt")
-    (progn
-      (setq find-program "c:/tools/find.exe" ;; use GNU find instead of Microsoft's
-            w32-enable-caps-lock nil)))      ;; free the capslock key for useful stuff
+    (setq w32-enable-caps-lock nil))      ;; free the capslock key for useful stuff
 
 (setq-default fill-column 80           ;; width of the screen for wrapping
               line-spacing 0
               indent-tabs-mode nil)    ;; always use spaces for indentation
-
 
 (setq
  auto-save-interval 1000               ;; automatically save after x characters
