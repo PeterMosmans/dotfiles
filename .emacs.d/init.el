@@ -440,7 +440,8 @@
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((plantuml . t)
-   (python . t)))
+   (python . t)
+   (shell . t)))
 
 (setq org-default-notes-file (concat org-directory my-capture-file)
       org-agenda-compact-blocks t      ;; skip long block separators
