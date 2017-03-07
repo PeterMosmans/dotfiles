@@ -111,7 +111,8 @@
 
 (use-package elpy
   :config
-  (setq elpy-rpc-backend "jedi")
+  (setq elpy-rpc-backend "jedi"
+        python-shell-completion-native-enable nil)
   (elpy-enable)
   :ensure t
   )
