@@ -90,6 +90,7 @@
 ;; init:      always execute code *before* a package is loaded
 ;; load-path: path of the files for local packages
 ;; mode:      deferred binding
+;; pin:       pin to a specific repository
 
 (use-package bm
   :ensure t
@@ -192,11 +193,12 @@
 
 (use-package magit
   :bind (([f1] . magit-status)
-        ("C-c m" . magit-status))
+         ("C-c m" . magit-status))
   :config
   (setq magit-diff-auto-show nil)
   :defer t
   :ensure t
+  :pin melpa-stable
   )
 
 (use-package markdown-mode
@@ -341,6 +343,7 @@
         (add-to-list 'yas-snippet-dirs item)))
   (yas-reload-all)
   :ensure t
+  :pin melpa-stable
   )
 
 
