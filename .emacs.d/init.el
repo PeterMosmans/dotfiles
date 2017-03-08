@@ -1277,21 +1277,39 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (defun org-clock-show-list ()
   "Show org clock history list"
   (interactive)
-    (let ((current-prefix-arg '(4)))
-      (call-interactively 'org-clock-in)))
+  (let ((current-prefix-arg '(4)))
+    (call-interactively 'org-clock-in)))
 
 (defun open-custom-agenda ()
   "Opens custom agenda view"
   (interactive)
   (org-agenda nil "o")
   )
-;(run-with-idle-timer 600 t 'jump-to-org-agenda) ;; automatically show agenda
+                                        ;(run-with-idle-timer 600 t 'jump-to-org-agenda) ;; automatically show agenda
 
 (defun save-kill-buffer ()
   "Saves buffer and kills (closes) it"
   (interactive
    ((save-buffer)
-   (kill-this-buffer))))
+    (kill-this-buffer))))
+
+(defun my-pentext-builder ()
+  "Searches for a build script in underlying directories, and if found,
+  asynchronously runs the script."
+  (interactive)
+  (setq builder nil)
+  (dolist (file '("../../build" "../build"))
+    (if (file-exists-p file)
+        (setq builder file)))
+  (if builder
+      (progn
+        (message "Build process started...")
+        (async-start
+         (lambda ()
+           (shell-command-to-string "../build"))
+         (lambda (result)
+           (message "%s" result))))
+    (message "Not in a Pentext directory")))
 
 ;; http://zck.me/emacs-move-file
 (defun move-file (new-location)
