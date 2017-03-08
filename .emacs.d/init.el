@@ -1259,8 +1259,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
   "When the language is known, return false (don't ask for confirmation).
    If true, ask for confirmation to evaluate code."
   (message "Check language %s" lang)
-  (member lang '(("plantuml")
-                 ("python"))))
+  (not (member lang '("plantuml" "python" "shell"))))
 
 (defun my-align-org-tags ()
   "Align org-mode tags to the right border of the screen."
