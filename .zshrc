@@ -1,3 +1,4 @@
+# Only sourced for interactive shell, last
 export NCURSES_NO_UTF8_ACS=1
 
 # Check for and load terminal-specific keybindings
@@ -59,7 +60,6 @@ export ZSH_TMUX_UNICODE=true
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-[ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -136,3 +136,6 @@ done
 
 # load Bash and zsh compatible aliases
 [ -f $HOME/.aliases ] && source $HOME/.aliases
+
+# Start oh-my-zsh
+[ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
