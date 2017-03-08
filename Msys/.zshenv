@@ -1,5 +1,5 @@
 # MSYS2
-
+# Always sourced first, regardless of the shell type
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/repos/oh-my-zsh
 
@@ -28,7 +28,7 @@ export tmp=/tmp
 
 if [[ "$TERM" == "emacs" ]]; then
     # Make sure that shell-mode properly works with Emacs
-    export TERM=eterm-color
+    TERM=eterm-color
 elif [[ "$TERM" == "xterm" ]]; then
     export TERM=xterm-256color
 fi
