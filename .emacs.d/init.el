@@ -217,6 +217,13 @@
   :ensure t
   )
 
+(use-package ob-async                  ;; Asynchronous execution of org-babel src
+  :config
+  (add-to-list 'org-ctrl-c-ctrl-c-hook 'ob-async-org-babel-execute-src-block)
+  :defer t
+  :ensure t
+  )
+
 (use-package projectile
   :bind ("M-<f10>" . projectile-ibuffer)
   :config
