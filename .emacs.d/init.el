@@ -561,7 +561,7 @@
 
 ;; associate certain files with modes
 (add-to-list 'auto-mode-alist '("\\COMMIT_EDITMSG\\'" . diff-mode))
-
+(add-to-list 'auto-mode-alist '("\\.prf\\'" . conf-mode))
 ;;; HOOKS
 ;; various built in modes
 (add-hook 'calendar-mode-hook
