@@ -99,6 +99,8 @@
   )
 
 (use-package company
+  :config (add-hook 'prog-mode-hook
+                    (company-mode 1))
   :ensure t
   )
 
@@ -122,12 +124,17 @@
   :commands fci-mode
   :config
   (setq fci-rule-color "light slate grey")
+  (add-hook 'prog-mode-hook
+            (fci-mode 1))
   :ensure t
   )
 
 (use-package flycheck
   :commands flycheck-mode
-  :config (setq flycheck-highlighting-mode 'lines) ;; highlight whole line
+  :config
+  (setq flycheck-highlighting-mode 'lines) ;; highlight whole line
+  (add-hook 'prog-mode-hook
+            (company-mode 1))
   :ensure t
   )
 
@@ -182,6 +189,8 @@
 (use-package highlight-indentation
   :commands highlight-indentation-mode
   :config
+  (add-hook 'prog-mode-hook
+            (highlight-indentation-mode 1))
   (set-face-background 'highlight-indentation-face "light slate grey")
   (set-face-background 'highlight-indentation-current-column-face "light slate grey")
   :ensure t
@@ -274,7 +283,7 @@
 
 (use-package smartparens
   :config (add-hook 'prog-mode-hook
-                    ('turn-on-smartparens-strict-mode))
+                    (smartparens-mode 1))
   :ensure t
   )
 
@@ -344,6 +353,9 @@
 (use-package yafolding
   :bind (("C-|" . yafolding-toggle-element)
          ("C-\\" . yafolding-toggle-all))
+  :config (add-hook 'prog-mode-hook
+                    (yafolding-mode 1))
+  (yas-minor-mode 1)
   :defer t
   :ensure t
   )
@@ -354,6 +366,8 @@
   (if (boundp 'my-snippet-dirs)
       (dolist (item my-snippet-dirs)   ;; add item per item
         (add-to-list 'yas-snippet-dirs item)))
+  (add-hook 'prog-mode-hook
+            (yas-minor-mode 1))
   (yas-reload-all)
   :ensure t
   :pin melpa-stable
@@ -594,18 +608,11 @@
             (linum-mode 1)
             (yas-minor-mode 1)
             (local-set-key "\C-y\C-y" 'yank)
+            (local-set-key "\C-c b" '(shell-command "../show"))
             ))
 
 (add-hook 'prog-mode-hook
-          (lambda ()
-            (company-mode 1)
-            (linum-mode 1)
-            (highlight-indentation-mode 1)
-            (yafolding-mode 1)
-            (yas-minor-mode 1)
-            (if (featurep 'flycheck-mode)
-                (flycheck-mode 1))
-            (fci-mode 1)))
+          (linum-mode 1))
 
 (add-hook 'sh-mode-hook
           (lambda ()
