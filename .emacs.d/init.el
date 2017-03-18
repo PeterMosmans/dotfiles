@@ -272,6 +272,12 @@
   :ensure t
   )
 
+(use-package smartparens
+  :config (add-hook 'prog-mode-hook
+                    ('turn-on-smartparens-strict-mode))
+  :ensure t
+  )
+
 (use-package tabbar
   :bind (("C-<tab>" . tabbar-forward)
          ("C-S-<tab>" . tabbar-backward)
