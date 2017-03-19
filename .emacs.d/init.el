@@ -508,7 +508,8 @@
  tab-width 4                           ;; default tab width
  tramp-default-method "sshx"           ;; faster than the default scp
  use-package-always-ensure t           ;; always install missing packages
- )
+ whitespace-style (quote
+                   (face tabs trailing space-before-tab indentation empty space-after-tab tab-mark)))
 (delete-selection-mode 1)              ;; automatically overwrite selected text
 (recentf-mode 1)                       ;; enable recently opened files mode
 (show-paren-mode 1)
@@ -683,7 +684,10 @@
             (local-set-key "\C-c b" '(shell-command "../show"))
             ))
 
-(add-hook 'prog-mode-hook 'linum-mode 1)
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (linum-mode 1)
+            (whitespace-mode 1)))
 
 (add-hook 'sh-mode-hook
           (lambda ()
@@ -698,20 +702,6 @@
           (lambda ()
             (visual-line-mode 0)       ;; show a symbol for wrapping lines,
             (setq word-wrap 1)))       ;; but still wrap words nicely
-
-(add-hook 'whitespace-mode
-          (lambda ()
-            (setq whitespace-style
-                  (quote
-                   (empty              ;; remove empty lines at beginning and end
-                    spaces
-                    tabs
-                    trailing           ;; remove trailing characters
-                    indentation        ;; fix indentation according to tab-mode
-                    ;;                    newline      ;; remove new line char ?
-                    space-mark
-                    tab-mark
-                    )))))
 
 ;; builtin hooks
 (add-hook 'after-init-hook
