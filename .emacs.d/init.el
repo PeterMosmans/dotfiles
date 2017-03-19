@@ -234,6 +234,98 @@
   :ensure t
   )
 
+(use-package powerline
+  :config
+  (setq powerline-default-separator 'wave)
+  (custom-set-faces
+   ;; active modes
+   '(powerline-active1 ((t (:inherit mode-line :background "Grey1"))))
+   ;; active center
+   '(powerline-active2 ((t (:inherit mode-line :background "Grey2"))))
+   '(powerline-inactive1 ((t (:inherit mode-line-inactive))))
+   '(powerline-inactive2 ((t (:inherit mode-line-inactive)))))
+  ;; 'design' own theme
+  (setq-default mode-line-format  '
+                ("%e"
+                 (:eval
+                  (let*
+                      ((active
+                        (powerline-selected-window-active))
+                       (mode-line-buffer-id
+                        (if active 'mode-line-buffer-id 'mode-line-buffer-id-inactive))
+                       (mode-line
+                        (if active 'mode-line 'mode-line-inactive))
+                       (face1
+                        (if active 'powerline-active1 'powerline-inactive1))
+                       (face2
+                        (if active 'powerline-active2 'powerline-inactive2))
+                       (separator-left
+                        (intern
+                         (format "powerline-%s-%s"
+                                 (powerline-current-separator)
+                                 (car powerline-default-separator-dir))))
+                       (separator-right
+                        (intern
+                         (format "powerline-%s-%s"
+                                 (powerline-current-separator)
+                                 (cdr powerline-default-separator-dir))))
+                       (lhs
+                        (list
+                         (powerline-raw "%3l" face1 'l)   ;; line number
+                         (powerline-raw ":" face1)
+                         (powerline-raw "%3c" face1 'r)   ;; column
+                         (powerline-raw "%*" mode-line 'l)
+                         (when powerline-display-buffer-size
+                           (powerline-buffer-size mode-line 'l))
+                         (when powerline-display-mule-info
+                           (powerline-raw mode-line-mule-info mode-line 'l))
+                         (powerline-buffer-id mode-line-buffer-id 'l)
+                         (when
+                             (and
+                              (boundp 'which-func-mode)
+                              which-func-mode)
+                           (powerline-raw which-func-format nil 'l))
+                         (powerline-raw " ")
+                         (funcall separator-left mode-line face1)
+                         (when
+                             (and
+                              (boundp 'erc-track-minor-mode)
+                              erc-track-minor-mode)
+                           (powerline-raw erc-modified-channels-object face1 'l))
+                         (powerline-major-mode face1 'l)
+                         (powerline-process face1)
+                         (powerline-minor-modes face1 'l)
+                         (powerline-narrow face1 'l)
+                         (powerline-raw " " face1)
+                         (funcall separator-left face1 face2)
+                         (powerline-vc face2 'r)
+                         (when
+                             (bound-and-true-p nyan-mode)
+                           (powerline-raw
+                            (list
+                             (nyan-create))
+                            face2 'l))))
+                       (rhs
+                        (list
+                         (funcall separator-right face2 face1)
+                         (unless window-system
+                           (powerline-raw
+                            (char-to-string 57505)
+                            face1 'l))
+                         (funcall separator-right face1 mode-line)
+                         (powerline-raw " ")
+                                        ;         (powerline-raw "%6p" mode-line 'r)
+                         (powerline-raw global-mode-string font-lock-keyword-face)  ;; display-time-string
+                         (when powerline-display-hud
+                           (powerline-hud face2 face1)))))
+                    (concat
+                     (powerline-render lhs)
+                     (powerline-fill face2
+                                     (powerline-width rhs))
+                     (powerline-render rhs))))))
+  :ensure t
+  )
+
 (use-package projectile
   :bind ("M-<f10>" . projectile-ibuffer)
   :config
