@@ -445,7 +445,10 @@
 ;; let's get the show on the road
 (if (boundp 'my-theme)
     (load-theme my-theme t))
-
+;; overwrite mode line color for better inactive / active separation
+(custom-set-faces
+ '(mode-line-active ((t (:background "#212931" :foreground "#edd400"))))
+ '(mode-line-inactive ((t (:background "#000000" :foreground "#777777")))))
 
 ;; define font for Unicode Private Use Area block
 (when (member "Symbol" (font-family-list))
