@@ -99,8 +99,7 @@
   )
 
 (use-package company
-  :config (add-hook 'prog-mode-hook
-                    (company-mode 1))
+  :config (add-hook 'prog-mode-hook 'company-mode)
   :ensure t
   )
 
@@ -124,8 +123,7 @@
   :commands fci-mode
   :config
   (setq fci-rule-color "light slate grey")
-  (add-hook 'prog-mode-hook
-            (fci-mode 1))
+  (add-hook 'prog-mode-hook 'fci-mode)
   :ensure t
   )
 
@@ -133,8 +131,7 @@
   :commands flycheck-mode
   :config
   (setq flycheck-highlighting-mode 'lines) ;; highlight whole line
-  (add-hook 'prog-mode-hook
-            (company-mode 1))
+  (add-hook 'prog-mode-hook 'flycheck-mode)
   :ensure t
   )
 
@@ -189,8 +186,7 @@
 (use-package highlight-indentation
   :commands highlight-indentation-mode
   :config
-  (add-hook 'prog-mode-hook
-            (highlight-indentation-mode 1))
+  (add-hook 'prog-mode-hook 'highlight-indentation-mode)
   (set-face-background 'highlight-indentation-face "light slate grey")
   (set-face-background 'highlight-indentation-current-column-face "light slate grey")
   :ensure t
@@ -605,14 +601,13 @@
           (lambda ()
             (auto-fill-mode 1)
             (highlight-indentation-mode t)
-            (linum-mode 1)
+                                        ;            (linum-mode 1)
             (yas-minor-mode 1)
             (local-set-key "\C-y\C-y" 'yank)
             (local-set-key "\C-c b" '(shell-command "../show"))
             ))
 
-(add-hook 'prog-mode-hook
-          (linum-mode 1))
+(add-hook 'prog-mode-hook 'linum-mode 1)
 
 (add-hook 'sh-mode-hook
           (lambda ()
