@@ -299,43 +299,17 @@
          ("<f9>" . tabbar-forward)
          ("S-<f9>" . tabbar-forward-group))
   :config
-  (set-face-attribute
-   'tabbar-default nil                 ;; left hand side tabbar...
-   :background "#0c191c"
-   :foreground "#0c191c"
-   :box '(:line-width 1 :style nil))
-  (set-face-attribute
-   'tabbar-button nil                  ;; ...top & bottom
-   :box '(:line-width 1 :color "#1f2427" :style nil))
-  (set-face-attribute
-   'tabbar-separator nil               ;; generic left & right separator
-   :background  "#1f2427"
-   :height 0.1)
-  (set-face-attribute
-   'tabbar-selected nil                ;; currently active tab
-   :background "#262b2c"
-   :foreground "#f57900"
-   :bold 1                             ;; top & bottom separator
-   :box '(:line-width 1 :color "#262b2c" :style nil))
-  (set-face-attribute
-   'tabbar-unselected nil              ;; passive tab
-   :background "#1f2427"
-   :foreground "#555753"               ;; top & bottom separator
-   :box '(:line-width 5 :color "#1f2427" :style nil))
-  (set-face-attribute
-   'tabbar-modified nil                ;; modified tab
-   :background "#1f2427"
-   :foreground "#c4a000"
-   :box '(:line-width 5 :color "#1f2427" :style nil))
-  (set-face-attribute
-   'tabbar-highlight nil               ;; highlighted
-   :background "#ef2929"
-   :foreground "#2e3436"
-   :underline nil
-   :box '(:line-width 5 :color "#f57900" :style nil))
+  (custom-set-faces
+   '(tabbar-default ((t (:inherit mode-line))))
+   '(tabbar-separator ((t (:inherit mode-line))))
+   '(tabbar-button ((t (:inherit mode-line))))
+   '(tabbar-selected ((t (:inherit mode-line :foreground "#f57900" :background "#2d3743" :bold t))))
+   '(tabbar-unselected ((t (:inherit mode-line-inactive :height 0.8))))
+   '(tabbar-modified ((t (:inherit mode-line :slant italic :height 0.8))))
+   '(tabbar-highlight ((t (:inherit mode-line :bold t))))
+   )
   :ensure t
   :init
-  (tool-bar-mode -1)
   (tabbar-mode t)                      ;; enable the tabbar by default
   )
 
