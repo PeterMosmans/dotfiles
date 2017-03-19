@@ -278,13 +278,14 @@
   (display-time)                       ;; show time in modeline
   (if (boundp 'my-replacer-list)
       (setq sml/replacer-regexp-list my-replacer-list))
-  (sml/setup)
+  ;; (sml/setup)
   :ensure t
   )
 
 (use-package smartparens
   :config (add-hook 'prog-mode-hook
                     (smartparens-mode 1))
+  (custom-set-faces '(show-paren-match ((t (:background "#555753")))))
   :ensure t
   )
 
