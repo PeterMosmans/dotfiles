@@ -571,7 +571,6 @@
 (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
 (add-hook 'org-mode-hook
           (lambda ()
-            (linum-mode 0)
             (yas-minor-mode 1)
             (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)))
 
@@ -601,7 +600,6 @@
           (lambda ()
             (auto-fill-mode 1)
             (highlight-indentation-mode t)
-                                        ;            (linum-mode 1)
             (yas-minor-mode 1)
             (local-set-key "\C-y\C-y" 'yank)
             (local-set-key "\C-c b" '(shell-command "../show"))
@@ -616,7 +614,6 @@
 (add-hook 'shell-mode-hook
           (lambda ()
             (ansi-color-for-comint-mode-on)
-            (linum-mode 0)
             (toggle-truncate-lines 1))) ;; turn off word wrap for shell mode
 
 (add-hook 'text-mode-hook
