@@ -236,7 +236,7 @@
 
 (use-package powerline
   :config
-  (setq powerline-default-separator 'wave)
+  (setq powerline-default-separator 'arrow-fade)
   (custom-set-faces
    ;; active modes
    '(powerline-active1 ((t (:inherit mode-line :background "Grey1"))))
@@ -244,7 +244,8 @@
    '(powerline-active2 ((t (:inherit mode-line :background "Grey2"))))
    '(powerline-inactive1 ((t (:inherit mode-line-inactive))))
    '(powerline-inactive2 ((t (:inherit mode-line-inactive)))))
-  ;; 'design' own theme
+  ;; 'design' own theme - see
+  ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Variables.html
   (setq-default mode-line-format  '
                 ("%e"
                  (:eval
@@ -269,17 +270,18 @@
                          (format "powerline-%s-%s"
                                  (powerline-current-separator)
                                  (cdr powerline-default-separator-dir))))
-                       (lhs
+                       (lhs            ;; left hand side
                         (list
                          (powerline-raw "%3l" face1 'l)   ;; line number
                          (powerline-raw ":" face1)
-                         (powerline-raw "%3c" face1 'r)   ;; column
-                         (powerline-raw "%*" mode-line 'l)
+                         (powerline-raw "%3c" face1 'l)   ;; column
+                         (funcall separator-left face1 mode-line)
+                         (powerline-raw "%*" mode-line 'l) ;; whether the buffer is modified
                          (when powerline-display-buffer-size
                            (powerline-buffer-size mode-line 'l))
+                         (powerline-buffer-id mode-line-buffer-id 'l) ;; buffer name
                          (when powerline-display-mule-info
                            (powerline-raw mode-line-mule-info mode-line 'l))
-                         (powerline-buffer-id mode-line-buffer-id 'l)
                          (when
                              (and
                               (boundp 'which-func-mode)
@@ -305,17 +307,17 @@
                             (list
                              (nyan-create))
                             face2 'l))))
-                       (rhs
+                       (rhs            ;; right hand side
                         (list
                          (funcall separator-right face2 face1)
                          (unless window-system
                            (powerline-raw
                             (char-to-string 57505)
                             face1 'l))
-                         (funcall separator-right face1 mode-line)
+                         (funcall separator-left face1 mode-line)
                          (powerline-raw " ")
-                                        ;         (powerline-raw "%6p" mode-line 'r)
-                         (powerline-raw global-mode-string font-lock-keyword-face)  ;; display-time-string
+                         ;; display-time-string
+                         (powerline-raw global-mode-string font-lock-keyword-face)
                          (when powerline-display-hud
                            (powerline-hud face2 face1)))))
                     (concat
