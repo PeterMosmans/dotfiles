@@ -441,6 +441,7 @@
 (recentf-mode 1)                       ;; enable recently opened files mode
 (show-paren-mode 1)
 (fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no questions
+(tool-bar-mode 0)                      ;; disable toolbar
 
 ;; show week numbers
 (setq calendar-intermonth-text
