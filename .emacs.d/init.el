@@ -211,6 +211,11 @@
   :ensure t
   )
 
+(use-package mode-icons               ;; show pretty icons on the modeline
+  :config (mode-icons-mode)
+  :ensure t
+  )
+
 (use-package neotree
   :bind (("M-<f8>" . neotree-toggle)
          ("C-c n" . neotree-toggle))
