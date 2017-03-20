@@ -519,6 +519,7 @@
 (show-paren-mode 1)
 (fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no questions
 (tool-bar-mode 0)                      ;; disable toolbar
+(global-whitespace-mode 1)             ;; globally enable whitespace mode
 
 ;; show week numbers
 (setq calendar-intermonth-text
@@ -688,10 +689,7 @@
             (local-set-key "\C-c b" '(shell-command "../show"))
             ))
 
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (linum-mode 1)
-            (whitespace-mode 1)))
+(add-hook 'prog-mode-hook 'linum-mode)
 
 (add-hook 'sh-mode-hook
           (lambda ()
