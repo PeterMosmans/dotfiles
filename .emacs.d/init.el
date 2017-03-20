@@ -255,7 +255,7 @@
                        (mode-line-buffer-id
                         (if active 'mode-line-buffer-id 'mode-line-buffer-id-inactive))
                        (mode-line
-                        (if active 'mode-line 'mode-line-inactive))
+                        (if active 'mode-line-active 'mode-line-inactive))
                        (face1
                         (if active 'powerline-active1 'powerline-inactive1))
                        (face2
@@ -275,20 +275,20 @@
                          (powerline-raw "%3l" face1 'l)   ;; line number
                          (powerline-raw ":" face1)
                          (powerline-raw "%3c" face1 'l)   ;; column
-                         (funcall separator-left face1 mode-line)
-                         (powerline-raw "%*" mode-line 'l) ;; whether the buffer is modified
+                         (funcall separator-left face1 face2)
+                         (powerline-raw "%*" face2 'l) ;; whether the buffer is modified
                          (when powerline-display-buffer-size
-                           (powerline-buffer-size mode-line 'l))
+                           (powerline-buffer-size face2 'l))
                          (powerline-buffer-id mode-line-buffer-id 'l) ;; buffer name
                          (when powerline-display-mule-info
-                           (powerline-raw mode-line-mule-info mode-line 'l))
+                           (powerline-raw mode-line-mule-info face1 'l))
                          (when
                              (and
                               (boundp 'which-func-mode)
                               which-func-mode)
                            (powerline-raw which-func-format nil 'l))
                          (powerline-raw " ")
-                         (funcall separator-left mode-line face1)
+                         (funcall separator-left face1 face2)
                          (when
                              (and
                               (boundp 'erc-track-minor-mode)
@@ -309,17 +309,21 @@
                             face2 'l))))
                        (rhs            ;; right hand side
                         (list
-                         (funcall separator-right face2 face1)
+                                        ;                         (funcall separator-left face1 face2)
                          (unless window-system
                            (powerline-raw
                             (char-to-string 57505)
                             face1 'l))
-                         (funcall separator-left face1 mode-line)
-                         (powerline-raw " ")
-                         ;; display-time-string
-                         (powerline-raw global-mode-string font-lock-keyword-face)
+                         (funcall separator-left face2 face1)
+                         (powerline-raw " " face1)
+                         (if (boundp 'org-mode-line-string)
+                             (powerline-raw org-mode-line-string face2)
+                           (powerline-raw "NOT CLOCKED IN" 'custom-invalid))
+                         (powerline-raw " " face1)
                          (when powerline-display-hud
-                           (powerline-hud face2 face1)))))
+                           (powerline-hud face2 face1)
+                           (powerline-raw display-time-string 'clockface 'r)
+                           ))))
                     (concat
                      (powerline-render lhs)
                      (powerline-fill face2
