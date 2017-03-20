@@ -92,6 +92,7 @@
 ;; mode:      deferred binding
 ;; pin:       pin to a specific repository
 
+
 (use-package bm
   :ensure t
   :bind (("C-<f2>" . bm-toggle)
@@ -236,14 +237,31 @@
 
 (use-package powerline
   :config
-  (setq powerline-default-separator 'arrow-fade)
-  (custom-set-faces
-   ;; active modes
-   '(powerline-active1 ((t (:inherit mode-line :background "Grey1"))))
-   ;; active center
-   '(powerline-active2 ((t (:inherit mode-line :background "Grey2"))))
-   '(powerline-inactive1 ((t (:inherit mode-line-inactive))))
-   '(powerline-inactive2 ((t (:inherit mode-line-inactive)))))
+  (defface powerline-block1
+    '((t :inherit font-lock-keyword-face :background "Grey1" :bold nil))
+    "Active powerline block 1" :group 'powerline)
+  (defface powerline-block2
+    '((t :inherit font-lock-comment-face :background "Grey20"))
+    "Active powerline block 2" :group 'powerline)
+  (defface powerline-bold
+    '((t :inherit powerline-block1 :bold t))
+    "Active powerline block 3 (clock)" :group 'powerline)
+  (defface powerline-alert
+    '((t :inherit powerline-block1 :foreground "Red" :bold t))
+    "Active powerline block 4 (warning)" :group 'powerline)
+  (defface powerline-inactive-block1
+    '((t :inherit powerline-block1 :background "Grey35"))
+    "Inactive powerline" :group 'powerline)
+  (defface powerline-inactive-block2
+    '((t :inherit powerline-block2 :background "Grey35"))
+    "Inactive powerline" :group 'powerline)
+  (defface powerline-inactive-bold
+    '((t :inherit powerline-inactive-block1 :bold nil))
+    "Inactive powerline" :group 'powerline)
+  (defface powerline-inactive-alert
+    '((t :inherit powerline-inactive-block1 :foreground "Red" :bold t))
+    "Inactive powerline" :group 'powerline)
+  (setq powerline-default-separator 'arrow)
   ;; 'design' own theme - see
   ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Variables.html
   (setq-default mode-line-format  '
@@ -257,9 +275,13 @@
                        (mode-line
                         (if active 'mode-line-active 'mode-line-inactive))
                        (face1
-                        (if active 'powerline-active1 'powerline-inactive1))
+                        (if active 'powerline-block1 'powerline-inactive-block1))
                        (face2
-                        (if active 'powerline-active2 'powerline-inactive2))
+                        (if active 'powerline-block2 'powerline-inactive-block2))
+                       (bold-face
+                        (if active 'powerline-bold 'powerline-inactive-bold))
+                       (alert-face
+                        (if active 'powerline-alert 'powerline-inactive-alert))
                        (separator-left
                         (intern
                          (format "powerline-%s-%s"
@@ -276,29 +298,27 @@
                          (powerline-raw ":" face1)
                          (powerline-raw "%3c" face1 'l)   ;; column
                          (funcall separator-left face1 face2)
-                         (powerline-raw "%*" face2 'l) ;; whether the buffer is modified
-                         (when powerline-display-buffer-size
-                           (powerline-buffer-size face2 'l))
-                         (powerline-buffer-id mode-line-buffer-id 'l) ;; buffer name
                          (when powerline-display-mule-info
-                           (powerline-raw mode-line-mule-info face1 'l))
+                           (powerline-raw mode-line-mule-info face2 'l))
                          (when
                              (and
                               (boundp 'which-func-mode)
                               which-func-mode)
-                           (powerline-raw which-func-format nil 'l))
-                         (powerline-raw " ")
-                         (funcall separator-left face1 face2)
+                           (powerline-raw which-func-format face2 'l))
                          (when
                              (and
                               (boundp 'erc-track-minor-mode)
                               erc-track-minor-mode)
-                           (powerline-raw erc-modified-channels-object face1 'l))
-                         (powerline-major-mode face1 'l)
-                         (powerline-process face1)
-                         (powerline-minor-modes face1 'l)
-                         (powerline-narrow face1 'l)
-                         (powerline-raw " " face1)
+                           (powerline-raw erc-modified-channels-object face2 'l))
+                         (powerline-major-mode face2 'l)
+                         (powerline-process face2)
+                         (powerline-minor-modes face2 'l)
+                         (powerline-narrow face2 'l)
+                         (funcall separator-left face2 face1)
+                         (powerline-raw "%*" face1 'l) ;; whether the buffer is modified
+                         (powerline-buffer-id bold-face 'l) ;; buffer name
+                         ;; (when powerline-display-buffer-size
+                         ;;   (powerline-buffer-size face2 'l))
                          (funcall separator-left face1 face2)
                          (powerline-vc face2 'r)
                          (when
@@ -309,20 +329,18 @@
                             face2 'l))))
                        (rhs            ;; right hand side
                         (list
-                                        ;                         (funcall separator-left face1 face2)
+                         (funcall separator-right face2 bold-face)
                          (unless window-system
                            (powerline-raw
                             (char-to-string 57505)
-                            face1 'l))
-                         (funcall separator-left face2 face1)
-                         (powerline-raw " " face1)
+                            bold-face 'l))
+                         (funcall separator-right face2 bold-face)
                          (if (boundp 'org-mode-line-string)
                              (powerline-raw org-mode-line-string face2)
-                           (powerline-raw "NOT CLOCKED IN" 'custom-invalid))
-                         (powerline-raw " " face1)
+                           (powerline-raw "NOT CLOCKED IN" alert-face))
                          (when powerline-display-hud
-                           (powerline-hud face2 face1)
-                           (powerline-raw display-time-string 'clockface 'r)
+                           (powerline-hud bold-face face1)
+                           (powerline-raw (concat " " display-time-string) bold-face 'r)
                            ))))
                     (concat
                      (powerline-render lhs)
@@ -645,13 +663,17 @@
  ;; If there is more than one, they won't work right.
  '(org-done ((t (:strike-through t))))
  '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
- '(org-level-2 ((t (:inherit outline-1 :height 1.1)))))
+ '(org-level-2 ((t (:inherit outline-1 :height 1.1))))
+ )
 ;; hooks
 (add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-(add-hook 'org-clock-in-hook 'save-buffer)   ;; save buffer when clocking in...
+(add-hook 'org-clock-in-hook 'save-buffer)  ;; save buffer when clocking in...
 (add-hook 'org-clock-in-prepare-hook 'my-org-mode-ask-effort)
-(add-hook 'org-clock-out-hook 'save-buffer)  ;; ...and clocking out
+(add-hook 'org-clock-out-hook (lambda ()
+                                (save-buffer)
+                                (makunbound 'org-mode-line-string)
+                                (force-mode-line-update)))
 (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
 (add-hook 'org-mode-hook
           (lambda ()
