@@ -75,9 +75,9 @@
 ;; add this first, as some packages need to be installed from unstable sources
 (use-package package
   :config
-  (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
-  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-  (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/")))
+  (setq package-archives `(("gnu" . "https://elpa.gnu.org/packages/")
+                           ("melpa" . "https://melpa.org/packages/")
+                           ("melpa-stable" . "https://stable.melpa.org/packages/"))))
 
 ;; define all necessary EXTERNAL alphabetically
 ;; bind:      keybindings (all keys before :map are bound globally)
