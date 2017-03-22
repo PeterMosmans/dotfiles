@@ -649,6 +649,7 @@
       '(("Effort_ALL" . "0 0:05 0:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
       org-log-into-drawer t            ;; insert notes & time stamps into drawer
       org-refile-targets '((org-agenda-files :level . 2))
+      org-use-speed-commands t         ;; enable speed commands
       org-support-shift-select t       ;; keep using shift as selector
       org-src-fontify-natively t       ;; fontify code in blocks
       org-time-clocksum-format         ;; don't show days
