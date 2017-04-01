@@ -439,7 +439,8 @@
          ("\\.html?\\'" . web-mode)
          ("\\.php\\'" . web-mode)
          ("\\.phtml\\'" . web-mode)
-         ("\\.tpl\\.php\\'" . web-mode))
+         ("\\.tpl\\.php\\'" . web-mode)
+         ("\\.xml\\'" . web-mode))
   )
 
 (use-package yafolding
