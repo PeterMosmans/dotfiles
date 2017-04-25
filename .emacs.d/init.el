@@ -24,16 +24,19 @@
 ;; ~/.emacs.d/variables.el:
 ;; my-font
 ;; my-capture-file
+;; my-dayplanner-file
 ;; my-org-directory
 ;; my-replacer-list
 ;; my-theme
 ;;
 ;; Note that the defaults will be used if the variables aren't defined
-
+(put 'projectile-project-name 'safe-local-variable #'stringp)
 (defvar my-font "Source Code Pro"
   "Font that will be used (if it is installed)")
 (defvar my-capture-file "/capture-org"
   "Default org-mode capture file relative to org-directory")
+(defvar my-dayplanner-file "/dayplanner.org"
+  "Default org-mode dayplanner file relative to org-directory")
 (defvar my-org-directory "~/org"
   "(Non-standard) org-directory")
 (defvar my-replacer-list nil
@@ -622,9 +625,9 @@
       org-agenda-todo-keyword-format ""
       org-archive-location (concat "archive/%s." (format-time-string "%Y" (current-time)) ".archive::")
       org-capture-templates
-      '(("j" "Journal Entry"
-         entry (file+datetree org-default-notes-file)
-         "* TODO %?")
+      '(("d" "Day planner"
+         entry (file+datetree (concat org-directory my-dayplanner-file))
+         "* TODO %?\n  DEADLINE: <%(org-read-date nil nil \"+0d\")>")
         ("r" "reminder"
          entry (file+headline org-default-notes-file  "Tasks")
          "* TODO %?\n  DEADLINE: <%(org-read-date nil nil \"+1d\")>")
