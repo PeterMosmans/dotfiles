@@ -644,6 +644,8 @@
          entry (file+headline (concat org-directory "/someday-maybe.org") "someday/maybe")
          "* %?\n  %u"))
       org-catch-invisible-edit 'show-and-error
+      org-clock-into-drawer t          ;; log clocking data into drawer
+      org-clock-out-remove-zero-time-clocks t ;; remove logdata without time
       org-columns-default-format "#+COLUMNS: %60ITEM(Task) %8Effort(estimate){:} %8CLOCKSUM(clocked){:} %8CLOCKSUM_T(today){:}"
       org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate
       org-cycle-separator-lines 0      ;; no empty lines needed between subtrees
