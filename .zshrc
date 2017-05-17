@@ -3,21 +3,13 @@ export NCURSES_NO_UTF8_ACS=1
 
 # Check for and load terminal-specific keybindings
 [ -f ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ] && source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
-
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#History-Control
-
 [[ -n ${key[Left]} ]] && bindkey "${key[Left]}" backward-char
 [[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
 [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
 [[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
 [[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-history
 [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-history
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="compact-grey"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -55,6 +47,17 @@ export ZSH_TMUX_UNICODE=true
 
 # default plugins - is overruled by .zshenv
 [ -z "$plugins" ] && plugins=(git)
+
+# Disable some plugins while running in Emacs
+if [[ -n "$INSIDE_EMACS" ]]; then
+    plugins=(git)
+else
+    # Set name of the theme to load.
+    # Look in ~/.oh-my-zsh/themes/
+    # Optionally, if you set this to "random", it'll load a random theme each
+    # time that oh-my-zsh is loaded.
+    ZSH_THEME="compact-grey"
+fi
 
 # User configuration
 
@@ -100,7 +103,7 @@ urlencode() {
 }
 
 # Using the AUTOCD option, you can simply type the name of a directory,
-# and it will become the current directory. 
+# and it will become the current directory.
 setopt AUTOCD
 
 ## History
