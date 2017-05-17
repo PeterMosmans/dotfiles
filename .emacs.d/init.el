@@ -299,7 +299,7 @@
                         (list
                          (powerline-raw "%3l" face1 'l)   ;; line number
                          (powerline-raw ":" face1)
-                         (powerline-raw "%3c" face1 'l)   ;; column
+                         (powerline-raw "%3C" face1 'l)   ;; column (C = 1-based column)
                          (funcall separator-left face1 face2)
                          (when powerline-display-mule-info
                            (powerline-raw mode-line-mule-info face2 'l))
