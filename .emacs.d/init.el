@@ -570,6 +570,7 @@
  'org-babel-load-languages
  '((plantuml . t)
    (python . t)
+   (sh . t)
    (shell . t)))
 
 (setq org-default-notes-file (concat org-directory my-capture-file)
@@ -1370,7 +1371,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
   "When the language is known, return false (don't ask for confirmation).
    If true, ask for confirmation to evaluate code."
   (message "Check language %s" lang)
-  (not (member lang '("plantuml" "python" "shell"))))
+  (not (member lang '("plantuml" "python" "sh" "shell"))))
 
 (defun my-align-org-tags ()
   "Align org-mode tags to the right border of the screen."
