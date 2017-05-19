@@ -676,15 +676,7 @@
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
       '((sequence "TODO(t)" "REGISTRATION(r)" "WAITING(w)" "DELEGATED(e)" "|" "CANCELLED(c)" "DONE(d)" ))
       )
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(org-done ((t (:strike-through t))))
- '(org-level-1 ((t (:inherit outline-1 :height 1.1))))
- '(org-level-2 ((t (:inherit outline-1 :height 1.1))))
- )
+
 ;; hooks
 (add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
