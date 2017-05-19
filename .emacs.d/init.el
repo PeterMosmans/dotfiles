@@ -360,9 +360,16 @@
         projectile-globally-ignored-file-suffixes '(".avi" ".fo" ".jpg" ".mp4"
                                                     ".pdf" ".png" ".pptx" ".svg"
                                                     ".xlsx" ".zip")
-        projectile-indexing-method 'alien)  ;; use the fastest indexing method
+        projectile-globally-ignored-directories '("Include" "Lib" "Scripts")
+        projectile-indexing-method 'alien  ;; use the fastest indexing method
+        projectile-mode-line '(:eval
+                               (if
+                                   (file-remote-p default-directory)
+                                   " Projectile"
+                                 (format " P[%s]"
+                                         (projectile-project-name)))))
   (helm-projectile-on)
-  (projectile-global-mode 1)
+  (projectile-mode 1)
   :defer t
   :ensure t
   )
