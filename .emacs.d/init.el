@@ -217,6 +217,8 @@
 
 (use-package mode-icons               ;; show pretty icons on the modeline
   :config (mode-icons-mode)
+  (setq mode-icons-desaturate-active nil
+        mode-icons-grayscale-transform t)
   :ensure t
   )
 
@@ -1237,7 +1239,7 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 
 ;; http://www.blogbyben.com/2015/04/the-joy-of-elisp-powered-code-review.html
 (defun code-review-region (beg end)
-  "Copies a region of source code, adds line numbers."
+  "Copy a region of source code, add line numbers."
   (interactive "r")
   (let* ((text (buffer-substring-no-properties beg end))
          (line-number (line-number-at-pos))
