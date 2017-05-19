@@ -480,7 +480,6 @@
             (yas-minor-mode 1))
   (yas-reload-all)
   :ensure t
-  :pin melpa-stable
   )
 
 
