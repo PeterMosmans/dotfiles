@@ -32,21 +32,21 @@
 ;; Note that the defaults will be used if the variables aren't defined
 (put 'projectile-project-name 'safe-local-variable #'stringp)
 (defvar my-font "Source Code Pro"
-  "Font that will be used (if it is installed)")
+  "Font that will be used (if it is installed).")
 (defvar my-capture-file "/capture-org"
-  "Default org-mode capture file relative to org-directory")
+  "Default org-mode capture file relative to org-directory.")
 (defvar my-dayplanner-file "/dayplanner.org"
-  "Default org-mode dayplanner file relative to org-directory")
+  "Default org-mode dayplanner file relative to org-directory.")
 (defvar my-org-directory "~/org"
-  "(Non-standard) org-directory")
+  "(Non-standard) org-directory.")
 (defvar my-replacer-list nil
-  "List of pairs of strings used (by ‘sml/replacer’) to create prefixes")
+  "List of pairs of strings used (by ‘sml/replacer’) to create prefixes.")
 (defvar my-scratch-file "~/scratch.txt"
-  "Persistent scratch file which is opened on startup")
+  "Persistent scratch file which is opened on startup.")
 (defvar my-snippets-dir nil
-  "A list of snippet directories that will be loaded by yasnippet")
+  "A list of snippet directories that will be loaded by yasnippet.")
 (defvar my-theme 'misterioso
-  "Theme that will be applied")
+  "Theme that will be applied when starting up.")
 
 (if (file-exists-p "~/.emacs.d/variables.el")
     (load "~/.emacs.d/variables.el"))
