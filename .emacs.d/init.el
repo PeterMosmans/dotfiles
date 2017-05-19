@@ -456,6 +456,10 @@
   :ensure t
   )
 
+(use-package yaml-mode
+  :ensure t
+  )
+
 (use-package yasnippet
   :commands yas-minor-mode
   :config
