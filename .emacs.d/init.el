@@ -825,7 +825,7 @@
 (global-set-key (kbd "C-(") 'check-parens) ;; matching parens
 (global-set-key (kbd "C-=") 'er/expand-region) ;; make selection bigger and bigger
 (global-set-key (kbd "M-;") 'comment-line)
-(global-set-key (kbd "C-M-t") 'insert-current-date-time)
+(global-set-key (kbd "C-M-t") 'my/insert-current-date-time)
 
 ;; function keys
 ;; f1: magit
@@ -835,7 +835,7 @@
 
 ;; navigation in buffer (file)
 (global-set-key (kbd "<f2>") 'my/switch-to-previous-buffer)
-(global-set-key (kbd "S-<f2>") 'insert-current-date-time)
+(global-set-key (kbd "S-<f2>") 'my/insert-current-date-time)
 
 ;; searching
 (global-set-key (kbd "<f3>") 'isearch-repeat-forward)
@@ -1271,8 +1271,8 @@ This is a useful function for adding to `kill-emacs-query-functions'."
                                                  (buffer-file-name)) t t))
              (dired (file-name-directory (buffer-file-name)))))))
 
-(defun insert-current-date-time ()
-  "insert the current date and time into current buffer.
+(defun my/insert-current-date-time ()
+  "Insert the current date and time into current buffer.
 Uses `current-date-time-format' for the formatting the date/time."
   (interactive)
   (insert (format-time-string "%d-%m-%Y %H:%M" (current-time))))
