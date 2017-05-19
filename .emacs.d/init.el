@@ -176,6 +176,11 @@
   :ensure t
   )
 
+
+(use-package helm-org-rifle
+  :ensure t
+  )
+
 (use-package helm-projectile
   :bind (([f5] . helm-projectile-find-file)
          ("C-<f10>" . helm-projectile-switch-project))
