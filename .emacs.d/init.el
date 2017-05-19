@@ -207,7 +207,6 @@
   (setq magit-diff-auto-show nil)
   :defer t
   :ensure t
-  :pin melpa-stable
   )
 
 (use-package markdown-mode
