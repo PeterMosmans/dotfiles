@@ -740,7 +740,7 @@
 (add-hook 'shell-mode-hook
           (lambda ()
             (ansi-color-for-comint-mode-on)))
-            ;; (toggle-truncate-lines 1))) ;; turn off word wrap for shell mode
+;; (toggle-truncate-lines 1))) ;; turn off word wrap for shell mode
 
 (add-hook 'text-mode-hook
           (lambda ()
