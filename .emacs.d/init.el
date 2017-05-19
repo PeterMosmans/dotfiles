@@ -167,6 +167,7 @@
   :config
   (helm-mode t)
   (helm-autoresize-mode t)
+  (setq helm-buffers-truncate-lines nil)
   :defer t
   :ensure t
   )
