@@ -148,12 +148,12 @@
 
 (use-package guide-key
   :config
-  (setq guide-key/guide-key-sequence '("C-x r"  ;; register functions
-                                       "C-c !"
-                                       "C-c p"
-                                       (artist-mode "C-c C-a")
-                                       (neotree-mode "C-c"))
-        guide-key/idle-delay 0.2)
+  (setq guide-key/guide-key-sequence '
+        ("C-x r"                       ;; register functions
+         (artist-mode "C-c C-a")
+         (neotree-mode "C-c")
+         (org-mode "C-c"))
+        guide-key/idle-delay 1)
   (guide-key-mode t)
   :ensure t
   )
