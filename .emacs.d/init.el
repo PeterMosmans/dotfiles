@@ -322,10 +322,10 @@
                          (powerline-minor-modes face2 'l)
                          (powerline-narrow face2 'l)
                          (funcall separator-left face2 face1)
-                         (powerline-raw "%*" face1 'l) ;; whether the buffer is modified
-                         (powerline-buffer-id bold-face 'l) ;; buffer name
-                         ;; (when powerline-display-buffer-size
-                         ;;   (powerline-buffer-size face2 'l))
+                         (powerline-raw mode-line-modified face1) ;; whether the buffer is modified
+                         (powerline-buffer-id bold-face) ;; buffer name
+                         (when powerline-display-buffer-size
+                           (powerline-buffer-size face2 'l))
                          (funcall separator-left face1 face2)
                          (powerline-vc face2 'r)
                          (when
@@ -343,7 +343,7 @@
                             bold-face 'l))
                          (funcall separator-right face2 bold-face)
                          (if (boundp 'org-mode-line-string)
-                             (powerline-raw org-mode-line-string face2)
+                             (powerline-raw (propertize org-mode-line-string 'face face1) face1)
                            (powerline-raw "NOT CLOCKED IN" alert-face))
                          (when powerline-display-hud
                            (powerline-hud bold-face face1)
