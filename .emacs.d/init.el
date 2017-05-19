@@ -1229,15 +1229,16 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 ;; http://comments.gmane.org/gmane.emacs.orgmode/81781
 (defun my/org-query-clock-out ()
   "Ask the user before clocking out.
-    This is a useful function for adding to `kill-emacs-query-functions'."
+This is a useful function for adding to `kill-emacs-query-functions'."
   (if (and (featurep 'org-clock)
            (funcall 'org-clocking-p)
            (y-or-n-p "You are currently clocking time, clock out? "))
       (org-clock-out)
-    t))                             ; only fails on keyboard quit or error
+    t))                                ;; only fails on keyboard quit or error
 
 ;; http://emacswiki.org/emacs/SwitchingBuffers
-(defun switch-to-previous-buffer ()
+(defun my/switch-to-previous-buffer ()
+  "Switch to previously active buffer."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
