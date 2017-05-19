@@ -47,15 +47,11 @@ export ZSH_TMUX_UNICODE=true
 
 # default plugins - is overruled by .zshenv
 [ -z "$plugins" ] && plugins=(git)
-
 # Disable some plugins while running in Emacs
 if [[ -n "$INSIDE_EMACS" ]]; then
     plugins=(git)
+    ZSH_THEME="simple"
 else
-    # Set name of the theme to load.
-    # Look in ~/.oh-my-zsh/themes/
-    # Optionally, if you set this to "random", it'll load a random theme each
-    # time that oh-my-zsh is loaded.
     ZSH_THEME="compact-grey"
 fi
 
@@ -76,16 +72,6 @@ alias -g GF="grep -ilR"
 alias -g N=">/dev/null"
 alias -g L="|less"
 alias -g M="|more"
-
-# Add some generic suffix aliases
-alias -s txt=emacs
-alias -s xml=emacs
-[ ! -z ${BROWSER} ] && alias -s htm=${BROWSER}
-[ ! -z ${BROWSER} ] && alias -s html=${BROWSER}
-[ ! -z ${CALC} ] && alias -s xlsx=${CALC}
-[ ! -z ${WRITER} ] && alias -s odt=${WRITER}
-[ ! -z ${WRITER} ] && alias -s odp=${WRITER}
-[ ! -z ${PDFREADER} ] && alias -s pdf=${PDFREADER}
 
 show_colors() {
     for i in {0..255} ; do
@@ -142,3 +128,6 @@ done
 
 # Start oh-my-zsh
 [ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
+
+# update shortcut
+alias update='sudo apt-get update && sudo apt-get -y dist-upgrade'
