@@ -411,7 +411,7 @@
 (use-package smartparens
   :config (add-hook 'prog-mode-hook
                     (smartparens-mode 1))
-  (custom-set-faces '(show-paren-match ((t (:background "#555753")))))
+  (set-face-attribute 'show-paren-match nil :background "#555753")
   :ensure t
   )
 
@@ -426,15 +426,13 @@
          ("<f9>" . tabbar-forward)
          ("S-<f9>" . tabbar-forward-group))
   :config
-  (custom-set-faces
-   '(tabbar-default ((t (:inherit mode-line))))
-   '(tabbar-separator ((t (:inherit mode-line))))
-   '(tabbar-button ((t (:inherit mode-line))))
-   '(tabbar-selected ((t (:inherit mode-line :foreground "#f57900" :background "#2d3743" :bold t))))
-   '(tabbar-unselected ((t (:inherit mode-line-inactive :height 0.8))))
-   '(tabbar-modified ((t (:inherit mode-line :slant italic :height 0.8))))
-   '(tabbar-highlight ((t (:inherit mode-line :bold t))))
-   )
+  (set-face-attribute 'tabbar-button nil :inherit 'mode-line)
+  (set-face-attribute 'tabbar-default nil :inherit 'mode-line)
+  (set-face-attribute 'tabbar-highlight nil :inherit 'mode-line :bold t)
+  (set-face-attribute 'tabbar-modified nil :inherit 'mode-line :slant 'italic :height 0.8)
+  (set-face-attribute 'tabbar-selected nil :inherit 'mode-line :foreground "#f57900" :background "#2d3743" :bold t)
+  (set-face-attribute 'tabbar-separator nil :inherit 'mode-line)
+  (set-face-attribute 'tabbar-unselected nil :inherit 'mode-line-inactive :background "#000000" :slant 'italic :height 0.8)
   :ensure t
   :init
   (tabbar-mode t)                      ;; enable the tabbar by default
@@ -485,14 +483,15 @@
 (if (boundp 'my-theme)
     (load-theme my-theme t))
 ;; overwrite mode line color for better inactive / active separation
-(custom-set-faces
- '(mode-line-active ((t (:background "#212931" :foreground "#edd400"))))
- '(mode-line-inactive ((t (:background "#000000" :foreground "#777777")))))
+;; (set-face-attribute 'mode-line-active nil :background "Black" :foreground "Grey5")
+;; (set-face-attribute 'mode-line-inactive nil :background "#000000" :foreground "#777777")
+
 
 ;; define font for Unicode Private Use Area block
 (when (member "Symbol" (font-family-list))
   (set-fontset-font "fontset-default" '(#xf000 . #xffff) (font-spec :name "Symbol")))
 (setq
+ column-number-indicator-zero-based nil
  compilation-ask-about-save nil
  compile-command "make "
  compilation-read-command nil
@@ -566,6 +565,9 @@
         'font-lock-face 'calendar-iso-week-face))
 
 ;; org mode settings
+(set-face-attribute 'org-done nil :strike-through t)
+(set-face-attribute 'org-level-1 nil :inherit 'outline-1 :height 1.1)
+(set-face-attribute 'org-level-2 nil :inherit 'outline-1 :height 1.1)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a") 'org-agenda)
