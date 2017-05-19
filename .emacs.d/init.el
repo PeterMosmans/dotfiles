@@ -504,7 +504,8 @@
 
 ;; OS-specific settings
 (if (string= system-type "windows-nt")
-    (setq w32-enable-caps-lock nil))      ;; free the capslock key for useful stuff
+    (setq w32-enable-caps-lock nil     ;; free the capslock key for useful stuff
+          explicit-shell-file-name "c:/programs/msys2/usr/bin/zsh.exe"))
 
 (setq-default fill-column 80           ;; width of the screen for wrapping
               line-spacing 0
