@@ -647,7 +647,10 @@
       org-capture-templates
       '(("d" "Day planner"
          entry (file+datetree (concat org-directory my-dayplanner-file))
-         "* TODO %?\n  DEADLINE: <%(org-read-date nil nil \"+0d\")>")
+         "* TODO Planned day %(org-read-date nil nil \"+0d\") [/]\n  DEADLINE: <%(org-read-date nil nil \"+0d\")>\n  - [ ] %?")
+        ("w" "week planner"
+         entry (file+weektree (concat org-directory my-dayplanner-file))
+         "* TODO Goals for week %<%W> [/]\n  DEADLINE: <%(org-read-date nil nil \"+7d\")>\n  - [ ] %?")
         ("r" "reminder"
          entry (file+headline org-default-notes-file  "Tasks")
          "* TODO %?\n  DEADLINE: <%(org-read-date nil nil \"+1d\")>")
