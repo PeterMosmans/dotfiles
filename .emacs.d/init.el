@@ -34,9 +34,9 @@
 (defvar my-font "Source Code Pro"
   "Font that will be used (if it is installed).")
 (defvar my-capture-file "/capture-org"
-  "Default org-mode capture file relative to org-directory.")
+  "Default 'org-mode' capture file relative to org-directory.")
 (defvar my-dayplanner-file "/dayplanner.org"
-  "Default org-mode dayplanner file relative to org-directory.")
+  "Default 'org-mode' dayplanner file relative to org-directory.")
 (defvar my-org-directory "~/org"
   "(Non-standard) org-directory.")
 (defvar my-replacer-list nil
