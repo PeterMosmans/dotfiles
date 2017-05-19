@@ -834,11 +834,8 @@
 (global-set-key (kbd "M-<f1>") 'code-review-region)
 
 ;; navigation in buffer (file)
-(global-set-key (kbd "<f2>") 'switch-to-previous-buffer)
-(global-set-key (kbd "S-<f2>") 'describe-line-endings)
-                                        ; word count on region
-(global-set-key (kbd "C-<f2>") (lambda () (interactive) (shell-command-on-region (point) (mark) "wc -w")))
-(global-set-key (kbd "M-<f2>") (lambda () (interactive) (browse-url-of-file (buffer-name))))
+(global-set-key (kbd "<f2>") 'my/switch-to-previous-buffer)
+(global-set-key (kbd "S-<f2>") 'insert-current-date-time)
 
 ;; searching
 (global-set-key (kbd "<f3>") 'isearch-repeat-forward)
