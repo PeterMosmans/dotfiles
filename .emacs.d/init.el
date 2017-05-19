@@ -132,10 +132,9 @@
   )
 
 (use-package flycheck
-  :commands flycheck-mode
   :config
   (setq flycheck-highlighting-mode 'lines) ;; highlight whole line
-  (add-hook 'prog-mode-hook 'flycheck-mode)
+  (global-flycheck-mode)
   :ensure t
   )
 
