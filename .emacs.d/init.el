@@ -1311,7 +1311,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
          )
 
     (when (buffer-modified-p)
-      (when (y-or-n-p "Buffer modified. Do you want to save first?")
+      (when (y-or-n-p "Buffer modified.  Do you want to save first? ")
         (save-buffer) ) )
     (if (string-equal fSuffix "md") ; special case for markdown file
         (progn
@@ -1369,21 +1369,21 @@ If the file is emacs lisp, run the byte compiled version if exist."
     (call-interactively 'org-clock-in)))
 
 (defun open-custom-agenda ()
-  "Opens custom agenda view"
+  "Open custom agenda view."
   (interactive)
   (org-agenda nil "o")
   )
                                         ;(run-with-idle-timer 600 t 'jump-to-org-agenda) ;; automatically show agenda
 
 (defun save-kill-buffer ()
-  "Saves buffer and kills (closes) it"
+  "Save buffer and kill (close) it."
   (interactive
    ((save-buffer)
     (kill-this-buffer))))
 
 (defun my-pentext-builder ()
-  "Searches for a build script in underlying directories, and if found,
-  asynchronously runs the script."
+  "Search for a build script in underlying directories, and if found,
+asynchronously run the script."
   (interactive)
   (setq builder nil)
   (dolist (file '("../../build" "../build"))
