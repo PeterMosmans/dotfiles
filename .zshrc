@@ -1,4 +1,8 @@
+# OS-independent
 # Only sourced for interactive shell, last
+
+export ZSH=$HOME/repos/oh-my-zsh
+ZSH_THEME="compact-grey"
 export NCURSES_NO_UTF8_ACS=1
 
 # Check for and load terminal-specific keybindings
@@ -45,14 +49,9 @@ COMPLETION_WAITING_DOTS="true"
 export ZSH_TMUX_AUTOSTART=true
 export ZSH_TMUX_UNICODE=true
 
-# default plugins - is overruled by .zshenv
-[ -z "$plugins" ] && plugins=(git)
 # Disable some plugins while running in Emacs
 if [[ -n "$INSIDE_EMACS" ]]; then
     plugins=(git)
-    ZSH_THEME="simple"
-else
-    ZSH_THEME="compact-grey"
 fi
 
 # User configuration
@@ -128,6 +127,3 @@ done
 
 # Start oh-my-zsh
 [ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
-
-# update shortcut
-alias update='sudo apt-get update && sudo apt-get -y dist-upgrade'

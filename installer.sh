@@ -13,9 +13,9 @@
 # Destination where the files need to be installed
 DESTINATIONPATH=~
 # Files and directories which need to be installed
-SOURCEFILES=".aliases .bashrc .emacs.d/init.el .gitconfig .tmux.conf"
+SOURCEFILES=".aliases .bashrc .emacs.d/init.el .gitconfig .tmux.conf .zshrc"
 # OS-specificy (uname -o) files and directories
-OSSPECIFIC=".zshenv .zshrc .ssh/config"
+OSSPECIFIC=".zshenv .ssh/config"
 
 
 ## Don't change anything below this line

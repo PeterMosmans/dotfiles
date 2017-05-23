@@ -1,7 +1,6 @@
 # MSYS2
 # Always sourced first, regardless of the shell type
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/repos/oh-my-zsh
 
 # zsh settings
 plugins=(git pylint tmux vagrant)
@@ -18,4 +17,5 @@ hash -d kb={KNOWLEDGEBASE}
 export temp=/tmp
 export tmp=/tmp
 
-
+# OS-specific update shortcut
+alias update='pacman --color=auto -Syuu'
