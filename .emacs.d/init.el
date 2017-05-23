@@ -111,6 +111,11 @@
   :ensure t
   )
 
+(use-package company-restclient
+  :config (add-to-list 'company-backends 'company-restclient)
+  :ensure t
+  )
+
 (use-package dash
   :defer t
   )
@@ -385,6 +390,15 @@
 
 (use-package pylint
   :defer t
+  :ensure t
+  )
+
+(use-package restclient
+  :config (add-hook 'restclient-mode-hook 'company-mode)
+  :ensure t
+  )
+
+(use-package restclient-helm
   :ensure t
   )
 
