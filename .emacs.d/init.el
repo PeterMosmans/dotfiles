@@ -453,7 +453,7 @@
   (set-face-attribute 'tabbar-default nil :inherit 'mode-line)
   (set-face-attribute 'tabbar-highlight nil :inherit 'mode-line :bold t)
   (set-face-attribute 'tabbar-modified nil :inherit 'mode-line :slant 'italic :height 0.8)
-  (set-face-attribute 'tabbar-selected nil :inherit 'mode-line :foreground "#f57900" :background "#2d3743" :bold t)
+  (set-face-attribute 'tabbar-selected nil :inherit 'mode-line :foreground "#f57900" :background "#2d3743" :bold t :box nil)
   (set-face-attribute 'tabbar-separator nil :inherit 'mode-line)
   (set-face-attribute 'tabbar-unselected nil :inherit 'mode-line-inactive :background "#000000" :slant 'italic :height 0.8)
   :ensure t
