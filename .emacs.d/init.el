@@ -21,7 +21,7 @@
 ;;; Code:
 
 ;; The following parameters are recognized, and can be added to
-;; ~/.emacs.d/variables.el:
+;; custom-file :
 ;; my-font
 ;; my-capture-file
 ;; my-dayplanner-file
@@ -48,8 +48,12 @@
 (defvar my-theme 'misterioso
   "Theme that will be applied when starting up.")
 
-(if (file-exists-p "~/.emacs.d/variables.el")
-    (load "~/.emacs.d/variables.el"))
+;; Use custom-file to store all customizations
+;; (including the aforementioned parameters)
+(setq custom-file "~/.emacs.d/variables.el")
+
+(if (file-exists-p custom-file)
+    (load custom-file))
 
 ;; uncomment for some debugging options
 ;; (setq debug-on-error t)
@@ -792,49 +796,6 @@
     (add-hook 'window-configuration-change-hook
               (lambda ()
                 (my/set-default-font my-font))))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#657b83"])
- '(background-color "#002b36")
- '(background-mode dark)
- '(c-basic-offset 4)
- '(current-language-environment "UTF-8")
- '(cursor-color "#839496")
- '(custom-safe-themes
-   (quote
-    ("0e219d63550634bc5b0c214aced55eb9528640377daf486e13fb18a32bf39856" "afbb40954f67924d3153f27b6d3399df221b2050f2a72eb2cfa8d29ca783c5a8" "6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
- '(ediff-patch-options "-f -N --strip=1 --binary")
- '(package-selected-packages
-   (quote
-    (restclient-helm company-restclient ob-restclient restclient scan-mode org-wc facemenu+ powerline telephone-line mode-icons smartparens ob-async hydra company-mode company-jedi elpy paperless helm-tramp helm-org-clock helm-clock-org helm-org-rifle ansible focus zenburn-theme flymd speed-type bm helm-config helm-ag org-ref org-bullets auto-complete typit elfeed-org flylisp helm-projectile projectile guide-key helm esup aggressive-indent highlight-indentation yasnippet use-package atom-dark-theme aurora-theme cyberpunk-theme flycheck-pyflakes json-reformat web-mode flycheck-color-mode-line pylint neotree pandoc-mode markdown-mode yaml-mode vbasense rainbow-mode git-timemachine xcscope ecb yafolding fill-column-indicator bind-key pkg-info ace-jump-mode unison-mode tabbar smart-mode-line nav naquadah-theme magit load-theme-buffer-local icicles gitignore-mode git-gutter-fringe+ flycheck flatland-theme firebelly-theme f expand-region display-theme dired-details deft darkburn-theme color-theme-solarized color-theme-sanityinc-solarized color-theme-buffer-local charmap calmer-forest-theme busybee-theme arduino-mode apache-mode)))
- '(vc-annotate-background "#2B2B2B")
- '(vc-annotate-color-map
-   (quote
-    ((20 . "#BC8383")
-     (40 . "#CC9393")
-     (60 . "#DFAF8F")
-     (80 . "#D0BF8F")
-     (100 . "#E0CF9F")
-     (120 . "#F0DFAF")
-     (140 . "#5F7F5F")
-     (160 . "#7F9F7F")
-     (180 . "#8FB28F")
-     (200 . "#9FC59F")
-     (220 . "#AFD8AF")
-     (240 . "#BFEBBF")
-     (260 . "#93E0E3")
-     (280 . "#6CA0A3")
-     (300 . "#7CB8BB")
-     (320 . "#8CD0D3")
-     (340 . "#94BFF3")
-     (360 . "#DC8CC3"))))
- '(vc-annotate-very-old-color "#DC8CC3"))
-
 
 ;;; KEY BINDINGS
 (global-set-key (kbd "<scroll>") 'scroll-lock-mode)
