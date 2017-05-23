@@ -30,7 +30,6 @@
 ;; my-theme
 ;;
 ;; Note that the defaults will be used if the variables aren't defined
-(put 'projectile-project-name 'safe-local-variable #'stringp)
 (defvar my-font "Source Code Pro"
   "Font that will be used (if it is installed).")
 (defvar my-capture-file "/capture-org"
@@ -1479,4 +1478,5 @@ If the file is emacs lisp, run the byte compiled version if exist."
    ("k" kill-line "kill (rest of) line")
    ("l" recenter-top-bottom)))
 
+(put 'projectile-project-name 'safe-local-variable #'stringp)
 ;;; init.el ends here
