@@ -1293,7 +1293,7 @@ File suffix is used to determine what program to run.
 
 If the file is modified, ask if you want to save first.
 
-If the file is emacs lisp, run the byte compiled version if exist."
+If the file is Emacs Lisp, run the byte compiled version if exist."
   (interactive)
   (let* (
          (suffixMap
@@ -1357,19 +1357,19 @@ If the file is emacs lisp, run the byte compiled version if exist."
   (not (member lang '("plantuml" "python" "restclient" "sh" "shell"))))
 
 (defun my-align-org-tags ()
-  "Align org-mode tags to the right border of the screen."
+  "Align 'org-mode' tags to the right border of the screen."
   (interactive)
   (setq org-tags-column (- 15 (window-width))))
 
 (defun org-clock-in-everywhere ()
-  "Clock in from within an org page as well as from within the agenda"
+  "Clock in from within an org page as well as from within the agenda."
   (interactive)
   (if (equal major-mode 'org-agenda-mode)
       (org-agenda-clock-in)
     (org-clock-in)))
 
 (defun org-clock-show-list ()
-  "Show org clock history list"
+  "Show Rhw org clock history list."
   (interactive)
   (let ((current-prefix-arg '(4)))
     (call-interactively 'org-clock-in)))
@@ -1388,7 +1388,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
     (kill-this-buffer))))
 
 (defun my-pentext-builder ()
-  "Search for a build script in underlying directories, and if found,
+  "Search for a build script in nested directories, and, if found,
 asynchronously run the script."
   (interactive)
   (setq builder nil)
