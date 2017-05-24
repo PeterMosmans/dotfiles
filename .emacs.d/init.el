@@ -671,12 +671,12 @@
       org-agenda-todo-keyword-format ""
       org-archive-location (concat "archive/%s." (format-time-string "%Y" (current-time)) ".archive::")
       org-capture-templates
-      '(("d" "Day planner"
+      '(("d" "daily objectives"
          entry (file+datetree (concat org-directory my-dayplanner-file))
-         "* TODO Planned day %(org-read-date nil nil \"+0d\") [/]\n  DEADLINE: <%(org-read-date nil nil \"+0d\")>\n  - [ ] %?")
-        ("w" "week planner"
+         "* TODO Daily objectives for %(org-read-date nil nil \"+0d\") [/]\n  DEADLINE: <%(org-read-date nil nil \"+0d\")>\n  - [ ] %?")
+        ("w" "weekly objectives"
          entry (file+weektree (concat org-directory my-dayplanner-file))
-         "* TODO Goals for week %<%W> [/]\n  DEADLINE: <%(org-read-date nil nil \"+7d\")>\n  - [ ] %?")
+         "* TODO Weekly objectives (week %<%W>) [/]\n  DEADLINE: <%(org-read-date nil nil \"+7d\")>\n  - [ ] %?")
         ("r" "reminder"
          entry (file+headline org-default-notes-file  "Tasks")
          "* TODO %?\n  DEADLINE: <%(org-read-date nil nil \"+1d\")>")
