@@ -1485,4 +1485,7 @@ asynchronously run the script."
    ("l" recenter-top-bottom)))
 
 (put 'projectile-project-name 'safe-local-variable #'stringp)
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars)
+;; End:
 ;;; init.el ends here
