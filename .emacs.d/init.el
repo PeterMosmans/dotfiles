@@ -653,7 +653,7 @@
           (org-agenda-start-on-weekday nil)  ;; calendar begins today
           (org-agenda-use-time-grid nil)  ;; don't show timegrid
           (org-agenda-view-columns-initially t) ;; turn on column view
-          (org-deadline-warning-days 365)
+          (org-deadline-warning-days 14)
           )))
       org-agenda-files (list org-directory) ;; all files in the org-directory
       org-agenda-prefix-format '((agenda . " %i%7e ")  ;; org-agenda
