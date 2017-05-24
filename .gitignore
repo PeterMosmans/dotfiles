@@ -1,3 +1,5 @@
 # Emacs temporary files
 .#*
 \#*#
+# Installer logfiles
+*.log
