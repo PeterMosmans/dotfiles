@@ -160,7 +160,8 @@
         ("C-x r"                       ;; register functions
          (artist-mode "C-c C-a")
          (neotree-mode "C-c")
-         (org-mode "C-c"))
+         (org-mode "C-c")
+         (rst-mode "C-c"))
         guide-key/idle-delay 1)
   (guide-key-mode t)
   :ensure t
