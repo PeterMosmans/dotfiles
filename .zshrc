@@ -123,7 +123,10 @@ done
 [ ! -z ${REPOS} ] && [ -d ${REPOS} ] && hash -d repos=${REPOS} || true
 
 # load Bash and zsh compatible aliases
-[ -f $HOME/.aliases ] && source $HOME/.aliases
+[[ -f $HOME/.aliases ]] && source $HOME/.aliases
+[[ -f "${BROWSER}" ]] && alias -s htm='${BROWSER}'
+[[ -f "${BROWSER}" ]] && alias -s html='${BROWSER}'
+[[ -f "${PDFREADER}" ]] && alias -s pdf='${PDFREADER}'
 
 # Start oh-my-zsh
-[ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
+[[ -f $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh
