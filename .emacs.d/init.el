@@ -259,29 +259,30 @@
 (use-package powerline
   :config
   (defface powerline-block1
-    '((t :inherit font-lock-keyword-face :background "Grey1" :bold nil))
+    '((t :foreground "white" :background "#2e3436" powerline-background-1 :box (:line-width -1 :style nil)))
     "Active powerline block 1" :group 'powerline)
+  (defface powerline-inactive-block1
+    '((t :inherit powerline-block1 :foreground "black" :background "ivory" :box nil))
+    "Inactive powerline" :group 'powerline)
   (defface powerline-block2
-    '((t :inherit font-lock-comment-face :background "Grey20"))
+    '((t :foreground "black" :background "#d3d7cf"))
     "Active powerline block 2" :group 'powerline)
+  (defface powerline-inactive-block2
+    '((t :inherit powerline-inactive-block1))
+    "Inactive powerline" :group 'powerline)
   (defface powerline-bold
     '((t :inherit powerline-block1 :bold t))
     "Active powerline block 3 (clock)" :group 'powerline)
-  (defface powerline-alert
-    '((t :inherit powerline-block1 :foreground "Red" :bold t))
-    "Active powerline block 4 (warning)" :group 'powerline)
-  (defface powerline-inactive-block1
-    '((t :inherit powerline-block1 :background "Grey35"))
-    "Inactive powerline" :group 'powerline)
-  (defface powerline-inactive-block2
-    '((t :inherit powerline-block2 :background "Grey35"))
-    "Inactive powerline" :group 'powerline)
   (defface powerline-inactive-bold
-    '((t :inherit powerline-inactive-block1 :bold nil))
+    '((t :inherit powerline-inactive-block1 :background "ivory"))
     "Inactive powerline" :group 'powerline)
+  (defface powerline-alert
+    '((t :inherit powerline-block1 :bold t :foreground "#ef2929"))
+    "Active powerline block 4 (warning)" :group 'powerline)
   (defface powerline-inactive-alert
-    '((t :inherit powerline-inactive-block1 :foreground "Red" :bold t))
+    '((t :inherit powerline-alert :background "ivory" :box nil))
     "Inactive powerline" :group 'powerline)
+
   (setq powerline-default-separator 'arrow)
   ;; 'design' own theme - see
   ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Variables.html
@@ -332,14 +333,14 @@
                               erc-track-minor-mode)
                            (powerline-raw erc-modified-channels-object face2 'l))
                          (powerline-major-mode face2 'l)
-                         (powerline-process face2)
                          (powerline-minor-modes face2 'l)
+                         (powerline-process face2)
                          (powerline-narrow face2 'l)
                          (funcall separator-left face2 face1)
-                         (powerline-raw mode-line-modified face1) ;; whether the buffer is modified
                          (powerline-buffer-id bold-face) ;; buffer name
                          (when powerline-display-buffer-size
-                           (powerline-buffer-size face2 'l))
+                           (powerline-buffer-size face1 'l))
+                         (powerline-raw mode-line-modified face1)
                          (funcall separator-left face1 face2)
                          (powerline-vc face2 'r)
                          (when
