@@ -21,4 +21,4 @@ export tmp=/tmp
 alias update='pacman --color=auto -Syuu'
 # Interactive alias bindings
 export BROWSER="c:/Program Files (x86)/Mozilla Firefox/firefox.exe"
-export PDFREADER="c:/Program Files/SumatraPDF/SumatraPDF.exe"
+export READER="c:/Program Files/SumatraPDF/SumatraPDF.exe"
