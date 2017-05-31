@@ -622,6 +622,12 @@
 
 (setq org-default-notes-file (concat org-directory my-capture-file)
       org-agenda-compact-blocks t      ;; skip long block separators
+      org-file-apps (quote             ;; add several file handlers
+       ((auto-mode . emacs)
+        ("\\.mm\\'" . default)
+        ("\\.odt\\'" . system)
+        ("\\.pdf\\'" . default)
+        ("\\.x?html?\\'" . default)))
       org-agenda-custom-commands
       '(("c" "category / tag ordened tasks for clocking purposes"
          (
