@@ -769,6 +769,8 @@
 
 (add-hook 'prog-mode-hook 'linum-mode)
 
+(add-hook 'rst-mode-hook 'yas-minor-mode)
+
 (add-hook 'sh-mode-hook
           (lambda ()
             (reveal-mode 1)))
