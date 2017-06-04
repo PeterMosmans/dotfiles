@@ -513,7 +513,7 @@
 
 
 ;; let's get the show on the road
-(if (boundp 'my-theme)
+(if (bound-and-true-p my-theme)
     (load-theme my-theme t))
 ;; overwrite mode line color for better inactive / active separation
 ;; (set-face-attribute 'mode-line-active nil :background "Black" :foreground "Grey5")
