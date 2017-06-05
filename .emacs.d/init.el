@@ -863,7 +863,7 @@
 
 ;; function keys
 ;; f1: magit
-(global-set-key (kbd "S-<f1>") 'my/cleanup)
+(global-set-key (kbd "S-<f1>") 'my-cleanup)
 (global-set-key (kbd "C-<f1>") 'show-file-name)
 (global-set-key (kbd "M-<f1>") 'code-review-region)
 
@@ -1282,11 +1282,11 @@ This is a useful function for adding to `kill-emacs-query-functions'."
       (insert "\n+---\n")
       (kill-region (point-min) (point-max)))))
 
-(defun my/cleanup ()
+(defun my-cleanup ()
   "Enable handy programming features / defaults"
   (interactive)
   (whitespace-cleanup)
-  ;; (fill-paragraph)
+  (fill-paragraph)
   (indent-region (point-min) (point-max)))
 
 (defun show-file-name ()
