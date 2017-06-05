@@ -280,13 +280,19 @@
 (use-package powerline
   :config
   (defface powerline-block1
-    '((t :foreground "white" :background "#2e3436" powerline-background-1 :box (:line-width -1 :style nil)))
+    `((t :foreground "white"
+         :background ,(plist-get my-theme-colors :background01)
+         :box (:line-width -1 :style nil)))
     "Active powerline block 1" :group 'powerline)
   (defface powerline-inactive-block1
-    '((t :inherit powerline-block1 :foreground "black" :background "ivory" :box nil))
+    `((t :inherit powerline-block1
+         :foreground "black"
+         :background ,(plist-get my-theme-colors :background03)
+         :box nil))
     "Inactive powerline" :group 'powerline)
   (defface powerline-block2
-    '((t :foreground "black" :background "#d3d7cf"))
+    `((t :foreground "black"
+         :background ,(plist-get my-theme-colors :background02)))
     "Active powerline block 2" :group 'powerline)
   (defface powerline-inactive-block2
     '((t :inherit powerline-inactive-block1))
@@ -295,13 +301,17 @@
     '((t :inherit powerline-block1 :bold t))
     "Active powerline block 3 (clock)" :group 'powerline)
   (defface powerline-inactive-bold
-    '((t :inherit powerline-inactive-block1 :background "ivory"))
+    '((t :inherit powerline-inactive-block1))
     "Inactive powerline" :group 'powerline)
   (defface powerline-alert
-    '((t :inherit powerline-block1 :bold t :foreground "#ef2929"))
+    `((t :inherit powerline-block1
+         :bold t
+         :foreground ,(plist-get my-theme-colors :foreground01)))
     "Active powerline block 4 (warning)" :group 'powerline)
   (defface powerline-inactive-alert
-    '((t :inherit powerline-alert :background "ivory" :box nil))
+    `((t :inherit powerline-alert
+         :background ,(plist-get my-theme-colors :background03)
+         :box nil))
     "Inactive powerline" :group 'powerline)
 
   (setq powerline-default-separator 'arrow)
@@ -475,13 +485,21 @@
          ("<f9>" . tabbar-forward)
          ("S-<f9>" . tabbar-forward-group))
   :config
-  (set-face-attribute 'tabbar-button nil :inherit 'mode-line)
+  (set-face-attribute 'tabbar-button nil :inherit 'mode-line :box nil)
   (set-face-attribute 'tabbar-default nil :inherit 'mode-line)
   (set-face-attribute 'tabbar-highlight nil :inherit 'mode-line :bold t)
-  (set-face-attribute 'tabbar-modified nil :inherit 'mode-line :slant 'italic :height 0.8)
-  (set-face-attribute 'tabbar-selected nil :inherit 'mode-line :foreground "#f57900" :background "#2d3743" :bold t :box nil)
+  (set-face-attribute 'tabbar-modified nil :inherit 'mode-line :slant 'italic :height .9
+                      :foreground `,(plist-get my-theme-colors :foreground02)
+                      :background `,(plist-get my-theme-colors :background01)
+                      :box nil)
+  (set-face-attribute 'tabbar-selected nil
+                      :inherit 'mode-line
+                      :foreground `,(plist-get my-theme-colors :foreground02)
+                      :background `,(plist-get my-theme-colors :background04)
+                      :bold t :box t)
   (set-face-attribute 'tabbar-separator nil :inherit 'mode-line)
-  (set-face-attribute 'tabbar-unselected nil :inherit 'mode-line-inactive :background "#000000" :slant 'italic :height 0.8)
+  (set-face-attribute 'tabbar-unselected nil :inherit 'mode-line-inactive
+                      :background "#000000" :slant 'italic :height 0.8)
   :ensure t
   :init
   (tabbar-mode t)                      ;; enable the tabbar by default
