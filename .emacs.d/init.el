@@ -30,23 +30,44 @@
 ;; my-theme
 ;;
 ;; Note that the defaults will be used if the variables aren't defined
-(defvar my-font "Source Code Pro"
-  "Font that will be used (if it is installed).")
-(defvar my-capture-file "/capture-org"
-  "Default 'org-mode' capture file relative to org-directory.")
+(defcustom my-font "Source Code Pro"
+  "Font that will be used (if it is installed)."
+  :type 'string
+  :group 'my-customizations)
+(defcustom my-capture-file "/capture-org"
+  "Default 'org-mode' capture file relative to org-directory."
+  :type 'file
+  :group 'my-customizations)
 (defvar my-dayplanner-file "/dayplanner.org"
   "Default 'org-mode' dayplanner file relative to org-directory.")
-(defvar my-org-directory "~/org"
-  "(Non-standard) org-directory.")
+(defcustom my-org-directory "~/org"
+  "(Non-standard) org-directory."
+  :type 'directory
+  :group 'my-customizations)
 (defvar my-replacer-list nil
   "List of pairs of strings used (by ‘sml/replacer’) to create prefixes.")
-(defvar my-scratch-file "~/scratch.txt"
-  "Persistent scratch file which is opened on startup.")
-(defvar my-snippets-dir nil
-  "A list of snippet directories that will be loaded by yasnippet.")
-(defvar my-theme 'misterioso
-  "Theme that will be applied when starting up.")
-
+(defcustom my-scratch-file "~/scratch.txt"
+  "Persistent scratch file which is opened on startup."
+  :type 'file
+  :group 'my-customizations)
+(defcustom my-snippets-dir nil
+  "A list of snippet directories that will be loaded by yasnippet."
+  :type 'string
+  :group 'my-customizations)
+(defcustom my-theme 'misterioso
+  "Theme that will be applied when starting up."
+  :type 'string
+  :group 'my-customizations)
+(defvar my-theme-colors
+  '(:background01 "#2e3436"           ;; powerline active block 1
+    :background02 "#d3d7cf"           ;; powerline active block 2
+    :background03 "ivory"             ;; powerline inactive
+    :background04 "#2d3743"           ;; tabbar active
+    :foreground01 "#ef2929"           ;; powerline alert
+    :foreground02 "#f57900"           ;; tabbar active
+    )
+  "Customizable colors for tabbars as well as powerline."
+  )
 ;; Use custom-file to store all customizations
 ;; (including the aforementioned parameters)
 (setq custom-file "~/.emacs.d/variables.el")
