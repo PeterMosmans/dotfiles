@@ -431,6 +431,12 @@
   :ensure t
   )
 
+(use-package rainbow-mode
+  :config (add-hook 'prog-mode-hook 'rainbow-mode)
+  :ensure t
+  :pin melpa-stable
+  )
+
 (use-package restclient
   :config (add-hook 'restclient-mode-hook 'company-mode)
   :ensure t
