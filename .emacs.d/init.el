@@ -63,7 +63,9 @@
     :background02 "#d3d7cf"           ;; powerline active block 2
     :background03 "ivory"             ;; powerline inactive
     :background04 "#2d3743"           ;; tabbar active
-    :foreground01 "#ef2929"           ;; powerline alert
+    :background05 "#000000"           ;; header line (without tabs)
+    :background06 "#AABBCC"           ;; inactive tab
+    :foreground01 "#ef2929"           ;; powerline alert / modified tab
     :foreground02 "#f57900"           ;; tabbar active
     )
   "Customizable colors for tabbars as well as powerline."
@@ -486,20 +488,29 @@
          ("S-<f9>" . tabbar-forward-group))
   :config
   (set-face-attribute 'tabbar-button nil :inherit 'mode-line :box nil)
-  (set-face-attribute 'tabbar-default nil :inherit 'mode-line)
-  (set-face-attribute 'tabbar-highlight nil :inherit 'mode-line :bold t)
-  (set-face-attribute 'tabbar-modified nil :inherit 'mode-line :slant 'italic :height .9
-                      :foreground `,(plist-get my-theme-colors :foreground02)
-                      :background `,(plist-get my-theme-colors :background01)
-                      :box nil)
-  (set-face-attribute 'tabbar-selected nil
-                      :inherit 'mode-line
+  (set-face-attribute 'tabbar-default nil :inherit 'default :height 0.8
+                      ;; :foreground `,(plist-get my-theme-colors :foreground01)
+                      :background `,(plist-get my-theme-colors :background05))
+  (set-face-attribute 'tabbar-highlight nil :box nil
                       :foreground `,(plist-get my-theme-colors :foreground02)
                       :background `,(plist-get my-theme-colors :background04)
-                      :bold t :box t)
+                      ) ;; mouse-over
+  (set-face-attribute 'tabbar-modified nil :inherit 'mode-line :height 0.8 :bold t
+                      :background "black"
+                      :foreground `,(plist-get my-theme-colors :background06))
+                      ;; :foreground `,(plist-get my-theme-colors :foreground01)
+                      ;; :background `,(plist-get my-theme-colors :background04)
+                      ;; :box t)
+  (set-face-attribute 'tabbar-selected nil
+                      :inherit 'default :height 0.8
+                      :foreground `,(plist-get my-theme-colors :foreground02)
+                      :background `,(plist-get my-theme-colors :background04)
+                      :bold t :box nil)
   (set-face-attribute 'tabbar-separator nil :inherit 'mode-line)
-  (set-face-attribute 'tabbar-unselected nil :inherit 'mode-line-inactive
-                      :background "#000000" :slant 'italic :height 0.8)
+  (set-face-attribute 'tabbar-unselected nil
+                      :foreground "black"
+                      :background `,(plist-get my-theme-colors :background06)
+                      :height 0.9 :box t)
   :ensure t
   :init
   (tabbar-mode t)                      ;; enable the tabbar by default
