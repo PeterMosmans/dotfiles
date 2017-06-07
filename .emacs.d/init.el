@@ -509,6 +509,7 @@
   :ensure t
   :config
   (setq web-mode-markup-indent-offset 2)
+  (add-hook 'web-mode-hook 'auto-fill-mode)
   :mode (("\\.[agj]sp\\'" . web-mode)
          ("\\.as[cp]x\\'" . web-mode)
          ("\\.html?\\'" . web-mode)
