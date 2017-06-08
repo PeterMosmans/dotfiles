@@ -58,16 +58,19 @@
   "Theme that will be applied when starting up."
   :type 'string
   :group 'my-customizations)
-(defvar my-theme-colors
-  '(:background01 "#2e3436"           ;; powerline active block 1
-    :background02 "#d3d7cf"           ;; powerline active block 2
-    :background03 "ivory"             ;; powerline inactive
-    :background04 "#2d3743"           ;; tabbar active
-    :background05 "#000000"           ;; header line (without tabs)
-    :background06 "#AABBCC"           ;; inactive tab
-    :foreground01 "#ef2929"           ;; powerline alert / modified tab
-    :foreground02 "#f57900"           ;; tabbar active
-    )
+(defvar my-theme-colors ;; based on misterioso theme
+                '(:background01 "#eeeeec"           ;; powerline active block 1
+                  :background02 "#878787"           ;; powerline active block 2
+                  :background03 "#415160"           ;; powerline inactive background
+                  :background04 "#2d3743"           ;; tabbar active
+                  :background05 "#000000"           ;; header line
+                  :background06 "#415160"           ;; inactive tab
+                  :foreground01 "black"             ;; powerline active block 1
+                  :foreground02 "white"             ;; powerline active block 2
+                  :foreground03 "white"           ;; powerline inactive
+                  :foreground04 "#ef2929"           ;; powerline alert / modified tab
+                  :foreground05 "#f57900"           ;; tabbar active foreground
+                  )
   "Customizable colors for tabbars as well as powerline."
   )
 ;; Use custom-file to store all customizations
