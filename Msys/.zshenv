@@ -17,8 +17,11 @@ hash -d kb={KNOWLEDGEBASE}
 export temp=/tmp
 export tmp=/tmp
 
-# OS-specific update shortcut
+# OS-specific update shortcuts
 alias update='pacman --color=auto -Syuu'
+alias emacsbuild='pushd ~emacs && gl && pushd ~emacs-builddir && make'
+alias emacsinstall='rm -rf c:/programs/emacs-previous && mv c:/programs/emacs c:/programs/emacs-previous && pushd ~emacs-builddir && make install-strip prefix=c:/programs/emacs && popd'
+
 # Interactive alias bindings
 export BROWSER="c:/Program Files (x86)/Mozilla Firefox/firefox.exe"
 export READER="c:/Program Files/SumatraPDF/SumatraPDF.exe"
