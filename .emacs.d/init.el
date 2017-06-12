@@ -194,9 +194,9 @@
   )
 
 (use-package helm
-  :bind (("M-x" . helm-M-x)
-         ("M-<f5>" . helm-find-files)
-         ([f10] . helm-buffers-list)
+  :bind (([M-x] . helm-M-x)
+         ([M-f5] . helm-find-files)
+         ([M-f10] . helm-buffers-list)
          ([S-f10] . helm-recentf)
          ([capslock] . helm-M-x))
   :config
@@ -218,7 +218,8 @@
 
 (use-package helm-projectile
   :bind (([f5] . helm-projectile-find-file)
-         ("C-<f10>" . helm-projectile-switch-project))
+         ([f10] . helm-projectile-switch-to-buffer)
+         ([C-f10] . helm-projectile-switch-project))
   :commands helm-projectile
   :ensure t
   )
