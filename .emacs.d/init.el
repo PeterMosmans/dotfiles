@@ -194,7 +194,8 @@
   )
 
 (use-package helm
-  :bind (([M-x] . helm-M-x)
+  :bind (("C-c i" . helm-imenu)
+         ([M-x] . helm-M-x)
          ([M-f5] . helm-find-files)
          ([M-f10] . helm-buffers-list)
          ([S-f10] . helm-recentf)
