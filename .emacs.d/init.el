@@ -411,7 +411,6 @@
   )
 
 (use-package projectile
-  :bind ("M-<f10>" . projectile-ibuffer)
   :config
   (setq projectile-completion-system 'helm
         projectile-globally-ignored-file-suffixes '(".avi" ".fo" ".jpg" ".mp4"
