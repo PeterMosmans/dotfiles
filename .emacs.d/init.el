@@ -238,6 +238,12 @@
   :ensure t
   )
 
+(use-package imenu-list
+  :config (setq imenu-list-position 'left)
+  :defer t
+  :ensure t
+  )
+
 (use-package let-alist
   :defer t
   )
