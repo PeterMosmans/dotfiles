@@ -491,28 +491,6 @@
          ("S-<f8>" . tabbar-backward-group)
          ("<f9>" . tabbar-forward)
          ("S-<f9>" . tabbar-forward-group))
-  :config
-  (set-face-attribute 'tabbar-button nil :inherit 'mode-line :box nil)
-  (set-face-attribute 'tabbar-default nil :inherit 'default :height 0.8
-                      :background `,(plist-get my-theme-colors :background05))
-  (set-face-attribute 'tabbar-highlight nil :box '(:line-width 3 :style pressed-button)
-                      :foreground `,(plist-get my-theme-colors :foreground05)
-                      :background `,(plist-get my-theme-colors :background04)
-                      ) ;; mouse-over
-  (set-face-attribute 'tabbar-modified nil :inherit 'mode-line :height 0.8 :bold t
-                      :background `,(plist-get my-theme-colors :background04)
-                      :foreground `,(plist-get my-theme-colors :foreground06)
-                      :box '(:line-width 3 :style released-button))
-  (set-face-attribute 'tabbar-selected nil
-                      :inherit 'default :height 0.8
-                      :foreground `,(plist-get my-theme-colors :foreground02)
-                      :background `,(plist-get my-theme-colors :background04)
-                      :bold t :box nil)
-  (set-face-attribute 'tabbar-separator nil :inherit 'mode-line)
-  (set-face-attribute 'tabbar-unselected nil
-                      :foreground "white"
-                      :background `,(plist-get my-theme-colors :background06)
-                      :height 0.9 :box '(:line-width 2 style: released-button))
   :ensure t
   :init
   (tabbar-mode t)                      ;; enable the tabbar by default
@@ -1216,6 +1194,31 @@ ARG is a prefix argument.  If nil, copy the current difference region."
   (set-buffer-file-coding-system
    'utf-8-unix)
   )
+
+(defun my-apply-theme-colors ()
+  "Apply my-theme-colors on tabbar and powerline."
+  (interactive)
+  (set-face-attribute 'tabbar-button nil :inherit 'mode-line :box nil)
+  (set-face-attribute 'tabbar-default nil :inherit 'default :height 0.8
+                      :background `,(plist-get my-theme-colors :background05))
+  (set-face-attribute 'tabbar-highlight nil :box '(:line-width 3 :style pressed-button)
+                      :foreground `,(plist-get my-theme-colors :foreground05)
+                      :background `,(plist-get my-theme-colors :background04)
+                      ) ;; mouse-over
+  (set-face-attribute 'tabbar-modified nil :inherit 'mode-line :height 0.8 :bold t
+                      :background `,(plist-get my-theme-colors :background04)
+                      :foreground `,(plist-get my-theme-colors :foreground06)
+                      :box '(:line-width 3 :style released-button))
+  (set-face-attribute 'tabbar-selected nil
+                      :inherit 'default :height 0.8
+                      :foreground `,(plist-get my-theme-colors :foreground02)
+                      :background `,(plist-get my-theme-colors :background04)
+                      :bold t :box nil)
+  (set-face-attribute 'tabbar-separator nil :inherit 'mode-line)
+  (set-face-attribute 'tabbar-unselected nil
+                      :foreground "white"
+                      :background `,(plist-get my-theme-colors :background06)
+                      :height 0.9 :box '(:line-width 2 style: released-button)))
 
 (defun my-beautify-json ()
   "Beautify json using Python."
