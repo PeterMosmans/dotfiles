@@ -544,8 +544,6 @@
 
 
 ;; let's get the show on the road
-(if (bound-and-true-p my-theme)
-    (load-theme my-theme t))
 ;; overwrite mode line color for better inactive / active separation
 ;; (set-face-attribute 'mode-line-active nil :background "Black" :foreground "Grey5")
 ;; (set-face-attribute 'mode-line-inactive nil :background "#000000" :foreground "#777777")
@@ -819,6 +817,8 @@
 ;; builtin hooks
 (add-hook 'after-init-hook
           (lambda ()
+            (if (bound-and-true-p my-theme)
+    (load-theme my-theme t))
             ;; make sure that utf8 Unix line endings (LF) are default
             (setq-default default-buffer-file-coding-system 'utf-8-unix)
             (setq-default buffer-file-coding-system 'utf-8-unix)
