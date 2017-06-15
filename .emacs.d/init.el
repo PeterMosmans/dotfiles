@@ -751,6 +751,17 @@
       )
 
 ;; hooks
+(defvar after-load-theme-hook nil
+  "Hook run after a color theme is loaded using `load-theme'.")
+
+(defadvice load-theme (after run-after-load-theme-hook activate)
+  "Run `after-load-theme-hook'."
+  (run-hooks 'after-load-theme-hook))
+
+(add-hook 'after-load-theme-hook
+          (lambda ()
+            (my-extract-colors)
+            (my-apply-theme-colors)))
 (add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 (add-hook 'org-clock-in-hook 'save-buffer)  ;; save buffer when clocking in...
