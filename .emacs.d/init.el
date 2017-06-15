@@ -58,21 +58,10 @@
   "Theme that will be applied when starting up."
   :type 'string
   :group 'my-customizations)
-(defvar my-theme-colors ;; based on misterioso theme
-                '(:background01 "#eeeeec"           ;; powerline active block 1
-                  :background02 "#878787"           ;; powerline active block 2
-                  :background03 "#415160"           ;; powerline inactive background
-                  :background04 "#2d3743"           ;; tabbar active
-                  :background05 "#000000"           ;; header line
-                  :background06 "#415160"           ;; inactive tab
-                  :foreground01 "black"             ;; powerline active block 1
-                  :foreground02 "white"             ;; powerline active block 2
-                  :foreground03 "white"           ;; powerline inactive
-                  :foreground04 "#ef2929"           ;; powerline alert / modified tab
-                  :foreground05 "#f57900"           ;; tabbar active foreground
-                  )
-  "Customizable colors for tabbars as well as powerline."
-  )
+(defvar my-theme-colors nil
+  "Customizable re-usable colors extracted from the current theme and applied to tabbar and powerline.")
+
+
 ;; Use custom-file to store all customizations
 ;; (including the aforementioned parameters)
 (setq custom-file "~/.emacs.d/variables.el")
@@ -1235,6 +1224,23 @@ ARG is a prefix argument.  If nil, copy the current difference region."
         (e (if mark-active (max (point) (mark)) (point-max))))
     (shell-command-on-region b e
                              "python -mjson.tool" (current-buffer) t)))
+
+(defun my-extract-colors ()
+  "Extract colors from current applied theme."
+  (interactive)
+  (setq my-theme-colors
+        `(:background01 "#eeeeec"           ;; powerline active block 1
+          :background02 "#878787"           ;; powerline active block 2
+          :background03 "#415160"           ;; powerline inactive background
+          :background04 ,(face-attribute 'default :background);; tabbar active
+          :background05 "#000000"           ;; header line
+          :background06 "#415160"           ;; inactive tab / highlight indentation
+          :foreground01 "black"             ;; powerline active block 1
+          :foreground02 "white"             ;; powerline active block 2
+          :foreground03 "white"             ;; powerline inactive
+          :foreground04 "#ef2929"           ;; powerline alert / modified tab
+          :foreground05 ,(face-attribute 'font-lock-keyword-face :foreground) ;; tabbar active foreground
+          )))
 
 (defun my-reset-gc-threshold ()
   "Reset `gc-cons-threshold' to its default value."
