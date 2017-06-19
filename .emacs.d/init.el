@@ -806,7 +806,10 @@
             (local-set-key "\C-c b" '(shell-command "../show"))
             ))
 
-(add-hook 'prog-mode-hook 'linum-mode)
+(add-hook 'prog-mode-hook (lambda ()
+                            (auto-fill-mode 1)
+                            (flyspell-prog-mode)
+                            (linum-mode 1)))
 
 (add-hook 'rst-mode-hook 'yas-minor-mode)
 
