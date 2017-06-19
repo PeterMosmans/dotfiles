@@ -120,8 +120,8 @@
   )
 
 (use-package company
-  :config (add-hook 'prog-mode-hook 'company-mode)
   :ensure t
+  :init (global-company-mode)
   )
 
 (use-package company-jedi
