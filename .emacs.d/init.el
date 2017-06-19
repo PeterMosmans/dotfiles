@@ -280,39 +280,24 @@
 
 (use-package powerline
   :config
-  (defface powerline-block1
-    `((t :foreground ,(plist-get my-theme-colors :foreground01)
-         :background ,(plist-get my-theme-colors :background01)
-         :box nil))
-    "Active powerline block 1" :group 'powerline)
-  (defface powerline-block2
-    `((t :foreground ,(plist-get my-theme-colors :foreground02)
-         :background ,(plist-get my-theme-colors :background02)))
-    "Active powerline block 2" :group 'powerline)
-  (defface powerline-inactive-block1
-    `((t :inherit powerline-block1
-         :foreground ,(plist-get my-theme-colors :foreground03)
-         :background ,(plist-get my-theme-colors :background03)
-         :box nil))
-    "Inactive powerline" :group 'powerline)
-  (defface powerline-inactive-block2
-    '((t :inherit powerline-inactive-block1))
-    "Inactive powerline" :group 'powerline)
+  ;; (defface powerline-inactive-block1
+  ;;   `((t :inherit powerline-block1 nil))
+  ;;   "Inactive powerline" :group 'powerline)
+  ;; (defface powerline-inactive-block2
+  ;;   '((t :inherit powerline-inactive-block1))
+  ;;   "Inactive powerline" :group 'powerline)
   (defface powerline-bold
     '((t :inherit powerline-block1 :bold t))
     "Active powerline block 3 (clock)" :group 'powerline)
   (defface powerline-inactive-bold
     '((t :inherit powerline-inactive-block1))
     "Inactive powerline" :group 'powerline)
-  (defface powerline-alert
-    `((t :inherit powerline-block1
-         :bold t
-         :foreground ,(plist-get my-theme-colors :foreground04)))
+  (defface powerline-alert nil
     "Active powerline block 4 (warning)" :group 'powerline)
   (defface powerline-inactive-alert
-    `((t :inherit powerline-alert
-         :background ,(plist-get my-theme-colors :background03)
-         :box nil))
+    `((t :inherit powerline-alert))
+    ;; :background ,(plist-get my-theme-colors :background03)
+    ;; :box nil))
     "Inactive powerline" :group 'powerline)
 
   (setq powerline-default-separator 'arrow)
@@ -329,9 +314,9 @@
                        (mode-line
                         (if active 'mode-line-active 'mode-line-inactive))
                        (face1
-                        (if active 'powerline-block1 'powerline-inactive-block1))
+                        (if active 'powerline-active1 'powerline-inactive1))
                        (face2
-                        (if active 'powerline-block2 'powerline-inactive-block2))
+                        (if active 'powerline-active2 'powerline-inactive2))
                        (bold-face
                         (if active 'powerline-bold 'powerline-inactive-bold))
                        (alert-face
