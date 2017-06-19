@@ -482,7 +482,7 @@
   :ensure t
   :config
   (setq web-mode-markup-indent-offset 2)
-  (add-hook 'web-mode-hook 'auto-fill-mode)
+  (add-hook 'web-mode-hook 'flyspell-mode-on)
   :mode (("\\.[agj]sp\\'" . web-mode)
          ("\\.as[cp]x\\'" . web-mode)
          ("\\.html?\\'" . web-mode)
@@ -743,9 +743,12 @@
                                 (makunbound 'org-mode-line-string)
                                 (force-mode-line-update)))
 (add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
+
 (add-hook 'org-mode-hook
           (lambda ()
+            (linum-mode 0)             ;; as it's derived from text-mode
             (yas-minor-mode 1)
+            (turn-on-flyspell)
             (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)))
 
 ;; associate certain files with modes
