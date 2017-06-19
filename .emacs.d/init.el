@@ -58,9 +58,8 @@
   "Theme that will be applied when starting up."
   :type 'string
   :group 'my-customizations)
-(defvar my-theme-colors nil
-  "Customizable re-usable colors extracted from the current theme and applied to tabbar and powerline.")
-
+(defvar my-colors nil
+  "Customizable re-usable colors, partially  extracted from the current theme and applied to tabbar and powerline.")
 
 ;; Use custom-file to store all customizations
 ;; (including the aforementioned parameters)
@@ -761,7 +760,7 @@
 (add-hook 'after-load-theme-hook
           (lambda ()
             (my-extract-colors)
-            (my-apply-theme-colors)))
+            (my-apply-colors)))
 (add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 (add-hook 'org-clock-in-hook 'save-buffer)  ;; save buffer when clocking in...
@@ -1206,30 +1205,52 @@ ARG is a prefix argument.  If nil, copy the current difference region."
    'utf-8-unix)
   )
 
-(defun my-apply-theme-colors ()
-  "Apply my-theme-colors on tabbar and powerline."
+(defun my-apply-colors ()
+  "Apply theme colors to tabbar and powerline."
   (interactive)
-  (set-face-attribute 'tabbar-button nil :inherit 'mode-line :box nil)
-  (set-face-attribute 'tabbar-default nil :inherit 'default :height 0.8
-                      :background `,(plist-get my-theme-colors :background05))
-  (set-face-attribute 'tabbar-highlight nil :box '(:line-width 3 :style pressed-button)
-                      :foreground `,(plist-get my-theme-colors :foreground05)
-                      :background `,(plist-get my-theme-colors :background04)
-                      ) ;; mouse-over
-  (set-face-attribute 'tabbar-modified nil :inherit 'mode-line :height 0.8 :bold t
-                      :background `,(plist-get my-theme-colors :background04)
-                      :foreground `,(plist-get my-theme-colors :foreground06)
-                      :box '(:line-width 3 :style released-button))
-  (set-face-attribute 'tabbar-selected nil
-                      :inherit 'default :height 0.8
-                      :foreground `,(plist-get my-theme-colors :foreground02)
-                      :background `,(plist-get my-theme-colors :background04)
-                      :bold t :box nil)
-  (set-face-attribute 'tabbar-separator nil :inherit 'mode-line)
-  (set-face-attribute 'tabbar-unselected nil
-                      :foreground "white"
-                      :background `,(plist-get my-theme-colors :background06)
-                      :height 0.9 :box '(:line-width 2 style: released-button)))
+  (when (boundp tabbar-mode)
+      ;; (progn
+        (set-face-attribute 'tabbar-button nil :inherit `default :box nil)
+        ;; default line without tabs
+        (set-face-attribute 'tabbar-default nil :inherit `default :height 0.8
+                            :background "black")
+        (set-face-attribute 'tabbar-selected nil :inherit `default :height 0.8 :box nil :bold t
+                            :foreground `,(face-attribute 'font-lock-keyword-face :foreground))
+        (set-face-attribute 'tabbar-unselected nil :inherit `default :height 0.8
+                            :box '(:line-width 1 style: released-button))
+        ;; mouse-over
+        (set-face-attribute 'tabbar-highlight nil :box '(:line-width 3 :style pressed-button)
+                            :height 0.8)
+        ;; modified tab
+        (set-face-attribute 'tabbar-modified nil :box '(:line-width 1 style: released-button)
+                            :foreground `,(face-attribute 'font-lock-warning-face :foreground)
+                            :background `,(face-attribute 'default :background))
+        (set-face-attribute 'tabbar-selected-modified nil :inherit `tabbar-selected
+                            :foreground `,(face-attribute 'font-lock-warning-face :foreground))
+        (set-face-attribute 'tabbar-separator nil)
+        )
+  (when (featurep 'powerline)
+    (powerline-reset)
+    (set-face-attribute 'powerline-active1 nil :box t
+                        :background `,(face-attribute 'mode-line :background)
+                        :foreground `,(face-attribute 'mode-line :foreground))
+    (set-face-attribute 'powerline-active2 nil
+                        :background `,(face-attribute 'secondary-selection :background)
+                        :foreground `,(face-attribute 'secondary-selection :foreground))
+    (set-face-attribute 'powerline-bold nil :inherit `powerline-active1 :bold t)
+    (set-face-attribute 'powerline-inactive1 nil :box nil
+                        :background `,(face-attribute 'mode-line-inactive :background))
+    (set-face-attribute 'powerline-inactive-bold nil :inherit `powerline-inactive1 :bold t)
+    (set-face-attribute 'powerline-inactive2 nil :inherit `default :box nil
+                        :background `,(face-attribute 'mode-line-inactive :background))
+    (set-face-attribute 'powerline-inactive-bold nil :inherit 'mode-line-inactive :bold t :box nil)
+    (set-face-attribute 'powerline-alert nil
+                        :inherit `powerline-active1 :box nil :bold t
+                        :foreground `,(face-attribute 'font-lock-warning-face :foreground))
+    (set-face-attribute 'powerline-inactive-alert nil :inherit `powerline-alert
+                        :background `,(face-attribute
+                                       'mode-line-inactive :background))
+    ))
 
 (defun my-beautify-json ()
   "Beautify json using Python."
@@ -1242,19 +1263,19 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 (defun my-extract-colors ()
   "Extract colors from current applied theme."
   (interactive)
-  (setq my-theme-colors
-        `(:background01 "#eeeeec"           ;; powerline active block 1
-          :background02 "#878787"           ;; powerline active block 2
-          :background03 "#415160"           ;; powerline inactive background
-          :background04 ,(face-attribute 'default :background);; tabbar active
-          :background05 "#000000"           ;; header line
-          :background06 "#415160"           ;; inactive tab / highlight indentation
-          :foreground01 "black"             ;; powerline active block 1
-          :foreground02 "white"             ;; powerline active block 2
-          :foreground03 "white"             ;; powerline inactive
-          :foreground04 "#ef2929"           ;; powerline alert / modified tab
-          :foreground05 ,(face-attribute 'font-lock-keyword-face :foreground) ;; tabbar active foreground
-          )))
+  (setq my-colors
+        `(:powerline "#eeeeec"           ;; powerline active block 1
+                     :background02 "#878787"           ;; powerline active block 2
+                     :background03 "#415160"           ;; powerline inactive background
+                     :background04 ,(face-attribute 'default :background);; tabbar active
+                     :background05 "#000000"           ;; header line
+                     :background06 "#415160"           ;; inactive tab / highlight indentation
+                     :foreground01 "black"             ;; powerline active block 1
+                     :foreground02 "white"             ;; powerline active block 2
+                     :foreground03 "white"             ;; powerline inactive
+                     :foreground04 ,(face-attribute 'font-lock-warning-face :foreground) ;; powerline alert / modified tab
+                     :foreground05 ,(face-attribute 'font-lock-keyword-face :foreground) ;; tabbar active foreground
+                     )))
 
 (defun my-reset-gc-threshold ()
   "Reset `gc-cons-threshold' to its default value."
