@@ -449,19 +449,17 @@
                              "Guide")
                            "\\|"))
         sml/name-width 20
-        ;; sml/mode-width t
         sml/theme 'dark)
   (display-time)                       ;; show time in modeline
   (if (boundp 'my-replacer-list)
       (setq sml/replacer-regexp-list my-replacer-list))
-  ;; (sml/setup)
   :ensure t
   )
 
 (use-package smartparens
-  :config (add-hook 'prog-mode-hook
-                    (smartparens-mode 1))
+  :config
   (set-face-attribute 'show-paren-match nil :background "#555753")
+  (smartparens-global-mode 1)
   :ensure t
   )
 
@@ -520,18 +518,10 @@
   (if (boundp 'my-snippet-dirs)
       (dolist (item my-snippet-dirs)   ;; add item per item
         (add-to-list 'yas-snippet-dirs item)))
-  (add-hook 'prog-mode-hook
-            (yas-minor-mode 1))
   (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
   :ensure t
   )
-
-
-;; let's get the show on the road
-;; overwrite mode line color for better inactive / active separation
-;; (set-face-attribute 'mode-line-active nil :background "Black" :foreground "Grey5")
-;; (set-face-attribute 'mode-line-inactive nil :background "#000000" :foreground "#777777")
-
 
 ;; define font for Unicode Private Use Area block
 (when (member "Symbol" (font-family-list))
@@ -555,7 +545,6 @@
 (setq-default fill-column 80           ;; width of the screen for wrapping
               line-spacing 0
               indent-tabs-mode nil)    ;; always use spaces for indentation
-
 (setq
  auto-save-interval 1000               ;; automatically save after x characters
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
@@ -565,7 +554,6 @@
  dired-listing-switches "-agoh"
  ediff-window-setup-function 'ediff-setup-windows-plain
  global-font-lock-mode 1               ;; syntax highlighting on by default
- global-linum-mode 0                   ;; disable global line numbers
  global-visual-line-mode 1             ;; act on visual lines, enable word wrap
  inhibit-compacting-font-caches t      ;; speed up displaying Unicode glyphs
  inhibit-startup-echo-area-message nil
@@ -835,7 +823,6 @@
 (add-hook 'window-configuration-change-hook
           (lambda()
             (my-align-org-tags)))
-
 
 ;; workaround to make sure that font is being set when running in daemon mode
 (if (daemonp)
