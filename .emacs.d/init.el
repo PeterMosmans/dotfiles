@@ -821,6 +821,8 @@
 
 (add-hook 'text-mode-hook
           (lambda ()
+            (flyspell-mode)
+            (linum-mode 1)
             (visual-line-mode 0)       ;; show a symbol for wrapping lines,
             (setq word-wrap 1)))       ;; but still wrap words nicely
 
