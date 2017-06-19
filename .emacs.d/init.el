@@ -490,16 +490,15 @@
          ("\\.phtml\\'" . web-mode)
          ("\\.tpl\\.php\\'" . web-mode)
          ("\\.xml\\'" . web-mode))
+  :pin melpa-stable
   )
 
 (use-package yafolding
   :bind (("C-|" . yafolding-toggle-element)
          ("C-\\" . yafolding-toggle-all))
-  :config (add-hook 'prog-mode-hook
-                    (yafolding-mode 1))
-  (yas-minor-mode 1)
   :defer t
   :ensure t
+  :init (add-hook 'prog-mode-hook 'yafolding-mode)
   )
 
 (use-package yaml-mode
