@@ -184,6 +184,7 @@
 
 (use-package helm
   :bind (("C-c i" . helm-imenu)
+         ("C-c y" . helm-show-kill-ring)
          ([M-x] . helm-M-x)
          ([M-f5] . helm-find-files)
          ([M-f10] . helm-buffers-list)
