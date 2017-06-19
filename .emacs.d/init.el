@@ -288,12 +288,6 @@
 
 (use-package powerline
   :config
-  ;; (defface powerline-inactive-block1
-  ;;   `((t :inherit powerline-block1 nil))
-  ;;   "Inactive powerline" :group 'powerline)
-  ;; (defface powerline-inactive-block2
-  ;;   '((t :inherit powerline-inactive-block1))
-  ;;   "Inactive powerline" :group 'powerline)
   (defface powerline-bold
     '((t :inherit powerline-block1 :bold t))
     "Active powerline block 3 (clock)" :group 'powerline)
@@ -304,8 +298,6 @@
     "Active powerline block 4 (warning)" :group 'powerline)
   (defface powerline-inactive-alert
     `((t :inherit powerline-alert))
-    ;; :background ,(plist-get my-theme-colors :background03)
-    ;; :box nil))
     "Inactive powerline" :group 'powerline)
 
   (setq powerline-default-separator 'arrow)
