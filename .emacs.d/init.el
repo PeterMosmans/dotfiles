@@ -503,12 +503,10 @@
 
 (use-package yaml-mode
   :ensure t
-  ;; yaml is a major mode, not based on prog-mode, so add functionality manually
+  ;; yaml is a major mode, not based on prog-mode, so manually add modes
   :init
-  (add-hook 'yaml-mode-hook 'company-mode-on)
   (add-hook 'yaml-mode-hook 'fci-mode)
   (add-hook 'yaml-mode-hook 'highlight-indentation-mode)
-  (add-hook 'yaml-mode-hook 'linum-mode)
   )
 
 (use-package yasnippet
