@@ -149,8 +149,9 @@
   :commands fci-mode
   :config
   (setq fci-rule-color "light slate grey")
-  (add-hook 'prog-mode-hook 'fci-mode)
   :ensure t
+  :init
+  (add-hook 'prog-mode-hook 'fci-mode)
   )
 
 (use-package flycheck
