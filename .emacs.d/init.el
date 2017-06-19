@@ -808,7 +808,7 @@
 (add-hook 'after-init-hook
           (lambda ()
             (if (bound-and-true-p my-theme)
-    (load-theme my-theme t))
+                (load-theme my-theme t))
             ;; make sure that utf8 Unix line endings (LF) are default
             (setq-default default-buffer-file-coding-system 'utf-8-unix)
             (setq-default buffer-file-coding-system 'utf-8-unix)
@@ -1131,13 +1131,13 @@ ARG is a prefix argument.  If nil, copy the current difference region."
           (condition-case conds
               (progn
                 (ediff-with-current-buffer to-buf
-                                           ;; to prevent flags from interfering if buffer is writable
-                                           (let ((inhibit-read-only (null buffer-read-only)))
-                                             (goto-char reg-to-delete-end)
-                                             (insert reg-to-copy)
-                                             (if (> reg-to-delete-end reg-to-delete-beg)
-                                                 (kill-region reg-to-delete-beg reg-to-delete-end))
-                                             ))
+                  ;; to prevent flags from interfering if buffer is writable
+                  (let ((inhibit-read-only (null buffer-read-only)))
+                    (goto-char reg-to-delete-end)
+                    (insert reg-to-copy)
+                    (if (> reg-to-delete-end reg-to-delete-beg)
+                        (kill-region reg-to-delete-beg reg-to-delete-end))
+                    ))
                 (or batch-invocation
                     (setq
                      messg
