@@ -207,6 +207,10 @@
   :ensure t
   )
 
+(use-package helm-flyspell
+  :config (define-key flyspell-mode-map (kbd "C-;") 'helm-flyspell-correct)
+  :ensure t
+  )
 
 (use-package helm-org-rifle
   :ensure t
