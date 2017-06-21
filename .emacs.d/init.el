@@ -1239,6 +1239,22 @@ ARG is a prefix argument.  If nil, copy the current difference region."
     (shell-command-on-region b e
                              "python -mjson.tool" (current-buffer) t)))
 
+(defun my-compile-anywhere ()
+  "Search for a Makefile in directories above, and asynchronously execute make."
+  (interactive)
+  (setq builder nil)
+  (dolist (path '("../../" "../"))
+    (if (file-exists-p (concat path "Makefile"))
+        (setq builder path)))
+  (if builder
+      (progn
+        (message "Make process started...")
+        (async-start
+         (progn (shell-command-to-string (concat "cd " builder "; make")))
+         (lambda (result)
+           (message "%s" result))))
+    (message "Could not find Makefile")))
+
 (defun my-extract-colors ()
   "Extract colors from current applied theme."
   (interactive)
@@ -1499,23 +1515,6 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
    ((save-buffer)
     (kill-this-buffer))))
 
-(defun my-pentext-builder ()
-  "Search for a build script in nested directories, and, if found,
-asynchronously run the script."
-  (interactive)
-  (setq builder nil)
-  (dolist (file '("../../build" "../build"))
-    (if (file-exists-p file)
-        (setq builder file)))
-  (if builder
-      (progn
-        (message "Build process started...")
-        (async-start
-         (lambda ()
-           (shell-command-to-string "../build"))
-         (lambda (result)
-           (message "%s" result))))
-    (message "Not in a Pentext directory")))
 
 ;; http://zck.me/emacs-move-file
 (defun move-file (new-location)
