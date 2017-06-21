@@ -750,7 +750,7 @@
           (lambda ()
             (my-extract-colors)
             (my-apply-colors)))
-(add-hook 'kill-emacs-query-functions 'my/org-query-clock-out)
+(add-hook 'kill-emacs-query-functions 'my-org-query-clock-out)
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 (add-hook 'org-clock-in-hook 'save-buffer)  ;; save buffer when clocking in...
 (add-hook 'org-clock-in-prepare-hook 'my-org-mode-ask-effort)
@@ -830,7 +830,7 @@
             (setq-default default-buffer-file-coding-system 'utf-8-unix)
             (setq-default buffer-file-coding-system 'utf-8-unix)
             (prefer-coding-system 'utf-8-unix)
-            (my/set-default-font my-font)
+            (my-set-default-font my-font)
             (if (boundp 'my-scratch-file)
                 (progn
                   (find-file my-scratch-file)  ;; only show it if it's the only file
@@ -847,27 +847,28 @@
 (if (daemonp)
     (add-hook 'window-configuration-change-hook
               (lambda ()
-                (my/set-default-font my-font))))
+                (my-set-default-font my-font))))
 
 ;;; KEY BINDINGS
 (global-set-key (kbd "<scroll>") 'scroll-lock-mode)
 
 ;; miscellaneous (for consistency)
 (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
+(global-set-key (kbd "C-c b") 'my-compile-anywhere)
 (global-set-key (kbd "C-(") 'check-parens) ;; matching parens
 (global-set-key (kbd "C-=") 'er/expand-region) ;; make selection bigger and bigger
 (global-set-key (kbd "M-;") 'comment-line)
 (global-set-key (kbd "C-M-t") 'my/insert-current-date-time)
 
-;; function keys
+;; keybindings
 ;; f1: magit
 (global-set-key (kbd "S-<f1>") 'my-cleanup)
 (global-set-key (kbd "C-<f1>") 'show-file-name)
 (global-set-key (kbd "M-<f1>") 'code-review-region)
 
 ;; navigation in buffer (file)
-(global-set-key (kbd "<f2>") 'my/switch-to-previous-buffer)
-(global-set-key (kbd "S-<f2>") 'my/insert-current-date-time)
+(global-set-key (kbd "<f2>") 'my-switch-to-previous-buffer)
+(global-set-key (kbd "S-<f2>") 'my-insert-current-date-time)
 
 ;; searching
 (global-set-key (kbd "<f3>") 'isearch-repeat-forward)
@@ -1056,24 +1057,6 @@ Return a list of one element based on major mode."
          ((memq ,arg '(?d ?D)) 'D)
          ))
 
-(defun my/set-default-font (my-font)
-  "Set default font to MY-FONT for frames if the font has been installed."
-  (if window-system
-      (progn
-        (if (member my-font (font-family-list))
-            (progn
-              (set-face-attribute 'default nil :font my-font)
-              (set-frame-font my-font nil t))
-          (progn
-            (message "Font %s is not installed" my-font)
-            (if (font-family-list)
-                (print (font-family-list)))))
-        (if (daemonp)
-            (progn
-              (message "Removing daemon startup set-default-font hook")
-              (remove-hook 'window-configuration-change-hook
-                           (lambda ()
-                             (my/set-default-font my-font))))))))
 
 ;; http://stackoverflow.com/questions/9656311/conflict-resolution-with-emacs-ediff-how-can-i-take-the-chan
 (defun ediff-diff-to-diff (arg &optional keys)
@@ -1273,6 +1256,12 @@ ARG is a prefix argument.  If nil, copy the current difference region."
                      :foreground05 ,(face-attribute 'font-lock-keyword-face :foreground) ;; tabbar active foreground
                      )))
 
+(defun my-insert-current-date-time ()
+  "Insert the current date and time into the buffer.
+Uses `current-date-time-format' for the formatting the date/time."
+  (interactive)
+  (insert (format-time-string "%d-%m-%Y %H:%M" (current-time))))
+
 (defun my-reset-gc-threshold ()
   "Reset `gc-cons-threshold' to its default value."
   (setq gc-cons-threshold 800000))
@@ -1300,15 +1289,33 @@ ARG is a prefix argument.  If nil, copy the current difference region."
                         (concat "&" (car pair) ";")
                         nil start end)))))
 
+(defun my-set-default-font (my-font)
+  "Set default font to MY-FONT for frames if the font has been installed."
+  (if window-system
+      (progn
+        (if (member my-font (font-family-list))
+            (progn
+              (set-face-attribute 'default nil :font my-font)
+              (set-frame-font my-font nil t))
+          (progn
+            (message "Font %s is not installed" my-font)
+            (if (font-family-list)
+                (print (font-family-list)))))
+        (if (daemonp)
+            (progn
+              (message "Removing daemon startup set-default-font hook")
+              (remove-hook 'window-configuration-change-hook
+                           (lambda ()
+                             (my/set-default-font my-font))))))))
+
 (defun compile-quietly ()
   "Re-compile without changing the window configuration."
   (interactive)
   (save-window-excursion
     (recompile)))
 
-;; ask the user if they wish to clock out before killing Emacs
 ;; http://comments.gmane.org/gmane.emacs.orgmode/81781
-(defun my/org-query-clock-out ()
+(defun my-org-query-clock-out ()
   "Ask the user before clocking out.
 This is a useful function for adding to `kill-emacs-query-functions'."
   (if (and (featurep 'org-clock)
@@ -1318,7 +1325,7 @@ This is a useful function for adding to `kill-emacs-query-functions'."
     t))                                ;; only fails on keyboard quit or error
 
 ;; http://emacswiki.org/emacs/SwitchingBuffers
-(defun my/switch-to-previous-buffer ()
+(defun my-switch-to-previous-buffer ()
   "Switch to previously active buffer."
   (interactive)
   (switch-to-buffer (other-buffer (current-buffer) 1)))
@@ -1366,12 +1373,6 @@ This is a useful function for adding to `kill-emacs-query-functions'."
                                                 (file-name-directory
                                                  (buffer-file-name)) t t))
              (dired (file-name-directory (buffer-file-name)))))))
-
-(defun my/insert-current-date-time ()
-  "Insert the current date and time into current buffer.
-Uses `current-date-time-format' for the formatting the date/time."
-  (interactive)
-  (insert (format-time-string "%d-%m-%Y %H:%M" (current-time))))
 
 (defun toggle-selective-display (column)
   (interactive "P")
