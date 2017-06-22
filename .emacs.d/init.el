@@ -794,12 +794,9 @@
             (auto-fill-mode 1)
             (highlight-indentation-mode t)
             (yas-minor-mode 1)
-            (local-set-key "\C-y\C-y" 'yank)
-            (local-set-key "\C-c b" '(shell-command "../show"))
             ))
 
 (add-hook 'prog-mode-hook (lambda ()
-                            (auto-fill-mode 1)
                             (flyspell-prog-mode)
                             (linum-mode 1)))
 
