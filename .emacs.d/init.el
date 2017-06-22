@@ -855,7 +855,7 @@
 (global-set-key (kbd "C-(") 'check-parens) ;; matching parens
 (global-set-key (kbd "C-=") 'er/expand-region) ;; make selection bigger and bigger
 (global-set-key (kbd "M-;") 'comment-line)
-(global-set-key (kbd "C-M-t") 'my/insert-current-date-time)
+(global-set-key (kbd "C-M-t") 'my-insert-current-date-time)
 
 ;; keybindings
 ;; f1: magit
