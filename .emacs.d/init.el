@@ -194,6 +194,7 @@
          (artist-mode "C-c C-a")
          (neotree-mode "C-c")
          (org-mode "C-c")
+         (projectile-mode "C-c p")
          (rst-mode "C-c"))
         guide-key/idle-delay 1)
   (guide-key-mode t)
