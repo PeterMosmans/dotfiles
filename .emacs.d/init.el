@@ -122,7 +122,6 @@
 (use-package company
   :config
   (defvar company-mode/enable-yas t "Enable yasnippet for all back ends.")
-
   (defun company-mode/backend-with-yas (backend)
     (if (or (not company-mode/enable-yas)
             (and (listp backend) (member 'company-yasnippet backend)))
@@ -132,22 +131,26 @@
 
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)
         company-transformers '(company-sort-by-occurrence))
+  :defer t
   :ensure t
   :init (global-company-mode)
   )
 
 (use-package company-quickhelp
-  :config (setq company-quickhelp-delay 0.1)
+  :config (setq company-quickhelp-delay 1)
+  :defer t
   :ensure t
   :init (company-quickhelp-mode 1)
   )
 
 (use-package company-jedi
+  :defer t
   :ensure t
   )
 
 (use-package company-restclient
   :config (add-to-list 'company-backends 'company-restclient)
+  :defer t
   :ensure t
   )
 
@@ -160,6 +163,7 @@
   (setq elpy-rpc-backend "jedi"
         python-shell-completion-native-enable nil)
   (elpy-enable)
+  :defer t
   :ensure t
   )
 
@@ -180,10 +184,12 @@
   )
 
 (use-package flymd
+  :commands flymd-flyit
   :ensure t
   )
 
 (use-package focus
+  :commands focus-mode
   :ensure t
   )
 
@@ -218,15 +224,18 @@
   )
 
 (use-package helm-ag
+  :commands helm-ag
   :ensure t
   )
 
 (use-package helm-flyspell
   :config (define-key flyspell-mode-map (kbd "C-;") 'helm-flyspell-correct)
+  :defer t
   :ensure t
   )
 
 (use-package helm-org-rifle
+  :commands helm-org-rifle
   :ensure t
   )
 
@@ -239,6 +248,7 @@
   )
 
 (use-package helm-tramp
+  :defer t
   :ensure t
   )
 
@@ -286,7 +296,7 @@
 (use-package neotree
   :bind (("M-<f8>" . neotree-toggle)
          ("C-c n" . neotree-toggle))
-  :commands (neotree)
+  :commands neotree-toggle
   :config
   (setq  neo-show-hidden-files t
          neo-theme 'ascii              ;; Don't use fancy icons
@@ -302,6 +312,7 @@
 
 (use-package org-wc                    ;; Count words in org mode documents
   :bind ("C-c w" . org-word-count)
+  :defer t
   :ensure t)
 
 (use-package powerline
@@ -423,7 +434,7 @@
                                          (projectile-project-name)))))
   (helm-projectile-on)
   (projectile-mode 1)
-  :defer t
+  :commands projectile-mode
   :ensure t
   )
 
@@ -434,16 +445,19 @@
 
 (use-package rainbow-mode
   :config (add-hook 'prog-mode-hook 'rainbow-mode)
+  :defer t
   :ensure t
   :pin melpa-stable
   )
 
 (use-package restclient
+  :commands restclient-mode
   :config (add-hook 'restclient-mode-hook 'company-mode)
   :ensure t
   )
 
 (use-package restclient-helm
+  :defer t
   :ensure t
   )
 
@@ -471,6 +485,7 @@
   (display-time)                       ;; show time in modeline
   (if (boundp 'my-replacer-list)
       (setq sml/replacer-regexp-list my-replacer-list))
+  :defer t
   :ensure t
   )
 
@@ -527,6 +542,7 @@
   :init
   (add-hook 'yaml-mode-hook 'fci-mode)
   (add-hook 'yaml-mode-hook 'highlight-indentation-mode)
+  :defer t
   )
 
 (use-package yasnippet
