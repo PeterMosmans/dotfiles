@@ -821,7 +821,10 @@
                             (flyspell-prog-mode)
                             (linum-mode 1)))
 
-(add-hook 'rst-mode-hook 'yas-minor-mode)
+(add-hook 'rst-mode-hook (lambda ()
+                           (auto-fill-mode 1)
+                           (fci-mode)
+                           (yas-minor-mode)))
 
 (add-hook 'sh-mode-hook
           (lambda ()
