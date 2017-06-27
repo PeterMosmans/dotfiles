@@ -317,6 +317,7 @@
 
 (use-package powerline
   :config
+  (display-time)
   (defface powerline-bold
     '((t :inherit powerline-block1 :bold t))
     "Active powerline block 3 (clock)" :group 'powerline)
