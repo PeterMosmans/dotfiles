@@ -1257,7 +1257,7 @@ ARG is a prefix argument.  If nil, copy the current difference region."
   "Search for a Makefile in directories above, and asynchronously execute make."
   (interactive)
   (setq builder nil)
-  (dolist (path '("../../" "../"))
+  (dolist (path '("../../../" "../../" "../"))
     (if (file-exists-p (concat path "Makefile"))
         (setq builder path)))
   (if builder
