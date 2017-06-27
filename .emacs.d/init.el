@@ -485,7 +485,7 @@
   (display-time)                       ;; show time in modeline
   (if (boundp 'my-replacer-list)
       (setq sml/replacer-regexp-list my-replacer-list))
-  :defer t
+  ;; :defer t
   :ensure t
   )
 
