@@ -609,7 +609,7 @@
  scroll-margin 1
  scroll-preserve-screen-position 1
  scroll-step 1
- sentence-end-double-space t           ;; consider single space a sentence break
+ sentence-end-double-space nil         ;; consider single space a sentence break
  show-paren-delay 0
  show-paren-style 'expression          ;; highlight entire bracket expression
  size-indication-mode nil              ;; disable file size mode
