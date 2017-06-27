@@ -462,33 +462,33 @@
   :ensure t
   )
 
-(use-package smart-mode-line
-  :config
-  (add-to-list 'custom-safe-themes
-               '"3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa"
-               '"6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f")
-  (setq display-time-default-load-average nil  ;; hide load average
-        display-time-format "%H:%M"
-        display-time-24hr-format t
-        rm-blacklist
-        (format "^ \\(%s\\)$"          ;; hide some generic modes
-                (mapconcat #'identity
-                           '("||"
-                             "ARev"
-                             "Fill"
-                             "Helm"
-                             "ws"
-                             "Wrap"
-                             "Guide")
-                           "\\|"))
-        sml/name-width 20
-        sml/theme 'dark)
-  (display-time)                       ;; show time in modeline
-  (if (boundp 'my-replacer-list)
-      (setq sml/replacer-regexp-list my-replacer-list))
-  ;; :defer t
-  :ensure t
-  )
+;; (use-package smart-mode-line
+;;   :config
+;;   (add-to-list 'custom-safe-themes
+;;                '"3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa"
+;;                '"6a37be365d1d95fad2f4d185e51928c789ef7a4ccf17e7ca13ad63a8bf5b922f")
+;;   (setq display-time-default-load-average nil  ;; hide load average
+;;         display-time-format "%H:%M"
+;;         display-time-24hr-format t
+;;         rm-blacklist
+;;         (format "^ \\(%s\\)$"          ;; hide some generic modes
+;;                 (mapconcat #'identity
+;;                            '("||"
+;;                              "ARev"
+;;                              "Fill"
+;;                              "Helm"
+;;                              "ws"
+;;                              "Wrap"
+;;                              "Guide")
+;;                            "\\|"))
+;;         sml/name-width 20
+;;         sml/theme 'dark)
+;;   (display-time)                       ;; show time in modeline
+;;   (if (boundp 'my-replacer-list)
+;;       (setq sml/replacer-regexp-list my-replacer-list))
+;;   ;; :defer t
+;;   :ensure t
+;;   )
 
 (use-package smartparens
   :config
@@ -586,6 +586,9 @@
  comint-prompt-read-only t             ;; read only prompt for shell mode
  completion-ignore-case t              ;; ignore case when completing
  dired-listing-switches "-agoh"
+ display-time-default-load-average nil ;; hide load average
+ display-time-format "%H:%M"
+ display-time-24hr-format t
  ediff-window-setup-function 'ediff-setup-windows-plain
  global-font-lock-mode 1               ;; syntax highlighting on by default
  global-visual-line-mode 1             ;; act on visual lines, enable word wrap
