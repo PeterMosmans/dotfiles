@@ -114,9 +114,10 @@
 
 
 (use-package bm
-  :ensure t
   :bind (("C-<f2>" . bm-toggle)
          ("M-<f2>" . bm-next))
+  :defer t
+  :ensure t
   )
 
 (use-package company
@@ -180,6 +181,7 @@
   :config
   (setq flycheck-highlighting-mode 'lines) ;; highlight whole line
   (global-flycheck-mode)
+  :defer t
   :ensure t
   )
 
