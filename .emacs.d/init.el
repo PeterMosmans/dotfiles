@@ -204,6 +204,7 @@
          (rst-mode "C-c"))
         guide-key/idle-delay 1)
   (guide-key-mode t)
+  :defer t
   :ensure t
   )
 
@@ -307,6 +308,7 @@
 (use-package ob-async                  ;; Asynchronous execution of org-babel src
   :config
   (add-to-list 'org-ctrl-c-ctrl-c-hook 'ob-async-org-babel-execute-src-block)
+  :defer t
   :ensure t
   )
 
@@ -513,6 +515,7 @@
   )
 
 (use-package web-mode
+  :defer t
   :ensure t
   :config
   (setq web-mode-markup-indent-offset 2)
@@ -533,17 +536,18 @@
   :bind (("C-|" . yafolding-toggle-element)
          ("C-\\" . yafolding-toggle-all))
   :defer t
+  :disabled t
   :ensure t
   :init (add-hook 'prog-mode-hook 'yafolding-mode)
   )
 
 (use-package yaml-mode
+  :defer t
   :ensure t
   ;; yaml is a major mode, not based on prog-mode, so manually add modes
   :init
   (add-hook 'yaml-mode-hook 'fci-mode)
   (add-hook 'yaml-mode-hook 'highlight-indentation-mode)
-  :defer t
   )
 
 (use-package yasnippet
