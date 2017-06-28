@@ -320,7 +320,11 @@
   :ensure t)
 
 (use-package powerline
-  :config
+  :init
+  (setq display-time-default-load-average nil ;; hide load average
+        display-time-format "%H:%M"
+        display-time-24hr-format t
+        powerline-default-separator 'arrow)
   (display-time)
   (defface powerline-bold
     '((t :inherit powerline-block1 :bold t))
@@ -333,8 +337,6 @@
   (defface powerline-inactive-alert
     `((t :inherit powerline-alert))
     "Inactive powerline" :group 'powerline)
-
-  (setq powerline-default-separator 'arrow)
   ;; 'design' own theme - see
   ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Variables.html
   (setq-default mode-line-format  '
@@ -592,9 +594,6 @@
  comint-prompt-read-only t             ;; read only prompt for shell mode
  completion-ignore-case t              ;; ignore case when completing
  dired-listing-switches "-agoh"
- display-time-default-load-average nil ;; hide load average
- display-time-format "%H:%M"
- display-time-24hr-format t
  ediff-window-setup-function 'ediff-setup-windows-plain
  global-font-lock-mode 1               ;; syntax highlighting on by default
  global-visual-line-mode 1             ;; act on visual lines, enable word wrap
