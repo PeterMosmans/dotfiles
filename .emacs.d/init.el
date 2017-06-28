@@ -1156,13 +1156,13 @@ ARG is a prefix argument.  If nil, copy the current difference region."
           (condition-case conds
               (progn
                 (ediff-with-current-buffer to-buf
-                  ;; to prevent flags from interfering if buffer is writable
-                  (let ((inhibit-read-only (null buffer-read-only)))
-                    (goto-char reg-to-delete-end)
-                    (insert reg-to-copy)
-                    (if (> reg-to-delete-end reg-to-delete-beg)
-                        (kill-region reg-to-delete-beg reg-to-delete-end))
-                    ))
+                                           ;; to prevent flags from interfering if buffer is writable
+                                           (let ((inhibit-read-only (null buffer-read-only)))
+                                             (goto-char reg-to-delete-end)
+                                             (insert reg-to-copy)
+                                             (if (> reg-to-delete-end reg-to-delete-beg)
+                                                 (kill-region reg-to-delete-beg reg-to-delete-end))
+                                             ))
                 (or batch-invocation
                     (setq
                      messg
@@ -1213,47 +1213,45 @@ ARG is a prefix argument.  If nil, copy the current difference region."
   "Apply theme colors to tabbar and powerline."
   (interactive)
   (when (boundp tabbar-mode)
-      ;; (progn
-        (set-face-attribute 'tabbar-button nil :inherit `default :box nil)
-        ;; default line without tabs
-        (set-face-attribute 'tabbar-default nil :inherit `default :height 0.8
-                            :background "black")
-        (set-face-attribute 'tabbar-selected nil :inherit `default :height 0.8 :box nil :bold t
-                            :foreground `,(face-attribute 'font-lock-keyword-face :foreground))
-        (set-face-attribute 'tabbar-unselected nil :inherit `default :height 0.8
-                            :box '(:line-width 1 style: released-button))
-        ;; mouse-over
-        (set-face-attribute 'tabbar-highlight nil :box '(:line-width 3 :style pressed-button)
-                            :height 0.8)
-        ;; modified tab
-        (set-face-attribute 'tabbar-modified nil :box '(:line-width 1 style: released-button)
-                            :foreground `,(face-attribute 'font-lock-warning-face :foreground)
-                            :background `,(face-attribute 'default :background))
-        (set-face-attribute 'tabbar-selected-modified nil :inherit `tabbar-selected
-                            :foreground `,(face-attribute 'font-lock-warning-face :foreground))
-        (set-face-attribute 'tabbar-separator nil)
-        )
+    ;; (progn
+    (set-face-attribute 'tabbar-button nil :box nil)
+    ;; default line without tabs
+    (set-face-attribute 'tabbar-default nil :height 0.8 :background "black")
+    (set-face-attribute 'tabbar-selected nil :height 0.8 :box nil
+                        :weight 'bold
+                        :foreground `,(face-attribute 'font-lock-keyword-face :foreground))
+    (set-face-attribute 'tabbar-unselected nil :height 0.8
+                        :box '(:line-width 1 style: released-button))
+    ;; mouse-over
+    (set-face-attribute 'tabbar-highlight nil :box '(:line-width 3 :style pressed-button)
+                        :height 0.8)
+    ;; modified tab
+    (set-face-attribute 'tabbar-modified nil :box '(:line-width 1 style: released-button)
+                        :foreground `,(face-attribute 'font-lock-warning-face :foreground)
+                        :background `,(face-attribute 'default :background))
+    (set-face-attribute 'tabbar-selected-modified nil
+                        :foreground `,(face-attribute 'font-lock-warning-face :foreground))
+    (set-face-attribute 'tabbar-separator nil)
+    )
   (when (featurep 'powerline)
     (powerline-reset)
-    (set-face-attribute 'powerline-active1 nil :box t
+    (set-face-attribute 'powerline-active1 nil
                         :background `,(face-attribute 'mode-line :background)
                         :foreground `,(face-attribute 'mode-line :foreground))
     (set-face-attribute 'powerline-active2 nil
                         :background `,(face-attribute 'secondary-selection :background)
                         :foreground `,(face-attribute 'secondary-selection :foreground))
-    (set-face-attribute 'powerline-bold nil :inherit `powerline-active1 :bold t)
-    (set-face-attribute 'powerline-inactive1 nil :box nil
+    (set-face-attribute 'powerline-bold nil :weight 'bold)
+    (set-face-attribute 'powerline-inactive1 nil
                         :background `,(face-attribute 'mode-line-inactive :background))
-    (set-face-attribute 'powerline-inactive-bold nil :inherit `powerline-inactive1 :bold t)
-    (set-face-attribute 'powerline-inactive2 nil :inherit `default :box nil
+    (set-face-attribute 'powerline-inactive-bold nil :weight 'bold)
+    (set-face-attribute 'powerline-inactive2 nil
                         :background `,(face-attribute 'mode-line-inactive :background))
-    (set-face-attribute 'powerline-inactive-bold nil :inherit 'mode-line-inactive :bold t :box nil)
-    (set-face-attribute 'powerline-alert nil
-                        :inherit `powerline-active1 :box nil :bold t
+    (set-face-attribute 'powerline-inactive-bold nil :weight 'bold)
+    (set-face-attribute 'powerline-alert nil :weight 'bold
                         :foreground `,(face-attribute 'font-lock-warning-face :foreground))
-    (set-face-attribute 'powerline-inactive-alert nil :inherit `powerline-alert
-                        :background `,(face-attribute
-                                       'mode-line-inactive :background))
+    (set-face-attribute 'powerline-inactive-alert nil
+                        :background `,(face-attribute 'mode-line-inactive :background))
     ))
 
 (defun my-beautify-json ()
