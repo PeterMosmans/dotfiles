@@ -1215,11 +1215,11 @@ ARG is a prefix argument.  If nil, copy the current difference region."
   "Apply theme colors to tabbar and powerline."
   (interactive)
   (when (boundp tabbar-mode)
-    ;; (progn
-    (set-face-attribute 'tabbar-button nil :box nil)
+    ;; These settings override the default settings hardcoded in tabbar mode
+    (set-face-attribute 'tabbar-button nil :inherit 'default :box nil)
     ;; default line without tabs
-    (set-face-attribute 'tabbar-default nil :height 0.8 :background "black")
-    (set-face-attribute 'tabbar-selected nil :height 0.8 :box nil
+    (set-face-attribute 'tabbar-default nil :background "black")
+    (set-face-attribute 'tabbar-selected nil :inherit 'default :height 0.8 :box nil
                         :weight 'bold
                         :foreground `,(face-attribute 'font-lock-keyword-face :foreground))
     (set-face-attribute 'tabbar-unselected nil :height 0.8
