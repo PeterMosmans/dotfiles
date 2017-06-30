@@ -438,7 +438,7 @@
                                (if
                                    (file-remote-p default-directory)
                                    " Projectile"
-                                 (format " P[%s]"
+                                 (format " [%s]"
                                          (projectile-project-name)))))
   (helm-projectile-on)
   (projectile-mode 1)
