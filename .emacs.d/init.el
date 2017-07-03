@@ -396,7 +396,7 @@
                          (powerline-process face2)
                          (powerline-narrow face2 'l)
                          (funcall separator-left face2 face1)
-                         (powerline-buffer-id bold-face) ;; buffer name
+                         (powerline-buffer-id face1) ;; buffer name
                          (when powerline-display-buffer-size
                            (powerline-buffer-size face1 'l))
                          (powerline-raw mode-line-modified face1)
