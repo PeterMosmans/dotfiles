@@ -196,6 +196,11 @@
   :ensure t
   )
 
+(use-package git-timemachine
+  :defer t
+  :ensure t
+  )
+
 (use-package guide-key
   :config
   (setq guide-key/guide-key-sequence '
