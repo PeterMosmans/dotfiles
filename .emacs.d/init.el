@@ -646,7 +646,6 @@
  'org-babel-load-languages
  '((plantuml . t)
    (python . t)
-   (sh . t)
    (shell . t)))
 
 (setq org-default-notes-file (concat org-directory my-capture-file)
