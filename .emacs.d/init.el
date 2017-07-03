@@ -243,6 +243,14 @@
   :ensure t
   )
 
+(use-package helm-bibtex
+  :config
+  (setq helm-bibtex-bibliography '("~/bibliographies.bib")
+        bibtex-completion-pdf-field "file")
+  :defer t
+  :ensure t
+  )
+
 (use-package helm-flyspell
   :config (define-key flyspell-mode-map (kbd "C-;") 'helm-flyspell-correct)
   :defer t
