@@ -444,6 +444,7 @@
   (projectile-mode 1)
   :commands projectile-mode
   :ensure t
+  :init (put 'projectile-project-name 'safe-local-variable #'stringp)
   )
 
 (use-package pylint
@@ -1585,7 +1586,7 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
    ("k" kill-line "kill (rest of) line")
    ("l" recenter-top-bottom)))
 
-(put 'projectile-project-name 'safe-local-variable #'stringp)
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
 ;; End:
