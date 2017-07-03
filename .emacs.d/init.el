@@ -82,6 +82,12 @@
 (eval-when-compile
   (require 'use-package))
 
+(defun my-package-install-refresh-contents (&rest args)
+  (package-refresh-contents)
+  (advice-remove 'package-install 'my-package-install-refresh-contents))
+
+(advice-add 'package-install :before 'my-package-install-refresh-contents)
+
 ;; Load this keybinding first to facilitate editing init.el
 (global-set-key (kbd "M-<f11>") (lambda () (interactive) (find-file user-init-file)))
 (setq gc-cons-threshold 500000000)     ;; improve startup time
