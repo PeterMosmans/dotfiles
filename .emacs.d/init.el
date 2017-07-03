@@ -297,8 +297,8 @@
 
 (use-package mode-icons               ;; show pretty icons on the modeline
   :config (mode-icons-mode)
-  (setq mode-icons-desaturate-active nil
-        mode-icons-grayscale-transform t)
+  (setq mode-icons-desaturate-inactive t  ;; disable automatic coloring
+        mode-icons-grayscale-transform t) ;; "re"color black and white images
   :ensure t
   )
 
