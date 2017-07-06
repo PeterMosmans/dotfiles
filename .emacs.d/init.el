@@ -572,6 +572,7 @@
     (setq w32-enable-caps-lock nil     ;; free the capslock key for useful stuff
           explicit-shell-file-name "c:/programs/msys2/usr/bin/zsh.exe"))
 
+;; generic settings
 (setq-default fill-column 80           ;; width of the screen for wrapping
               line-spacing 0
               indent-tabs-mode nil)    ;; always use spaces for indentation
@@ -584,6 +585,7 @@
  dired-listing-switches "-agoh"
  ediff-window-setup-function 'ediff-setup-windows-plain
  global-font-lock-mode 1               ;; syntax highlighting on by default
+ global-hl-line-mode 1                 ;; highlight current line by default
  global-visual-line-mode 1             ;; act on visual lines, enable word wrap
  inhibit-compacting-font-caches t      ;; speed up displaying Unicode glyphs
  inhibit-startup-echo-area-message nil
