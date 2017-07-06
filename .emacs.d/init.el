@@ -244,9 +244,11 @@
   )
 
 (use-package helm-bibtex
+  :bind (("C-c b" . helm-bibtex))
   :config
-  (setq helm-bibtex-bibliography '("~/bibliographies.bib")
-        bibtex-completion-pdf-field "file")
+    (if (boundp 'my-bibliographies)
+        (setq helm-bibtex-bibliography my-bibliographies))
+    (setq bibtex-completion-pdf-field "file")
   :defer t
   :ensure t
   )
