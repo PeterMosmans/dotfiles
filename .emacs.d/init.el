@@ -600,6 +600,12 @@
  recentf-max-menu-items 15             ;; show maximum x recent menu items
  recentf-max-saved-items 100           ;; save maximum x recent files
  recentf-save-file "~/.emacs.d/recentfiles.emacs"
+ rst-preferred-adornments '((35 over-and-under 0) ;; # H1 (once per document)
+                            (42 over-and-under 0) ;; * H2
+                            (61 simple 0)         ;; = H3
+                            (45 simple 0)         ;; - H4
+                            (94 simple 0)         ;; ^ H5
+                            (34 simple 0))        ;; " H6
  scroll-conservatively 10000
  scroll-margin 1
  scroll-preserve-screen-position 1
