@@ -1,5 +1,5 @@
 # MSYS2
-# Always sourced first, regardless of the shell type
+# Always sourced first, regardless of whether the shell is interactive or not
 # Path to your oh-my-zsh installation.
 
 # zsh settings
@@ -18,9 +18,9 @@ export temp=/tmp
 export tmp=/tmp
 
 # OS-specific update shortcuts
-alias update='pacman --color=auto -Syuu'
 alias emacsbuild='pushd ~emacs && gl && pushd ~emacs-builddir && make'
 alias emacsinstall='rm -rf c:/programs/emacs-previous && mv c:/programs/emacs c:/programs/emacs-previous && pushd ~emacs-builddir && make install-strip prefix=c:/programs/emacs && popd'
+alias update='pacman --color=auto -Syuu'
 
 # Interactive alias bindings
 export BROWSER="c:/Program Files (x86)/Mozilla Firefox/firefox.exe"
