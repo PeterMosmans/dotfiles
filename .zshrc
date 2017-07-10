@@ -71,6 +71,8 @@ alias -g GF="grep -ilR"
 alias -g N=">/dev/null"
 alias -g L="|less"
 alias -g M="|more"
+# show output as one horizontal line
+alias -g trn="|tr '\n' ' '; echo"
 
 show_colors() {
     for i in {0..255} ; do
