@@ -542,6 +542,7 @@
         (add-to-list 'yas-snippet-dirs item)))
   (yas-reload-all)
   (add-hook 'prog-mode-hook #'yas-minor-mode)
+  (add-hook 'bibtex-mode-hook #'yas-minor-mode)
   :ensure t
   )
 
