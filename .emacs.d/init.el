@@ -207,21 +207,6 @@
   :ensure t
   )
 
-(use-package guide-key
-  :config
-  (setq guide-key/guide-key-sequence '
-        ("C-x r"                       ;; register functions
-         (artist-mode "C-c C-a")
-         (neotree-mode "C-c")
-         (org-mode "C-c")
-         (projectile-mode "C-c p")
-         (rst-mode "C-c"))
-        guide-key/idle-delay 1)
-  (guide-key-mode t)
-  :defer t
-  :ensure t
-  )
-
 (use-package helm
   :bind (("C-c j" . helm-imenu)        ;; J ump to imenu
          ("C-c y" . helm-show-kill-ring)
@@ -522,6 +507,13 @@
          ("\\.tpl\\.php\\'" . web-mode)
          ("\\.xml\\'" . web-mode))
   :pin melpa-stable
+  )
+
+(use-package which-key
+  :defer t
+  :ensure t
+  :init
+  (which-key-mode)
   )
 
 (use-package yafolding
