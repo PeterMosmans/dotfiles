@@ -284,7 +284,7 @@
 
 (use-package magit
   :bind (([f1] . magit-status)
-         ("C-c m" . magit-status))
+         ("C-x g" . magit-status))
   :config
   (setq magit-diff-auto-show nil)
   :defer t
