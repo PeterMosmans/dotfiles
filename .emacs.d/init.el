@@ -611,7 +611,7 @@
  tramp-default-method "sshx"           ;; faster than the default scp
  use-package-always-ensure t           ;; always install missing packages
  whitespace-style (quote
-                   (face tabs trailing space-before-tab indentation empty space-after-tab tab-mark)))
+                   (face indentation tabs space-before-tab space-after-tab tab-mark trailing)))
 (delete-selection-mode 1)              ;; automatically overwrite selected text
 (recentf-mode 1)                       ;; enable recently opened files mode
 (show-paren-mode 1)
