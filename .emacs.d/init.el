@@ -817,7 +817,6 @@
                             (linum-mode 1)))
 
 (add-hook 'rst-mode-hook (lambda ()
-                           (auto-fill-mode 1)
                            (fci-mode)
                            (yas-minor-mode)))
 
@@ -1521,7 +1520,6 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
   (interactive)
   (org-agenda nil "o")
   )
-                                        ;(run-with-idle-timer 600 t 'jump-to-org-agenda) ;; automatically show agenda
 
 (defun save-kill-buffer ()
   "Save buffer and kill (close) it."
