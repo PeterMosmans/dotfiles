@@ -28,6 +28,7 @@
 ;; my-org-directory
 ;; my-replacer-list
 ;; my-theme
+;; start-with-agenda
 ;;
 ;; Note that the defaults will be used if the variables aren't defined
 (defcustom my-font "Source Code Pro"
@@ -182,6 +183,7 @@
   :ensure t
   :init
   (add-hook 'prog-mode-hook 'fci-mode)
+  (add-hook 'markdown-mode-hook 'fci-mode)
   )
 
 (use-package flycheck
@@ -850,7 +852,8 @@
                   (find-file my-scratch-file)  ;; only show it if it's the only file
                   (if (get-buffer "*scratch*")
                       (kill-buffer "*scratch*"))))
-            (open-custom-agenda)
+            (when (boundp 'start-with-agenda)
+              open-custom-agenda)
             ))
 
 (add-hook 'window-configuration-change-hook
