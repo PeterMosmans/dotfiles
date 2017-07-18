@@ -324,13 +324,20 @@
   :config
   (add-to-list 'org-ctrl-c-ctrl-c-hook 'ob-async-org-babel-execute-src-block)
   :defer t
+  :disabled t
+  :ensure t
+  )
+
+(use-package org-ref
+  :disabled t
   :ensure t
   )
 
 (use-package org-wc                    ;; Count words in org mode documents
-  :bind ("C-c w" . org-word-count)
+  :bind ("C-c w" . my-org-wc-toggle-overlay)
   :defer t
-  :ensure t)
+  :ensure t
+  )
 
 (use-package powerline
   :init
@@ -1307,6 +1314,13 @@ Uses `current-date-time-format' for the formatting the date/time."
         (setq level (1- level)
               str (concat str "--")))
       (concat str "-> "))))
+
+(defun my-org-wc-toggle-overlay ()
+  "Toggle the org-wc overlay."
+  (interactive)
+  (if (bound-and-true-p org-wc-overlays)
+      (org-wc-remove-overlays)
+    (org-wc-display nil)))
 
 (defun my-replace-symbols-with-entity-names (start end)
   (interactive "r")
