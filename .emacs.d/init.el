@@ -816,6 +816,8 @@
 
 (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
+(add-hook 'markdown-mode-hook 'auto-fill-mode)
+
 (add-hook 'nxml-mode-hook
           (lambda ()
             (auto-fill-mode 1)
