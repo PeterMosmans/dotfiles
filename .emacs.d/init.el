@@ -119,6 +119,12 @@
 ;; mode:      deferred binding
 ;; pin:       pin to a specific repository
 
+(use-package aggressive-indent
+  :defer t
+  :ensure t
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
+  )
 
 (use-package bm
   :bind (("C-<f2>" . bm-toggle)
