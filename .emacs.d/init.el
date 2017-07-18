@@ -651,9 +651,9 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c t") 'org-todo-list)
 (global-set-key (kbd "<f12>") 'open-custom-agenda)
-(global-set-key (kbd "S-<f12>") 'org-clock-in-everywhere)
+(global-set-key (kbd "S-<f12>") 'my-org-clock-in-everywhere)
 (global-set-key (kbd "C-<f12>") 'org-clock-out)
-(global-set-key (kbd "M-<f12>") 'org-clock-show-list)
+(global-set-key (kbd "M-<f12>") 'my-org-clock-show-list)
 (if (file-exists-p my-org-directory)  ;; use my-org-directory if it exists
     (setq org-directory my-org-directory)
   (message "Please specify correct my-org-directory: The directory %s does not exist."
@@ -1306,6 +1306,19 @@ Uses `current-date-time-format' for the formatting the date/time."
   "Reset `gc-cons-threshold' to its default value."
   (setq gc-cons-threshold 800000))
 
+(defun my-org-clock-in-everywhere ()
+  "Clock in from within an org page as well as from within the agenda."
+  (interactive)
+  (if (equal major-mode 'org-agenda-mode)
+      (org-agenda-clock-in)
+    (org-clock-in)))
+
+(defun my-org-clock-show-list ()
+  "Show list of recently clocked-time in items."
+  (interactive)
+  (let ((current-prefix-arg '(4)))
+    (call-interactively 'org-clock-in)))
+
 (defun my-org-clocktable-indent-string (level)
   (if (= level 1)
       ""
@@ -1519,19 +1532,6 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
   "Align 'org-mode' tags to the right border of the screen."
   (interactive)
   (setq org-tags-column (- 15 (window-width))))
-
-(defun org-clock-in-everywhere ()
-  "Clock in from within an org page as well as from within the agenda."
-  (interactive)
-  (if (equal major-mode 'org-agenda-mode)
-      (org-agenda-clock-in)
-    (org-clock-in)))
-
-(defun org-clock-show-list ()
-  "Show Rhw org clock history list."
-  (interactive)
-  (let ((current-prefix-arg '(4)))
-    (call-interactively 'org-clock-in)))
 
 (defun open-custom-agenda ()
   "Open custom agenda view."
