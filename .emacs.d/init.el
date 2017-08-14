@@ -404,10 +404,13 @@
                         (list
                          (powerline-raw "%3l" face1 'l)   ;; line number
                          (powerline-raw ":" face1)
-                         (powerline-raw "%3C" face1 'l)   ;; column (C = 1-based column)
-                         (funcall separator-left face1 face2)
+                         (powerline-raw "%3C" face1 'r)   ;; 1-based column
+                         (powerline-raw mode-line-modified face1)
+                         (when powerline-display-buffer-size
+                           (powerline-buffer-size face1 'l))
                          (when powerline-display-mule-info
-                           (powerline-raw mode-line-mule-info face2 'l))
+                           (powerline-raw mode-line-mule-info face1 'l))
+                         (funcall separator-left face1 face2)
                          (when
                              (and
                               (boundp 'which-func-mode)
@@ -897,7 +900,7 @@
 ;; miscellaneous (for consistency)
 (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
 (global-set-key (kbd "C-(") 'check-parens) ;; matching parens
-(global-set-key (kbd "C-=") 'er/expand-region) ;; make selection bigger and bigger
+(global-set-key (kbd "C-=") 'expand-region) ;; make selection bigger and bigger
 (global-set-key (kbd "M-;") 'comment-line)
 (global-set-key (kbd "C-M-t") 'my-insert-current-date-time)
 
