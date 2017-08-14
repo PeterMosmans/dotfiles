@@ -20,7 +20,7 @@
 
 ;;; Code:
 
-;; The following parameters are recognized, and can be added to
+;; The following variables are recognized, and can be added to
 ;; custom-file :
 ;; my-font
 ;; my-capture-file
