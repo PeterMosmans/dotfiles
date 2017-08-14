@@ -147,7 +147,7 @@
               '(:with company-yasnippet))))
 
   (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)
-        company-idle-delay 1
+        company-idle-delay 2
         company-transformers '(company-sort-by-occurrence))
   :defer t
   :ensure t
