@@ -69,25 +69,27 @@
 (if (file-exists-p custom-file)
     (load custom-file))
 
-;; uncomment for some debugging options
+;; uncomment for some debugging and verbose (load time) options
 ;; (setq debug-on-error t)
-
+;; (setq use-package-verbose t)
 (package-initialize)
-;; Bootstrap `use-package'
-(unless (package-installed-p 'use-package)
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/")
-               '("melpa-stable" . "https://stable.melpa.org/packages/"))
-  (package-refresh-contents)
-  (package-install 'use-package))
-(eval-when-compile
-  (require 'use-package))
 
+;; Bootstrap `use-package'
 (defun my-package-install-refresh-contents (&rest args)
+  "Refresh package list before trying to install a new package."
+  (message "Refreshing packages list before trying to install a new package.")
   (package-refresh-contents)
   (advice-remove 'package-install 'my-package-install-refresh-contents))
 
 (advice-add 'package-install :before 'my-package-install-refresh-contents)
+
+(unless (package-installed-p 'use-package)
+  (add-to-list 'package-archives
+               '("melpa" . "https://melpa.org/packages/")
+               '("melpa-stable" . "https://stable.melpa.org/packages/"))
+  (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
 
 ;; Load this keybinding first to facilitate editing init.el
 (global-set-key (kbd "M-<f11>") (lambda () (interactive) (find-file user-init-file)))
@@ -95,6 +97,7 @@
 (run-with-idle-timer 5 nil
                      (lambda ()
                        (setq gc-cons-threshold 800000)
+                       (helm-mode t)
                        (require 'server)
                        (or (server-running-p) ;; start server if not already running
                            (server-start))))
