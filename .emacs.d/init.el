@@ -182,6 +182,10 @@
   :ensure t
   )
 
+(use-package eyebrowse
+  :init (eyebrowse-mode t)
+  )
+
 (use-package fill-column-indicator
   :commands fci-mode
   :config
