@@ -231,7 +231,6 @@
          ([S-f10] . helm-recentf)
          ([capslock] . helm-M-x))
   :config
-  (helm-mode t)
   (helm-autoresize-mode t)
   (setq helm-buffers-truncate-lines nil)
   :defer t
@@ -240,6 +239,7 @@
 
 (use-package helm-ag
   :commands helm-ag
+  :defer t
   :ensure t
   )
 
