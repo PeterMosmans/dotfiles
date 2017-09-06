@@ -446,6 +446,8 @@
                             (char-to-string 57505)
                             bold-face 'l))
                          (funcall separator-right face2 bold-face)
+                         (when (boundp (eyebrowse-mode))
+                           (powerline-raw (eyebrowse-mode-line-indicator) face1))
                          (if (boundp 'org-mode-line-string)
                              (powerline-raw (propertize org-mode-line-string 'face face1) face1)
                            (powerline-raw "NOT CLOCKED IN" alert-face))
