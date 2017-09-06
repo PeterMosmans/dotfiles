@@ -9,4 +9,4 @@ export REPOSPRIV=
 export REPOS=/var/git
 
 # OS-specific update shortcut
-alias update='sudo apt-get update && sudo apt-get -y dist-upgrade'
+export UPDATE="sudo apt-get update && sudo apt-get -y dist-upgrade"

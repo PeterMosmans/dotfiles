@@ -131,6 +131,6 @@ done
 [[ -f "${EDITOR}" ]] && alias -s txt='${EDITOR}'
 [[ -f "${READER}" ]] && alias -s epub='${READER}'
 [[ -f "${READER}" ]] && alias -s pdf='${READER}'
-
+[[ ! -z "$UPDATE" ]] && alias update="${UPDATE}"
 # Start oh-my-zsh
 [[ -f $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh

@@ -17,10 +17,11 @@ hash -d kb={KNOWLEDGEBASE}
 export temp=/tmp
 export tmp=/tmp
 
-# OS-specific update shortcuts
+# OS-specific update shortcuts (note that these should actually be placed
+# in the .rc file, instead of in the environment file)
 alias emacsbuild='pushd ~emacs && gl && pushd ~emacs-builddir && make'
 alias emacsinstall='rm -rf c:/programs/emacs-previous && mv c:/programs/emacs c:/programs/emacs-previous && pushd ~emacs-builddir && make install-strip prefix=c:/programs/emacs && popd'
-alias update='pacman --color=auto -Syuu'
+export UPDATE="pacman --color=auto -Syuu"
 
 # Interactive alias bindings
 export BROWSER="c:/Program Files (x86)/Mozilla Firefox/firefox.exe"
