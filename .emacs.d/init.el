@@ -742,7 +742,7 @@
       org-archive-location (concat "archive/%s." (format-time-string "%Y" (current-time)) ".archive::")
       org-capture-templates
       '(("d" "daily objectives"
-         entry (file+datetree (concat org-directory my-dayplanner-file))
+         entry (file+weektree (concat org-directory my-dayplanner-file))
          "* TODO [#A] Daily objectives for %(org-read-date nil nil \"+0d\") [/]\n  DEADLINE: <%(org-read-date nil nil \"+0d\")>\n  - [ ] %?")
         ("w" "weekly objectives"
          entry (file+weektree (concat org-directory my-dayplanner-file))
