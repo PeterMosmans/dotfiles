@@ -883,7 +883,7 @@
                   (if (get-buffer "*scratch*")
                       (kill-buffer "*scratch*"))))
             (when (boundp 'start-with-agenda)
-              open-custom-agenda)
+              (open-custom-agenda))
             ))
 
 (add-hook 'window-configuration-change-hook
