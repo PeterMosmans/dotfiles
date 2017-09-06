@@ -186,6 +186,7 @@
   )
 
 (use-package eyebrowse
+  :disabled t
   :init (eyebrowse-mode t)
   )
 
