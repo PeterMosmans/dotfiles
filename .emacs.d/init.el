@@ -719,12 +719,19 @@
                       (org-agenda-start-on-weekday nil)  ;; calendar begins today
                       (org-agenda-use-time-grid nil)
                       ))
-          (tags "+TODO=\"TODO\""
+          (tags "@online"
                 (
-                 (org-agenda-overriding-header "\n= = = = = = = = = = = = =")
+                 (org-agenda-overriding-header "\n==== When online ===========================")
                  (org-agenda-prefix-format " %i")
                  (org-agenda-sorting-strategy '(priority-down category-up tag-up))
-                 ))))
+                 ))
+          (tags "+TODO=\"TODO\""
+                (
+                 (org-agenda-overriding-header "============================================")
+                 (org-agenda-prefix-format " %i")
+                 (org-agenda-sorting-strategy '(priority-down category-up tag-up))
+                 ))
+          ))
         ("p" "Progress" agenda ""
          ((org-agenda-entry-types '(:deadline))
           (org-agenda-show-all-dates nil)  ;; hide dates with no appointment
