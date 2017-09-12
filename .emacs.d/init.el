@@ -26,27 +26,29 @@
 ;; my-capture-file
 ;; my-dayplanner-file
 ;; my-org-directory
-;; my-replacer-list
 ;; my-theme
 ;; start-with-agenda
 ;;
 ;; Note that the defaults will be used if the variables aren't defined
+(defgroup my-customizations nil
+  "Customization parameters used for startup"
+  :group 'startup)
 (defcustom my-font "Source Code Pro"
   "Font that will be used (if it is installed)."
   :type 'string
   :group 'my-customizations)
-(defcustom my-capture-file "/capture-org"
-  "Default 'org-mode' capture file relative to org-directory."
-  :type 'file
-  :group 'my-customizations)
-(defvar my-dayplanner-file "/dayplanner.org"
-  "Default 'org-mode' dayplanner file relative to org-directory.")
 (defcustom my-org-directory "~/org"
   "(Non-standard) org-directory."
   :type 'directory
   :group 'my-customizations)
-(defvar my-replacer-list nil
-  "List of pairs of strings used (by ‘sml/replacer’) to create prefixes.")
+(defcustom my-capture-file (concat my-org-directory  "/capture-org")
+  "Default 'org-mode' capture file relative to org-directory."
+  :type 'file
+  :group 'my-customizations)
+(defcustom my-dayplanner-file (concat my-org-directory "/dayplanner.org")
+  "Default full path to 'org-mode' dayplanner file."
+  :type 'file
+  :group 'my-customizations)
 (defcustom my-scratch-file "~/scratch.txt"
   "Persistent scratch file which is opened on startup."
   :type 'file
