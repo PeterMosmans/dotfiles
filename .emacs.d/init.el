@@ -690,7 +690,7 @@
    (python . t)
    (shell . t)))
 
-(setq org-default-notes-file (concat org-directory my-capture-file)
+(setq org-default-notes-file my-capture-file
       org-agenda-compact-blocks t      ;; skip long block separators
       org-file-apps (quote             ;; add several file handlers
                      ((auto-mode . emacs)
@@ -750,10 +750,11 @@
       org-archive-location (concat "archive/%s." (format-time-string "%Y" (current-time)) ".archive::")
       org-capture-templates
       '(("d" "daily objectives"
-         entry (file+weektree (concat org-directory my-dayplanner-file))
-         "* TODO [#A] Daily objectives for %(org-read-date nil nil \"+0d\") [/]\n  DEADLINE: <%(org-read-date nil nil \"+0d\")>\n  - [ ] %?")
+         entry (file+olp+datetree my-dayplanner-file)
+         "* TODO [#A] Daily objectives for %(org-read-date nil nil \"+0d\") [/]\n  DEADLINE: <%(org-read-date nil nil \"+0d\")>\n  - [ ] %?"
+         :tree-type week :unnarrowed t)
         ("w" "weekly objectives"
-         entry (file+weektree (concat org-directory my-dayplanner-file))
+         entry (file+weektree my-dayplanner-file)
          "* TODO [#A] Weekly objectives (week %<%W>) [/]\n  DEADLINE: <%(org-read-date nil nil \"+7d\")>\n  - [ ] %?")
         ("r" "reminder"
          entry (file+headline org-default-notes-file  "Tasks")
