@@ -854,6 +854,7 @@
                             (linum-mode 1)))
 
 (add-hook 'rst-mode-hook (lambda ()
+                           (auto-fill-mode 1)
                            (fci-mode)
                            (yas-minor-mode)))
 
