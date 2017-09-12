@@ -334,6 +334,11 @@
   :ensure t
   )
 
+(use-package nov                       ;; Read epub in Emacs
+  :config (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  :defer t
+  )
+
 (use-package ob-async                  ;; Asynchronous execution of org-babel src
   :config
   (add-to-list 'org-ctrl-c-ctrl-c-hook 'ob-async-org-babel-execute-src-block)
