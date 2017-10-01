@@ -42,11 +42,11 @@
   :type 'directory
   :group 'my-customizations)
 (defcustom my-capture-file (concat my-org-directory  "/capture-org")
-  "Default 'org-mode' capture file relative to org-directory."
+  "Default 'org-mode' capture file."
   :type 'file
   :group 'my-customizations)
 (defcustom my-dayplanner-file (concat my-org-directory "/dayplanner.org")
-  "Default full path to 'org-mode' dayplanner file."
+  "Default 'org-mode' dayplanner file."
   :type 'file
   :group 'my-customizations)
 (defcustom my-scratch-file "~/scratch.txt"
