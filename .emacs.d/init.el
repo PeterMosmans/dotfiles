@@ -432,12 +432,10 @@
                          (powerline-major-mode face2 'l)
                          (powerline-minor-modes face2 'l)
                          (powerline-process face2)
-                         (powerline-narrow face2 'l)
+                         ;; (powerline-narrow face2 'l)
                          (funcall separator-left face2 face1)
                          (powerline-buffer-id face1) ;; buffer name
-                         (when powerline-display-buffer-size
-                           (powerline-buffer-size face1 'l))
-                         (powerline-raw mode-line-modified face1)
+
                          (funcall separator-left face1 face2)
                          (powerline-vc face2 'r)
                          (when
