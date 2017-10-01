@@ -902,11 +902,13 @@
                       (kill-buffer "*scratch*"))))
             (when (boundp 'start-with-agenda)
               (open-custom-agenda))
+            (raise-frame)
             ))
 
-(add-hook 'window-configuration-change-hook
-          (lambda()
-            (my-align-org-tags)))
+(if (fboundp 'my-align-org-tags)
+    (add-hook 'window-configuration-change-hook
+              (lambda()
+                (my-align-org-tags))))
 
 ;; workaround to make sure that font is being set when running in daemon mode
 (if (daemonp)
