@@ -499,9 +499,7 @@
 
 (use-package rainbow-mode
   :defer t
-  :ensure t
   :init (add-hook 'prog-mode-hook 'rainbow-mode)
-  :pin melpa-stable
   )
 
 (use-package restclient
