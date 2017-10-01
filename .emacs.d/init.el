@@ -811,7 +811,8 @@
           (lambda ()
             (my-extract-colors)
             (my-apply-colors)))
-(add-hook 'kill-emacs-query-functions 'my-org-query-clock-out)
+(if (fboundp 'my-org-query-clock-out)
+    (add-hook 'kill-emacs-query-functions 'my-org-query-clock-out))
 (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
 (add-hook 'org-clock-in-hook 'save-buffer)  ;; save buffer when clocking in...
 (add-hook 'org-clock-in-prepare-hook 'my-org-mode-ask-effort)
