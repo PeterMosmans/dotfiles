@@ -934,6 +934,7 @@
 
 ;; navigation in buffer (file)
 (global-set-key (kbd "<f2>") 'my-switch-to-previous-buffer)
+(global-set-key (kbd "C-c p") 'my-switch-to-previous-buffer)
 (global-set-key (kbd "S-<f2>") 'my-insert-current-date-time)
 
 ;; searching
