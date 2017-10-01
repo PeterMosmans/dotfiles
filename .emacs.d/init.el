@@ -695,17 +695,15 @@
                       ("\\.pdf\\'" . default)
                       ("\\.x?html?\\'" . default)))
       org-agenda-custom-commands
-      '(("c" "category / tag ordened tasks for clocking purposes"
-         (
-          (tags "+TODO=\"TODO\""
+      '(("c" "category / tag ordened tasks"
+         ((tags "+TODO=\"TODO\""
                 (
                  (org-agenda-overriding-header "Ordened by category / tag")
                  (org-agenda-prefix-format " %i %b")
                  (org-agenda-sorting-strategy '(category-up tag-up))
                  ))))
-        ("o" "Overview"
-         ((agenda "" (
-                      (org-agenda-entry-types '(:scheduled :deadline))
+        ("o" "Overview of next 14 days, and all tasks"
+         ((agenda "" ((org-agenda-entry-types '(:scheduled :deadline))
                       (org-agenda-ndays 14)
                       (org-agenda-remove-tags t)
                       (org-agenda-repeating-timestamp-show-all nil)
@@ -715,15 +713,13 @@
                       (org-agenda-start-on-weekday nil)  ;; calendar begins today
                       (org-agenda-use-time-grid nil)
                       ))
-          (tags "@online"
-                (
-                 (org-agenda-overriding-header "\n==== When online ===========================")
-                 (org-agenda-prefix-format " %i")
-                 (org-agenda-sorting-strategy '(priority-down category-up tag-up))
-                 ))
+          (tags-todo "@online"
+                     ((org-agenda-overriding-header "")  ;; don't show header
+                      (org-agenda-prefix-format "")  ;; don't show prefix
+                      (org-agenda-remove-tags t)  ;; remove tags
+                      ))
           (tags "+TODO=\"TODO\""
-                (
-                 (org-agenda-overriding-header "============================================")
+                ((org-agenda-overriding-header "")
                  (org-agenda-prefix-format " %i")
                  (org-agenda-sorting-strategy '(priority-down category-up tag-up))
                  ))
