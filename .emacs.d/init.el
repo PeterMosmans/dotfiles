@@ -968,6 +968,9 @@
 (global-set-key (kbd "S-<f11>") 'xah-run-current-file)
 (global-set-key (kbd "C-<f11>") 'bookmark-set)
 
+;; open dayplanner file
+(global-set-key (kbd "C-c d") (lambda () (interactive) (find-file my-dayplanner-file)))
+
 
 ;;; SSH / PUTTY HACKS
 (if (eq system-uses-terminfo t)         ;; terminal
