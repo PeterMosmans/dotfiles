@@ -1615,55 +1615,57 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
      (list (line-beginning-position)
            (line-beginning-position 2)))))
 
-(global-set-key
- (kbd "C-d")
- (defhydra hydra-delete
-   (:body-pre (delete-char 1))
-   "delete"
-   ("k" kill-line "kill (rest of) line")
-   ("K" kill-whole-line "kill whole line")
-   ("D" kill-word "kill word")
-   ("d" delete-char "delete character")
-   ("q" nil "quit")))
+(if (fboundp 'defhydra)
+    (progn
+      (global-set-key
+       (kbd "C-d")
+       (defhydra hydra-delete
+         (:body-pre (delete-char 1))
+         "delete"
+         ("k" kill-line "kill (rest of) line")
+         ("K" kill-whole-line "kill whole line")
+         ("D" kill-word "kill word")
+         ("d" delete-char "delete character")
+         ("q" nil "quit")))
 
-(global-set-key
- (kbd "C-n")
- (defhydra hydra-kill-move
-   (:body-pre (next-line))
-   "move"
-   ("n" next-line)
-   ("p" previous-line)
-   ("f" forward-char)
-   ("b" backward-char)
-   ("a" beginning-of-line)
-   ("e" move-end-of-line)
-   ("v" scroll-up-command)
-   ("\\" delete-horizontal-space)
-   ;; Converting M-v to V here by analogy.
-   ("V" scroll-down-command)
-   ("k" kill-line "kill (rest of) line")
-   ("l" recenter-top-bottom)))
+      (global-set-key
+       (kbd "C-n")
+       (defhydra hydra-kill-move
+         (:body-pre (next-line))
+         "move"
+         ("n" next-line)
+         ("p" previous-line)
+         ("f" forward-char)
+         ("b" backward-char)
+         ("a" beginning-of-line)
+         ("e" move-end-of-line)
+         ("v" scroll-up-command)
+         ("\\" delete-horizontal-space)
+         ;; Converting M-v to V here by analogy.
+         ("V" scroll-down-command)
+         ("k" kill-line "kill (rest of) line")
+         ("l" recenter-top-bottom)))
 
-(global-set-key
- (kbd "C-k")
- (defhydra hydra-kill-move-diff
-   (:body-pre (kill-line))
-   "move"
-   ("n" next-line)
-   ("p" previous-line)
-   ("f" forward-char)
-   ("b" backward-char)
-   ("a" beginning-of-line)
-   ("e" move-end-of-line)
-   ("v" scroll-up-command)
-   ("\\" delete-horizontal-space)
-   ;; Converting M-v to V here by analogy.
-   ("V" scroll-down-command)
-   ("k" kill-line "kill (rest of) line")
-   ("l" recenter-top-bottom)))
+      (global-set-key
+       (kbd "C-k")
+       (defhydra hydra-kill-move-diff
+         (:body-pre (kill-line))
+         "move"
+         ("n" next-line)
+         ("p" previous-line)
+         ("f" forward-char)
+         ("b" backward-char)
+         ("a" beginning-of-line)
+         ("e" move-end-of-line)
+         ("v" scroll-up-command)
+         ("\\" delete-horizontal-space)
+         ;; Converting M-v to V here by analogy.
+         ("V" scroll-down-command)
+         ("k" kill-line "kill (rest of) line")
+         ("l" recenter-top-bottom)))))
 
 
-;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
-;; End:
+  ;; Local Variables:
+  ;; byte-compile-warnings: (not free-vars)
+  ;; End:
 ;;; init.el ends here
