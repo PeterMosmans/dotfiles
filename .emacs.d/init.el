@@ -917,6 +917,7 @@
 (global-set-key (kbd "C-=") 'expand-region) ;; make selection bigger and bigger
 (global-set-key (kbd "M-;") 'comment-line)
 (global-set-key (kbd "C-M-t") 'my-insert-current-date-time)
+(global-set-key (kbd "C-c k") 'calendar)
 
 ;; keybindings
 ;; f1: magit
