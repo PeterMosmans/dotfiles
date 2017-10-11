@@ -532,8 +532,8 @@
   :config
   (setq web-mode-markup-indent-offset 2)
   (add-hook 'web-mode-hook (lambda ()
-                             (smartparens-mode 0)
-                             (flyspell-mode)))
+                             (flyspell-mode)
+                             (fci-mode 0)))
   :mode (("\\.[agj]sp\\'" . web-mode)
          ("\\.as[cp]x\\'" . web-mode)
          ("\\.html?\\'" . web-mode)
