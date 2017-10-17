@@ -535,7 +535,8 @@
   :config
   (setq web-mode-markup-indent-offset 2)
   (add-hook 'web-mode-hook (lambda ()
-                             (flyspell-mode)
+                             (when (fboundp 'flyspell-mode)
+                               (flyspell-mode))
                              (fci-mode 0)))
   :mode (("\\.[agj]sp\\'" . web-mode)
          ("\\.as[cp]x\\'" . web-mode)
