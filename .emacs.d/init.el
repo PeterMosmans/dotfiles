@@ -922,7 +922,7 @@
 (global-set-key (kbd "M-;") 'comment-line)
 (global-set-key (kbd "C-M-t") 'my-insert-current-date-time)
 (global-set-key (kbd "C-c k") 'calendar)
-
+(global-set-key (kbd "C-c 1") 'my-titlecase-converter)
 ;; keybindings
 ;; f1: magit
 (global-set-key (kbd "S-<f1>") 'my-cleanup)
@@ -1408,6 +1408,15 @@ Uses `current-date-time-format' for the formatting the date/time."
               (remove-hook 'window-configuration-change-hook
                            (lambda ()
                              (my/set-default-font my-font))))))))
+
+(defun my-titlecase-converter ()
+  "Convert region to titlecase."
+  (interactive)
+  (let ((b (if mark-active (min (point) (mark)) (point-min)))
+        (e (if mark-active (max (point) (mark)) (point-max))))
+    (shell-command-on-region b e
+                             "titlecase" (current-buffer) t)))
+
 
 (defun compile-quietly ()
   "Re-compile without changing the window configuration."
