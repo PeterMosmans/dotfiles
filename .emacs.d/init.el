@@ -195,7 +195,8 @@
 (use-package fill-column-indicator
   :commands fci-mode
   :config
-  (setq fci-rule-color "light slate grey")
+  (setq fci-rule-color "light slate grey"
+        fci-always-use-textual-rule t)
   :ensure t
   :init
   (add-hook 'prog-mode-hook 'fci-mode)
