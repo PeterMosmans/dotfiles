@@ -503,7 +503,9 @@
 
 (use-package restclient
   :commands restclient-mode
-  :config (add-hook 'restclient-mode-hook 'company-mode)
+  :config (add-hook 'restclient-mode-hook (lambda ()
+                                            (when (fboundp 'company-mode)
+                                              (company-mode))))
   :ensure t
   )
 
