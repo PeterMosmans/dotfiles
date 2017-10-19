@@ -268,6 +268,10 @@
   :ensure t
   )
 
+(use-package helm-make
+  :bind (("C-c m" . helm-make-projectile))
+  )
+
 (use-package helm-org-rifle
   :commands helm-org-rifle
   :ensure t
