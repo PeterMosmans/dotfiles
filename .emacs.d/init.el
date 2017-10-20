@@ -540,6 +540,7 @@
   :config
   (setq web-mode-markup-indent-offset 2)
   (add-hook 'web-mode-hook (lambda ()
+                             (auto-fill-mode)
                              (when (fboundp 'flyspell-mode)
                                (flyspell-mode))
                              (fci-mode 0)))
