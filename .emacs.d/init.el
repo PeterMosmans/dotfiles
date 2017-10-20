@@ -1310,21 +1310,14 @@ ARG is a prefix argument.  If nil, copy the current difference region."
     (shell-command-on-region b e
                              "python -mjson.tool" (current-buffer) t)))
 
+
 (defun my-compile-anywhere ()
-  "Search for a Makefile in directories above, and asynchronously execute make."
+  "Search for a Makefile in directories recursively, and compile when found"
   (interactive)
-  (setq builder nil)
-  (dolist (path '("../../../" "../../" "../"))
-    (if (file-exists-p (concat path "Makefile"))
-        (setq builder path)))
-  (if builder
-      (progn
-        (message "Make process started...")
-        (async-start
-         (progn (shell-command-to-string (concat "cd " builder "; make")))
-         (lambda (result)
-           (message "%s" result))))
-    (message "Could not find Makefile")))
+  (when (locate-dominating-file default-directory "Makefile")
+    (with-temp-buffer
+      (cd (locate-dominating-file default-directory "Makefile"))
+      (compile "make"))))
 
 (defun my-extract-colors ()
   "Extract colors from current applied theme."
