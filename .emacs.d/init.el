@@ -801,122 +801,10 @@
       '((sequence "TODO(t)" "REGISTRATION(r)" "WAITING(w)" "DELEGATED(e)" "|" "CANCELLED(c)" "DONE(d)" ))
       )
 
-;; hooks
-(defvar after-load-theme-hook nil
-  "Hook run after a color theme is loaded using `load-theme'.")
-
-(defadvice load-theme (after run-after-load-theme-hook activate)
-  "Run `after-load-theme-hook'."
-  (run-hooks 'after-load-theme-hook))
-
-(add-hook 'after-load-theme-hook
-          (lambda ()
-            (my-extract-colors)
-            (my-apply-colors)))
-(if (fboundp 'my-org-query-clock-out)
-    (add-hook 'kill-emacs-query-functions 'my-org-query-clock-out))
-(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
-(add-hook 'org-clock-in-hook 'save-buffer)  ;; save buffer when clocking in...
-(add-hook 'org-clock-in-prepare-hook 'my-org-mode-ask-effort)
-(add-hook 'org-clock-out-hook (lambda ()
-                                (save-buffer)
-                                (makunbound 'org-mode-line-string)
-                                (force-mode-line-update)))
-(add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (linum-mode 0)             ;; as it's derived from text-mode
-            (yas-minor-mode 1)
-            (turn-on-flyspell)
-            (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)))
 
 ;; associate certain files with modes
 (add-to-list 'auto-mode-alist '("\\COMMIT_EDITMSG\\'" . diff-mode))
 (add-to-list 'auto-mode-alist '("\\.prf\\'" . conf-mode))
-;;; HOOKS
-;; various built in modes
-(add-hook 'calendar-mode-hook
-          (lambda ()
-            (define-key calendar-mode-map (kbd "<tab>") 'calendar-forward-month)
-            (define-key calendar-mode-map (kbd "S-<tab>") 'calendar-backward-month)
-            (copy-face font-lock-keyword-face 'calendar-iso-week-face)
-            (setq calendar-week-start-day 1   ;; DD/MM/YYYY
-                  calendar-date-style 'european ;; easy navigation
-                  )))
-
-(add-hook 'comint-mode-hook
-          (lambda ()                    ;; reclaim keybindings for shell mode
-            (define-key comint-mode-map (kbd "<up>") 'comint-previous-input)
-            (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
-            (setq comint-process-echoes t))) ;; prevent echoing
-
-(add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
-
-(add-hook 'markdown-mode-hook 'auto-fill-mode)
-
-(add-hook 'nxml-mode-hook
-          (lambda ()
-            (auto-fill-mode 1)
-            (highlight-indentation-mode t)
-            (yas-minor-mode 1)
-            ))
-
-(add-hook 'prog-mode-hook (lambda ()
-                            (flyspell-prog-mode)
-                            (linum-mode 1)))
-
-(add-hook 'rst-mode-hook (lambda ()
-                           (auto-fill-mode 1)
-                           (fci-mode)
-                           (yas-minor-mode)))
-
-(add-hook 'sh-mode-hook
-          (lambda ()
-            (reveal-mode 1)))
-
-(add-hook 'shell-mode-hook
-          (lambda ()
-            (ansi-color-for-comint-mode-on)))
-;; (toggle-truncate-lines 1))) ;; turn off word wrap for shell mode
-
-(add-hook 'text-mode-hook
-          (lambda ()
-            (flyspell-mode)
-            (linum-mode 1)
-            (visual-line-mode 0)       ;; show a symbol for wrapping lines,
-            (setq word-wrap 1)))       ;; but still wrap words nicely
-
-;; builtin hooks
-(add-hook 'after-init-hook
-          (lambda ()
-            (if (bound-and-true-p my-theme)
-                (load-theme my-theme t))
-            ;; make sure that utf8 Unix line endings (LF) are default
-            (setq-default default-buffer-file-coding-system 'utf-8-unix)
-            (setq-default buffer-file-coding-system 'utf-8-unix)
-            (prefer-coding-system 'utf-8-unix)
-            (my-set-default-font my-font)
-            (if (boundp 'my-scratch-file)
-                (progn
-                  (find-file my-scratch-file)  ;; only show it if it's the only file
-                  (if (get-buffer "*scratch*")
-                      (kill-buffer "*scratch*"))))
-            (when (boundp 'start-with-agenda)
-              (open-custom-agenda))
-            (raise-frame)
-            ))
-
-(if (fboundp 'my-align-org-tags)
-    (add-hook 'window-configuration-change-hook
-              (lambda()
-                (my-align-org-tags))))
-
-;; workaround to make sure that font is being set when running in daemon mode
-(if (daemonp)
-    (add-hook 'window-configuration-change-hook
-              (lambda ()
-                (my-set-default-font my-font))))
 
 ;;; KEY BINDINGS
 (global-set-key (kbd "<scroll>") 'scroll-lock-mode)
@@ -1677,7 +1565,121 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
          ("l" recenter-top-bottom)))))
 
 
-  ;; Local Variables:
-  ;; byte-compile-warnings: (not free-vars)
-  ;; End:
+;; hooks
+
+;; various built in modes
+(add-hook 'calendar-mode-hook
+          (lambda ()
+            (define-key calendar-mode-map (kbd "<tab>") 'calendar-forward-month)
+            (define-key calendar-mode-map (kbd "S-<tab>") 'calendar-backward-month)
+            (copy-face font-lock-keyword-face 'calendar-iso-week-face)
+            (setq calendar-week-start-day 1   ;; DD/MM/YYYY
+                  calendar-date-style 'european ;; easy navigation
+                  )))
+
+(add-hook 'comint-mode-hook
+          (lambda ()                    ;; reclaim keybindings for shell mode
+            (define-key comint-mode-map (kbd "<up>") 'comint-previous-input)
+            (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
+            (setq comint-process-echoes t))) ;; prevent echoing
+
+(add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
+
+(add-hook 'markdown-mode-hook 'auto-fill-mode)
+
+(add-hook 'nxml-mode-hook
+          (lambda ()
+            (auto-fill-mode 1)
+            (highlight-indentation-mode t)
+            (yas-minor-mode 1)
+            ))
+
+(add-hook 'prog-mode-hook (lambda ()
+                            (flyspell-prog-mode)
+                            (linum-mode 1)))
+
+(add-hook 'rst-mode-hook (lambda ()
+                           (auto-fill-mode 1)
+                           (fci-mode)
+                           (yas-minor-mode)))
+
+(add-hook 'sh-mode-hook
+          (lambda ()
+            (reveal-mode 1)))
+
+(add-hook 'shell-mode-hook
+          (lambda ()
+            (ansi-color-for-comint-mode-on)))
+;; (toggle-truncate-lines 1))) ;; turn off word wrap for shell mode
+
+(add-hook 'text-mode-hook
+          (lambda ()
+            (flyspell-mode)
+            (linum-mode 1)
+            (visual-line-mode 0)       ;; show a symbol for wrapping lines,
+            (setq word-wrap 1)))       ;; but still wrap words nicely
+
+;; builtin hooks
+(add-hook 'after-init-hook
+          (lambda ()
+            (if (bound-and-true-p my-theme)
+                (load-theme my-theme t))
+            ;; make sure that utf8 Unix line endings (LF) are default
+            (setq-default default-buffer-file-coding-system 'utf-8-unix)
+            (setq-default buffer-file-coding-system 'utf-8-unix)
+            (prefer-coding-system 'utf-8-unix)
+            (my-set-default-font my-font)
+            (if (boundp 'my-scratch-file)
+                (progn
+                  (find-file my-scratch-file)  ;; only show it if it's the only file
+                  (if (get-buffer "*scratch*")
+                      (kill-buffer "*scratch*"))))
+            (when (boundp 'start-with-agenda)
+              (open-custom-agenda))
+            (raise-frame)
+            ))
+
+(if (fboundp 'my-align-org-tags)
+    (add-hook 'window-configuration-change-hook
+              (lambda()
+                (my-align-org-tags))))
+
+;; workaround to make sure that font is being set when running in daemon mode
+(if (daemonp)
+    (add-hook 'window-configuration-change-hook
+              (lambda ()
+                (my-set-default-font my-font))))
+
+
+(defvar after-load-theme-hook nil
+  "Hook run after a color theme is loaded using `load-theme'.")
+
+(defadvice load-theme (after run-after-load-theme-hook activate)
+  "Run `after-load-theme-hook'."
+  (run-hooks 'after-load-theme-hook))
+
+
+(add-hook 'after-load-theme-hook
+          (lambda ()
+            (my-extract-colors)
+            (my-apply-colors)))
+(if (fboundp 'my-org-query-clock-out)
+    (add-hook 'kill-emacs-query-functions 'my-org-query-clock-out))
+
+(add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+(add-hook 'org-clock-in-hook 'save-buffer)  ;; save buffer when clocking in...
+(add-hook 'org-clock-in-prepare-hook 'my-org-mode-ask-effort)
+(add-hook 'org-clock-out-hook (lambda ()
+                                (save-buffer)
+                                (makunbound 'org-mode-line-string)
+                                (force-mode-line-update)))
+(add-hook 'org-finalize-agenda-hook 'place-agenda-tags)
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (linum-mode 0)             ;; as it's derived from text-mode
+            (yas-minor-mode 1)
+            (turn-on-flyspell)
+            (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)))
+
 ;;; init.el ends here
