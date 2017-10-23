@@ -1011,6 +1011,16 @@ Return a list of one element based on major mode."
       (unless (equal effort "")
         (org-set-property "Effort" effort)))))
 
+;; http://comments.gmane.org/gmane.emacs.orgmode/81781
+(defun my-org-query-clock-out ()
+  "Ask the user before clocking out.
+This is a useful function for adding to `kill-emacs-query-functions'."
+  (if (and (featurep 'org-clock)
+           (funcall 'org-clocking-p)
+           (y-or-n-p "You are currently clocking time, clock out? "))
+      (org-clock-out)
+    t))                                ;; only fails on keyboard quit or error
+
 (defmacro ediff-char-to-buftype (arg)
   `(cond ((memq ,arg '(?a ?A)) 'A)
          ((memq ,arg '(?b ?B)) 'B)
@@ -1311,15 +1321,6 @@ Uses `current-date-time-format' for the formatting the date/time."
   (save-window-excursion
     (recompile)))
 
-;; http://comments.gmane.org/gmane.emacs.orgmode/81781
-(defun my-org-query-clock-out ()
-  "Ask the user before clocking out.
-This is a useful function for adding to `kill-emacs-query-functions'."
-  (if (and (featurep 'org-clock)
-           (funcall 'org-clocking-p)
-           (y-or-n-p "You are currently clocking time, clock out? "))
-      (org-clock-out)
-    t))                                ;; only fails on keyboard quit or error
 
 ;; http://emacswiki.org/emacs/SwitchingBuffers
 (defun my-switch-to-previous-buffer ()
