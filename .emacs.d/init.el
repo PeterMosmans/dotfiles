@@ -22,6 +22,7 @@
 
 ;; The following variables are recognized, and can be added to
 ;; custom-file :
+;; my-bibliographies
 ;; my-font
 ;; my-capture-file
 ;; my-dayplanner-file
@@ -33,6 +34,10 @@
 (defgroup my-customizations nil
   "Customization parameters used for startup"
   :group 'startup)
+(defcustom my-bibliographies nil
+  "A file or list of BibTex files used for bibliographies."
+  :type 'string
+  :group 'my-customizations)
 (defcustom my-font "Source Code Pro"
   "Font that will be used (if it is installed)."
   :type 'string
@@ -251,11 +256,12 @@
 (use-package helm-bibtex
   :bind (("C-c b" . helm-bibtex))
   :config
-    (if (boundp 'my-bibliographies)
-        (setq helm-bibtex-bibliography my-bibliographies))
-    (setq bibtex-completion-pdf-field "file")
+  (if (boundp 'my-bibliographies)
+      (setq bibtex-completion-bibliography my-bibliographies))
+  (setq bibtex-autokey-year-length 4 ;; use 4 digits for the year
+        bibtex-completion-pdf-field "file" ;; Use the file field to locate PDF files
+        bibtex-completion-notes-path (concat my-org-directory "/bibtex-notes.org"))
   :defer t
-  :ensure t
   )
 
 (use-package helm-flyspell
