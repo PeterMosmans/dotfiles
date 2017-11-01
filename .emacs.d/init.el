@@ -28,11 +28,13 @@
 ;; my-dayplanner-file
 ;; my-org-directory
 ;; my-theme
+;; my-wordnet-dictionary
+;; my-wordnet-program
 ;; start-with-agenda
 ;;
 ;; Note that the defaults will be used if the variables aren't defined
 (defgroup my-customizations nil
-  "Customization parameters used for startup"
+  "Customization parameters used for startup."
   :group 'startup)
 (defcustom my-bibliographies nil
   "A file or list of BibTex files used for bibliographies."
@@ -64,6 +66,14 @@
   :group 'my-customizations)
 (defcustom my-theme 'misterioso
   "Theme that will be applied when starting up."
+  :type 'string
+  :group 'my-customizations)
+(defcustom my-wordnet-dictionary nil
+  "Path to wordnet dictionary."
+  :type 'string
+  :group 'my-customizations)
+(defcustom my-wordnet-program nil
+  "Location of wordnet executable."
   :type 'string
   :group 'my-customizations)
 (defvar my-colors nil
@@ -295,6 +305,13 @@
   :defer t
   :ensure t
   )
+
+(use-package helm-wordnet
+  :bind ("C-c w" . helm-wordnet-suggest)
+  :config
+  (setq helm-wordnet-wordnet-location my-wordnet-dictionary
+        helm-wordnet-prog my-wordnet-program)
+  :defer t)
 
 (use-package highlight-indentation
   :commands highlight-indentation-mode
