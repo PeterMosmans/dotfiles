@@ -1703,7 +1703,6 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
           (lambda ()
             (linum-mode 0)             ;; as it's derived from text-mode
             (yas-minor-mode 1)
-            (turn-on-flyspell)
             (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)))
 
 ;;; init.el ends here
