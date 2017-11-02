@@ -1628,7 +1628,6 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
 
 (add-hook 'rst-mode-hook (lambda ()
                            (auto-fill-mode 1)
-                           (fci-mode)
                            (yas-minor-mode)))
 
 (add-hook 'sh-mode-hook
