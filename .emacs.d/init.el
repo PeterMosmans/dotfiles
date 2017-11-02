@@ -384,7 +384,7 @@
   )
 
 (use-package org-wc                    ;; Count words in org mode documents
-  :bind ("C-c w" . my-org-wc-toggle-overlay)
+  ;; :bind ("C-c w" . my-org-wc-toggle-overlay)
   :defer t
   :ensure t
   )
