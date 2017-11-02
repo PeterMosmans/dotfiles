@@ -1602,12 +1602,16 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
                   )))
 
 (add-hook 'comint-mode-hook
-          (lambda ()                    ;; reclaim keybindings for shell mode
+          (lambda ()                   ;; reclaim keybindings for shell mode
             (define-key comint-mode-map (kbd "<up>") 'comint-previous-input)
             (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
             (setq comint-process-echoes t))) ;; prevent echoing
 
 (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
+
+(add-hook 'git-commit-mode-hook
+          (lambda ()
+            (linum-mode 0)))           ;; as it's derived from text-mode
 
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 
