@@ -157,22 +157,23 @@
 (use-package company
   :config
   (defvar company-mode/enable-yas t "Enable yasnippet for all back ends.")
-  (defun company-mode/backend-with-yas (backend)
-    (if (or (not company-mode/enable-yas)
-            (and (listp backend) (member 'company-yasnippet backend)))
-        backend
-      (append (if (consp backend) backend (list backend))
-              '(:with company-yasnippet))))
+  ;; (defun company-mode/backend-with-yas (backend)
+  ;;   (if (or (not company-mode/enable-yas)
+  ;;           (and (listp backend) (member 'company-yasnippet backend)))
+  ;;       backend
+  ;;     (append (if (consp backend) backend (list backend))
+  ;;             '(:with company-yasnippet))))
 
-  (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)
-        company-idle-delay 2
-        company-transformers '(company-sort-by-occurrence))
+  ;; (setq company-backends (mapcar #'company-mode/backend-with-yas company-backends)
+  ;;       company-idle-delay 2
+  ;;       company-transformers '(company-sort-by-occurrence))
   :defer t
   :ensure t
   :init (global-company-mode)
   )
 
 (use-package company-quickhelp
+  ;; :disabled t
   :config (setq company-quickhelp-delay 1)
   :defer t
   :ensure t
