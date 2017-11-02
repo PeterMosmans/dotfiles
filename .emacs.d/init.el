@@ -565,8 +565,7 @@
   (add-hook 'web-mode-hook (lambda ()
                              (auto-fill-mode)
                              (when (fboundp 'flyspell-mode)
-                               (flyspell-mode))
-                             (fci-mode 0)))
+                               (flyspell-mode))))
   :mode (("\\.[agj]sp\\'" . web-mode)
          ("\\.as[cp]x\\'" . web-mode)
          ("\\.html?\\'" . web-mode)
@@ -598,7 +597,6 @@
   :ensure t
   ;; yaml is a major mode, not based on prog-mode, so manually add modes
   :init
-  (add-hook 'yaml-mode-hook 'fci-mode)
   (add-hook 'yaml-mode-hook 'highlight-indentation-mode)
   )
 
