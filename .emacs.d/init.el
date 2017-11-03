@@ -1610,7 +1610,11 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
 
 (add-hook 'git-commit-mode-hook
           (lambda ()
-            (linum-mode 0)))           ;; as it's derived from text-mode
+            (linum-mode 0)))           ;; No need for line numbers
+
+(add-hook 'imenu-list-minor-mode-hook
+          (lambda ()                   ;; Activate newly generated buffer immediately
+            (switch-to-buffer-other-window "*Ilist*")))
 
 (add-hook 'markdown-mode-hook 'auto-fill-mode)
 
