@@ -215,10 +215,17 @@
   :config
   (setq fci-rule-color "light slate grey"
         fci-always-use-textual-rule t)
+  :disabled t
   :ensure t
   :init
   (add-hook 'prog-mode-hook 'fci-mode)
   (add-hook 'markdown-mode-hook 'fci-mode)
+  (when (fboundp 'rst-mode)
+    (add-hook 'rst-mode-hook 'fci-mode))
+  (when (fboundp 'web-mode)
+    (add-hook 'web-mode-hook 'fci-mode))
+  (when (fboundp 'yaml-mode)
+    (add-hook 'yaml-mode-hook 'fci-mode))
   )
 
 (use-package flycheck
