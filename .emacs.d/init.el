@@ -762,13 +762,18 @@
                       (org-agenda-start-on-weekday nil)  ;; calendar begins today
                       (org-agenda-use-time-grid nil)
                       ))
-          (tags-todo "@online"
-                     ((org-agenda-overriding-header "")  ;; don't show header
-                      (org-agenda-prefix-format "")  ;; don't show prefix
-                      (org-agenda-remove-tags t)  ;; remove tags
-                      ))
+          (tags "TODO=\"TODO\"+lead"
+                ((org-agenda-overriding-header "Leads")
+                 (org-agenda-prefix-format "")  ;; don't show prefix
+                 (org-agenda-remove-tags t)  ;; remove tags
+                 ))
+          (tags "TODO=\"WAITING\"|TODO=\"DELEGATED\""
+                ((org-agenda-overriding-header "Delegated tasks")
+                 (org-agenda-prefix-format "")  ;; don't show prefix
+                 (org-agenda-remove-tags t)  ;; remove tags
+                 ))
           (tags "+TODO=\"TODO\""
-                ((org-agenda-overriding-header "")
+                ((org-agenda-overriding-header "TODO")
                  (org-agenda-prefix-format " %i")
                  (org-agenda-sorting-strategy '(priority-down category-up tag-up))
                  ))
