@@ -827,8 +827,7 @@
       org-use-speed-commands t         ;; enable speed commands
       org-support-shift-select t       ;; keep using shift as selector
       org-src-fontify-natively t       ;; fontify code in blocks
-      org-time-clocksum-format         ;; don't show days
-      '(:hours "%d" :require-hours t :minutes ":%02d" :require-minutes t)
+      org-duration-format '(("h" . nil) (special . h:mm))  ;; Don't show days
       org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
       '((sequence "TODO(t)" "REGISTRATION(r)" "DELEGATED(e)" "|" "CANCELLED(c)" "DONE(d)" ))
       )
