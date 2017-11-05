@@ -132,5 +132,8 @@ done
 [[ -f "${READER}" ]] && alias -s epub='${READER}'
 [[ -f "${READER}" ]] && alias -s pdf='${READER}'
 [[ ! -z "$UPDATE" ]] && alias update="${UPDATE}"
+
+#If on Windows, change from 1252 (default) to UTF-8 codepage for output
+chcp 65001 > /dev/null
 # Start oh-my-zsh
 [[ -f $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh
