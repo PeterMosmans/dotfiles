@@ -128,13 +128,13 @@
                            ("melpa-stable" . "https://stable.melpa.org/packages/"))))
 
 ;; define all necessary EXTERNAL alphabetically
+;; after:     wrap everything in a with-eval-after-load, so that config will be done last
 ;; bind:      keybindings (all keys before :map are bound globally)
 ;; commands:  load the package (execute config) when these commands are executed
 ;; config:    execute code *after* a package is loaded
 ;; defer:     defer loading (implied when using commands, bind or mode)
 ;; disabled:  (temporarily) disable a package
 ;; ensure:    make sure the package is installed
-;; idle:      delay steps until Emacs is idle (before or after package loading)
 ;; init:      always execute code *before* a package is loaded
 ;; load-path: path of the files for local packages
 ;; mode:      deferred binding
