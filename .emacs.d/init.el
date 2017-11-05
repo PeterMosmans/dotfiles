@@ -201,7 +201,8 @@
         python-shell-completion-native-enable nil)
   (elpy-enable)
   :defer t
-  :ensure t
+  :ensure t           ;; elpy-enable needs to be run before first python
+  :init (with-eval-after-load 'python (elpy-enable))  ;; file is loaded
   )
 
 (use-package eyebrowse
