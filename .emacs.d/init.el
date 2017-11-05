@@ -335,12 +335,21 @@
   :defer t
   )
 
+(use-package lorem-ipsum               ;; Generate lorem ipsum from within Emacs
+  :defer t)
+
 (use-package magit
   :bind (([f1] . magit-status)
          ("C-x g" . magit-status))
-  :config
-  (setq magit-diff-auto-show nil)
+  ;; :config
+  ;; (setq magit-diff-auto-show nil)
   :defer t
+  :ensure t
+  )
+
+(use-package magithub                  ;; integrate github into magit
+  :after magit
+  :config (magithub-feature-autoinject t)
   :ensure t
   )
 
