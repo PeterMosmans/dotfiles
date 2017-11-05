@@ -26,3 +26,6 @@ export UPDATE="pacman --color=auto -Syuu"
 # Interactive alias bindings
 export BROWSER="c:/Program Files (x86)/Mozilla Firefox/firefox.exe"
 export READER="c:/Program Files/SumatraPDF/SumatraPDF.exe"
+
+# Make sure that Python uses UTF-8 encoding for stdout / stderr
+export PYTHONIOENCODING=UTF-8
