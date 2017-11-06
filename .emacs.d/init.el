@@ -1730,6 +1730,7 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
 (add-hook 'org-mode-hook
           (lambda ()
             (linum-mode 0)             ;; as it's derived from text-mode
+            (local-set-key (kbd "C-c o") 'org-agenda-open-link)
             (yas-minor-mode 1)
             (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)))
 
