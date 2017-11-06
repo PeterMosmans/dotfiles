@@ -661,9 +661,10 @@
  completion-ignore-case t              ;; ignore case when completing
  dired-listing-switches "-agoh"
  ediff-window-setup-function 'ediff-setup-windows-plain
- global-font-lock-mode 1               ;; syntax highlighting on by default
- global-hl-line-mode 1                 ;; highlight current line by default
- global-visual-line-mode 1             ;; act on visual lines, enable word wrap
+ frame-resize-pixelwise t              ;; Don't round frame sizes on character sizes
+ global-font-lock-mode t               ;; syntax highlighting on by default
+ global-hl-line-mode t                 ;; highlight current line by default
+ global-visual-line-mode t             ;; act on visual lines, enable word wrap
  inhibit-compacting-font-caches t      ;; speed up displaying Unicode glyphs
  inhibit-startup-echo-area-message nil
  inhibit-startup-message t             ;; remove welcome message
