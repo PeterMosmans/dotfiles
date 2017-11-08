@@ -338,6 +338,19 @@
   :ensure t
   )
 
+(use-package js2-mode
+  :bind ("M-." . nil)
+  :config
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+  (add-hook 'js2-mode-hook (lambda ()
+                             (when (boundp 'company-mode)
+                               (company-mode))
+                             (when (boundp 'tern-mode)
+                               (tern-mode))
+                             (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+  :defer t
+  )
+
 (use-package let-alist
   :defer t
   )
