@@ -60,7 +60,7 @@
   "Persistent scratch file which is opened on startup."
   :type 'file
   :group 'my-customizations)
-(defcustom my-snippets-dir nil
+(defcustom my-snippet-dirs nil
   "A list of snippet directories that will be loaded by yasnippet."
   :type 'string
   :group 'my-customizations)
@@ -173,7 +173,6 @@
   )
 
 (use-package company-quickhelp
-  ;; :disabled t
   :config (setq company-quickhelp-delay 1)
   :defer t
   :ensure t
