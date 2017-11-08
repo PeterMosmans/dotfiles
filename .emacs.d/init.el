@@ -727,7 +727,8 @@
            my-org-directory))
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((plantuml . t)
+ '((dot . t)
+   (plantuml . t)
    (python . t)
    (shell . t)))
 
@@ -1503,7 +1504,7 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
   "When LANG is trusted, return false (don't ask for confirmation).
    If true, ask for confirmation to evaluate code."
   (message "Check language %s" lang)
-  (not (member lang '("plantuml" "python" "restclient" "sh" "shell"))))
+  (not (member lang '("dot" "plantuml" "python" "restclient" "sh" "shell"))))
 
 (defun my-align-org-tags ()
   "Align 'org-mode' tags to the right border of the screen."
