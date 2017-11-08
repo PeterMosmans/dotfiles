@@ -553,10 +553,9 @@
 
 (use-package restclient-helm
   :defer t
-  :ensure t
   )
 
-(use-package tabbar
+(use-package tabbar                    ;; Use tabs to simplify navigation
   :bind (("C-<tab>" . tabbar-forward)
          ("C-S-<tab>" . tabbar-backward)
          ("C-S-<iso-lefttab>" . tabbar-backward)
@@ -568,7 +567,7 @@
          ("S-<f9>" . tabbar-forward-group))
   :ensure t
   :init
-  (tabbar-mode t)                      ;; enable the tabbar by default
+  (tabbar-mode t)                      ;; Enable the tabbar by default
   )
 
 (use-package web-mode
