@@ -181,13 +181,16 @@
 
 (use-package company-jedi
   :defer t
-  :ensure t
   )
 
 (use-package company-restclient
   :config (add-to-list 'company-backends 'company-restclient)
   :defer t
-  :ensure t
+  )
+
+(use-package company-tern
+  :config (add-to-list 'company-backends 'company-tern)
+  :defer t
   )
 
 (use-package dash
