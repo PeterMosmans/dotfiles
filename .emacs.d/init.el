@@ -247,7 +247,10 @@
 
 (use-package git-timemachine
   :defer t
-  :ensure t
+  )
+
+(use-package graphviz-dot-mode         ;; Make it easier to edit (Graphviz) dot files
+  :defer t
   )
 
 (use-package helm
