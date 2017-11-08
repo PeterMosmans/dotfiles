@@ -1625,9 +1625,14 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
 
 (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
-(add-hook 'git-commit-mode-hook
+(add-hook 'flyspell-mode-hook
           (lambda ()
-            (linum-mode 0)))           ;; No need for line numbers
+            (define-key flyspell-mode-map (kbd "C-.") 'flyspell-goto-next-error)
+            (define-key flyspell-mode-map (kbd "M-.") 'flyspell-buffer)))
+
+ (add-hook 'git-commit-mode-hook
+           (lambda ()
+             (linum-mode 0)))           ;; No need for line numbers
 
 (add-hook 'imenu-list-minor-mode-hook
           (lambda ()                   ;; Activate newly generated buffer immediately
