@@ -286,11 +286,9 @@
   )
 
 (use-package helm-flyspell
+  :after flyspell
   :bind (("C-;" . helm-flyspell-correct))
   :commands flyspell-mode
-  :init
-  (eval-after-load "flyspell"
-    '(define-key flyspell-mode-map (kbd "C-;") nil))
   :defer t
   :ensure t
   )
