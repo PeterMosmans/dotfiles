@@ -293,7 +293,6 @@
   :bind (("C-;" . helm-flyspell-correct))
   :commands flyspell-mode
   :defer t
-  :ensure t
   )
 
 (use-package helm-make
@@ -593,8 +592,7 @@
   (setq web-mode-markup-indent-offset 2)
   (add-hook 'web-mode-hook (lambda ()
                              (auto-fill-mode)
-                             (when (fboundp 'flyspell-mode)
-                               (flyspell-mode))))
+                             (flyspell-mode)))
   :mode (("\\.[agj]sp\\'" . web-mode)
          ("\\.as[cp]x\\'" . web-mode)
          ("\\.html?\\'" . web-mode)
@@ -1673,6 +1671,7 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
 
 (add-hook 'flyspell-mode-hook
           (lambda ()
+            (define-key flyspell-mode-map (kbd "C-;") nil)
             (define-key flyspell-mode-map (kbd "C-.") 'flyspell-goto-next-error)
             (define-key flyspell-mode-map (kbd "M-.") 'flyspell-buffer)))
 
