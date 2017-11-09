@@ -652,18 +652,27 @@
  display-time-world-list
  (quote
   (("AST-10AEST" "BNE")
-   ("CET-1CET" "AMS")
+   ;; ("Europe/Amsterdam" "AMS")
+   ("CET-2CEST" "AMS")
    )))
 
 ;; OS-specific settings
 (if (string= system-type "windows-nt")
-    (setq w32-enable-caps-lock nil     ;; free the capslock key for useful stuff
-          explicit-shell-file-name "c:/programs/msys2/usr/bin/zsh.exe"))
+    (setq w32-enable-caps-lock nil     ;; Free up the capslock key for something useful
+          shell-file-name (executable-find "zsh.exe")
+          ;; explicit-shell-file-name (executable-find "zsh.exe")
+          ))
 
 ;; generic settings
 (setq-default fill-column 80           ;; width of the screen for wrapping
               line-spacing 0
               indent-tabs-mode nil)    ;; always use spaces for indentation
+
+;; Custom variables used by custom functions
+(setq my-alerter-icon (subst-char-in-string ?/ ?\\ (concat data-directory "images/icons/hicolor/128x128/apps/emacs.png"))
+      my-toast-app (executable-find "snoreToast.exe"))
+
+;; Emacs variables
 (setq
  auto-save-interval 1000               ;; automatically save after x characters
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
@@ -1211,6 +1220,16 @@ ARG is a prefix argument.  If nil, copy the current difference region."
    'utf-8-unix)
   )
 
+(defun my-alerter (title message)
+  "Alert a user using the my-toast-app, when it is set."
+  (when (boundp 'my-toast-app)
+    (shell-command (concat my-toast-app " -p \"" my-alerter-icon "\" -t \"" title "\" -m \"" message "\" -appid \"Emacs\""))))
+
+(defun my-align-org-tags ()
+  "Align 'org-mode' tags to the right border of the screen."
+  (interactive)
+  (setq org-tags-column (- 15 (window-width))))
+
 (defun my-apply-colors ()
   "Apply theme colors to tabbar and powerline."
   (interactive)
@@ -1264,6 +1283,11 @@ ARG is a prefix argument.  If nil, copy the current difference region."
     (shell-command-on-region b e
                              "python -mjson.tool" (current-buffer) t)))
 
+(defun my-cancel-running-timer ()
+  "Cancel running timer."
+  (when (and (boundp 'my-running-timer) (timerp my-running-timer))
+    (cancel-timer my-running-timer))
+  (setq my-running-timer nil))
 
 (defun my-compile-anywhere ()
   "Search for a Makefile in directories recursively, and compile when found"
@@ -1272,6 +1296,11 @@ ARG is a prefix argument.  If nil, copy the current difference region."
     (with-temp-buffer
       (cd (locate-dominating-file default-directory "Makefile"))
       (compile "make"))))
+
+(defun my-countdown-timer (minutes title message)
+  "Start a countdown timer for a given number of minutes, and cancel any running timers."
+  (my-cancel-running-timer)
+  (setq my-running-timer (run-with-timer (* 60 minutes) nil 'my-alerter title message)))
 
 (defun my-extract-colors ()
   "Extract colors from current applied theme."
