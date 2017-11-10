@@ -1477,51 +1477,6 @@ Uses `current-date-time-format' for the formatting the date/time."
                                                                                                   (getenv "PATH"))))))
     (call-interactively 'shell)))
 
-(defun xah-run-current-file ()
-  "Execute the current file.
-For example, if the current buffer is the file xx.py,
-then it'll call “python xx.py” in a shell.
-The file can be php, perl, python, ruby, javascript, bash, ocaml, vb, elisp.
-File suffix is used to determine what program to run.
-
-If the file is modified, ask if you want to save first.
-
-If the file is Emacs Lisp, run the byte compiled version if exist."
-  (interactive)
-  (let* (
-         (suffixMap
-          `(
-            ("cmd" . "cmd /c ")
-            ("md" . "\"c:\\program files (x86)\\mozilla firefox\\firefox.exe\" file://")
-            ("php" . "php ")
-            ("pl" . "perl ")
-            ("py" . "python ")
-            ("py3" . ,(if (string-equal system-type "windows-nt") "c:/Python32/python.exe " "python3 "))
-            ("rb" . "ruby ")
-            ("js" . "node ")             ; node.js
-            ("sh" . "bash ")
-            ("ml" . "ocaml ")
-            ("vbs" . "cscript ")
-            )
-          )
-         (fName (expand-file-name buffer-file-name))
-         (fSuffix (file-name-extension fName))
-         (progName (cdr (assoc fSuffix suffixMap)))
-         )
-
-    (when (buffer-modified-p)
-      (when (y-or-n-p "Buffer modified.  Do you want to save first? ")
-        (save-buffer) ) )
-    (if (string-equal fSuffix "md") ; special case for markdown file
-        (progn
-          (shell-command (concat (concat "bash " (file-name-directory fName) "build.sh"))))
-      (if (string-equal fSuffix "el") ; special case for emacs lisp
-          (load (file-name-sans-extension fName))
-        (message "Running...")
-        (shell-command (concat progName fName) "*xah-run-current-file output*" )
-        (message "No recognized program file suffix for this file.")
-        ) ) ))
-
 (defun add-d-to-ediff-mode-map ()
   (define-key ediff-mode-map "d" 'ediff-copy-D-to-C))
 
@@ -1548,11 +1503,6 @@ If the file is Emacs Lisp, run the byte compiled version if exist."
    If true, ask for confirmation to evaluate code."
   (message "Check language %s" lang)
   (not (member lang '("dot" "plantuml" "python" "restclient" "sh" "shell"))))
-
-(defun my-align-org-tags ()
-  "Align 'org-mode' tags to the right border of the screen."
-  (interactive)
-  (setq org-tags-column (- 15 (window-width))))
 
 (defun open-custom-agenda ()
   "Open custom agenda view."
