@@ -369,11 +369,14 @@
   :ensure t
   )
 
-(use-package magithub                  ;; integrate github into magit
+(use-package magithub                  ;; Integrate github into Magit
   :after magit
   :config (magithub-feature-autoinject t)
-  :ensure t
   )
+
+(use-package magit-gitflow             ;; Use Magit git flow plugin
+  :after magit
+  :config (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
 
 (use-package markdown-mode
   :defer t
