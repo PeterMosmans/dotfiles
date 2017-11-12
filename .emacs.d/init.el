@@ -173,9 +173,9 @@
   )
 
 (use-package company-quickhelp
+  :after company
   :config (setq company-quickhelp-delay 1)
-  :defer t
-  :ensure t
+  ;; :defer t
   :init (company-quickhelp-mode 1)
   )
 
@@ -376,7 +376,8 @@
 
 (use-package magit-gitflow             ;; Use Magit git flow plugin
   :after magit
-  :config (add-hook 'magit-mode-hook 'turn-on-magit-gitflow))
+  :config (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+  )
 
 (use-package markdown-mode
   :defer t
