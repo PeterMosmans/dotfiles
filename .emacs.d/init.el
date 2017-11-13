@@ -759,14 +759,7 @@
    (python . t)
    (shell . t)))
 
-(setq org-default-notes-file my-capture-file
-      org-agenda-compact-blocks t      ;; skip long block separators
-      org-file-apps (quote             ;; add several file handlers
-                     ((auto-mode . emacs)
-                      ("\\.mm\\'" . default)
-                      ("\\.odt\\'" . system)
-                      ("\\.pdf\\'" . default)
-                      ("\\.x?html?\\'" . default)))
+(setq org-agenda-compact-blocks t      ;; skip long block separators
       org-agenda-custom-commands
       '(("c" "category / tag ordened tasks"
          ((tags "+TODO=\"TODO\""
@@ -849,23 +842,30 @@
          entry (file+headline (concat org-directory "/someday-maybe.org") "someday/maybe")
          "* %?\n  %u"))
       org-catch-invisible-edit 'show-and-error
-      org-clock-into-drawer t          ;; log clocking data into drawer
-      org-clock-out-remove-zero-time-clocks t ;; remove logdata without time
+      org-clock-into-drawer t          ;; Log clocking data into drawer
+      org-clock-out-remove-zero-time-clocks t ;; Remove logdata without time
       org-columns-default-format "#+COLUMNS: %60ITEM(Task) %8Effort(estimate){:} %8CLOCKSUM(clocked){:} %8CLOCKSUM_T(today){:}"
       org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate
-      org-cycle-separator-lines 0      ;; no empty lines needed between subtrees
-      org-hide-leading-stars t         ;; only show one star per heading
-      org-fontify-done-headline t      ;; change headline face when marked DONE
-      org-global-properties
-      '(("Effort_ALL" . "0 0:05 0:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
-      org-log-into-drawer t            ;; insert notes & time stamps into drawer
-      org-refile-targets '((org-agenda-files :level . 2))
-      org-use-speed-commands t         ;; enable speed commands
-      org-support-shift-select t       ;; keep using shift as selector
-      org-src-fontify-natively t       ;; fontify code in blocks
+      org-cycle-separator-lines 0      ;; No empty lines needed between subtrees
+      org-default-priority ?E          ;; By default, make new TODO items lowest priority ('Eliminate')
+      org-default-notes-file my-capture-file
       org-duration-format '(("h" . nil) (special . h:mm))  ;; Don't show days
-      org-todo-keywords                ;; ! indicates timestamp, @ note & timestamp
-      '((sequence "TODO(t)" "REGISTRATION(r)" "DELEGATED(e)" "|" "CANCELLED(c)" "DONE(d)" ))
+      org-file-apps (quote             ;; Add several file handlers
+                     ((auto-mode . emacs)
+                      ("\\.mm\\'" . default)
+                      ("\\.odt\\'" . system)
+                      ("\\.pdf\\'" . default)
+                      ("\\.x?html?\\'" . default)))
+      org-fontify-done-headline t      ;; change headline face when marked DONE
+      org-global-properties '(("Effort_ALL" . "0 00:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
+      org-hide-leading-stars t         ;; Only show one star per heading
+      org-log-into-drawer t            ;; Insert notes & time stamps into drawer
+      org-lowest-priority ?E           ;; Use a 5-scale rating for priorities
+      org-refile-targets '((org-agenda-files :level . 2))
+      org-src-fontify-natively t       ;; Fontify code in blocks
+      org-support-shift-select t       ;; Keep using shift as selector
+      org-todo-keywords '((sequence "TODO(t)" "DELEGATED(e)" "|" "CANCELLED(c)" "DONE(d)" ))                ;; ! indicates timestamp, @ note & timestamp
+      org-use-speed-commands t         ;; Enable speed commands
       )
 
 
