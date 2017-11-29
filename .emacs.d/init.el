@@ -1230,14 +1230,12 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 
 (defun set-bfr-to-utf-8-unix ()
   (interactive)
-  (set-buffer-file-coding-system
-   'utf-8-unix)
-  )
+  (set-buffer-file-coding-system 'utf-8-unix))
 
 (defun my-alerter (title message)
   "Alert a user using the my-toast-app, when it is set."
-  (when (boundp 'my-toast-app)
-    (shell-command (concat my-toast-app " -p \"" my-alerter-icon "\" -t \"" title "\" -m \"" message "\" -appid \"Emacs\""))))
+  (if my-toast-app
+      (shell-command (concat my-toast-app " -p \"" my-alerter-icon "\" -t \"" title "\" -m \"" message "\" -appid \"Emacs\""))))
 
 (defun my-align-org-tags ()
   "Align 'org-mode' tags to the right border of the screen."
