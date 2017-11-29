@@ -215,6 +215,7 @@
   :defer t
   :ensure t           ;; elpy-enable needs to be run before first python
   :init (with-eval-after-load 'python (elpy-enable))  ;; file is loaded
+  (add-hook 'elpy-mode-hook 'flycheck-mode)  ;; Enforce flycheck mode
   )
 
 (use-package eyebrowse
