@@ -172,15 +172,17 @@
   :init (global-company-mode)
   )
 
+(use-package company-jedi             ;; Completion backend for Python (jedi)
+  :after company
+  )
+
+;; the package company-quickhelp needs rainbow-mode, which is not specified as a dependency
+(use-package rainbow-mode)
+
 (use-package company-quickhelp
   :after company
   :config (setq company-quickhelp-delay 1)
-  ;; :defer t
   :init (company-quickhelp-mode 1)
-  )
-
-(use-package company-jedi
-  :defer t
   )
 
 (use-package company-restclient
@@ -188,9 +190,17 @@
   :defer t
   )
 
+(use-package company-statistics       ;; Sort completion candidates based on usage
+  :after company
+  )
+
 (use-package company-tern
   :config (add-to-list 'company-backends 'company-tern)
   :defer t
+  )
+
+(use-package company-web              ;; Completion backend for web
+  :after company
   )
 
 (use-package dash
