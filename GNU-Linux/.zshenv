@@ -7,6 +7,3 @@ plugins=(git)
 export REPOSPUB=/var/git
 export REPOSPRIV=
 export REPOS=/var/git
-
-# OS-specific update shortcut
-export UPDATE="sudo apt-get update && sudo apt-get -y dist-upgrade"
