@@ -142,7 +142,6 @@
 
 (use-package aggressive-indent
   :defer t
-  :ensure t
   :init
   (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
   )
@@ -174,14 +173,16 @@
 
 (use-package company-jedi             ;; Completion backend for Python (jedi)
   :after company
+  :defer t
   )
 
 ;; the package company-quickhelp needs rainbow-mode, which is not specified as a dependency
-(use-package rainbow-mode)
+(use-package rainbow-mode
+  :defer t)
 
 (use-package company-quickhelp
   :after company
-  :config (setq company-quickhelp-delay 1)
+  :config (setq company-quickhelp-delay 0)
   :init (company-quickhelp-mode 1)
   )
 
@@ -192,9 +193,12 @@
 
 (use-package company-statistics       ;; Sort completion candidates based on usage
   :after company
+  :config (company-statistics-mode)
+  :defer t
   )
 
 (use-package company-tern
+  :after company
   :config (add-to-list 'company-backends 'company-tern)
   :defer t
   )
