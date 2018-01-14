@@ -126,7 +126,7 @@
   (setq package-archives `(("gnu" . "https://elpa.gnu.org/packages/")
                            ("melpa" . "https://melpa.org/packages/")
                            ("melpa-stable" . "https://stable.melpa.org/packages/"))))
-
+(setq use-package-always-pin "melpa-stable")   ;; Prefer a stable repository
 ;; define all necessary EXTERNAL alphabetically
 ;; after:     wrap everything in a with-eval-after-load, so that config will be done last
 ;; bind:      keybindings (all keys before :map are bound globally)
@@ -173,10 +173,12 @@
 (use-package company-quickhelp
   :after company
   :config (setq company-quickhelp-delay 0)
+  :defer t
   :init (company-quickhelp-mode 1)
   )
 
 (use-package company-restclient
+  :after company
   :config (add-to-list 'company-backends 'company-restclient)
   :defer t
   )
@@ -195,16 +197,18 @@
 
 (use-package company-web              ;; Completion backend for web
   :after company
+  :defer t
   )
 
 (use-package dash
+  :disabled t
   :defer t
   )
 
 (use-package elpy
   :config
-  (setq elpy-rpc-backend "jedi"
-        python-shell-completion-native-enable nil)
+  ;; (setq elpy-rpc-backend "jedi"
+  ;;       python-shell-completion-native-enable nil)
   (elpy-enable)
   :defer t
   :ensure t           ;; elpy-enable needs to be run before first python
@@ -277,12 +281,13 @@
   )
 
 (use-package helm-ag
+  :after helm
   :commands helm-ag
-  :defer t
   :ensure t
   )
 
 (use-package helm-bibtex
+  :after helm
   :bind (("C-c b" . helm-bibtex))
   :config
   (if (boundp 'my-bibliographies)
@@ -293,6 +298,10 @@
   :defer t
   )
 
+(use-package helm-company
+  :after helm
+  :defer t)
+
 (use-package helm-flyspell
   :after flyspell
   :bind (("C-;" . helm-flyspell-correct))
@@ -301,15 +310,17 @@
   )
 
 (use-package helm-make
+  :after helm
   :bind (("C-c m" . helm-make-projectile))
   )
 
 (use-package helm-org-rifle
+  :after helm
   :commands helm-org-rifle
-  :ensure t
   )
 
 (use-package helm-projectile
+  :after helm
   :bind (([f5] . helm-projectile-find-file)
          ([f10] . helm-projectile-switch-to-buffer)
          ([C-f10] . helm-projectile-switch-project))
@@ -318,16 +329,16 @@
   )
 
 (use-package helm-tramp
-  :defer t
+  :after helm
   :ensure t
   )
 
 (use-package helm-wordnet
+  :after helm
   :bind ("C-c w" . helm-wordnet-suggest)
   :config
   (setq helm-wordnet-wordnet-location my-wordnet-dictionary
-        helm-wordnet-prog my-wordnet-program)
-  :defer t)
+        helm-wordnet-prog my-wordnet-program))
 
 (use-package highlight-indentation
   :commands highlight-indentation-mode
@@ -413,8 +424,7 @@
   )
 
 (use-package ob-async                  ;; Asynchronous execution of org-babel source code blocks
-  :after org
-  :defer t                             ;; when using the :async keyword
+  :after org                           ;; when using the :async keyword
   )
 
 (use-package org-ref
@@ -429,6 +439,7 @@
   )
 
 (use-package powerline
+  :after mode-icons
   :init
   (setq display-time-default-load-average nil ;; hide load average
         display-time-format "%H:%M"
@@ -646,6 +657,7 @@
   (yas-reload-all)
   (add-hook 'prog-mode-hook #'yas-minor-mode)
   (add-hook 'bibtex-mode-hook #'yas-minor-mode)
+  :defer t
   :ensure t
   )
 
