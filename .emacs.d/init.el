@@ -89,7 +89,7 @@
 ;; uncomment for some debugging and verbose (load time) options
 ;; (setq debug-on-error t)
 ;; uncomment for package loading times
-;; (setq use-package-verbose t)
+(setq use-package-verbose t)
 (package-initialize)
 
 ;; Bootstrap `use-package'
