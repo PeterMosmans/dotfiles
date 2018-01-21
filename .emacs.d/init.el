@@ -144,6 +144,7 @@
 
 (use-package aggressive-indent
   :defer t
+  :ensure t
   :init
   (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
   )
