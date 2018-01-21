@@ -125,8 +125,10 @@
   :config
   (setq package-archives `(("gnu" . "https://elpa.gnu.org/packages/")
                            ("melpa" . "https://melpa.org/packages/")
-                           ("melpa-stable" . "https://stable.melpa.org/packages/"))))
-(setq use-package-always-pin "melpa-stable")   ;; Prefer a stable repository
+                           ("melpa-stable" . "https://stable.melpa.org/packages/")
+                           ("org" . "https://orgmode.org/elpa/"))
+        use-package-always-pin "melpa-stable"))   ;; Prefer the stable repository by default
+
 ;; define all necessary EXTERNAL alphabetically
 ;; after:     wrap everything in a with-eval-after-load, so that config will be done last
 ;; bind:      keybindings (all keys before :map are bound globally)
