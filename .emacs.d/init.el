@@ -219,11 +219,6 @@
   (add-hook 'elpy-mode-hook 'flycheck-mode)  ;; Enforce flycheck mode
   )
 
-(use-package eyebrowse
-  :disabled t
-  :init (eyebrowse-mode t)
-  )
-
 (use-package fill-column-indicator
   :commands fci-mode
   :config
