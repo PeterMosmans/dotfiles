@@ -706,6 +706,10 @@
  inhibit-compacting-font-caches t      ;; speed up displaying Unicode glyphs
  inhibit-startup-echo-area-message nil
  inhibit-startup-message t             ;; remove welcome message
+ ispell-program-name "hunspell"        ;; Use hunspell as default spell checker
+ ispell-dictionary "en_US"             ;; Default language for spell checker
+ ispell-personal-dictionary "~/personal-dictionary"
+ ispell-silently-savep t               ;; Save to personal dictionary without asking
  kill-whole-line t                     ;; kill whole line including newline
  line-spacing nil
  make-backup-files nil                 ;; do not create backups
