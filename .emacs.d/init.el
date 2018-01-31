@@ -56,6 +56,11 @@
   "Default 'org-mode' dayplanner file."
   :type 'file
   :group 'my-customizations)
+
+(defcustom my-org-refile-targets '((org-agenda-files :level . 2))
+  "Org-more refile targets."
+  :type 'string
+  :group 'my-customizations)
 (defcustom my-scratch-file "~/scratch.txt"
   "Persistent scratch file which is opened on startup."
   :type 'file
@@ -781,14 +786,42 @@
 
 (setq org-agenda-compact-blocks t      ;; skip long block separators
       org-agenda-custom-commands
-      '(("c" "category / tag ordened tasks"
+      '(("t" "All TODO items ordened by category and tag"
          ((tags "+TODO=\"TODO\""
                 (
                  (org-agenda-overriding-header "Ordened by category / tag")
                  (org-agenda-prefix-format " %i %b")
                  (org-agenda-sorting-strategy '(category-up tag-up))
                  ))))
-        ("o" "Overview of next 14 days, and all tasks"
+        ("p" "projects"
+         ((tags "TODO=\"PROJECT\"|CATEGORY=\"projects\""
+                (
+                 (org-agenda-overriding-header "Projects overview")
+                 (org-agenda-prefix-format " %i") ;; l level (spaces)  ;;i icon
+                 (org-agenda-sorting-strategy '(category-up))
+                 ))))
+        ("i" "incubating (someday/maybe)"
+         ((tags "CATEGORY=\"incubating\"-TODO=\"DONE\"-TODO=\"CANCELLED\"" ;;+TODO=\"NONACTIONABLE\""
+                (
+                 (org-agenda-overriding-header "Outcomes")
+                 (org-agenda-prefix-format " %i")
+                 (org-agenda-sorting-strategy '(category-up tag-up))
+                 ))))
+        ("o" "outcomes"
+         ((tags "+CATEGORY=\"outcomes\"" ;;+TODO=\"NONACTIONABLE\""
+                (
+                 (org-agenda-overriding-header "Outcomes")
+                 (org-agenda-prefix-format " %i %l")
+                 (org-agenda-sorting-strategy '(category-up tag-up))
+                 ))))
+        ("r" "reference"
+         ((tags "CATEGORY=\"reference\""
+                (
+                 (org-agenda-overriding-header "General and specialized references")
+                 (org-agenda-prefix-format " %i %l")
+                 (org-agenda-sorting-strategy '(category-up tag-up))
+                 ))))
+        ("f" "Forthight overview, including all tasks"
          ((agenda "" ((org-agenda-entry-types '(:scheduled :deadline))
                       (org-agenda-ndays 14)
                       (org-agenda-remove-tags t)
@@ -815,7 +848,7 @@
                  (org-agenda-sorting-strategy '(priority-down category-up tag-up))
                  ))
           ))
-        ("p" "Progress" agenda ""
+        ("x" "Estimated versus clocked so far these 2 weeks" agenda ""
          ((org-agenda-entry-types '(:deadline))
           (org-agenda-show-all-dates nil)  ;; hide dates with no appointment
           (org-agenda-start-on-weekday nil)  ;; calendar begins today
@@ -836,31 +869,34 @@
         (tags priority-down category-up)
         (search priority-down category-up))
       org-agenda-repeating-timestamp-show-all nil
+      org-refile-targets my-org-refile-targets
       org-agenda-todo-keyword-format ""
       org-archive-location (concat "archive/%s." (format-time-string "%Y" (current-time)) ".archive::")
       org-capture-templates
-      '(("d" "daily objectives"
-         entry (file+olp+datetree my-dayplanner-file)
-         "* TODO [#A] Daily objectives for %(org-read-date nil nil \"+0d\") [/]\n  DEADLINE: <%(org-read-date nil nil \"+0d\")>\n  - [ ] %?"
-         :tree-type week :unnarrowed t)
-        ("w" "weekly objectives"
-         entry (file+weektree my-dayplanner-file)
-         "* TODO [#A] Weekly objectives (week %<%W>) [/]\n  DEADLINE: <%(org-read-date nil nil \"+7d\")>\n  - [ ] %?")
-        ("r" "reminder"
-         entry (file+headline org-default-notes-file  "Tasks")
-         "* TODO %?\n  DEADLINE: <%(org-read-date nil nil \"+1d\")>")
-        ("t" "TODO"
+      '(("t" "TODO"
          entry (file+headline org-default-notes-file  "Tasks")
          "* TODO %?\n  %u")
+        ("n" "TODO NOW - clock in immediately"
+         entry (file+headline org-default-notes-file "Tasks")
+         "* TODO %?\n  %u" :clock-in t :clock-keep t)  ;; Clock in immediately
+        ("o" "outcome"
+         entry (file+olp "outcomes.org" "Outcomes")
+         "* %?\n  %u")
+        ("p" "project"
+         entry (file+olp "projects.org" "Projects")
+         "* PROJECT %?\n  %u")
+        ("i" "incubating (someday/maybe)"
+         entry (file+olp "someday-maybe.org" "someday/maybe")
+         "* %?\n  %u")
+        ("r" "reference"
+         entry (file+headline "reference.org" "reference")
+         "* %?\n")
         ("l" "TODO with link to current buffer"
          entry (file+headline org-default-notes-file  "Tasks")
          "* TODO %?\n  %i\n   %a")
-        ("r" "reference"
-         entry (file+headline (concat org-directory "/reference.org") "reference")
-         "* %?\n")
-        ("s" "someday/maybe"
-         entry (file+headline (concat org-directory "/someday-maybe.org") "someday/maybe")
-         "* %?\n  %u"))
+        ("d" "reminder for today"
+         entry (file+headline org-default-notes-file  "Tasks")
+         "* TODO %?\n  DEADLINE: <%(org-read-date nil nil \"+1d\")>"))
       org-catch-invisible-edit 'show-and-error
       org-clock-into-drawer t          ;; Log clocking data into drawer
       org-clock-out-remove-zero-time-clocks t ;; Remove logdata without time
@@ -881,14 +917,12 @@
       org-hide-leading-stars t         ;; Only show one star per heading
       org-log-into-drawer t            ;; Insert notes & time stamps into drawer
       org-lowest-priority ?E           ;; Use a 5-scale rating for priorities
-      org-refile-targets '((org-agenda-files :level . 2))
+
       org-src-fontify-natively t       ;; Fontify code in blocks
       org-support-shift-select t       ;; Keep using shift as selector
-      org-todo-keywords '((sequence "TODO(t)" "DELEGATED(e)" "|" "CANCELLED(c)" "DONE(d)" ))                ;; ! indicates timestamp, @ note & timestamp
+      org-todo-keywords '((sequence "TODO(t)" "DELEGATED(e)" "PROJECT(p)" "|" "CANCELLED(c)" "DONE(d)" ))                ;; ! indicates timestamp, @ note & timestamp
       org-use-speed-commands t         ;; Enable speed commands
       )
-
-
 ;; associate certain files with modes
 (add-to-list 'auto-mode-alist '("\\COMMIT_EDITMSG\\'" . diff-mode))
 (add-to-list 'auto-mode-alist '("\\.prf\\'" . conf-mode))
