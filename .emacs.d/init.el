@@ -192,7 +192,7 @@
   :defer t
   )
 
-(use-package company-statistics       ;; Sort completion candidates based on usage
+(use-package company-statistics        ;; Sort completion candidates based on usage
   :after company
   :config (company-statistics-mode)
   :defer t
@@ -204,7 +204,7 @@
   :defer t
   )
 
-(use-package company-web              ;; Completion backend for web
+(use-package company-web               ;; Completion backend for web
   :after company
   :defer t
   )
@@ -212,6 +212,13 @@
 (use-package dash
   :disabled t
   :defer t
+  )
+
+(use-package delight                   ;; Hide package (icons) in the modeline
+  :pin gnu                             ;; Only available on Elpa
+  :config (                            ;; Automatically hide some modes in the modelie
+           delight '((global-whitespace-mode nil "whitespace")
+                     (helm-mode nil "helm-mode")))
   )
 
 (use-package elpy
@@ -281,12 +288,14 @@
   (helm-autoresize-mode t)
   (setq helm-buffers-truncate-lines nil)
   :defer t
+  :delight                             ;; No need to show that Helm is loaded
   :ensure t
   )
 
 (use-package helm-ag
   :after helm
   :commands helm-ag
+  :defer t
   :ensure t
   )
 
