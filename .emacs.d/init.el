@@ -143,6 +143,7 @@
 ;; defer:     defer loading (implied when using commands, bind or mode)
 ;; disabled:  (temporarily) disable a package
 ;; ensure:    make sure the package is installed
+;; hook:      Add functions onto hooks (use only basename of the hook)
 ;; init:      always execute code *before* a package is loaded
 ;; load-path: path of the files for local packages
 ;; mode:      deferred binding
@@ -151,11 +152,10 @@
 (use-package aggressive-indent
   :defer t
   :ensure t
-  :init
-  (add-hook 'emacs-lisp-mode-hook 'aggressive-indent-mode)
+  :hook (emacs-lisp-mode . aggressive-indent-mode)
   )
 
-(use-package bm
+(use-package bm                        ;; Bookmark toggle package
   :bind (("C-<f2>" . bm-toggle)
          ("M-<f2>" . bm-next))
   :defer t
