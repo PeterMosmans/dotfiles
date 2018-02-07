@@ -313,7 +313,8 @@
 
 (use-package helm-company
   :after helm
-  :defer t)
+  :defer t
+  )
 
 (use-package helm-flyspell
   :after flyspell
@@ -325,11 +326,13 @@
 (use-package helm-make
   :after helm
   :bind (("C-c m" . helm-make-projectile))
+  :defer t
   )
 
 (use-package helm-org-rifle
   :after helm
   :commands helm-org-rifle
+  :defer t
   )
 
 (use-package helm-projectile
@@ -338,12 +341,13 @@
          ([f10] . helm-projectile-switch-to-buffer)
          ([C-f10] . helm-projectile-switch-project))
   :commands helm-projectile
+  :defer t
   :ensure t
   )
 
 (use-package helm-tramp
   :after helm
-  :ensure t
+  :defer t
   )
 
 (use-package helm-wordnet
@@ -351,7 +355,9 @@
   :bind ("C-c w" . helm-wordnet-suggest)
   :config
   (setq helm-wordnet-wordnet-location my-wordnet-dictionary
-        helm-wordnet-prog my-wordnet-program))
+        helm-wordnet-prog my-wordnet-program)
+  :defer t
+  )
 
 (use-package highlight-indentation
   :commands highlight-indentation-mode
@@ -365,7 +371,6 @@
 (use-package imenu-list
   :bind ("C-c i" . imenu-list-minor-mode)
   :config (setq imenu-list-position 'left)
-  :defer t
   :ensure t
   )
 
@@ -387,25 +392,27 @@
   )
 
 (use-package lorem-ipsum               ;; Generate lorem ipsum from within Emacs
-  :defer t)
+  :defer t
+  )
 
 (use-package magit
   :bind (([f1] . magit-status)
          ("C-x g" . magit-status))
-  ;; :config
-  ;; (setq magit-diff-auto-show nil)
-  :defer t
   :ensure t
+  :pin melpa                           ;; Needs >2.11
   )
 
 (use-package magithub                  ;; Integrate github into Magit
   :after magit
   :config (magithub-feature-autoinject t)
+  :defer t
+  :pin melpa
   )
 
 (use-package magit-gitflow             ;; Use Magit git flow plugin
   :after magit
   :config (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+  :defer t
   )
 
 (use-package markdown-mode
@@ -558,6 +565,7 @@
                      (powerline-fill face2
                                      (powerline-width rhs))
                      (powerline-render rhs))))))
+  :defer t
   :ensure t
   )
 
@@ -620,13 +628,12 @@
   )
 
 (use-package web-mode
-  :defer t
-  :ensure t
   :config
   (setq web-mode-markup-indent-offset 2)
   (add-hook 'web-mode-hook (lambda ()
                              (auto-fill-mode)
                              (flyspell-mode)))
+  :ensure t
   :mode (("\\.[agj]sp\\'" . web-mode)
          ("\\.as[cp]x\\'" . web-mode)
          ("\\.html?\\'" . web-mode)
