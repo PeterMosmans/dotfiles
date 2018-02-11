@@ -1726,8 +1726,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 ;; builtin hooks
 (add-hook 'after-init-hook
           (lambda ()
-            (if (bound-and-true-p my-theme)
-                (load-theme my-theme t))
+
             ;; make sure that utf8 Unix line endings (LF) are default
             (setq-default default-buffer-file-coding-system 'utf-8-unix)
             (setq-default buffer-file-coding-system 'utf-8-unix)
@@ -1741,6 +1740,8 @@ Uses `current-date-time-format' for the formatting the date/time."
             (when (boundp 'start-with-agenda)
               (open-custom-agenda))
             (raise-frame)
+            (if (bound-and-true-p my-theme)
+                (load-theme my-theme t))            
             ))
 
 (if (fboundp 'my-align-org-tags)
@@ -1762,10 +1763,9 @@ Uses `current-date-time-format' for the formatting the date/time."
   "Run `after-load-theme-hook'."
   (run-hooks 'after-load-theme-hook))
 
-
 (add-hook 'after-load-theme-hook
           (lambda ()
-            (my-extract-colors)
+            ;; (my-extract-colors)
             (my-apply-colors)))
 (if (fboundp 'my-org-query-clock-out)
     (add-hook 'kill-emacs-query-functions 'my-org-query-clock-out))
