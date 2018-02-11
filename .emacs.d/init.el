@@ -1312,19 +1312,19 @@ ARG is a prefix argument.  If nil, copy the current difference region."
   (when (featurep 'powerline)
     (powerline-reset)
     (set-face-attribute 'powerline-active1 nil
-                        :background `,(face-attribute 'mode-line :background)
-                        :foreground `,(face-attribute 'mode-line :foreground))
+                        :background "#AD4900"
+                        :foreground "#FEFEFE")
     (set-face-attribute 'powerline-active2 nil
-                        :background `,(face-attribute 'secondary-selection :background)
-                        :foreground `,(face-attribute 'secondary-selection :foreground))
-    (set-face-attribute 'powerline-bold nil :weight 'bold)
-    (set-face-attribute 'powerline-inactive1 nil
-                        :background `,(face-attribute 'mode-line-inactive :background))
+                        :background "#FE9003"
+                        :foreground "#000000")
+    (set-face-attribute 'powerline-bold nil :weight 'bold :inherit `powerline-active1)
+    (set-face-attribute 'powerline-inactive1 nil :inherit `mode-line-inactive)
+    (set-face-attribute 'powerline-inactive-bold nil
+                        :inherit `mode-line-inactive :weight 'bold)
+    (set-face-attribute 'powerline-inactive2 nil :inherit `mode-line-inactive)
     (set-face-attribute 'powerline-inactive-bold nil :weight 'bold)
-    (set-face-attribute 'powerline-inactive2 nil
-                        :background `,(face-attribute 'mode-line-inactive :background))
-    (set-face-attribute 'powerline-inactive-bold nil :weight 'bold)
-    (set-face-attribute 'powerline-alert nil :weight 'bold
+    (set-face-attribute 'powerline-alert nil :inherit `powerline-active1
+                        :weight 'bold
                         :foreground `,(face-attribute 'font-lock-warning-face :foreground))
     (set-face-attribute 'powerline-inactive-alert nil
                         :background `,(face-attribute 'mode-line-inactive :background))
