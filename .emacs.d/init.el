@@ -804,9 +804,9 @@
         ("i" "incubating (someday/maybe)"
          ((tags "CATEGORY=\"incubating\"-TODO=\"DONE\"-TODO=\"CANCELLED\"" ;;+TODO=\"NONACTIONABLE\""
                 (
-                 (org-agenda-overriding-header "Outcomes")
-                 (org-agenda-prefix-format " %i")
-                 (org-agenda-sorting-strategy '(category-up tag-up))
+                 (org-agenda-overriding-header "Incubating: someday/maybe ideas")
+                 (org-agenda-prefix-format " %i %l")
+                 (org-agenda-sorting-strategy '(category-up))
                  ))))
         ("o" "outcomes"
          ((tags "+CATEGORY=\"outcomes\"" ;;+TODO=\"NONACTIONABLE\""
@@ -881,13 +881,13 @@
          entry (file+headline org-default-notes-file "Tasks")
          "* TODO %?\n  %u" :clock-in t :clock-keep t)  ;; Clock in immediately
         ("o" "outcome"
-         entry (file+olp "outcomes.org" "Outcomes")
+         entry (file+olp "outcomes.org" "Goals / objectives")
          "* %?\n  %u")
         ("p" "project"
          entry (file+olp "projects.org" "Projects")
          "* PROJECT %?\n  %u")
         ("i" "incubating (someday/maybe)"
-         entry (file+olp "someday-maybe.org" "someday/maybe")
+         entry (file+olp "someday-maybe.org" "Someday / maybe ideas")
          "* %?\n  %u")
         ("r" "reference"
          entry (file+headline "reference.org" "reference")
@@ -1564,7 +1564,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 (defun open-custom-agenda ()
   "Open custom agenda view."
   (interactive)
-  (org-agenda nil "o")
+  (org-agenda nil "f")                 ;; Open forthnight overview by default
   )
 
 (defun save-kill-buffer ()
