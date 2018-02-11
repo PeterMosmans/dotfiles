@@ -498,43 +498,36 @@
                          (format "powerline-%s-%s"
                                  (powerline-current-separator)
                                  (cdr powerline-default-separator-dir))))
-                       (lhs            ;; left hand side
+                       (lhs            ;; The left hand side
                         (list
-                         (powerline-raw "%3l" face1 'l)   ;; line number
+                         (powerline-raw "%3l" face1 'l)   ;; Line number
                          (powerline-raw ":" face1)
                          (powerline-raw "%3C" face1 'r)   ;; 1-based column
-                         (powerline-raw mode-line-modified face1)
-                         (when powerline-display-buffer-size
-                           (powerline-buffer-size face1 'l))
-                         (when powerline-display-mule-info
-                           (powerline-raw mode-line-mule-info face1 'l))
                          (funcall separator-left face1 face2)
+                         (when powerline-display-buffer-size
+                           (powerline-buffer-size face2 'l)) ;; Buffer size
+                         (when powerline-display-mule-info
+                           (powerline-raw mode-line-mule-info face2 'l)) ;; Multi lingual environment
                          (when
-                             (and
-                              (boundp 'which-func-mode)
-                              which-func-mode)
+                             ;; (and
+                             ;;  (boundp 'which-function-mode)
+                             which-function-mode;;)
                            (powerline-raw which-func-format face2 'l))
-                         (when
-                             (and
-                              (boundp 'erc-track-minor-mode)
-                              erc-track-minor-mode)
-                           (powerline-raw erc-modified-channels-object face2 'l))
                          (powerline-major-mode face2 'l)
                          (powerline-minor-modes face2 'l)
                          (powerline-process face2)
-                         ;; (powerline-narrow face2 'l)
                          (funcall separator-left face2 face1)
+                         (powerline-raw mode-line-modified face1)
                          (powerline-buffer-id face1) ;; buffer name
-
                          (funcall separator-left face1 face2)
-                         (powerline-vc face2 'r)
+                         (powerline-vc face2 'r)  ;; The middle
                          (when
                              (bound-and-true-p nyan-mode)
                            (powerline-raw
                             (list
                              (nyan-create))
                             face2 'l))))
-                       (rhs            ;; right hand side
+                       (rhs            ;; Right hand side
                         (list
                          (funcall separator-right face2 bold-face)
                          (unless window-system
