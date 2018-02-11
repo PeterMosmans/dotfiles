@@ -84,17 +84,15 @@
 (defvar my-colors nil
   "Customizable re-usable colors, partially  extracted from the current theme and applied to tabbar and powerline.")
 
-;; Use custom-file to store all customizations
-;; (including the aforementioned parameters)
+;; Use custom-file to store all customizations (including the aforementioned parameters)
 (setq custom-file "~/.emacs.d/variables.el")
-
 (if (file-exists-p custom-file)
     (load custom-file))
 
 ;; uncomment for some debugging and verbose (load time) options
 ;; (setq debug-on-error t)
-;; uncomment for package loading times
-(setq use-package-verbose t)
+
+(setq use-package-verbose t)           ;; Show package loading times
 (package-initialize)
 
 ;; Bootstrap `use-package'
