@@ -130,25 +130,24 @@
                            ("melpa" . "https://melpa.org/packages/")
                            ("melpa-stable" . "https://stable.melpa.org/packages/")
                            ("org" . "https://orgmode.org/elpa/"))
+        use-package-always-ensure t
         use-package-always-pin "melpa-stable"))   ;; Prefer the stable repository by default
 
 ;; define all necessary EXTERNAL alphabetically
 ;; after:     wrap everything in a with-eval-after-load, so that config will be done last
-;; bind:      keybindings (all keys before :map are bound globally)
-;; commands:  load the package (execute config) when these commands are executed
+;; bind:      keybindings (all keys before :map are bound globally) (implies defer)
+;; commands:  load the package (execute config) when these commands are executed (implies defer)
 ;; config:    execute code *after* a package is loaded
-;; defer:     defer loading (implied when using commands, bind or mode)
+;; defer:     defer loading (implied when using bind, mode or interpreter)
 ;; disabled:  (temporarily) disable a package
 ;; ensure:    make sure the package is installed
 ;; hook:      Add functions onto hooks (use only basename of the hook)
-;; init:      always execute code *before* a package is loaded
+;; init:      Execute code *before* a package is loaded (implies defer)
 ;; load-path: path of the files for local packages
 ;; mode:      deferred binding
 ;; pin:       pin to a specific repository
 
 (use-package aggressive-indent
-  :defer t
-  :ensure t
   :hook (emacs-lisp-mode . aggressive-indent-mode)
   )
 
@@ -156,14 +155,12 @@
   :bind (("C-<f2>" . bm-toggle)
          ("M-<f2>" . bm-next))
   :defer t
-  :ensure t
   )
 
 (use-package company
   :config
   (defvar company-mode/enable-yas t "Enable yasnippet for all back ends.")
   :defer t
-  :ensure t
   :init (global-company-mode)
   )
 
@@ -212,7 +209,7 @@
   )
 
 (use-package delight                   ;; Hide package (icons) in the modeline
-  :pin gnu                             ;; Only available on Elpa
+  :pin "gnu"                           ;; Only available on Elpa
   :config (                            ;; Automatically hide some modes in the modelie
            delight '((global-whitespace-mode nil "whitespace")
                      (helm-mode nil "helm-mode")))
@@ -224,9 +221,8 @@
   ;;       python-shell-completion-native-enable nil)
   (elpy-enable)
   :defer t
-  :ensure t           ;; elpy-enable needs to be run before first python
   :init (with-eval-after-load 'python (elpy-enable))  ;; file is loaded
-  (add-hook 'elpy-mode-hook 'flycheck-mode)  ;; Enforce flycheck mode
+  :hook (elpy-mode . flycheck-mode)  ;; Enforce flycheck mode
   )
 
 (use-package fill-column-indicator
@@ -235,34 +231,29 @@
   (setq fci-rule-color "light slate grey"
         fci-always-use-textual-rule t)
   :disabled t
-  :ensure t
   :init
-  (add-hook 'prog-mode-hook 'fci-mode)
-  (add-hook 'markdown-mode-hook 'fci-mode)
-  (when (fboundp 'rst-mode)
-    (add-hook 'rst-mode-hook 'fci-mode))
-  (when (fboundp 'web-mode)
-    (add-hook 'web-mode-hook 'fci-mode))
-  (when (fboundp 'yaml-mode)
-    (add-hook 'yaml-mode-hook 'fci-mode))
+  :hook ((prog-mode . fci-mode)
+         (markdown-mode . fci-mode)
+         (rst-mode . fci-mode)
+         (web-mode . fci-mode)
+         (yaml-mode . fci-mode))
   )
 
 (use-package flycheck
   :config
-  (setq flycheck-highlighting-mode 'lines) ;; highlight whole line
+  (setq flycheck-highlighting-mode 'symbols ;; highlight whole line
+        flycheck-indication-mode 'right-fringe)  ;; Use right fringe for errors
   (global-flycheck-mode)
   :defer t
-  :ensure t
   )
 
 (use-package flymd
   :commands flymd-flyit
-  :ensure t
+  :pin "melpa"
   )
 
 (use-package focus
   :commands focus-mode
-  :ensure t
   )
 
 (use-package git-timemachine
@@ -286,14 +277,12 @@
   (setq helm-buffers-truncate-lines nil)
   :defer t
   :delight                             ;; No need to show that Helm is loaded
-  :ensure t
   )
 
 (use-package helm-ag
   :after helm
   :commands helm-ag
   :defer t
-  :ensure t
   )
 
 (use-package helm-bibtex
@@ -318,6 +307,7 @@
   :bind (("C-;" . helm-flyspell-correct))
   :commands flyspell-mode
   :defer t
+  :pin "melpa"
   )
 
 (use-package helm-make
@@ -339,7 +329,6 @@
          ([C-f10] . helm-projectile-switch-project))
   :commands helm-projectile
   :defer t
-  :ensure t
   )
 
 (use-package helm-tramp
@@ -354,6 +343,7 @@
   (setq helm-wordnet-wordnet-location my-wordnet-dictionary
         helm-wordnet-prog my-wordnet-program)
   :defer t
+  :pin "melpa"
   )
 
 (use-package highlight-indentation
@@ -362,13 +352,11 @@
   (add-hook 'prog-mode-hook 'highlight-indentation-mode)
   (set-face-background 'highlight-indentation-face "light slate grey")
   (set-face-background 'highlight-indentation-current-column-face "light slate grey")
-  :ensure t
   )
 
 (use-package imenu-list
   :bind ("C-c i" . imenu-list-minor-mode)
   :config (setq imenu-list-position 'left)
-  :ensure t
   )
 
 (use-package js2-mode
@@ -390,20 +378,20 @@
 
 (use-package lorem-ipsum               ;; Generate lorem ipsum from within Emacs
   :defer t
+  :pin "melpa"
   )
 
 (use-package magit
   :bind (([f1] . magit-status)
          ("C-x g" . magit-status))
-  :ensure t
-  :pin melpa                           ;; Needs >2.11
+  :pin "melpa"                         ;; Needs >2.11
   )
 
 (use-package magithub                  ;; Integrate github into Magit
   :after magit
   :config (magithub-feature-autoinject t)
   :defer t
-  :pin melpa
+  :pin "melpa"
   )
 
 (use-package magit-gitflow             ;; Use Magit git flow plugin
@@ -432,7 +420,6 @@
   (setq  neo-show-hidden-files t
          neo-theme 'ascii              ;; Don't use fancy icons
          neo-window-width 30)
-  :ensure t
   )
 
 (use-package nov                       ;; Read epub in Emacs
@@ -442,17 +429,17 @@
 
 (use-package ob-async                  ;; Asynchronous execution of org-babel source code blocks
   :after org                           ;; when using the :async keyword
+  :pin "melpa"
   )
 
 (use-package org-ref
   :disabled t
-  :ensure t
   )
 
 (use-package org-wc                    ;; Count words in org mode documents
   ;; :bind ("C-c w" . my-org-wc-toggle-overlay)
   :defer t
-  :ensure t
+  :pin "melpa"
   )
 
 (use-package powerline
@@ -562,8 +549,7 @@
                      (powerline-fill face2
                                      (powerline-width rhs))
                      (powerline-render rhs))))))
-  :defer t
-  :ensure t
+  :requires mode-icons
   )
 
 (use-package projectile
@@ -583,33 +569,28 @@
   (helm-projectile-on)
   (projectile-mode 1)
   :commands projectile-mode
-  :ensure t
   :init (put 'projectile-project-name 'safe-local-variable #'stringp)
   )
 
 (use-package pylint
   :defer t
-  :ensure t
-  )
-
-(use-package rainbow-mode
-  :defer t
-  :init (add-hook 'prog-mode-hook 'rainbow-mode)
+  :pin "melpa"
   )
 
 (use-package restclient
   :commands restclient-mode
-  :config (add-hook 'restclient-mode-hook (lambda ()
-                                            (when (fboundp 'company-mode)
-                                              (company-mode))))
-  :ensure t
+  :config
+  (add-hook 'restclient-mode-hook (lambda ()
+                                    (when (fboundp 'company-mode)
+                                      (company-mode))))
   )
 
 (use-package restclient-helm
   :defer t
+  :pin "melpa"
   )
 
-(use-package tabbar                    ;; Use tabs to simplify navigation
+(use-package tabbar                    ;; Display a tabbar in the header line
   :bind (("C-<tab>" . tabbar-forward)
          ("C-S-<tab>" . tabbar-backward)
          ("C-S-<iso-lefttab>" . tabbar-backward)
@@ -619,9 +600,9 @@
          ("S-<f8>" . tabbar-backward-group)
          ("<f9>" . tabbar-forward)
          ("S-<f9>" . tabbar-forward-group))
-  :ensure t
-  :init
-  (tabbar-mode t)                      ;; Enable the tabbar by default
+  :config (tabbar-mode t)              ;; Enable the tabbar by default
+  :demand t
+  :pin "melpa"
   )
 
 (use-package web-mode
@@ -630,7 +611,6 @@
   (add-hook 'web-mode-hook (lambda ()
                              (auto-fill-mode)
                              (flyspell-mode)))
-  :ensure t
   :mode (("\\.[agj]sp\\'" . web-mode)
          ("\\.as[cp]x\\'" . web-mode)
          ("\\.html?\\'" . web-mode)
@@ -638,28 +618,29 @@
          ("\\.phtml\\'" . web-mode)
          ("\\.tpl\\.php\\'" . web-mode)
          ("\\.xml\\'" . web-mode))
-  :pin melpa-stable
   )
 
 (use-package which-key
   :defer t
-  :ensure t
-  :init
-  (which-key-mode)
+  :delight
+  :init (which-key-mode)
   )
+
+(use-package xref-js2
+  :config (add-hook 'js2-mode-hook (lambda ()
+                                     (tern-mode)))
+  :defer t)
 
 (use-package yafolding
   :bind (("C-|" . yafolding-toggle-element)
          ("C-\\" . yafolding-toggle-all))
   :defer t
   :disabled t
-  :ensure t
   :init (add-hook 'prog-mode-hook 'yafolding-mode)
   )
 
 (use-package yaml-mode
   :defer t
-  :ensure t
   ;; yaml is a major mode, not based on prog-mode, so manually add modes
   :init
   (add-hook 'yaml-mode-hook 'highlight-indentation-mode)
@@ -675,7 +656,6 @@
   (add-hook 'prog-mode-hook #'yas-minor-mode)
   (add-hook 'bibtex-mode-hook #'yas-minor-mode)
   :defer t
-  :ensure t
   )
 
 ;; define font for Unicode Private Use Area block
@@ -755,7 +735,6 @@
  size-indication-mode nil              ;; disable file size mode
  tab-width 4                           ;; default tab width
  tramp-default-method "sshx"           ;; faster than the default scp
- use-package-always-ensure t           ;; always install missing packages
  whitespace-style (quote
                    (face indentation tabs space-before-tab space-after-tab tab-mark trailing)))
 (delete-selection-mode 1)              ;; automatically overwrite selected text
