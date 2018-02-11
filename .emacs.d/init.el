@@ -169,9 +169,14 @@
   :defer t
   )
 
+(use-package dracula-theme)
+
 ;; the package company-quickhelp needs rainbow-mode, which is not specified as a dependency
 (use-package rainbow-mode
-  :defer t)
+  :defer t
+  :hook (prog-mode . rainbow-mode)
+  :pin "gnu"
+  )
 
 (use-package company-quickhelp
   :after company
@@ -402,14 +407,16 @@
 
 (use-package markdown-mode
   :defer t
-  :ensure t
   )
 
-(use-package mode-icons               ;; show pretty icons on the modeline
-  :config (mode-icons-mode)
-  (setq mode-icons-desaturate-inactive t  ;; disable automatic coloring
+(use-package mode-icons                ;; Show pretty icons on the modeline
+  :config
+  (setq mode-icons-desaturate-active t  ;; Desarurate inactive XPM mode line icons
         mode-icons-grayscale-transform t) ;; "re"color black and white images
-  :ensure t
+        
+  (mode-icons-mode t)
+  :demand t
+  :pin "melpa"
   )
 
 (use-package neotree
