@@ -698,7 +698,8 @@
 
 ;; Emacs variables
 (setq
- auto-save-interval 1000               ;; automatically save after x characters
+ auth-sources '("~/.authinfo.gpg")     ;; Only use encrypted store for (new) secrets
+ auto-save-interval 1000               ;; Automatically save after x characters
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
  column-number-mode t                  ;; show column-number
  comint-prompt-read-only t             ;; read only prompt for shell mode
