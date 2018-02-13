@@ -311,9 +311,10 @@
 (use-package highlight-indentation
   :commands highlight-indentation-mode
   :config
-  (add-hook 'prog-mode-hook 'highlight-indentation-mode)
   (set-face-background 'highlight-indentation-face "light slate grey")
   (set-face-background 'highlight-indentation-current-column-face "light slate grey")
+  :hook (prog-mode . highlight-indentation-mode)
+  :delight
   )
 
 (use-package imenu-list
@@ -323,14 +324,11 @@
 
 (use-package js2-mode
   :bind ("M-." . nil)
-  :config
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-  (add-hook 'js2-mode-hook (lambda ()
-                             (when (boundp 'company-mode)
-                               (company-mode))
-                             (when (boundp 'tern-mode)
-                               (tern-mode))
-                             (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
+  :hook ((js2-mode . company-mode)
+         (js2-mode . tern-mode)
+         (js2-mode . js2-imenu-extras-mode)
+         (xref-backend-functions . xref-js2-xref-backend))
+  :mode ("\\.js\\'" . js2-mode)
   )
 
 (use-package let-alist
@@ -354,7 +352,7 @@
 
 (use-package magit-gitflow             ;; Use Magit git flow plugin
   :after magit
-  :config (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
+  :hook (magit-mode . turn-on-magit-gitflow)
   )
 
 (use-package markdown-mode
@@ -528,12 +526,16 @@
   :pin "melpa"
   )
 
+(use-package rainbow-mode
+  :delight
+  :hook (prog-mode . rainbow-mode)
+  :pin "gnu"
+  )
+
 (use-package restclient
+  :after company
   :commands restclient-mode
-  :config
-  (add-hook 'restclient-mode-hook (lambda ()
-                                    (when (fboundp 'company-mode)
-                                      (company-mode))))
+  :hook (restclient-mode . company-mode)
   )
 
 (use-package restclient-helm
@@ -557,11 +559,9 @@
   )
 
 (use-package web-mode
-  :config
-  (setq web-mode-markup-indent-offset 2)
-  (add-hook 'web-mode-hook (lambda ()
-                             (auto-fill-mode)
-                             (flyspell-mode)))
+  :config (setq web-mode-markup-indent-offset 2)
+  :hook ((web-mode . auto-fill-mode)
+         (web-mode . flyspell-mode))
   :mode (("\\.[agj]sp\\'" . web-mode)
          ("\\.as[cp]x\\'" . web-mode)
          ("\\.html?\\'" . web-mode)
@@ -577,8 +577,7 @@
   )
 
 (use-package xref-js2
-  :config (add-hook 'js2-mode-hook (lambda ()
-                                     (tern-mode)))
+  :hook (js2-mode . tern-mode)
   )
 
 (use-package yafolding
