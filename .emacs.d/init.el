@@ -56,14 +56,9 @@
   "Default 'org-mode' dayplanner file."
   :type 'file
   :group 'my-customizations)
-
 (defcustom my-org-refile-targets '((org-agenda-files :level . 2))
   "Org-more refile targets."
   :type 'string
-  :group 'my-customizations)
-(defcustom my-scratch-file "~/scratch.txt"
-  "Persistent scratch file which is opened on startup."
-  :type 'file
   :group 'my-customizations)
 (defcustom my-snippet-dirs nil
   "A list of snippet directories that will be loaded by yasnippet."
@@ -951,7 +946,7 @@
 
 ;; scratchpad, text modes, closing
 ;; f4: execute macro (kmacro-end-and-call-macro)
-(global-set-key (kbd "S-<f4>") (lambda () (interactive) (switch-to-buffer "scratch.txt")))
+(global-set-key (kbd "S-<f4>") (lambda () (interactive) (switch-to-buffer (file-name-nondirectory initial-buffer-choice))))
 (global-set-key (kbd "C-<f4>") 'org-mode)
 (global-set-key (kbd "M-<f4>") 'save-buffers-kill-terminal)
 
@@ -1711,31 +1706,35 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'text-mode-hook
           (lambda ()
-            (flyspell-mode)
+            ;; (flyspell-mode)
             (linum-mode 1)
             (visual-line-mode 0)       ;; show a symbol for wrapping lines,
             (setq word-wrap 1)))       ;; but still wrap words nicely
 
 ;; builtin hooks
-(add-hook 'after-init-hook
+(add-hook 'emacs-startup-hook          ;; After loading init file and packages
           (lambda ()
-
+            (if (bound-and-true-p my-theme)
+                (load-theme my-theme t))
             ;; make sure that utf8 Unix line endings (LF) are default
-            (setq-default default-buffer-file-coding-system 'utf-8-unix)
-            (setq-default buffer-file-coding-system 'utf-8-unix)
+            (setq-default default-buffer-file-coding-system 'utf-8-unix
+                          buffer-file-coding-system 'utf-8-unix)
             (prefer-coding-system 'utf-8-unix)
             (my-set-default-font my-font)
-            (if (boundp 'my-scratch-file)
-                (progn
-                  (find-file my-scratch-file)  ;; only show it if it's the only file
-                  (if (get-buffer "*scratch*")
-                      (kill-buffer "*scratch*"))))
+            (if (boundp 'initial-buffer-choice)
+                (if (get-buffer "*scratch*")
+                    (kill-buffer "*scratch*")))
             (when (boundp 'start-with-agenda)
               (open-custom-agenda))
             (raise-frame)
-            (if (bound-and-true-p my-theme)
-                (load-theme my-theme t))            
-            ))
+            (require 'server)
+            (or (server-running-p)     ;; Start server if not already running
+                (server-start))
+            (helm-mode t)
+            (global-company-mode)
+            (setq gc-cons-threshold 800000) ;; Reset to default value
+            )
+          )
 
 (if (fboundp 'my-align-org-tags)
     (add-hook 'window-configuration-change-hook
