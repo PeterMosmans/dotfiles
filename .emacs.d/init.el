@@ -147,19 +147,13 @@
 (use-package company
   :config
   (defvar company-mode/enable-yas t "Enable yasnippet for all back ends.")
+  :delight
   )
 
 (use-package company-jedi             ;; Completion backend for Python (jedi)
   :after company
   )
 
-(use-package dracula-theme)
-
-;; the package company-quickhelp needs rainbow-mode, which is not specified as a dependency
-(use-package rainbow-mode
-  :hook (prog-mode . rainbow-mode)
-  :pin "gnu"
-  )
 
 (use-package company-quickhelp
   :after company
@@ -196,6 +190,8 @@
   (delight '((global-whitespace-mode nil "whitespace")
              (helm-mode nil "helm-mode")))
   )
+
+(use-package dracula-theme)
 
 (use-package elpy
   :config
