@@ -99,8 +99,7 @@
 (unless (package-installed-p 'use-package)
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/")
-               '("melpa-stable" . "https://stable.melpa.org/packages/")
-               '("org" . "https://orgmode.org/elpa/"))
+               '("melpa-stable" . "https://stable.melpa.org/packages/"))
   (package-install 'use-package))
 (eval-when-compile
   (require 'use-package))
