@@ -123,13 +123,16 @@
 ;; commands:  load the package (execute config) when these commands are executed (implies defer)
 ;; config:    execute code *after* a package is loaded
 ;; defer:     defer loading (implied when using bind, mode or interpreter)
+;; delight:   hide mode
 ;; demand:    enforce loading (and enforce bind keys)
 ;; disabled:  (temporarily) disable a package
 ;; ensure:    make sure the package is installed
-;; hook:      Add functions onto hooks (use only basename of the hook)
+;; hook:      Add functions onto hooks
+;;            :hook ((text-mode . name-of-mode))
 ;; init:      Execute code *before* a package is loaded (implies defer)
 ;; load-path: path of the files for local packages
 ;; mode:      deferred binding
+;;            :mode ("\\.py\\'" . python-mode)
 ;; pin:       pin to a specific repository
 
 (use-package aggressive-indent
