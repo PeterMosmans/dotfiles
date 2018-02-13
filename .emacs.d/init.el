@@ -76,18 +76,15 @@
   "Location of wordnet executable."
   :type 'string
   :group 'my-customizations)
-(defvar my-colors nil
-  "Customizable re-usable colors, partially  extracted from the current theme and applied to tabbar and powerline.")
+
+;; (setq debug-on-error t)             ;; Uncomment for debugging options
+(setq gc-cons-threshold 500000000)     ;; Improve startup time
 
 ;; Use custom-file to store all customizations (including the aforementioned parameters)
 (setq custom-file "~/.emacs.d/variables.el")
 (if (file-exists-p custom-file)
     (load custom-file))
 
-;; uncomment for some debugging and verbose (load time) options
-;; (setq debug-on-error t)
-
-(setq use-package-verbose t)           ;; Show package loading times
 (package-initialize)
 
 ;; Bootstrap `use-package'
@@ -102,31 +99,24 @@
 (unless (package-installed-p 'use-package)
   (add-to-list 'package-archives
                '("melpa" . "https://melpa.org/packages/")
-               '("melpa-stable" . "https://stable.melpa.org/packages/"))
+               '("melpa-stable" . "https://stable.melpa.org/packages/")
+               '("org" . "https://orgmode.org/elpa/"))
   (package-install 'use-package))
 (eval-when-compile
   (require 'use-package))
 
-;; Load this keybinding first to facilitate editing init.el
-(global-set-key (kbd "M-<f11>") (lambda () (interactive) (find-file user-init-file)))
-(setq gc-cons-threshold 500000000)     ;; improve startup time
-(run-with-idle-timer 5 nil
-                     (lambda ()
-                       (setq gc-cons-threshold 800000)
-                       (helm-mode t)
-                       (require 'server)
-                       (or (server-running-p) ;; start server if not already running
-                           (server-start))))
-
-;; add this first, as some packages need to be installed from unstable sources
+;; Some packages need to be installed from different sources
 (use-package package
   :config
   (setq package-archives `(("gnu" . "https://elpa.gnu.org/packages/")
                            ("melpa" . "https://melpa.org/packages/")
                            ("melpa-stable" . "https://stable.melpa.org/packages/")
                            ("org" . "https://orgmode.org/elpa/"))
-        use-package-always-ensure t
-        use-package-always-pin "melpa-stable"))   ;; Prefer the stable repository by default
+        use-package-always-defer t     ;; Use lazy loading wherever possible
+        use-package-always-ensure t    ;; Enforce automatic installation of all packages
+        use-package-always-pin "melpa-stable"
+        use-package-verbose t)         ;; Show package loading times
+  )
 
 ;; define all necessary EXTERNAL alphabetically
 ;; after:     wrap everything in a with-eval-after-load, so that config will be done last
@@ -134,6 +124,7 @@
 ;; commands:  load the package (execute config) when these commands are executed (implies defer)
 ;; config:    execute code *after* a package is loaded
 ;; defer:     defer loading (implied when using bind, mode or interpreter)
+;; demand:    enforce loading (and enforce bind keys)
 ;; disabled:  (temporarily) disable a package
 ;; ensure:    make sure the package is installed
 ;; hook:      Add functions onto hooks (use only basename of the hook)
@@ -149,26 +140,21 @@
 (use-package bm                        ;; Bookmark toggle package
   :bind (("C-<f2>" . bm-toggle)
          ("M-<f2>" . bm-next))
-  :defer t
   )
 
 (use-package company
   :config
   (defvar company-mode/enable-yas t "Enable yasnippet for all back ends.")
-  :defer t
-  :init (global-company-mode)
   )
 
 (use-package company-jedi             ;; Completion backend for Python (jedi)
   :after company
-  :defer t
   )
 
 (use-package dracula-theme)
 
 ;; the package company-quickhelp needs rainbow-mode, which is not specified as a dependency
 (use-package rainbow-mode
-  :defer t
   :hook (prog-mode . rainbow-mode)
   :pin "gnu"
   )
@@ -176,43 +162,37 @@
 (use-package company-quickhelp
   :after company
   :config (setq company-quickhelp-delay 0)
-  :defer t
   :init (company-quickhelp-mode 1)
   )
 
 (use-package company-restclient
   :after company
   :config (add-to-list 'company-backends 'company-restclient)
-  :defer t
   )
 
 (use-package company-statistics        ;; Sort completion candidates based on usage
   :after company
   :config (company-statistics-mode)
-  :defer t
   )
 
 (use-package company-tern
   :after company
   :config (add-to-list 'company-backends 'company-tern)
-  :defer t
   )
 
 (use-package company-web               ;; Completion backend for web
   :after company
-  :defer t
   )
 
 (use-package dash
   :disabled t
-  :defer t
   )
 
 (use-package delight                   ;; Hide package (icons) in the modeline
-  :pin "gnu"                           ;; Only available on Elpa
-  :config (                            ;; Automatically hide some modes in the modelie
-           delight '((global-whitespace-mode nil "whitespace")
-                     (helm-mode nil "helm-mode")))
+  :pin "gnu"                           ;; Only available on GNU Elpa
+  :config                              ;; Automatically hide some modes in the modelie
+  (delight '((global-whitespace-mode nil "whitespace")
+             (helm-mode nil "helm-mode")))
   )
 
 (use-package elpy
@@ -220,7 +200,6 @@
   ;; (setq elpy-rpc-backend "jedi"
   ;;       python-shell-completion-native-enable nil)
   (elpy-enable)
-  :defer t
   :init (with-eval-after-load 'python (elpy-enable))  ;; file is loaded
   :hook (elpy-mode . flycheck-mode)  ;; Enforce flycheck mode
   )
@@ -244,7 +223,6 @@
   (setq flycheck-highlighting-mode 'symbols ;; highlight whole line
         flycheck-indication-mode 'right-fringe)  ;; Use right fringe for errors
   (global-flycheck-mode)
-  :defer t
   )
 
 (use-package flymd
@@ -257,11 +235,9 @@
   )
 
 (use-package git-timemachine
-  :defer t
   )
 
 (use-package graphviz-dot-mode         ;; Make it easier to edit (Graphviz) dot files
-  :defer t
   )
 
 (use-package helm
@@ -275,14 +251,12 @@
   :config
   (helm-autoresize-mode t)
   (setq helm-buffers-truncate-lines nil)
-  :defer t
   :delight                             ;; No need to show that Helm is loaded
   )
 
 (use-package helm-ag
   :after helm
   :commands helm-ag
-  :defer t
   )
 
 (use-package helm-bibtex
@@ -294,46 +268,37 @@
   (setq bibtex-autokey-year-length 4 ;; use 4 digits for the year
         bibtex-completion-pdf-field "file" ;; Use the file field to locate PDF files
         bibtex-completion-notes-path (concat my-org-directory "/bibtex-notes.org"))
-  :defer t
   )
 
 (use-package helm-company
   :after helm
-  :defer t
   )
 
 (use-package helm-flyspell
-  :after flyspell
+  :after (flyspell helm)
   :bind (("C-;" . helm-flyspell-correct))
   :commands flyspell-mode
-  :defer t
   :pin "melpa"
   )
 
 (use-package helm-make
-  :after helm
+  :after projectile
   :bind (("C-c m" . helm-make-projectile))
-  :defer t
   )
 
 (use-package helm-org-rifle
   :after helm
   :commands helm-org-rifle
-  :defer t
   )
 
 (use-package helm-projectile
-  :after helm
   :bind (([f5] . helm-projectile-find-file)
          ([f10] . helm-projectile-switch-to-buffer)
          ([C-f10] . helm-projectile-switch-project))
-  :commands helm-projectile
-  :defer t
   )
 
 (use-package helm-tramp
   :after helm
-  :defer t
   )
 
 (use-package helm-wordnet
@@ -342,7 +307,6 @@
   :config
   (setq helm-wordnet-wordnet-location my-wordnet-dictionary
         helm-wordnet-prog my-wordnet-program)
-  :defer t
   :pin "melpa"
   )
 
@@ -369,15 +333,12 @@
                              (when (boundp 'tern-mode)
                                (tern-mode))
                              (add-hook 'xref-backend-functions #'xref-js2-xref-backend nil t)))
-  :defer t
   )
 
 (use-package let-alist
-  :defer t
   )
 
 (use-package lorem-ipsum               ;; Generate lorem ipsum from within Emacs
-  :defer t
   :pin "melpa"
   )
 
@@ -390,18 +351,15 @@
 (use-package magithub                  ;; Integrate github into Magit
   :after magit
   :config (magithub-feature-autoinject t)
-  :defer t
   :pin "melpa"
   )
 
 (use-package magit-gitflow             ;; Use Magit git flow plugin
   :after magit
   :config (add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
-  :defer t
   )
 
 (use-package markdown-mode
-  :defer t
   )
 
 (use-package mode-icons                ;; Show pretty icons on the modeline
@@ -426,7 +384,6 @@
 
 (use-package nov                       ;; Read epub in Emacs
   :config (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-  :defer t
   )
 
 (use-package ob-async                  ;; Asynchronous execution of org-babel source code blocks
@@ -435,18 +392,20 @@
   )
 
 (use-package org-ref
+  :after org
   :disabled t
   )
 
 (use-package org-wc                    ;; Count words in org mode documents
-  ;; :bind ("C-c w" . my-org-wc-toggle-overlay)
-  :defer t
+  :after org
+  :bind ("C-c w" . my-org-wc-toggle-overlay)
   :pin "melpa"
   )
 
 (use-package powerline
   :after mode-icons
-  :init
+  :config( my-apply-colors)
+  :init                                ;; Set parameters before enabling pwerline
   (setq display-time-default-load-average nil ;; hide load average
         display-time-format "%H:%M"
         display-time-24hr-format t
@@ -548,27 +507,28 @@
   )
 
 (use-package projectile
+  :after helm
   :config
   (setq projectile-completion-system 'helm
+        projectile-globally-ignored-directories '("Include" "Lib" "Scripts")
         projectile-globally-ignored-file-suffixes '(".avi" ".fo" ".jpg" ".mp4"
                                                     ".pdf" ".png" ".pptx" ".svg"
                                                     ".xlsx" ".zip")
-        projectile-globally-ignored-directories '("Include" "Lib" "Scripts")
         projectile-indexing-method 'alien  ;; use the fastest indexing method
         projectile-mode-line '(:eval
-                               (if
-                                   (file-remote-p default-directory)
+                               (if (file-remote-p default-directory)
                                    " Projectile"
                                  (format " [%s]"
                                          (projectile-project-name)))))
+
   (helm-projectile-on)
   (projectile-mode 1)
   :commands projectile-mode
-  :init (put 'projectile-project-name 'safe-local-variable #'stringp)
+  :init
+  (put 'projectile-project-name 'safe-local-variable #'stringp)
   )
 
 (use-package pylint
-  :defer t
   :pin "melpa"
   )
 
@@ -581,7 +541,7 @@
   )
 
 (use-package restclient-helm
-  :defer t
+  :after (helm restclient)
   :pin "melpa"
   )
 
@@ -616,7 +576,6 @@
   )
 
 (use-package which-key
-  :defer t
   :delight
   :init (which-key-mode)
   )
@@ -624,21 +583,19 @@
 (use-package xref-js2
   :config (add-hook 'js2-mode-hook (lambda ()
                                      (tern-mode)))
-  :defer t)
+  )
 
 (use-package yafolding
   :bind (("C-|" . yafolding-toggle-element)
          ("C-\\" . yafolding-toggle-all))
-  :defer t
   :disabled t
   :init (add-hook 'prog-mode-hook 'yafolding-mode)
   )
 
 (use-package yaml-mode
-  :defer t
   ;; yaml is a major mode, not based on prog-mode, so manually add modes
   :init
-  (add-hook 'yaml-mode-hook 'highlight-indentation-mode)
+  :hook (yaml-mode . highlight-indentation-mode)
   )
 
 (use-package yasnippet
@@ -1706,7 +1663,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'text-mode-hook
           (lambda ()
-            ;; (flyspell-mode)
+            (flyspell-mode)
             (linum-mode 1)
             (visual-line-mode 0)       ;; show a symbol for wrapping lines,
             (setq word-wrap 1)))       ;; but still wrap words nicely
