@@ -1,6 +1,6 @@
 ;;; init.el --- Emacs initialization file
 
-;; Copyright (c) 2011-2017 Peter Mosmans
+;; Copyright (c) 2011-2018 Peter Mosmans
 
 ;; Author: Peter Mosmans <support AT go-forward.net>
 ;; Created: 2011
@@ -422,8 +422,6 @@
   (defface powerline-inactive-alert
     `((t :inherit powerline-alert))
     "Inactive powerline" :group 'powerline)
-  ;; 'design' own theme - see
-  ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Mode-Line-Variables.html
   (setq-default mode-line-format  '
                 ("%e"
                  (:eval
@@ -1273,7 +1271,8 @@ ARG is a prefix argument.  If nil, copy the current difference region."
                         :foreground `,(face-attribute 'font-lock-warning-face :foreground))
     (set-face-attribute 'powerline-inactive-alert nil
                         :background `,(face-attribute 'mode-line-inactive :background))
-    ))
+    )
+  )
 
 (defun my-beautify-json ()
   "Beautify json using Python."
@@ -1714,8 +1713,8 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'after-load-theme-hook
           (lambda ()
-            ;; (my-extract-colors)
             (my-apply-colors)))
+
 (if (fboundp 'my-org-query-clock-out)
     (add-hook 'kill-emacs-query-functions 'my-org-query-clock-out))
 
