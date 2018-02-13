@@ -620,7 +620,8 @@
  (quote
   (("AST-10AEST" "BNE")
    ;; ("Europe/Amsterdam" "AMS")
-   ("CET-2CEST" "AMS")
+   ("CET-1CEST" "AMS")
+   ("MST+7" "MST")
    )))
 
 ;; OS-specific settings
@@ -873,6 +874,7 @@
 
 ;;; KEY BINDINGS
 (global-set-key (kbd "<scroll>") 'scroll-lock-mode)
+(global-set-key (kbd "M-<f11>") (lambda () (interactive) (find-file user-init-file)))
 
 ;; miscellaneous (for consistency)
 (global-set-key (kbd "C-S-a") 'mark-whole-buffer)
