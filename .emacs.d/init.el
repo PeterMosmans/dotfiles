@@ -603,9 +603,8 @@
       (dolist (item my-snippet-dirs)   ;; add item per item
         (add-to-list 'yas-snippet-dirs item)))
   (yas-reload-all)
-  (add-hook 'prog-mode-hook #'yas-minor-mode)
-  (add-hook 'bibtex-mode-hook #'yas-minor-mode)
-  :defer t
+  :hook ((prog-mode . yas-minor-mode)
+         (bibtex-mode . yas-minor-mode))
   )
 
 ;; define font for Unicode Private Use Area block
