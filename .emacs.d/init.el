@@ -641,31 +641,39 @@
  auth-sources '("~/.authinfo.gpg")     ;; Only use encrypted store for (new) secrets
  auto-save-interval 1000               ;; Automatically save after x characters
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
- column-number-mode t                  ;; show column-number
- comint-prompt-read-only t             ;; read only prompt for shell mode
- completion-ignore-case t              ;; ignore case when completing
+ calendar-intermonth-text              ;; Show week numbers in the calendar
+ '(propertize
+   (format "%2d"
+           (car
+            (calendar-iso-from-absolute
+             (calendar-absolute-from-gregorian
+              (list month day year)))))
+   'font-lock-face 'calendar-iso-week-face)
+ column-number-mode t                  ;; Show column-number
+ comint-prompt-read-only t             ;; Read only prompt for shell mode
+ completion-ignore-case t              ;; Ignore case when completing
  dired-listing-switches "-agoh"
  ediff-window-setup-function 'ediff-setup-windows-plain
  frame-resize-pixelwise t              ;; Don't round frame sizes on character sizes
- global-font-lock-mode t               ;; syntax highlighting on by default
- global-hl-line-mode t                 ;; highlight current line by default
+ global-font-lock-mode t               ;; Enable syntax highlighting by default
+ global-hl-line-mode t                 ;; Highlight current line by default
  global-visual-line-mode t             ;; act on visual lines, enable word wrap
  inhibit-compacting-font-caches t      ;; speed up displaying Unicode glyphs
  inhibit-startup-echo-area-message nil
- inhibit-startup-message t             ;; remove welcome message
- ispell-program-name "hunspell"        ;; Use hunspell as default spell checker
+ inhibit-startup-message t             ;; Remove welcome message
  ispell-dictionary "en_US"             ;; Default language for spell checker
  ispell-personal-dictionary "~/personal-dictionary"
+ ispell-program-name "hunspell"        ;; Use hunspell as default spell checker
  ispell-silently-savep t               ;; Save to personal dictionary without asking
- kill-whole-line t                     ;; kill whole line including newline
+ kill-whole-line t                     ;; Kill whole line including newline
  line-spacing nil
- make-backup-files nil                 ;; do not create backups
- message-log-max t                     ;; keep and log all messages
+ make-backup-files nil                 ;; Do not create backups
+ message-log-max t                     ;; Keep and log all messages
  mouse-wheel-follow-mouse 't
  mouse-wheel-scroll-amount '(1 ((shift) . 1))
  read-file-name-completion-ignore-case t
- recentf-max-menu-items 15             ;; show maximum x recent menu items
- recentf-max-saved-items 100           ;; save maximum x recent files
+ recentf-max-menu-items 15             ;; Show maximum x recent menu items
+ recentf-max-saved-items 100           ;; Save maximum x recent files
  recentf-save-file "~/.emacs.d/recentfiles.emacs"
  rst-preferred-adornments '((35 over-and-under 0) ;; # H1 (once per document)
                             (42 over-and-under 0) ;; * H2
@@ -685,22 +693,13 @@
  tramp-default-method "sshx"           ;; faster than the default scp
  whitespace-style (quote
                    (face indentation tabs space-before-tab space-after-tab tab-mark trailing)))
-(delete-selection-mode 1)              ;; automatically overwrite selected text
-(recentf-mode 1)                       ;; enable recently opened files mode
-(show-paren-mode 1)
-(fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no questions
-(tool-bar-mode 0)                      ;; disable toolbar
-(global-whitespace-mode 1)             ;; globally enable whitespace mode
 
-;; show week numbers
-(setq calendar-intermonth-text
-      '(propertize
-        (format "%2d"
-                (car
-                 (calendar-iso-from-absolute
-                  (calendar-absolute-from-gregorian
-                   (list month day year)))))
-        'font-lock-face 'calendar-iso-week-face))
+(delete-selection-mode 1)              ;; Automatically overwrite selected text
+(fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no questions
+(global-whitespace-mode 1)             ;; Globally enable whitespace mode
+(recentf-mode 1)                       ;; Enable recently opened files mode
+(show-paren-mode 1)
+(tool-bar-mode 0)                      ;; Disable toolbar
 
 ;; org mode settings
 (set-face-attribute 'org-done nil :strike-through t)
