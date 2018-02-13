@@ -1662,7 +1662,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'text-mode-hook
           (lambda ()
-            (flyspell-mode)
+            (flyspell-mode 1)
             (linum-mode 1)
             (visual-line-mode 0)       ;; show a symbol for wrapping lines,
             (setq word-wrap 1)))       ;; but still wrap words nicely
