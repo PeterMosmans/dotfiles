@@ -43,3 +43,5 @@
   header = bold
   help = normal
   error = normal
+[github]
+  user = PeterMosmans
