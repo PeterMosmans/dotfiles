@@ -898,7 +898,9 @@
 
 ;; scratchpad, text modes, closing
 ;; f4: execute macro (kmacro-end-and-call-macro)
-(global-set-key (kbd "S-<f4>") (lambda () (interactive) (switch-to-buffer (file-name-nondirectory initial-buffer-choice))))
+(if (bound-and-true-p initial-buffer-choice)
+    (global-set-key (kbd "S-<f4>") (lambda () (interactive) (switch-to-buffer (file-name-nondirectory initial-buffer-choice))))
+  (global-set-key (kbd "S-<f4>") (lambda () (interactive) (switch-to-buffer "*scratch*"))))
 (global-set-key (kbd "C-<f4>") 'org-mode)
 (global-set-key (kbd "M-<f4>") 'save-buffers-kill-terminal)
 
@@ -1674,7 +1676,7 @@ Uses `current-date-time-format' for the formatting the date/time."
                           buffer-file-coding-system 'utf-8-unix)
             (prefer-coding-system 'utf-8-unix)
             (my-set-default-font my-font)
-            (if (boundp 'initial-buffer-choice)
+            (if (bound-and-true-p initial-buffer-choice)
                 (if (get-buffer "*scratch*")
                     (kill-buffer "*scratch*")))
             (when (boundp 'start-with-agenda)
