@@ -400,7 +400,7 @@
 
 (use-package powerline
   :after mode-icons
-  :config( my-apply-colors)
+  :config (my-apply-colors)
   :init                                ;; Set parameters before enabling pwerline
   (setq display-time-default-load-average nil ;; hide load average
         display-time-format "%H:%M"
