@@ -239,7 +239,8 @@
   )
 
 (use-package helm
-  :bind (("C-c j" . helm-imenu)        ;; J ump to imenu
+  :bind (("C-c i" . helm-imenu)        ;; J ump to imenu
+         ("C-c r" . helm-register)     ;; Show registers
          ("C-c y" . helm-show-kill-ring)
          ([M-x] . helm-M-x)
          ([M-f5] . helm-find-files)
@@ -301,7 +302,7 @@
 
 (use-package helm-wordnet
   :after helm
-  :bind ("C-c w" . helm-wordnet-suggest)
+  :bind ("C-c s" . helm-wordnet-suggest)
   :config
   (setq helm-wordnet-wordnet-location my-wordnet-dictionary
         helm-wordnet-prog my-wordnet-program)
@@ -318,7 +319,7 @@
   )
 
 (use-package imenu-list
-  :bind ("C-c i" . imenu-list-minor-mode)
+  :bind ("C-c e" . imenu-list-smart-toggle)
   :config (setq imenu-list-position 'left)
   )
 
