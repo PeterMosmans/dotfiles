@@ -51,9 +51,11 @@ COMPLETION_WAITING_DOTS="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 
-# Disable some plugins while running in Emacs
+# Enable a subset of plugins and enforce terminal type while running in Emacs
 if [[ -n "$INSIDE_EMACS" ]]; then
-    plugins=()
+    plugins=(git)
+    export TERM="eterm-color"
+    # export TERM="dumb-emacs-ansi"
 else
     export ZSH_TMUX_AUTOSTART=true
     export ZSH_TMUX_UNICODE=true
