@@ -1231,7 +1231,7 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 (defun my-apply-colors ()
   "Apply theme colors to tabbar and powerline."
   (interactive)
-  (when (boundp tabbar-mode)
+  (when (bound-and-true-p tabbar-mode)
     ;; These settings override the default settings hardcoded in tabbar mode
     (set-face-attribute 'tabbar-button nil :inherit 'default :box nil)
     ;; default line without tabs
