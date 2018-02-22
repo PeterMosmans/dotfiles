@@ -45,3 +45,11 @@
   error = normal
 [github]
   user = PeterMosmans
+[diff "docx"]
+  textconv = pandoc --to=rst
+[diff "odt"]
+  textconv = pandoc --to=rst
+[diff "pdf"]
+  textconv = pdftostdout
+[diff "pptx"]
+  textconv = pptxtostdout
