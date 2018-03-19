@@ -239,7 +239,7 @@
   )
 
 (use-package helm
-  :bind (("C-c i" . helm-imenu)        ;; J ump to imenu
+  :bind (("C-c j" . helm-imenu)        ;; J ump to imenu
          ("C-c r" . helm-register)     ;; Show registers
          ("C-c y" . helm-show-kill-ring)
          ([M-x] . helm-M-x)
@@ -319,7 +319,7 @@
   )
 
 (use-package imenu-list
-  :bind ("C-c e" . imenu-list-smart-toggle)
+  :bind ("C-c i" . imenu-list-smart-toggle)
   :config (setq imenu-list-position 'left)
   )
 
