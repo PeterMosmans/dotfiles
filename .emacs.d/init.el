@@ -692,20 +692,20 @@
  size-indication-mode nil              ;; disable file size mode
  tab-width 4                           ;; default tab width
  tramp-default-method "sshx"           ;; faster than the default scp
+ tramp-histfile-override t             ;; Disable histfile for tramp
  whitespace-style (quote
                    (face indentation tabs space-before-tab space-after-tab tab-mark trailing)))
 
 (delete-selection-mode 1)              ;; Automatically overwrite selected text
 (fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no questions
 (global-whitespace-mode 1)             ;; Globally enable whitespace mode
-(recentf-mode 1)                       ;; Enable recently opened files mode
+
 (show-paren-mode 1)
-(tool-bar-mode 0)                      ;; Disable toolbar
+
 
 ;; org mode settings
-(set-face-attribute 'org-done nil :strike-through t)
-(set-face-attribute 'org-level-1 nil :inherit 'outline-1 :height 1.1)
-(set-face-attribute 'org-level-2 nil :inherit 'outline-1 :height 1.1)
+
+
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a") 'org-agenda)
