@@ -60,6 +60,10 @@
   "Org-more refile targets."
   :type 'string
   :group 'my-customizations)
+(defcustom my-presentation-mode nil
+  "True when presentation mode is enabled (remove clock, cursor)."
+  :type 'boolean
+  :group 'my-customizations)
 (defcustom my-snippet-dirs nil
   "A list of snippet directories that will be loaded by yasnippet."
   :type 'string
