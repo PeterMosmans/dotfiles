@@ -265,7 +265,7 @@
 
 (use-package helm-bibtex
   :after helm
-  :bind (("C-c b" . helm-bibtex))
+  :bind (("C-c x" . helm-bibtex))
   :config
   (if (boundp 'my-bibliographies)
       (setq bibtex-completion-bibliography my-bibliographies))
@@ -462,8 +462,6 @@
                            (powerline-buffer-size face2 'l)) ;; Buffer size
                          (when powerline-display-mule-info
                            (powerline-raw mode-line-mule-info face2 'l)) ;; Multi lingual environment
-                         (when (bound-and-true-p which-func-mode)
-                           (powerline-raw which-func-format face2 'l))
                          (powerline-major-mode face2 'l)
                          (powerline-minor-modes face2 'l)
                          (powerline-process face2)
@@ -930,7 +928,7 @@
 (global-set-key (kbd "M-<f9>") 'color-theme-select)
 
 ;; bookmarks
-(global-set-key (kbd "<f11>") 'bookmark-jump)
+(global-set-key (kbd "C-c b") 'bookmark-jump)
 (global-set-key (kbd "S-<f11>") 'xah-run-current-file)
 (global-set-key (kbd "C-<f11>") 'bookmark-set)
 
