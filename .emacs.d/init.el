@@ -478,6 +478,8 @@
                          (powerline-buffer-id face1) ;; buffer name
                          (funcall separator-left face1 face2)
                          (powerline-vc face2 'r)  ;; The middle
+                         (when (bound-and-true-p which-func-mode)
+                           (powerline-raw which-func-format face2 'r))
                          (when
                              (bound-and-true-p nyan-mode)
                            (powerline-raw
