@@ -1633,12 +1633,11 @@ Uses `current-date-time-format' for the formatting the date/time."
 (add-hook 'flyspell-mode-hook
           (lambda ()
             (define-key flyspell-mode-map (kbd "C-;") nil)
-            (define-key flyspell-mode-map (kbd "C-.") 'flyspell-goto-next-error)
-            (define-key flyspell-mode-map (kbd "M-.") 'flyspell-buffer)))
+            (define-key flyspell-mode-map (kbd "C-.") 'flyspell-goto-next-error)))
 
- (add-hook 'git-commit-mode-hook
-           (lambda ()
-             (linum-mode 0)))           ;; No need for line numbers
+(add-hook 'git-commit-mode-hook
+          (lambda ()
+            (linum-mode 0)))           ;; No need for line numbers
 
 (add-hook 'imenu-list-minor-mode-hook
           (lambda ()                   ;; Activate newly generated buffer immediately
