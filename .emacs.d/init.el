@@ -1623,7 +1623,7 @@ Uses `current-date-time-format' for the formatting the date/time."
                   )))
 
 (add-hook 'comint-mode-hook
-          (lambda ()                   ;; reclaim keybindings for shell mode
+          (lambda ()                   ;; Reclaim keybindings for shell mode
             (define-key comint-mode-map (kbd "<up>") 'comint-previous-input)
             (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
             (setq comint-process-echoes t))) ;; prevent echoing
@@ -1654,7 +1654,8 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'prog-mode-hook (lambda ()
                             (flyspell-prog-mode)
-                            (linum-mode 1)))
+                            (linum-mode 1)
+                            (which-function-mode)))
 
 (add-hook 'rst-mode-hook (lambda ()
                            (auto-fill-mode 1)
