@@ -123,7 +123,8 @@
 
 ;; define all necessary EXTERNAL alphabetically
 ;; after:     wrap everything in a with-eval-after-load, so that config will be done last
-;; bind:      keybindings (all keys before :map are bound globally) (implies defer)
+;; :bind      keybindings (all keys before :map are bound globally) (implies defer)
+;;            :bind (("C-<f2>" . bm-toggle)
 ;; commands:  load the package (execute config) when these commands are executed (implies defer)
 ;; config:    execute code *after* a package is loaded
 ;; defer:     defer loading (implied when using bind, mode or interpreter)
@@ -461,10 +462,7 @@
                            (powerline-buffer-size face2 'l)) ;; Buffer size
                          (when powerline-display-mule-info
                            (powerline-raw mode-line-mule-info face2 'l)) ;; Multi lingual environment
-                         (when
-                             ;; (and
-                             ;;  (boundp 'which-function-mode)
-                             which-function-mode;;)
+                         (when (bound-and-true-p which-func-mode)
                            (powerline-raw which-func-format face2 'l))
                          (powerline-major-mode face2 'l)
                          (powerline-minor-modes face2 'l)
