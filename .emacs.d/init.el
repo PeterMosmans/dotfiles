@@ -198,13 +198,21 @@
 
 (use-package dracula-theme)
 
+(use-package dumb-jump
+  :config
+  (setq dumb-jump-selector 'helm
+        dump-jump-force-searcher 'ag)
+  :disabled t
+  :hook (prog-mode . dumb-jump-mode)
+  )
+
 (use-package elpy
+  :bind (:map elpy-mode-map ("M-." . elpy-goto-definition))
   :config
   ;; (setq elpy-rpc-backend "jedi"
   ;;       python-shell-completion-native-enable nil)
   (elpy-enable)
   :init (with-eval-after-load 'python (elpy-enable))  ;; file is loaded
-  :hook (elpy-mode . flycheck-mode)  ;; Enforce flycheck mode
   )
 
 (use-package fill-column-indicator
