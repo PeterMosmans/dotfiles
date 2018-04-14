@@ -89,7 +89,10 @@
 (if (file-exists-p custom-file)
     (load custom-file))
 
-(package-initialize)
+(if (< emacs-major-version 27)
+    (package-initialize)
+  (setq package-quickstart t))
+
 
 ;; Bootstrap `use-package'
 (defun my-package-install-refresh-contents (&rest args)
