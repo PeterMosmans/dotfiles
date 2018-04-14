@@ -313,7 +313,6 @@
 
 (use-package helm-projectile
   :bind (([f5] . helm-projectile-find-file)
-         ([f10] . helm-projectile-switch-to-buffer)
          ([C-f10] . helm-projectile-switch-project))
   )
 
@@ -967,6 +966,7 @@
 (global-set-key (kbd "C-<f9>") 'browse-url-of-buffer)
 (global-set-key (kbd "M-<f9>") 'color-theme-select)
 
+(global-set-key (kbd "<f10>") 'my-repeat-compile-command-anywhere)
 ;; bookmarks
 (global-set-key (kbd "C-c b") 'bookmark-jump)
 (global-set-key (kbd "S-<f11>") 'xah-run-current-file)
