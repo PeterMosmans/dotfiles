@@ -658,6 +658,7 @@
 
 ;; Emacs variables
 (setq
+ desktop-path '("~/.emacs.d/desktop/")    ;; Specify directory for desktop files
  auth-sources '("~/.authinfo.gpg")     ;; Only use encrypted store for (new) secrets
  auto-save-interval 1000               ;; Automatically save after x characters
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
