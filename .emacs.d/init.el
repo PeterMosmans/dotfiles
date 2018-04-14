@@ -1329,7 +1329,7 @@ ARG is a prefix argument.  If nil, copy the current difference region."
   (setq my-running-timer nil))
 
 (defun my-compile-anywhere ()
-  "Search for a Makefile in directories recursively, and compile when found"
+  "Search for a Makefile in directories recursively, and compile when found."
   (interactive)
   (when (locate-dominating-file default-directory "Makefile")
     (with-temp-buffer
@@ -1337,7 +1337,7 @@ ARG is a prefix argument.  If nil, copy the current difference region."
       (compile "make"))))
 
 (defun my-countdown-timer (minutes title message)
-  "Start a countdown timer for a given number of minutes, and cancel any running timers."
+  "Start a countdown timer with TITLE and MESSAGE for MINUTES, and cancel any running timers."
   (my-cancel-running-timer)
   (setq my-running-timer (run-with-timer (* 60 minutes) nil 'my-alerter title message)))
 
@@ -1364,9 +1364,11 @@ Uses `current-date-time-format' for the formatting the date/time."
   (interactive)
   (insert (format-time-string "%d-%m-%Y %H:%M" (current-time))))
 
-(defun my-reset-gc-threshold ()
-  "Reset `gc-cons-threshold' to its default value."
-  (setq gc-cons-threshold 800000))
+(defun my-open-custom-agenda ()
+  "Open custom agenda view."
+  (interactive)
+  (org-agenda nil "f")                 ;; Open forthnight overview by default
+  )
 
 (defun my-org-clock-in-everywhere ()
   "Clock in from within an org page as well as from within the agenda."
@@ -1397,6 +1399,14 @@ Uses `current-date-time-format' for the formatting the date/time."
       (org-wc-remove-overlays)
     (org-wc-display nil)))
 
+
+(defun my-repeat-compile-command-anywhere ()
+  "Repeat last compile command without leaving the current frame."
+  (interactive)
+  (switch-to-buffer "*compilation*")
+  (recompile)
+  (my-switch-to-previous-buffer))
+
 (defun my-replace-symbols-with-entity-names (start end)
   (interactive "r")
   (let ((count (count-matches "&")))
@@ -1410,6 +1420,11 @@ Uses `current-date-time-format' for the formatting the date/time."
         (replace-string str
                         (concat "&" (car pair) ";")
                         nil start end)))))
+
+(defun my-reset-gc-threshold ()
+  "Reset `gc-cons-threshold' to its default value."
+  (setq gc-cons-threshold 800000))
+
 
 (defun my-set-default-font (my-font)
   "Set default font to MY-FONT for frames if the font has been installed."
@@ -1435,9 +1450,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   (interactive)
   (let ((b (if mark-active (min (point) (mark)) (point-min)))
         (e (if mark-active (max (point) (mark)) (point-max))))
-    (shell-command-on-region b e
-                             "titlecase" (current-buffer) t)))
-
+    (shell-command-on-region b e "titlecase" (current-buffer) t)))
 
 (defun compile-quietly ()
   "Re-compile without changing the window configuration."
@@ -1545,11 +1558,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   (message "Check language %s" lang)
   (not (member lang '("dot" "plantuml" "python" "restclient" "sh" "shell"))))
 
-(defun open-custom-agenda ()
-  "Open custom agenda view."
-  (interactive)
-  (org-agenda nil "f")                 ;; Open forthnight overview by default
-  )
+
 
 (defun save-kill-buffer ()
   "Save buffer and kill (close) it."
