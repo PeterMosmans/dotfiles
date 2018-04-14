@@ -1778,9 +1778,22 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'org-mode-hook
           (lambda ()
-            (linum-mode 0)             ;; as it's derived from text-mode
+            (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
+            (linum-mode 0)             ;; As it's derived from text-mode
             (local-set-key (kbd "C-c o") 'org-agenda-open-link)
+            (set-face-attribute 'org-done nil :strike-through t)
+            (set-face-attribute 'org-level-1 nil :inherit 'outline-1 :height 1.1)
+            (set-face-attribute 'org-level-2 nil :inherit 'outline-1 :height 1.1)
+            (which-function-mode)      ;; Show contextual location in the mode line
             (yas-minor-mode 1)
-            (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)))
+            ))
+
+(define-minor-mode textwriting-mode
+  "Formatted text documents and automatic spelling check."
+  :lighter "textwriting"
+  (auto-fill-mode 1)
+  (flyspell-mode 1)
+  (make-local-variable 'fill-column)
+  (setq fill-column 95))
 
 ;;; init.el ends here
