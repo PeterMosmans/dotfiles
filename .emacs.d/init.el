@@ -1726,17 +1726,28 @@ Uses `current-date-time-format' for the formatting the date/time."
                           buffer-file-coding-system 'utf-8-unix)
             (prefer-coding-system 'utf-8-unix)
             (my-set-default-font my-font)
-            (if (bound-and-true-p initial-buffer-choice)
-                (if (get-buffer "*scratch*")
-                    (kill-buffer "*scratch*")))
-            (when (boundp 'start-with-agenda)
-              (open-custom-agenda))
+            ;; Check if desktop mode is active or not
+            (if (bound-and-true-p my-presentation-mode)
+                (progn
+                  (blink-cursor-mode 0)
+                  (setq auto-save-default nil
+                        visible cursor nil))
+              (helm-mode t)
+              (projectile-mode t)
+              (global-company-mode)
+              (recentf-mode 1)                       ;; Enable recently opened files mode
+              (tool-bar-mode 0)                      ;; Disable toolbar
+              ;; (desktop-save-mode 1)                  ;; Automatically save / restore 'desktop' (buffers)
+              (if (bound-and-true-p initial-buffer-choice)
+                  (if (get-buffer "*scratch*")
+                      (kill-buffer "*scratch*")))
+              (when (boundp 'start-with-agenda)
+                (open-custom-agenda)))
             (raise-frame)
             (require 'server)
             (or (server-running-p)     ;; Start server if not already running
                 (server-start))
-            (helm-mode t)
-            (global-company-mode)
+
             (setq gc-cons-threshold 800000) ;; Reset to default value
             )
           )
