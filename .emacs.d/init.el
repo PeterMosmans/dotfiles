@@ -603,7 +603,7 @@
   :bind (("C-|" . yafolding-toggle-element)
          ("C-\\" . yafolding-toggle-all))
   :disabled t
-  :init (add-hook 'prog-mode-hook 'yafolding-mode)
+  :hook (prog-mode . yafolding-mode)
   )
 
 (use-package yaml-mode
