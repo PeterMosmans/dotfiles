@@ -421,7 +421,7 @@
 
 (use-package powerline
   :after mode-icons
-  :config (my-apply-colors)
+  ;;  :config (my-apply-colors)
   :init                                ;; Set parameters before enabling pwerline
   (setq display-time-default-load-average nil ;; hide load average
         display-time-format "%H:%M"
@@ -685,7 +685,7 @@
  ispell-program-name "hunspell"        ;; Use hunspell as default spell checker
  ispell-silently-savep t               ;; Save to personal dictionary without asking
  kill-whole-line t                     ;; Kill whole line including newline
- line-spacing nil
+ ;; line-move-visual nil                  ;; Move point by logical line instead of visual
  make-backup-files nil                 ;; Do not create backups
  message-log-max t                     ;; Keep and log all messages
  mouse-wheel-follow-mouse 't
