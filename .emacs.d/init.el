@@ -215,6 +215,7 @@
   ;; (setq elpy-rpc-backend "jedi"
   ;;       python-shell-completion-native-enable nil)
   (elpy-enable)
+  :hook (elpy-mode . flycheck-mode)    ;; Enforce flycheck mode
   :init (with-eval-after-load 'python (elpy-enable))  ;; file is loaded
   )
 
