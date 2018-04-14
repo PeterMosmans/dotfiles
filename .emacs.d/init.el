@@ -255,14 +255,19 @@
   )
 
 (use-package helm
-  :bind (("C-c j" . helm-imenu)        ;; J ump to imenu
+  :bind (
+         ("C-c j" . helm-imenu)        ;; J ump to imenu
          ("C-c r" . helm-register)     ;; Show registers
-         ("C-c y" . helm-show-kill-ring)
-         ([M-x] . helm-M-x)
-         ([M-f5] . helm-find-files)
+         ("M-y" . helm-show-kill-ring)
          ([M-f10] . helm-buffers-list)
-         ([S-f10] . helm-recentf)
-         ([capslock] . helm-M-x))
+         ("C-x C-f" . helm-find-files)
+         ([M-x] . helm-M-x)
+         ([S-f10] . helm-mini)
+         ([capslock] . helm-M-x)
+         :map helm-map
+         ("C-z" . helm-select-action)
+         ([tab] . helm-execute-persistent-action)
+         )
   :config
   (helm-autoresize-mode t)
   (setq helm-buffers-truncate-lines nil)
