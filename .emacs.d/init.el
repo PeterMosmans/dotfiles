@@ -887,6 +887,28 @@
 (add-to-list 'auto-mode-alist '("\\.prf\\'" . conf-mode))
 
 ;;; KEY BINDINGS
+(global-unset-key (kbd "M-1")) ; digit-argument
+(global-unset-key (kbd "M-2")) ; digit-argument
+(global-unset-key (kbd "M-3")) ; digit-argument
+(global-unset-key (kbd "M-4")) ; digit-argument
+(global-unset-key (kbd "M-5")) ; digit-argument
+(global-unset-key (kbd "M-6")) ; digit-argument
+(global-unset-key (kbd "M-7")) ; digit-argument
+(global-unset-key (kbd "M-8")) ; digit-argument
+(global-unset-key (kbd "M-9")) ; digit-argument
+(global-unset-key (kbd "M-0")) ; digit-argument
+
+(global-unset-key (kbd "C-1")) ; digit-argument
+(global-unset-key (kbd "C-2")) ; digit-argument
+(global-unset-key (kbd "C-3")) ; digit-argument
+(global-unset-key (kbd "C-4")) ; digit-argument
+(global-unset-key (kbd "C-5")) ; digit-argument
+(global-unset-key (kbd "C-6")) ; digit-argument
+(global-unset-key (kbd "C-7")) ; digit-argument
+(global-unset-key (kbd "C-8")) ; digit-argument
+(global-unset-key (kbd "C-9")) ; digit-argument
+(global-unset-key (kbd "C-0")) ; digit-argument
+
 (global-set-key (kbd "<scroll>") 'scroll-lock-mode)
 (global-set-key (kbd "M-<f11>") (lambda () (interactive) (find-file user-init-file)))
 
