@@ -620,7 +620,8 @@
         (add-to-list 'yas-snippet-dirs item)))
   (yas-reload-all)
   :hook ((prog-mode . yas-minor-mode)
-         (bibtex-mode . yas-minor-mode))
+         (bibtex-mode . yas-minor-mode)
+         (web-mode . (lambda () (yas-activate-extra-mode 'text-mode))))
   )
 
 ;; define font for Unicode Private Use Area block
