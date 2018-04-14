@@ -530,12 +530,12 @@
         projectile-mode-line '(:eval
                                (if (file-remote-p default-directory)
                                    " Projectile"
-                                 (format " [%s]"
+                                 (format " {%s}"
                                          (projectile-project-name)))))
 
   (helm-projectile-on)
   (projectile-mode 1)
-  :commands projectile-mode
+  ;; :commands projectile-mode
   :init
   (put 'projectile-project-name 'safe-local-variable #'stringp)
   )
