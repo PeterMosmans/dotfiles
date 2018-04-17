@@ -1561,7 +1561,7 @@ Uses `current-date-time-format' for the formatting the date/time."
             (with-selected-window (display-buffer buf)
               (org-fit-window-to-buffer)
               )))
-      (open-custom-agenda)))
+      (my-open-custom-agenda)))
   )
 
 (defun my-org-confirm-babel-evaluate (lang body)
@@ -1570,7 +1570,16 @@ Uses `current-date-time-format' for the formatting the date/time."
   (message "Check language %s" lang)
   (not (member lang '("dot" "plantuml" "python" "restclient" "sh" "shell"))))
 
-
+(defun my-xml-formatter ()
+  "Pretty format XML file."
+  (interactive)
+  ;; (save-buffer)
+  (save-excursion
+    (shell-command-on-region (point-min) (point-max) "xmllint --format -" (buffer-name) t)
+    (xml-mode)
+    (indent-region 0 (count-lines (point-min) (point-max)))
+    )
+  )
 
 (defun save-kill-buffer ()
   "Save buffer and kill (close) it."
@@ -1754,7 +1763,7 @@ Uses `current-date-time-format' for the formatting the date/time."
                   (if (get-buffer "*scratch*")
                       (kill-buffer "*scratch*")))
               (when (boundp 'start-with-agenda)
-                (open-custom-agenda)))
+                (my-open-custom-agenda)))
             (raise-frame)
             (require 'server)
             (or (server-running-p)     ;; Start server if not already running
