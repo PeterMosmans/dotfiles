@@ -577,6 +577,16 @@
   :pin "melpa"
   )
 
+(use-package undo-tree                 ;; Generate a nice visualization of undo
+  :bind (
+         ("C-x U" . undo-tree-visualize)
+         )
+  :config (setq
+           undo-tree-visualizer-diff t ;; Show diffs by default
+           )
+  )
+
+
 (use-package web-mode
   :config (setq web-mode-markup-indent-offset 2)
   :hook ((web-mode . auto-fill-mode)
