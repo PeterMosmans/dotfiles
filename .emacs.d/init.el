@@ -584,6 +584,7 @@
   :config (setq
            undo-tree-visualizer-diff t ;; Show diffs by default
            )
+  :pin "gnu"
   )
 
 
