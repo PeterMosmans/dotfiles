@@ -42,7 +42,9 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 if [[ -n "$INSIDE_EMACS" ]]; then
     plugins=()
 else
-    plugins=(git)
+    export ZSH_TMUX_AUTOSTART=true
+    export ZSH_TMUX_UNICODE=true
+    plugins=(git tmux)
 fi
 
 
@@ -97,8 +99,6 @@ setopt NO_BEEP
 
 # load Bash and zsh compatible aliases
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases
-
-alias update="sudo apt-get update -o Dpkg::Progress-Fancy="1" -o APT::Color="1" && sudo apt-get -y upgrade -o Dpkg::Progress-Fancy="1" -o APT::Color="1" && sudo apt-get -y dist-upgrade -o Dpkg::Progress-Fancy="1" -o APT::Color="1" "
 
 # Start oh-my-zsh
 export ZSH=$HOME/repos/oh-my-zsh
