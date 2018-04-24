@@ -1,0 +1,8 @@
+# (Emacs) (temporary) files
+.#*
+\#*#
+.projectile
+# Local docbuilder files
+docbuilder.ssh
+# Build artefacts
+*.fo

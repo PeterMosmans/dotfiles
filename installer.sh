@@ -2,7 +2,7 @@
 
 # installer - Basic installer (linker) for various files
 #
-# Copyright (C) 2015-2016 Peter Mosmans
+# Copyright (C) 2015-2018 Peter Mosmans
 #                         <support AT go-forward.net>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -13,7 +13,7 @@
 # Destination where the files need to be installed
 DESTINATIONPATH=~
 # Files and directories which need to be installed
-SOURCEFILES=".aliases .bashrc .emacs.d/init.el .gitconfig .tmux.conf"
+SOURCEFILES=".aliases .bashrc .emacs.d/init.el .gitconfig .gitignore_global .tmux.conf"
 # OS-specificy (uname -o) files and directories
 OSSPECIFIC=".ssh/config .zshrc .zshenv"
 
