@@ -1271,7 +1271,8 @@ ARG is a prefix argument.  If nil, copy the current difference region."
 (defun my-alerter (title message)
   "Alert a user using the my-toast-app, when it is set."
   (if my-toast-app
-      (shell-command (concat my-toast-app " -p \"" my-alerter-icon "\" -t \"" title "\" -m \"" message "\" -appid \"Emacs\""))))
+      (shell-command (concat my-toast-app " -p \"" my-alerter-icon "\" -t \"" title "\" -m \"" message "\" -appid \"Emacs\" -s ms-winsoundevent:Notification.SMS")))
+  )
 
 (defun my-align-org-tags ()
   "Align 'org-mode' tags to the right border of the screen."
