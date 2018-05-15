@@ -1456,6 +1456,19 @@ Uses `current-date-time-format' for the formatting the date/time."
                            (lambda ()
                              (my/set-default-font my-font))))))))
 
+(defun my-sort-words-on-line ()
+  "Sort words in a line."
+  ;; https://groups.google.com/forum/#!topic/gnu.emacs.help/b0DT8fb5Ieo
+  (interactive)
+  (insert (mapconcat 'identity
+                     (sort (split-string
+                            (delete-and-extract-region
+                             (point) (1+ (line-end-position))))
+                           'string<)
+                     " ")
+          ))
+
+
 (defun my-titlecase-converter ()
   "Convert region to titlecase."
   (interactive)
