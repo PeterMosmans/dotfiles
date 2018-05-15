@@ -859,9 +859,6 @@
         ("i" "incubating (someday/maybe)"
          entry (file+olp "someday-maybe.org" "Someday / maybe ideas")
          "* %?\n  %u")
-        ("r" "reference"
-         entry (file+headline "reference.org" "reference")
-         "* %?\n")
         ("l" "TODO with link to current buffer"
          entry (file+headline org-default-notes-file  "Tasks")
          "* TODO %?\n  %i\n   %a")
