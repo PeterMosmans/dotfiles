@@ -1,8 +1,10 @@
-# (Emacs) (temporary) files
+# Emacs temporary and local files
 .#*
 \#*#
 .projectile
-# Local docbuilder files
-docbuilder.ssh
-# Build artefacts
+# Microsoft temporary files
+~$*
+# OpenOffice temporary files
+.~*
+# XML-FO formatting objects
 *.fo
