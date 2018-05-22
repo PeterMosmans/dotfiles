@@ -629,6 +629,7 @@
   (if (boundp 'my-snippet-dirs)
       (dolist (item my-snippet-dirs)   ;; add item per item
         (add-to-list 'yas-snippet-dirs item)))
+  (setq yas-indent-line 'fixed)        ;; Use fixed indentation instead of 'per mode'
   (yas-reload-all)
   :hook ((prog-mode . yas-minor-mode)
          (bibtex-mode . yas-minor-mode)
