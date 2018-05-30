@@ -249,6 +249,10 @@
   :commands focus-mode
   )
 
+(use-package git-gutter-fringe         ;; Show git status in the fringe
+  :init (global-git-gutter-mode)
+  )
+
 (use-package git-timemachine
   )
 
