@@ -631,7 +631,7 @@
   :commands yas-minor-mode
   :config
   (if (boundp 'my-snippet-dirs)
-      (dolist (item my-snippet-dirs)   ;; add item per item
+      (dolist (item my-snippet-dirs)   ;; Add item per item
         (add-to-list 'yas-snippet-dirs item)))
   (setq yas-indent-line 'fixed)        ;; Use fixed indentation instead of 'per mode'
   (yas-reload-all)
