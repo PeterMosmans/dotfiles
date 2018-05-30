@@ -1714,7 +1714,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'git-commit-mode-hook
           (lambda ()
-            (linum-mode 0)))           ;; No need for line numbers
+            (display-line-numbers-mode 0)))           ;; No need for line numbers within commit files
 
 (add-hook 'imenu-list-minor-mode-hook
           (lambda ()                   ;; Activate newly generated buffer immediately
@@ -1731,7 +1731,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'prog-mode-hook (lambda ()
                             (flyspell-prog-mode)
-                            (linum-mode 1)
+                            (display-line-numbers-mode)
                             (which-function-mode)))
 
 (add-hook 'rst-mode-hook (lambda ()
@@ -1750,7 +1750,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 (add-hook 'text-mode-hook
           (lambda ()
             (flyspell-mode 1)
-            (linum-mode 1)
+            (display-line-numbers-mode)
             (visual-line-mode 0)       ;; show a symbol for wrapping lines,
             (setq word-wrap 1)))       ;; but still wrap words nicely
 
