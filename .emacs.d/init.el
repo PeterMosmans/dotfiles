@@ -727,7 +727,6 @@
  show-paren-style 'expression          ;; highlight entire bracket expression
  size-indication-mode nil              ;; disable file size mode
  tab-width 4                           ;; default tab width
- tramp-default-method "sshx"           ;; faster than the default scp
  tramp-histfile-override t             ;; Disable histfile for tramp
  whitespace-style (quote
                    (face indentation tabs space-before-tab space-after-tab tab-mark trailing)))
