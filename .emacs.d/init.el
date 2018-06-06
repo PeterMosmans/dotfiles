@@ -418,6 +418,7 @@
 
 (use-package ob-async                  ;; Asynchronous execution of org-babel source code blocks
   :after org                           ;; when using the :async keyword
+  :demand t                            ;; (require 'ob-async)
   :pin "melpa"
   )
 
