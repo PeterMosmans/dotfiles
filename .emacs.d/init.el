@@ -250,6 +250,11 @@
   )
 
 (use-package git-gutter-fringe         ;; Show git status in the fringe
+  :bind (
+         ("C-c g n" . git-gutter:next-hunk)
+         ("C-c g p" . git-gutter:previous-hunk)
+         ("C-c g s" . git-gutter:stage-hunk)
+         )
   :init (global-git-gutter-mode)
   )
 
@@ -365,8 +370,11 @@
   )
 
 (use-package magit
-  :bind (([f1] . magit-status)
-         ("C-x g" . magit-status))
+  :bind (
+         ([f1] . magit-status)
+         ("C-c g g" . magit-status)
+         ("C-c g c" . magit-commit)
+         )
   :pin "melpa"                         ;; Needs >2.11
   )
 
