@@ -1830,7 +1830,6 @@ Uses `current-date-time-format' for the formatting the date/time."
 (add-hook 'org-mode-hook
           (lambda ()
             (advice-add 'org-clocktable-indent-string :override #'my-org-clocktable-indent-string)
-            (linum-mode 0)             ;; As it's derived from text-mode
             (local-set-key (kbd "C-c o") 'org-agenda-open-link)
             (set-face-attribute 'org-done nil :strike-through t)
             (set-face-attribute 'org-level-1 nil :inherit 'outline-1 :height 1.1)
