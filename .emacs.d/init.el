@@ -89,25 +89,23 @@
 (if (file-exists-p custom-file)
     (load custom-file))
 
-(if (< emacs-major-version 27)
-    (package-initialize)
-  (setq package-quickstart t))
+;; Check whether package-initialize has already been called
+(when (not (fboundp 'package-installed-p))
+  (package-initialize))
 
+;; Bootstrap use-package
+(when (not (package-installed-p 'use-package))
+  (progn
+    (setq package-archives `(
+                             ("melpa" . "https://melpa.org/packages/")
+                             ("melpa-stable" . "https://stable.melpa.org/packages/")
+                             )
+          )
+    (when (not package-archive-contents)
+      (package-refresh-contents))
+    (package-install 'use-package)
+    ))
 
-;; Bootstrap `use-package'
-(defun my-package-install-refresh-contents (&rest args)
-  "Refresh package list before trying to install a new package."
-  (message "Refreshing packages list before trying to install a new package.")
-  (package-refresh-contents)
-  (advice-remove 'package-install 'my-package-install-refresh-contents))
-
-(advice-add 'package-install :before 'my-package-install-refresh-contents)
-
-(unless (package-installed-p 'use-package)
-  (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/")
-               '("melpa-stable" . "https://stable.melpa.org/packages/"))
-  (package-install 'use-package))
 (eval-when-compile
   (require 'use-package))
 
