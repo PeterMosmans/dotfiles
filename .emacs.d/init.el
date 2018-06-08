@@ -652,18 +652,6 @@
 ;; define font for Unicode Private Use Area block
 (when (member "Symbol" (font-family-list))
   (set-fontset-font "fontset-default" '(#xf000 . #xffff) (font-spec :name "Symbol")))
-(setq
- column-number-indicator-zero-based nil
- compilation-ask-about-save nil
- compile-command "make "
- compilation-read-command nil
- display-time-world-list
- (quote
-  (("AST-10AEST" "BNE")
-   ;; ("Europe/Amsterdam" "AMS")
-   ("CET-1CEST" "AMS")
-   ("MST+7" "MST")
-   )))
 
 ;; OS-specific settings
 (if (string= system-type "windows-nt")
@@ -683,22 +671,26 @@
 
 ;; Emacs variables
 (setq
- desktop-path '("~/.emacs.d/desktop/")    ;; Specify directory for desktop files
  auth-sources '("~/.authinfo.gpg")     ;; Only use encrypted store for (new) secrets
  auto-save-interval 1000               ;; Automatically save after x characters
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
  calendar-intermonth-text              ;; Show week numbers in the calendar
- '(propertize
-   (format "%2d"
-           (car
-            (calendar-iso-from-absolute
-             (calendar-absolute-from-gregorian
-              (list month day year)))))
+ '(propertize 
+   (format "%2d" (car
+                  (calendar-iso-from-absolute
+                   (calendar-absolute-from-gregorian
+                    (list month day year)))))
    'font-lock-face 'calendar-iso-week-face)
+ column-number-indicator-zero-based nil
  column-number-mode t                  ;; Show column-number
  comint-prompt-read-only t             ;; Read only prompt for shell mode
+ compilation-ask-about-save nil
+ compilation-read-command nil
+ compile-command "make "
  completion-ignore-case t              ;; Ignore case when completing
+ desktop-path '("~/.emacs.d/desktop/")    ;; Specify directory for desktop files
  dired-listing-switches "-agoh"
+ display-time-world-list (quote (("AST-10AEST" "BNE") ("CET-1CEST" "AMS") ("MST+7" "MST")))
  ediff-window-setup-function 'ediff-setup-windows-plain
  frame-resize-pixelwise t              ;; Don't round frame sizes on character sizes
  global-font-lock-mode t               ;; Enable syntax highlighting by default
@@ -712,21 +704,23 @@
  ispell-program-name "hunspell"        ;; Use hunspell as default spell checker
  ispell-silently-savep t               ;; Save to personal dictionary without asking
  kill-whole-line t                     ;; Kill whole line including newline
- ;; line-move-visual nil                  ;; Move point by logical line instead of visual
  make-backup-files nil                 ;; Do not create backups
  message-log-max t                     ;; Keep and log all messages
  mouse-wheel-follow-mouse 't
  mouse-wheel-scroll-amount '(1 ((shift) . 1))
+ package-quickstart t
  read-file-name-completion-ignore-case t
  recentf-max-menu-items 15             ;; Show maximum x recent menu items
  recentf-max-saved-items 100           ;; Save maximum x recent files
  recentf-save-file "~/.emacs.d/recentfiles.emacs"
- rst-preferred-adornments '((35 over-and-under 0) ;; # H1 (once per document)
+ rst-preferred-adornments '(
+                            (35 over-and-under 0) ;; # H1 (once per document)
                             (42 over-and-under 0) ;; * H2
                             (61 simple 0)         ;; = H3
                             (45 simple 0)         ;; - H4
                             (94 simple 0)         ;; ^ H5
-                            (34 simple 0))        ;; " H6
+                            (34 simple 0)         ;; " H6
+                            )
  scroll-conservatively 10000
  scroll-margin 1
  scroll-preserve-screen-position 1
