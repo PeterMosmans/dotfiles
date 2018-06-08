@@ -528,6 +528,7 @@
                      (powerline-fill face2
                                      (powerline-width rhs))
                      (powerline-render rhs))))))
+  :pin "melpa"
   :requires mode-icons
   )
 
