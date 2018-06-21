@@ -673,6 +673,14 @@
 (setq
  auth-sources '("~/.authinfo.gpg")     ;; Only use encrypted store for (new) secrets
  auto-save-interval 1000               ;; Automatically save after x characters
+ bibtex-autokey-name-length 10         ;; Use a maximum of 10 characters per name
+ bibtex-autokey-names 2                ;; Use a maximum of 2 author names
+ bibtex-autokey-titleword-length 0     ;; Do not use title words
+ bibtex-autokey-titleword-separator "" ;; Do not use title words
+ bibtex-autokey-titlewords 0           ;; Do not use title words
+ bibtex-autokey-year-length 2          ;; Use 2 characters for a year
+ bibtex-entry-format '(numerical-fields opts-or-alts realign required-fields)
+ bibtex-maintain-sorted-entries 'entry-class
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
  calendar-intermonth-text              ;; Show week numbers in the calendar
  '(propertize 
@@ -732,7 +740,8 @@
  tab-width 4                           ;; default tab width
  tramp-histfile-override t             ;; Disable histfile for tramp
  whitespace-style (quote
-                   (face indentation tabs space-before-tab space-after-tab tab-mark trailing)))
+                   (face indentation tabs space-before-tab space-after-tab tab-mark trailing))
+ )
 
 (delete-selection-mode 1)              ;; Automatically overwrite selected text
 (fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no questions
