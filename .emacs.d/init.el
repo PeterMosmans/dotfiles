@@ -280,7 +280,10 @@
          )
   :config
   (helm-autoresize-mode t)
-  (setq helm-buffers-truncate-lines nil)
+  (setq
+   helm-buffers-truncate-lines nil     ;; Do not truncate lines
+   helm-move-to-line-cycle-in-source t ;; Wrap search results
+   )
   :delight                             ;; No need to show that Helm is loaded
   )
 
