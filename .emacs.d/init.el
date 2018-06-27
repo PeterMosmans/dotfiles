@@ -314,6 +314,12 @@
   :pin "melpa"
   )
 
+(use-package helm-ls-git
+  :after helm
+  :bind (("C-x C-d" . helm-browse-project))
+  :commands helm-ls
+  )
+
 (use-package helm-make
   :after projectile
   :bind (("C-c m" . helm-make-projectile))
