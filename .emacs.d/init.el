@@ -268,6 +268,7 @@
          ("C-c j" . helm-imenu)        ;; J ump to imenu
          ("C-c r" . helm-register)     ;; Show registers
          ("M-y" . helm-show-kill-ring)
+         ("M-s o" . helm-occur)        ;; Use helm instead of regular occur
          ([M-f10] . helm-buffers-list)
          ("C-x C-f" . helm-find-files)
          ([M-x] . helm-M-x)
