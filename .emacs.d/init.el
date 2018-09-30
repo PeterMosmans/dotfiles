@@ -899,6 +899,7 @@
       org-cycle-separator-lines 0      ;; No empty lines needed between subtrees
       org-default-priority ?E          ;; By default, make new TODO items lowest priority ('Eliminate')
       org-default-notes-file my-capture-file
+      org-descriptive-links nil        ;; Display full links
       org-duration-format '(("h" . nil) (special . h:mm))  ;; Don't show days
       org-file-apps (quote             ;; Add several file handlers
                      ((auto-mode . emacs)
