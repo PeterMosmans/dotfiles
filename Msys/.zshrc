@@ -1,14 +1,24 @@
 # OS-independent
 # Only sourced for interactive shell, last
-
+export TMUX_THEME="dracula"
 # Hash subdirectories
 hash -d masters=${MASTERS}
 hash -d kb={KNOWLEDGEBASE}
 
 # OS-specific update shortcuts
-alias emacsbuild='pushd ~emacs && gl && pushd ~emacs-builddir && make'
-alias emacsinstall='rm -rf c:/programs/emacs-previous && mv c:/programs/emacs c:/programs/emacs-previous && pushd ~emacs-builddir && make install-strip prefix=c:/programs/emacs && popd'
-export UPDATE="pacman --color=auto -Syuu"
+# --color <when>
+#    Specify when to enable coloring. Valid options are always, never, or auto.
+# -S, --sync
+#    Synchronize packages
+# -y, --refresh
+#    Download a fresh copy of the master package database from the server(s)
+#    defined in pacman.conf
+# -u, --sysupgrade
+#    Upgrades all packages that are out-of-date.
+# -d, --nodeps
+#    Skips dependency version checks. Specify this option twice to skip all
+#    dependency checks.
+export UPDATE="pacman --color=auto -Syud"
 
 # Interactive alias bindings
 export BROWSER="c:/Program Files (x86)/Mozilla Firefox/firefox.exe"
@@ -54,7 +64,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Enable a subset of plugins and enforce terminal type while running in Emacs
 if [[ -n "$INSIDE_EMACS" ]]; then
     plugins=(git)
-    export TERM="eterm-color"
+    # export TERM="eterm-color"
     # export TERM="dumb-emacs-ansi"
 else
     export ZSH_TMUX_AUTOSTART=true
@@ -63,7 +73,6 @@ else
 fi
 
 # User configuration
-
 # export MANPATH="/usr/local/man:$MANPATH"
 
 
@@ -81,6 +90,8 @@ alias -g L="|less"
 alias -g M="|more"
 # show output as one horizontal line
 alias -g trn="|tr '\n' ' '; echo"
+# show unique second column data
+alias -g ucs='| awk '\''{print $2}'\'' | sort -u'
 
 show_colors() {
     for i in {0..255} ; do
@@ -163,3 +174,4 @@ export ZSH=$HOME/repos/oh-my-zsh
 ZSH_THEME="compact-grey"
 [[ -f $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh
 
+export PATH=$PATH:/cygdrive/c/media/repos/public/python-utils:/c/WINDOWS/System32/WindowsPowerShell/v1.0:
