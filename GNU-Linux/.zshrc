@@ -44,7 +44,7 @@ if [[ -n "$INSIDE_EMACS" ]]; then
 else
     export ZSH_TMUX_AUTOSTART=true
     export ZSH_TMUX_UNICODE=true
-    plugins=(git tmux)
+    plugins=(docker git tmux)
 fi
 
 
