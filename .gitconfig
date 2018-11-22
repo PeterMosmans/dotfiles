@@ -54,3 +54,5 @@
   textconv = pdftostdout
 [diff "pptx"]
   textconv = pptxtostdout
+[diff "smmx"]
+  textconv = smmxtostdout
