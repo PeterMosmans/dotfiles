@@ -508,8 +508,9 @@
                          (powerline-buffer-id face1) ;; buffer name
                          (funcall separator-left face1 face2)
                          (powerline-vc face2 'r)  ;; The middle
-                         (when (bound-and-true-p which-func-mode)
-                           (powerline-raw which-func-format face2 'r))
+                         (unless (bound-and-true-p my-presentation-mode)
+                           (when (bound-and-true-p which-func-mode)
+                             (powerline-raw which-func-format face2 'r)))
                          (when
                              (bound-and-true-p nyan-mode)
                            (powerline-raw
@@ -526,13 +527,14 @@
                          (funcall separator-right face2 bold-face)
                          (when (boundp 'eyebrowse-mode-line-separator)
                            (powerline-raw (eyebrowse-mode-line-indicator) face1))
-                         (if (boundp 'org-mode-line-string)
-                             (powerline-raw (propertize org-mode-line-string 'face face1) face1)
-                           (powerline-raw "NOT CLOCKED IN" alert-face))
-                         (when powerline-display-hud
-                           (powerline-hud bold-face face1)
-                           (powerline-raw (concat " " display-time-string) bold-face 'r)
-                           ))))
+                         (unless (bound-and-true-p my-presentation-mode)
+                           (if (boundp 'org-mode-line-string)
+                               (powerline-raw (propertize org-mode-line-string 'face face1) face1)
+                             (powerline-raw "NOT CLOCKED IN" alert-face))
+                           (when powerline-display-hud
+                             (powerline-hud bold-face face1)
+                             (powerline-raw (concat " " display-time-string) bold-face 'r)
+                             )))))
                     (concat
                      (powerline-render lhs)
                      (powerline-fill face2
@@ -1790,8 +1792,10 @@ Uses `current-date-time-format' for the formatting the date/time."
             (if (bound-and-true-p my-presentation-mode)
                 (progn
                   (blink-cursor-mode 0)
+                  (menu-bar-mode 0)
+                  (tool-bar-mode 0)
                   (setq auto-save-default nil
-                        visible cursor nil))
+                        visible-cursor nil))
               (helm-mode t)
               (projectile-mode t)
               (global-company-mode)
