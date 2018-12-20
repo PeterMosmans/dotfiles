@@ -10,45 +10,56 @@
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
-# Destination where the files need to be installed
-DESTINATIONPATH=~
-# Files and directories which need to be installed
-SOURCEFILES=".aliases .bashrc .emacs.d/init.el .gitconfig .gitignore_global .tmux.conf .tmux.default.theme .tmux.dracula.theme"
-# OS-specificy (uname -o) files and directories
-OSSPECIFIC=".ssh/config .zshrc .zshenv"
+# Define associative arrays
+declare -A linkfiles
+declare -A osfiles
 
+# Files to link
+linkfiles=(
+    [.]=".aliases .bashrc .gitconfig .gitignore_global .tmux.conf .tmux.default.theme .tmux.dracula.theme"
+    [.emacs.d]="init.el"
+)
+
+# Files to link, depending on OS
+osfiles=(
+    [.]=".minttyrc .zshenv .zshrc"
+    [.ssh]="config"
+)
 
 ## Don't change anything below this line
-VERSION=0.6
+VERSION=0.7
 
-OS=$(uname -o|sed "s/\//-/")
-REALPATH=$(dirname $0)
-# make sure this doesn't error out when readlink -f isn't available (OSX)
-readlink -f $0 &>/dev/null && REALPATH=$(dirname $(readlink -f $0))
-mkdir -p ${DESTINATIONPATH} 2>/dev/null
+os=$(uname -o|sed "s/\//-/")
+source=$(dirname $(readlink -f $0))
+target=$1
 
-for link in ${SOURCEFILES}; do
-    if echo ${link} | grep -q "/" ; then
-        mkdir -p "$(dirname ${DESTINATIONPATH}/${link}/)"
+# Check whether the script is being executed from within the source directory
+if [ -z "$target" ]; then
+    target=$(readlink -f .)
+     if [ "${target}" == "${source}" ]; then
+        echo "Usage: installer.sh [TARGET]"
+        echo "       or run from within target directory"
+        exit
     fi
-    if [ -f ${REALPATH}/${link} ]; then
-        echo hard linking ${link}
-        ln --force "${REALPATH}/${link}" "${DESTINATIONPATH}/${link}"
-    fi
-    if [ -d ${REALPATH}/${link} ]; then
-        echo hard linking directory ${link}
-        pushd ${link} &>/dev/null
-        for i in *; do
-            ln --force "${i}" "${DESTINATIONPATH}/${link}/${i}"
-        done
-        popd &>/dev/null
-    fi
+fi
+
+echo "[*] Installing..."
+
+# Link files
+for targetdirectory in "${!linkfiles[@]}"; do
+    mkdir -p ${target}/${targetdirectory}/ &>/dev/null
+    for file in ${linkfiles[$targetdirectory]}; do
+        ln -fsv ${source}/${targetdirectory}/${file} ${target}/${targetdirectory}/${file}
+    done
 done
 
-# operating-system specific
-for link in ${OSSPECIFIC}; do
-    if [[ -f "${REALPATH}/${OS}/${link}" ]]; then
-        echo hard linking ${OS}-specific ${link}
-        ln -f "${REALPATH}/${OS}/${link}" "${DESTINATIONPATH}/${link}"
-    fi
+# Link operating-system specific files
+for targetdirectory in "${!osfiles[@]}"; do
+    for file in ${osfiles[$targetdirectory]}; do
+        if [[ -f ${source}/${os}/${file} ]]; then
+            ln -fsv ${source}/${os}/${targetdirectory}/${file} ${target}/${targetdirectory}/${file}
+        fi
+    done
 done
+
+echo "[+] Done"
