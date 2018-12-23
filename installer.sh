@@ -49,7 +49,7 @@ echo "[*] Installing..."
 for targetdirectory in "${!linkfiles[@]}"; do
     mkdir -p ${target}/${targetdirectory}/ &>/dev/null
     for file in ${linkfiles[$targetdirectory]}; do
-        ln -fsv ${source}/${targetdirectory}/${file} ${target}/${targetdirectory}/${file}
+        ln -fv ${source}/${targetdirectory}/${file} ${target}/${targetdirectory}/${file}
     done
 done
 
@@ -57,7 +57,7 @@ done
 for targetdirectory in "${!osfiles[@]}"; do
     for file in ${osfiles[$targetdirectory]}; do
         if [[ -f ${source}/${os}/${file} ]]; then
-            ln -fsv ${source}/${os}/${targetdirectory}/${file} ${target}/${targetdirectory}/${file}
+            ln -fv ${source}/${os}/${targetdirectory}/${file} ${target}/${targetdirectory}/${file}
         fi
     done
 done
