@@ -13,7 +13,6 @@ alias less='less -X'
 # show numbered directory stack
 alias ds='dirs -v -p'
 # programs
-alias editor=emacs
+alias emacs=$EDITOR
 # pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
-which winpty &>/dev/null && alias ipython='winpty ipython'
