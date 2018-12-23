@@ -1,9 +1,14 @@
 # OS-independent
 # Only sourced for interactive shell, last
+export ZSH=c:/source/public/oh-my-zsh
+export EDITOR=c:/programs/emacs.sh
 export TMUX_THEME="dracula"
+ZSH_THEME="compact-grey"
+
+export GIT_EDITOR=$EDITOR
+
+
 # Hash subdirectories
-hash -d masters=${MASTERS}
-hash -d kb={KNOWLEDGEBASE}
 
 # OS-specific update shortcuts
 # --color <when>
@@ -18,11 +23,12 @@ hash -d kb={KNOWLEDGEBASE}
 # -d, --nodeps
 #    Skips dependency version checks. Specify this option twice to skip all
 #    dependency checks.
-export UPDATE="pacman --color=auto -Syud"
+export UPDATE="pacman --color=auto -Syudd"
 
 # Interactive alias bindings
 export BROWSER="c:/Program Files (x86)/Mozilla Firefox/firefox.exe"
 export READER="c:/Program Files/SumatraPDF/SumatraPDF.exe"
+
 
 # Tell ncurses to use UTF-8
 export NCURSES_NO_UTF8_ACS=1
@@ -64,12 +70,10 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Enable a subset of plugins and enforce terminal type while running in Emacs
 if [[ -n "$INSIDE_EMACS" ]]; then
     plugins=(git)
-    # export TERM="eterm-color"
-    # export TERM="dumb-emacs-ansi"
 else
-    export ZSH_TMUX_AUTOSTART=true
-    export ZSH_TMUX_UNICODE=true
-    plugins=(git git-flow pylint tmux vagrant)
+    ZSH_TMUX_AUTOSTART=true
+    ZSH_TMUX_UNICODE=true
+    plugins=(git tmux vagrant)
 fi
 
 # User configuration
@@ -144,19 +148,6 @@ setopt NULL_GLOB
 ## Line editor
 setopt NO_BEEP
 
-# create hashes for all subdirectories / repositories
-for sub in public private projects; do
-    if [ -d ${REPOS}/${sub} ]; then
-        pushd ${REPOS}/${sub} &>/dev/null
-        for repo in echo *(/); do
-            hash -d ${repo}=${REPOS}/${sub}/${repo}
-        done
-        popd &>/dev/null
-    fi
-done
-
-[ ! -z ${REPOS} ] && [ -d ${REPOS} ] && hash -d repos=${REPOS} || true
-
 # load Bash and zsh compatible aliases
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases
 [[ -f "${BROWSER}" ]] && alias -s htm='${BROWSER}'
@@ -166,12 +157,9 @@ done
 [[ -f "${READER}" ]] && alias -s pdf='${READER}'
 [[ ! -z "$UPDATE" ]] && alias update="${UPDATE}"
 
-#If on Windows, change from 1252 (default) to UTF-8 codepage for output
+
+# If on Windows, change from 1252 (default) to UTF-8 codepage for output
 chcp 65001 > /dev/null
 
 # Start oh-my-zsh
-export ZSH=$HOME/repos/oh-my-zsh
-ZSH_THEME="compact-grey"
 [[ -f $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh
-
-export PATH=$PATH:/cygdrive/c/media/repos/public/python-utils:/c/WINDOWS/System32/WindowsPowerShell/v1.0:
