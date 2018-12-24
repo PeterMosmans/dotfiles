@@ -42,9 +42,14 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 if [[ -n "$INSIDE_EMACS" ]]; then
     plugins=()
 else
-    export ZSH_TMUX_AUTOSTART=true
-    export ZSH_TMUX_UNICODE=true
-    plugins=(docker git tmux)
+    # Disable tmux when logging in remotely
+    if [[ -n "$SSH_CONNECTION" ]]; then
+        plugins=(docker git)
+    else
+        export ZSH_TMUX_AUTOSTART=true
+        export ZSH_TMUX_UNICODE=true
+        plugins=(docker git tmux)
+    fi
 fi
 
 
