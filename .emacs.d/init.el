@@ -30,7 +30,7 @@
 ;; my-theme
 ;; my-wordnet-dictionary
 ;; my-wordnet-program
-;; start-with-agenda
+;; my-start-with-agenda
 ;;
 ;; Note that the defaults will be used if the variables aren't defined
 (defgroup my-customizations nil
@@ -1807,7 +1807,7 @@ Uses `current-date-time-format' for the formatting the date/time."
               (if (bound-and-true-p initial-buffer-choice)
                   (if (get-buffer "*scratch*")
                       (kill-buffer "*scratch*")))
-              (when (boundp 'start-with-agenda)
+              (when (boundp 'my-start-with-agenda)
                 (my-open-custom-agenda)))
             (raise-frame)
             (require 'server)
