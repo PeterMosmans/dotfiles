@@ -134,6 +134,7 @@
 ;; disabled:  (temporarily) disable a package
 ;; ensure:    make sure the package is installed
 ;; hook:      Add functions onto hooks
+;;            :hook name-of-mode
 ;;            :hook ((text-mode . name-of-mode))
 ;; init:      Execute code *before* a package is loaded (implies defer)
 ;; load-path: path of the files for local packages
