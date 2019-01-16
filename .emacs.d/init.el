@@ -443,6 +443,9 @@
   :pin "melpa"
   )
 
+(use-package polymode                 ;; Use modes within modes
+  )
+
 (use-package powerline
   :after mode-icons
   ;;  :config (my-apply-colors)
