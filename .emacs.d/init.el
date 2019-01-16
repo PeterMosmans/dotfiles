@@ -763,7 +763,7 @@
 (delete-selection-mode 1)              ;; Automatically overwrite selected text
 (fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no questions
 (global-whitespace-mode 1)             ;; Globally enable whitespace mode
-(tramp-change-syntax 'simplified)      ;; Use /host:file syntax
+(customize-set-variable 'tramp-syntax 'simplified)      ;; Use /host:file syntax
 
 (show-paren-mode 1)
 
