@@ -106,6 +106,6 @@ setopt NO_BEEP
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases
 
 # Start oh-my-zsh
-export ZSH=$HOME/repos/oh-my-zsh
+export ZSH=$HOME/oh-my-zsh
 ZSH_THEME="compact-grey"
 [[ -f $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh
