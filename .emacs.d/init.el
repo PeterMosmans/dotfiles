@@ -218,6 +218,10 @@
   :init (with-eval-after-load 'python (elpy-enable))  ;; file is loaded
   )
 
+(use-package emmet-mode
+  :hook web-mode
+  )
+
 (use-package fill-column-indicator
   :commands fci-mode
   :config
