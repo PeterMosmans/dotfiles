@@ -26,7 +26,7 @@ export GIT_EDITOR=$EDITOR
 export UPDATE="pacman --color=auto -Syudd"
 
 # Interactive alias bindings
-export BROWSER="c:/Program Files (x86)/Mozilla Firefox/firefox.exe"
+export BROWSER="c:/Program Files/Mozilla Firefox/firefox.exe"
 export READER="c:/Program Files/SumatraPDF/SumatraPDF.exe"
 
 
@@ -150,11 +150,12 @@ setopt NO_BEEP
 
 # load Bash and zsh compatible aliases
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases
-[[ -f "${BROWSER}" ]] && alias -s htm='${BROWSER}'
-[[ -f "${BROWSER}" ]] && alias -s html='${BROWSER}'
-[[ -f "${EDITOR}" ]] && alias -s txt='${EDITOR}'
-[[ -f "${READER}" ]] && alias -s epub='${READER}'
-[[ -f "${READER}" ]] && alias -s pdf='${READER}'
+# For direct links to work in zsh, replace spaces with backslash spaces
+[[ -f ${BROWSER} ]] && alias -s htm="$(echo $BROWSER|sed -e 's/ /\\\ /g')"
+[[ -f ${BROWSER} ]] && alias -s html="$(echo $BROWSER|sed -e 's/ /\\\ /g')"
+[[ -f "${EDITOR}" ]] && alias -s txt=${EDITOR}
+[[ -f "${READER}" ]] && alias -s epub=${READER}
+[[ -f "${READER}" ]] && alias -s pdf=${READER}
 [[ ! -z "$UPDATE" ]] && alias update="${UPDATE}"
 
 
