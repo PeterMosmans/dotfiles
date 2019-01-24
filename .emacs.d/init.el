@@ -363,6 +363,9 @@
   :delight
   )
 
+(use-package hydra
+  )
+
 (use-package imenu-list
   :bind ("C-c i" . imenu-list-smart-toggle)
   :config (setq imenu-list-position 'left)
