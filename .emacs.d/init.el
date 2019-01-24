@@ -1711,6 +1711,8 @@ Uses `current-date-time-format' for the formatting the date/time."
        (defhydra hydra-kill-move-diff
          (:body-pre (kill-line))
          "move"
+         ("m" bm-toggle)
+         ("M" bm-next)
          ("n" next-line)
          ("p" previous-line)
          ("f" forward-char)
