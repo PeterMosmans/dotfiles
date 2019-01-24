@@ -768,11 +768,11 @@
                    (face indentation tabs space-before-tab space-after-tab tab-mark trailing))
  )
 
+(customize-set-variable 'tramp-syntax 'simplified)      ;; Use /host:file syntax
 (delete-selection-mode 1)              ;; Automatically overwrite selected text
 (fset 'yes-or-no-p 'y-or-n-p)          ;; enable y/n answers to yes/no questions
 (global-whitespace-mode 1)             ;; Globally enable whitespace mode
-(customize-set-variable 'tramp-syntax 'simplified)      ;; Use /host:file syntax
-
+(menu-bar-mode 0)                      ;; Disable menu bar by default
 (show-paren-mode 1)
 
 
@@ -1033,7 +1033,7 @@
 (if (eq system-uses-terminfo t)         ;; terminal
     (progn                              ;; PuTTY needs to be in SCO mode
       (xterm-mouse-mode 0)              ;; use mouse even in terminal mode
-      (menu-bar-mode 0)                 ;; disable menu bar
+
       ;;      (mouse-wheel-mode t)            ;; putty incompatibility hack
       (define-key key-translation-map [\e] [\M])
       (define-key input-decode-map "\e[H" [home])
