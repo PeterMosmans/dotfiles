@@ -76,10 +76,6 @@
   "Path to wordnet dictionary."
   :type 'string
   :group 'my-customizations)
-(defcustom my-wordnet-program nil
-  "Location of wordnet executable."
-  :type 'string
-  :group 'my-customizations)
 
 ;; (setq debug-on-error t)             ;; Uncomment for debugging options
 (setq gc-cons-threshold 500000000)     ;; Improve startup time
@@ -348,8 +344,13 @@
   :after helm
   :bind ("C-c s" . helm-wordnet-suggest)
   :config
-  (setq helm-wordnet-wordnet-location my-wordnet-dictionary
-        helm-wordnet-prog my-wordnet-program)
+  (setq
+   helm-wordnet-follow-delay 0
+   helm-wordnet-post-arg "-over -synsa"  ;; Show an overview as well as synonyms
+   )
+  ;; Only try to set the dictionary manually when necessary
+  (unless (bound-and-true-p helm-wordnet-wordnet-location)
+    (setq helm-wordnet-wordnet-location my-wordnet-dictionary))
   :pin "melpa"
   )
 
