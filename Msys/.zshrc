@@ -153,9 +153,9 @@ setopt NO_BEEP
 # For direct links to work in zsh, replace spaces with backslash spaces
 [[ -f ${BROWSER} ]] && alias -s htm="$(echo $BROWSER|sed -e 's/ /\\\ /g')"
 [[ -f ${BROWSER} ]] && alias -s html="$(echo $BROWSER|sed -e 's/ /\\\ /g')"
-[[ -f "${EDITOR}" ]] && alias -s txt=${EDITOR}
-[[ -f "${READER}" ]] && alias -s epub=${READER}
-[[ -f "${READER}" ]] && alias -s pdf=${READER}
+[[ -f "${EDITOR}" ]] && alias -s txt="$(echo $EDITOR|sed -e 's/ /\\\ /g')"
+[[ -f "${READER}" ]] && alias -s epub="$(echo $READER|sed -e 's/ /\\\ /g')"
+[[ -f "${READER}" ]] && alias -s pdf="$(echo $READER|sed -e 's/ /\\\ /g')"
 [[ ! -z "$UPDATE" ]] && alias update="${UPDATE}"
 
 
