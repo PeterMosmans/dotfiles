@@ -1,2 +1,6 @@
 Term=xterm-256color
 Font=Source Code Pro
+FontHeight=10
+FontSmoothing=full
+BoldAsFont=yes
+ThemeFile=dracula
