@@ -4,6 +4,10 @@
 # Tell ncurses to use UTF-8
 export NCURSES_NO_UTF8_ACS=1
 
+# Use nice colors for less
+export LESSOPEN="|/usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+export LESS=' -R '
+
 # Check for and load terminal-specific keybindings
 [ -f ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ] && source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#History-Control
