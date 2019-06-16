@@ -463,6 +463,7 @@
   )
 
 (use-package polymode                 ;; Use modes within modes
+  :disabled t
   )
 
 (use-package powerline
