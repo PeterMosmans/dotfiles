@@ -448,6 +448,9 @@
   :pin "melpa"
   )
 
+(use-package ob-http                   ;; Perform HTTP requests within org-mode
+  )
+
 (use-package org-ref
   :after org
   :disabled t
@@ -800,10 +803,13 @@
            my-org-directory))
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((dot . t)
+ '(
+   (dot . t)
+   (http . t)
    (plantuml . t)
    (python . t)
-   (shell . t)))
+   (shell . t)
+   ))
 
 (setq org-agenda-compact-blocks t      ;; skip long block separators
       org-agenda-custom-commands
