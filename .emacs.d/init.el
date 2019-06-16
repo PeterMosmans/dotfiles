@@ -209,13 +209,15 @@
   (setq dumb-jump-selector 'helm
         dump-jump-force-searcher 'ag)
   :disabled t
-  :hook (prog-mode . dumb-jump-mode)
+  :hook prog-mode
   )
+
 
 (use-package elpy
   :bind (:map elpy-mode-map ("M-." . elpy-goto-definition))
   :config
-  ;; (setq elpy-rpc-backend "jedi"
+  (setq python-shell-interpreter "python3")
+                                        ;elpy-rpc-backend "jedi"
   ;;       python-shell-completion-native-enable nil)
   (elpy-enable)
   :hook (elpy-mode . flycheck-mode)    ;; Enforce flycheck mode
