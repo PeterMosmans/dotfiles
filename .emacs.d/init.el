@@ -138,6 +138,14 @@
 ;;            :mode ("\\.py\\'" . python-mode)
 ;; pin:       pin to a specific repository
 
+(use-package ansible
+  :after company
+  :hook (
+         (ansible-mode . (lambda () (setq company-backends '(company-ansible))))
+         (yaml-mode . ansible)
+         )
+  )
+
 (use-package aggressive-indent
   :hook (emacs-lisp-mode . aggressive-indent-mode)
   )
