@@ -321,6 +321,10 @@
   :after helm
   )
 
+(use-package helm-descbinds            ;; Describe keybindings using the Helm interface
+  :after helm
+  )
+
 (use-package helm-flyspell
   :after (flyspell helm)
   :bind (("C-;" . helm-flyspell-correct))
