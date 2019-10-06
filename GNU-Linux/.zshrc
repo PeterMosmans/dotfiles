@@ -36,13 +36,13 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 
 # Disable tmux while running in Emacs
-if [[ ! -n "$INSIDE_EMACS" ]]; then
+if [[ -n "$INSIDE_EMACS" ]]; then
     ZSH_TMUX_AUTOSTART=false
     ZSH_TMUX_UNICODE=true
-fi
-# Disable tmux when logging in remotely
-if [[ -n "$SSH_CONNECTION" ]]; then
-    ZSH_TMUX_AUTOSTART=false
+    # Disable tmux when logging in remotely
+    if [[ -n "$SSH_CONNECTION" ]]; then
+        ZSH_TMUX_AUTOSTART=false
+    fi
 fi
 
 
