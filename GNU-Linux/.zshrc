@@ -5,7 +5,7 @@ export ZPLUG_HOME=~/.zplug
 ZSH_TMUX_AUTOSTART=true
 export TMUX_THEME="dracula"
 export GIT_EDITOR=$EDITOR
-
+HISTFILE=~/.zsh_history
 # Tell ncurses to use UTF-8
 export NCURSES_NO_UTF8_ACS=1
 
