@@ -111,5 +111,5 @@ zplug "themes/agnoster", as:theme, from:oh-my-zsh
 zplug "zsh-users/zsh-syntax-highlighting" #  Should be last
 zplug load
 # Check if this is the first run; if so, install all necessary plugins and themes
-[[ ! -f $ZPLUG_HOME/zcompdump ]] && zplug install
+[[ ! -d $ZPLUG_HOME/repos/robbyrussell/ ]] && zplug install
 
