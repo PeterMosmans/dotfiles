@@ -39,12 +39,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 if [[ -n "$INSIDE_EMACS" ]]; then
     ZSH_TMUX_AUTOSTART=false
     ZSH_TMUX_UNICODE=true
-    # Disable tmux when logging in remotely
-    if [[ -n "$SSH_CONNECTION" ]]; then
-        ZSH_TMUX_AUTOSTART=false
-    fi
 fi
-
 
 ## global aliases
 # case insensitive matches, recursive, show filename
