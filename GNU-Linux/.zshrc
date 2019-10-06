@@ -110,6 +110,6 @@ zplug "zsh-users/zsh-autosuggestions"
 zplug "themes/agnoster", as:theme, from:oh-my-zsh
 zplug "zsh-users/zsh-syntax-highlighting" #  Should be last
 zplug load
-# Check if this is the first run; if so, install all necessary plugins and themes
-[[ ! -d $ZPLUG_HOME/repos/robbyrussell/ ]] && zplug install
+# Check if this is the first run; if so, install and reload plugins
+[[ ! -d $ZPLUG_HOME/repos/robbyrussell/ ]] && zplug install && zplug load
 
