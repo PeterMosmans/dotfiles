@@ -86,6 +86,11 @@ urlencode() {
 # Using the AUTOCD option, you can simply type the name of a directory,
 # and it will become the current directory.
 setopt AUTOCD
+# If the argument to cd is the name of a parameter whose value is a valid directory,
+# it will become the current directory.
+setopt CDABLEVARS
+# INTERACTIVECOMMENTS turns on interactive comments; comments begin with a #.
+setopt INTERACTIVECOMMENTS
 
 show_colors() {
     for i in {0..255} ; do
