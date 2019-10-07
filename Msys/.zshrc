@@ -1,37 +1,21 @@
 # OS-independent
 # Only sourced for interactive shell, last
-export ZSH=c:/source/public/oh-my-zsh
-export EDITOR=c:/programs/emacs.sh
+
+export ZPLUG_HOME=~/.zplug
+ZSH_TMUX_AUTOSTART=true
 export TMUX_THEME="dracula"
-ZSH_THEME="compact-grey"
-
 export GIT_EDITOR=$EDITOR
-
-
-# Hash subdirectories
+HISTFILE=~/.zsh_history
+# Tell ncurses to use UTF-8
+export NCURSES_NO_UTF8_ACS=1
 
 # OS-specific update shortcuts
-# --color <when>
-#    Specify when to enable coloring. Valid options are always, never, or auto.
-# -S, --sync
-#    Synchronize packages
-# -y, --refresh
-#    Download a fresh copy of the master package database from the server(s)
-#    defined in pacman.conf
-# -u, --sysupgrade
-#    Upgrades all packages that are out-of-date.
-# -d, --nodeps
-#    Skips dependency version checks. Specify this option twice to skip all
-#    dependency checks.
 export UPDATE="pacman --color=auto -Syudd"
 
 # Interactive alias bindings
-export BROWSER="c:/Program Files/Mozilla Firefox/firefox.exe"
-export READER="c:/Program Files/SumatraPDF/SumatraPDF.exe"
+export BROWSER='c:/Program\ Files/Mozilla\ Firefox/firefox.exe'
+export READER="c:/Program\ Files/SumatraPDF/SumatraPDF.exe"
 
-
-# Tell ncurses to use UTF-8
-export NCURSES_NO_UTF8_ACS=1
 
 # Check for and load terminal-specific keybindings
 [ -f ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ] && source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
@@ -45,9 +29,6 @@ export NCURSES_NO_UTF8_ACS=1
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -69,19 +50,9 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Enable a subset of plugins and enforce terminal type while running in Emacs
 if [[ -n "$INSIDE_EMACS" ]]; then
-    plugins=(git)
-else
-    ZSH_TMUX_AUTOSTART=true
+    ZSH_TMUX_AUTOSTART=false
     ZSH_TMUX_UNICODE=true
-    plugins=(git tmux vagrant)
 fi
-
-# User configuration
-# export MANPATH="/usr/local/man:$MANPATH"
-
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
 
 ## global aliases
 # case insensitive matches, recursive, show filename
@@ -162,5 +133,16 @@ setopt NO_BEEP
 # If on Windows, change from 1252 (default) to UTF-8 codepage for output
 chcp 65001 > /dev/null
 
-# Start oh-my-zsh
-[[ -f $ZSH/oh-my-zsh.sh ]] && source $ZSH/oh-my-zsh.sh
+source ~/.zplug/init.zsh
+zplug "plugins/tmux", from:oh-my-zsh
+zplug "b4b4r07/enhancd", use:init.sh
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/github", from:oh-my-zsh
+zplug "plugins/sudo", from:oh-my-zsh
+zplug "zsh-users/zsh-autosuggestions"
+zplug "themes/agnoster", as:theme, from:oh-my-zsh
+zplug "zsh-users/zsh-syntax-highlighting" #  Should be last
+zplug load
+# Check if this is the first run; if so, install and reload plugins
+zplug check || zplug install && zplug load
+
