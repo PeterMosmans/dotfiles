@@ -101,11 +101,13 @@ LS_COLORS='bd=38;5;68:ca=38;5;17:cd=38;5;113;1:di=38;5;30:do=38;5;127:ex=38;5;20
 export LS_COLORS
 source ~/.zplug/init.zsh
 zplug "plugins/tmux", from:oh-my-zsh
+zplug "MichaelAquilina/zsh-you-should-use"  # Check which aliases are being used
+zplug "ael-code/zsh-colored-man-pages"
 zplug "b4b4r07/enhancd", use:init.sh
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/sudo", from:oh-my-zsh
-zplug "zsh-users/zsh-autosuggestions"
 zplug "themes/agnoster", as:theme, from:oh-my-zsh
+zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting" #  Should be last
 zplug load
 # Check if this is the first run; if so, install and reload plugins
