@@ -13,8 +13,10 @@ HISTFILE=~/.zsh_history
 export NCURSES_NO_UTF8_ACS=1
 
 # Use nice colors for less
-export LESSOPEN="|/usr/share/source-highlight/src-hilite-lesspipe.sh %s"
-export LESS=' -R '
+if [[ -f /usr/share/source-highlight/src-hilite-lesspipe.sh ]]; then
+  export LESSOPEN="|/usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+  export LESS=' -R '
+fi
 
 # Check for and load terminal-specific keybindings
 [ -f ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ] && source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
