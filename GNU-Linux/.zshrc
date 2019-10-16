@@ -27,7 +27,7 @@ fi
 [[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
 [[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-history
 [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-history
-
+bindkey "^[[3~" delete-char  # Map the delete key
 # Uncomment the following line to enable command auto-correction.
 #ENABLE_CORRECTION="true"
 
