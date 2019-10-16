@@ -26,7 +26,7 @@ export READER="c:/Program\ Files/SumatraPDF/SumatraPDF.exe"
 [[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
 [[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-history
 [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-history
-
+bindkey "^[[3~" delete-char  # Map the delete key
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
