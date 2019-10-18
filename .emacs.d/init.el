@@ -1809,11 +1809,12 @@ Uses `current-date-time-format' for the formatting the date/time."
             ))
 
 (add-hook 'prog-mode-hook (lambda ()
-                            (flyspell-prog-mode)
+                                        ;                            (flyspell-prog-mode)
                             (display-line-numbers-mode)
                             (which-function-mode)))
 
-(add-hook 'rst-mode-hook (lambda ()
+(add-hook 'rst-mode-hook (lambda ()    ;; Automatically perform syntax check after saving
+                           (add-hook 'after-save-hook 'my-rstlint nil t)
                            (auto-fill-mode 1)
                            (yas-minor-mode)))
 
