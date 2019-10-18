@@ -1406,6 +1406,13 @@ ARG is a prefix argument.  If nil, copy the current difference region."
     (cancel-timer my-running-timer))
   (setq my-running-timer nil))
 
+(defun my-compilation-exit-autoclose (STATUS code msg)
+  "Close the compilation window if there was no error at all."
+  (when (and (eq STATUS 'exit) (zerop code))
+    (bury-buffer)
+    (delete-window (get-buffer-window (get-buffer "*compilation*"))))
+  (cons msg code))
+
 (defun my-compile-anywhere ()
   "Search for a Makefile in directories recursively, and compile when found."
   (interactive)
