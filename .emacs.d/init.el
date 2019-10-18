@@ -756,6 +756,7 @@
  ispell-personal-dictionary "~/personal-dictionary"
  ispell-program-name "hunspell"        ;; Use hunspell as default spell checker
  ispell-silently-savep t               ;; Save to personal dictionary without asking
+ js-indent-level 2                     ;; Indentation for JavaScript
  kill-whole-line t                     ;; Kill whole line including newline
  make-backup-files nil                 ;; Do not create backups
  message-log-max t                     ;; Keep and log all messages
