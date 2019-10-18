@@ -1410,13 +1410,6 @@ ARG is a prefix argument.  If nil, copy the current difference region."
     (cancel-timer my-running-timer))
   (setq my-running-timer nil))
 
-(defun my-compilation-exit-autoclose (STATUS code msg)
-  "Close the compilation window if there was no error at all."
-  (when (and (eq STATUS 'exit) (zerop code))
-    (bury-buffer)
-    (delete-window (get-buffer-window (get-buffer "*compilation*"))))
-  (cons msg code))
-
 (defun my-compile-anywhere ()
   "Search for a Makefile in directories recursively, and compile when found."
   (interactive)
@@ -1561,7 +1554,33 @@ Uses `current-date-time-format' for the formatting the date/time."
   (compile (concat "rst-lint " (buffer-file-name))) ;; use rst-lint
   )
 
+(defun my-prettier-overwrite()
+  "Automatically overwrite file with opinionated prettier formatting."
+  (interactive)
+  (shell-command (concat "prettier --write " (buffer-file-name)))
+  (revert-buffer :ignore-auto :noconfirm)
+  )
+
+(defun my-prettier-diff()
+  "Perform a diff with the opinionated prettier formatted version."
+  (interactive)
+  (compile (concat "diff -B <(prettier " (buffer-file-name) ") " (buffer-file-name)))
+  )
+
+(defun my-compilation-exit-autoclose (STATUS code msg)
+  "Close the compilation window if there was no error at all."
+  (when (and (eq STATUS 'exit) (zerop code))
+    (bury-buffer)
+    (delete-window (get-buffer-window (get-buffer "*compilation*"))))
+  (cons msg code))
+
 (setq compilation-exit-message-function 'my-compilation-exit-autoclose)
+
+(defun compile-quietly ()
+  "Re-compile without changing the window configuration."
+  (interactive)
+  (save-window-excursion
+    (recompile)))
 
 ;; http://emacswiki.org/emacs/SwitchingBuffers
 (defun my-switch-to-previous-buffer ()
