@@ -1812,7 +1812,7 @@ Uses `current-date-time-format' for the formatting the date/time."
             ))
 
 (add-hook 'prog-mode-hook (lambda ()
-                                        ;                            (flyspell-prog-mode)
+                            (flyspell-prog-mode)
                             (display-line-numbers-mode)
                             (which-function-mode)))
 
@@ -1832,10 +1832,15 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'text-mode-hook
           (lambda ()
-            (flyspell-mode 1)
+                                        ;            (flyspell-mode 1)
             (display-line-numbers-mode)
             (visual-line-mode 0)       ;; show a symbol for wrapping lines,
             (setq word-wrap 1)))       ;; but still wrap words nicely
+
+(add-hook 'yaml-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook 'my-prettier-diff nil t)
+            ))
 
 ;; builtin hooks
 (add-hook 'emacs-startup-hook          ;; After loading init file and packages
