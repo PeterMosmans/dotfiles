@@ -48,7 +48,7 @@
   "(Non-standard) org-directory."
   :type 'directory
   :group 'my-customizations)
-(defcustom my-capture-file (concat my-org-directory  "/capture-org")
+(defcustom my-capture-file (concat my-org-directory  "/capture.org")
   "Default 'org-mode' capture file."
   :type 'file
   :group 'my-customizations)
