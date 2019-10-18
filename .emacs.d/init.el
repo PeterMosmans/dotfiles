@@ -1551,12 +1551,14 @@ Uses `current-date-time-format' for the formatting the date/time."
         (e (if mark-active (max (point) (mark)) (point-max))))
     (shell-command-on-region b e "titlecase" (current-buffer) t)))
 
-(defun compile-quietly ()
-  "Re-compile without changing the window configuration."
+(defun my-rstlint()
+  "Perform a syntax check over reStructuredText files."
   (interactive)
-  (save-window-excursion
-    (recompile)))
+  ;; (compile (concat "python -mrstcheck " (buffer-file-name)))
+  (compile (concat "rst-lint " (buffer-file-name))) ;; use rst-lint
+  )
 
+(setq compilation-exit-message-function 'my-compilation-exit-autoclose)
 
 ;; http://emacswiki.org/emacs/SwitchingBuffers
 (defun my-switch-to-previous-buffer ()
