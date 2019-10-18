@@ -1001,7 +1001,7 @@
 ;; f1: magit
 (global-set-key (kbd "S-<f1>") 'my-cleanup)
 (global-set-key (kbd "C-<f1>") 'show-file-name)
-(global-set-key (kbd "M-<f1>") 'code-review-region)
+(global-set-key (kbd "M-<f1>") 'my-copy-source-code-region)
 
 ;; navigation in buffer (file)
 (global-set-key (kbd "<f2>") 'my-switch-to-previous-buffer)
@@ -1565,7 +1565,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   (switch-to-buffer (other-buffer (current-buffer) 1)))
 
 ;; http://www.blogbyben.com/2015/04/the-joy-of-elisp-powered-code-review.html
-(defun code-review-region (beg end)
+(defun my-copy-source-code-region (beg end)
   "Copy a region of source code, add line numbers."
   (interactive "r")
   (let* ((text (buffer-substring-no-properties beg end))
