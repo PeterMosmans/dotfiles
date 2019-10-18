@@ -235,11 +235,13 @@
         fci-always-use-textual-rule t)
   :disabled t
   :init
-  :hook ((prog-mode . fci-mode)
-         (markdown-mode . fci-mode)
-         (rst-mode . fci-mode)
-         (web-mode . fci-mode)
-         (yaml-mode . fci-mode))
+  :hook (
+         markdown-mode
+         prog-mode
+         rst-mode
+         web-mode
+         yaml-mode
+         )
   )
 
 (use-package flycheck
