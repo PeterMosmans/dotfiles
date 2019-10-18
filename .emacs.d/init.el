@@ -267,6 +267,7 @@
          ("C-c g k" . git-gutter:revert-hunk)
          ("C-c g s" . git-gutter:stage-hunk)
          )
+  :delight
   :init (global-git-gutter-mode)
   )
 
