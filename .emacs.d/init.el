@@ -757,7 +757,7 @@
  inhibit-startup-message t             ;; Remove welcome message
  ispell-dictionary "en_US"             ;; Default language for spell checker
  ispell-personal-dictionary "~/personal-dictionary"
- ispell-program-name "hunspell"        ;; Use hunspell as default spell checker
+ ispell-program-name "aspell"          ;; Use aspell as default spell checker
  ispell-silently-savep t               ;; Save to personal dictionary without asking
  js-indent-level 2                     ;; Indentation for JavaScript
  kill-whole-line t                     ;; Kill whole line including newline
