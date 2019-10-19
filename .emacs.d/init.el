@@ -680,8 +680,14 @@
 
 (use-package yaml-mode
   ;; yaml is a major mode, not based on prog-mode, so manually add modes
+  :config
+  (setq tab-width 2)
   :init
-  :hook (yaml-mode . highlight-indentation-mode)
+  :hook (yaml-mode . (lambda ()
+                       (my-prettier-diff)
+                       (add-hook 'after-save-hook 'my-prettier-diff nil t)
+                       (highlight-indentation-mode))
+                   )
   )
 
 (use-package yasnippet
