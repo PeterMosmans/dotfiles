@@ -650,16 +650,21 @@
 
 
 (use-package web-mode
-  :config (setq web-mode-markup-indent-offset 2)
-  :hook ((web-mode . auto-fill-mode)
-         (web-mode . flyspell-mode))
-  :mode (("\\.[agj]sp\\'" . web-mode)
-         ("\\.as[cp]x\\'" . web-mode)
-         ("\\.html?\\'" . web-mode)
-         ("\\.php\\'" . web-mode)
-         ("\\.phtml\\'" . web-mode)
-         ("\\.tpl\\.php\\'" . web-mode)
-         ("\\.xml\\'" . web-mode))
+  :config (setq web-mode-markup-indent-offset 2
+                web-mode-code-indent-offset 2
+                web-mode-css-indent-offset 2)
+                                        ; :hook (auto-fill-mode flyspell-mode)
+  :mode (
+         "\\.[agj]sp\\'"
+         "\\.as[cp]x\\'"
+         "\\.html?\\'"
+         "\\.php\\'"
+         "\\.phtml\\'"
+         "\\.tpl\\.php\\'"
+         "\\.xml\\'"
+         )
+  :init (setq web-mode-enable-current-element-highlight t
+              web-mode-enable-current-column-highlight t)
   )
 
 (use-package which-key
@@ -1899,17 +1904,16 @@ Uses `current-date-time-format' for the formatting the date/time."
               (if (bound-and-true-p initial-buffer-choice)
                   (if (get-buffer "*scratch*")
                       (kill-buffer "*scratch*")))
-              (when (boundp 'my-start-with-agenda)
-                (my-open-custom-agenda)))
-            (raise-frame)
-            (require 'server)
-            (or (server-running-p)     ;; Start server if not already running
-                (server-start))
-
-            (setq gc-cons-threshold 800000) ;; Reset to default value
+              (when (bound-and-true-p my-start-with-agenda)
+                (my-open-custom-agenda))
+              (raise-frame)
+              (require 'server)
+              (or (server-running-p)     ;; Start server if not already running
+                  (server-start))
+              (setq gc-cons-threshold 800000) ;; Reset to default value
+              )
             )
           )
-
 (if (fboundp 'my-align-org-tags)
     (add-hook 'window-configuration-change-hook
               (lambda()
