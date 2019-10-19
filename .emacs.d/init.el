@@ -1849,6 +1849,7 @@ Uses `current-date-time-format' for the formatting the date/time."
                             (which-function-mode)))
 
 (add-hook 'rst-mode-hook (lambda ()    ;; Automatically perform syntax check after saving
+                           (my-rstlint)
                            (add-hook 'after-save-hook 'my-rstlint nil t)
                            (auto-fill-mode 1)
                            (yas-minor-mode)))
@@ -1869,10 +1870,7 @@ Uses `current-date-time-format' for the formatting the date/time."
             (visual-line-mode 0)       ;; show a symbol for wrapping lines,
             (setq word-wrap 1)))       ;; but still wrap words nicely
 
-(add-hook 'yaml-mode-hook
-          (lambda ()
-            (add-hook 'after-save-hook 'my-prettier-diff nil t)
-            ))
+
 
 ;; builtin hooks
 (add-hook 'emacs-startup-hook          ;; After loading init file and packages
