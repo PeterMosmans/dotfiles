@@ -1824,10 +1824,17 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'json-mode-hook
           (lambda ()
+            (my-prettier-diff)
+            (add-hook 'after-save-hook 'my-prettier-diff nil t)
             (make-local-variable 'js-indent-level)
             (setq js-indent-level 2)))
 
-(add-hook 'markdown-mode-hook 'auto-fill-mode)
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (my-prettier-diff)
+            (add-hook 'after-save-hook 'my-prettier-diff nil t)
+            (auto-fill-mode 1)
+            ))
 
 (add-hook 'nxml-mode-hook
           (lambda ()
