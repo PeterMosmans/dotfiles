@@ -1564,8 +1564,11 @@ Uses `current-date-time-format' for the formatting the date/time."
 (defun my-prettier-diff()
   "Perform a diff with the opinionated prettier formatted version."
   (interactive)
-  (compile (concat "diff -B <(prettier " (buffer-file-name) ") " (buffer-file-name)))
-  )
+  (if (compile (concat "diff <(prettier " (buffer-file-name) ") " (buffer-file-name)))
+      (progn
+        (switch-to-buffer "*compilation*")
+        (diff-mode)
+        (switch-to-buffer (other-buffer (current-buffer) 1)))))
 
 (defun my-compilation-exit-autoclose (STATUS code msg)
   "Close the compilation window if there was no error at all."
