@@ -16,3 +16,4 @@ alias ds='dirs -v -p'
 [[ ! -z $EDITOR ]] && alias emacs=$EDITOR
 # pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
+alias ee='emacs "$(fzf --height 50%)"'
