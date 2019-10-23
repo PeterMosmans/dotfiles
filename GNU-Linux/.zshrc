@@ -67,6 +67,10 @@ show_colors() {
     printf "\n"
 }
 
+# use less to open file and apply specified (or log) syntax highlighting
+lsyntax() {
+    source-highlight -f esc --lang-def=${2:-log}.lang -i $1 | less -RX
+    }
 # Using the AUTOCD option, you can simply type the name of a directory,
 # and it will become the current directory.
 setopt AUTOCD
