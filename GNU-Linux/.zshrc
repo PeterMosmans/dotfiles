@@ -5,7 +5,7 @@ export ZPLUG_HOME=~/.zplug
 ZPLUG_REPO=https://github.com/PeterMosmans/zplug
 # Bootstrap installation
 [[ ! -d $ZPLUG_HOME ]] && git clone $ZPLUG_REPO $ZPLUG_HOME
-ZSH_TMUX_AUTOSTART=true
+#ZSH_TMUX_AUTOSTART=true
 export TMUX_THEME="dracula"
 export GIT_EDITOR=$EDITOR
 HISTFILE=~/.zsh_history
