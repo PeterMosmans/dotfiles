@@ -70,7 +70,14 @@ show_colors() {
 # use less to open file and apply specified (or log) syntax highlighting
 lsyntax() {
     source-highlight -f esc --lang-def=${2:-log}.lang -i $1 | less -RX
-    }
+}
+
+# Show first 2 lines of a file with different syntax highlighting
+syntaxprev(){
+    for log in $(source-highlight --lang-list|awk -F"[. ]" '{print $3}'|sort -u); do
+        echo $log && head -2 $1 | source-highlight -f esc --lang-def=$log.lang
+    done
+}
 # Using the AUTOCD option, you can simply type the name of a directory,
 # and it will become the current directory.
 setopt AUTOCD
