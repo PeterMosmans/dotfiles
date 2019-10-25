@@ -2,7 +2,7 @@
 
 # installer - Basic installer (linker) for various files
 #
-# Copyright (C) 2015-2018 Peter Mosmans
+# Copyright (C) 2015-2019 Peter Mosmans
 #                         <support AT go-forward.net>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -14,15 +14,15 @@
 declare -A linkfiles
 declare -A osfiles
 
-# Files to link
+# OS-indepentent files to link
 linkfiles=(
-    [.]=".aliases .bashrc .functions .gitconfig .gitignore_global .tmux.conf .tmux.default.theme .tmux.dracula.theme"
+    [.]=".aliases .bashrc .functions .gitconfig .gitignore_global .tmux.conf .tmux.default.theme .tmux.dracula.theme .zshrc"
     [.emacs.d]="init.el"
 )
 
 # Files to link, depending on OS
 osfiles=(
-    [.]=".minttyrc .zshenv .zshrc"
+    [.]=".minttyrc .zshenv"
     [.ssh]="config"
 )
 
