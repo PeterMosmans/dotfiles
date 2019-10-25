@@ -16,7 +16,7 @@ declare -A osfiles
 
 # Files to link
 linkfiles=(
-    [.]=".aliases .bashrc .gitconfig .gitignore_global .tmux.conf .tmux.default.theme .tmux.dracula.theme"
+    [.]=".aliases .bashrc .functions .gitconfig .gitignore_global .tmux.conf .tmux.default.theme .tmux.dracula.theme"
     [.emacs.d]="init.el"
 )
 
