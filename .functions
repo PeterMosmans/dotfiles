@@ -1,0 +1,31 @@
+## Functions
+
+# Use less to open file and apply specified (or log) syntax highlighting
+lsyntax() {
+    source-highlight --failsafe -f esc --lang-def=${2:-log}.lang -i --style-file=esc.style $1 | less -RX
+}
+
+# Display all 256 colors on a terminal
+show_colors() {
+    for i in {0..255} ; do
+        let j=255-$i
+        printf "\x1b[38;5;${i}m ${i} \x1b[0m"
+        printf "\x1b[48;5;${i}m\x1b[38;5;${j}m ${i} \x1b[0m"
+    done
+    printf "\n"
+}
+
+
+# Show first 2 lines of a file with different syntax highlighting
+syntaxprev(){
+    for log in $(source-highlight --lang-list|awk -F"[. ]" '{print $3}'|sort -u); do
+        echo $log && head -2 $1 | source-highlight -f esc --lang-def=$log.lang --style-file=esc.style
+    done
+}
+
+# URL-encode string
+urlencode() {
+    setopt localoptions extendedglob
+    input=( ${(s::)1} )
+    print ${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-])/%${(l:2::0:)$(([##16]#match))}}
+}
