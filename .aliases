@@ -8,8 +8,8 @@ alias lt='ls -ltr --color=auto'
 alias l='ls -CF'
 # assume everything is text
 alias grep='grep --text --color=auto'
-# don't refresh screen when less exits
-alias less='less -X'
+# don't refresh screen when less exits and allow raw ANSI color characters
+alias less='less -RX'
 # show numbered directory stack
 alias ds='dirs -v -p'
 # programs
