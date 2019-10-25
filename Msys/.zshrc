@@ -47,14 +47,10 @@ COMPLETION_WAITING_DOTS="true"
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-
-# Enable a subset of plugins and enforce terminal type while running in Emacs
-if [[ -n "$INSIDE_EMACS" ]]; then
-    ZSH_TMUX_AUTOSTART=false
-    ZSH_TMUX_UNICODE=true
-fi
-
-## global aliases
+## Aliases
+[[ -f $HOME/.aliases ]] && source $HOME/.aliases  # Load Bash and zsh compatible aliases
+[[ -f $HOME/.functions ]] && source $HOME/.functions  # Load Bash and zsh compatible functions
+[[ -f $HOME/.hashes ]] && source $HOME/.hashes  # Load directory hashes
 # case insensitive matches, recursive, show filename
 alias -g GW="grep -iHR"
 # case insensitive matches, recursive, filename only
