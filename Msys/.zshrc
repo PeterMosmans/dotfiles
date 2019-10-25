@@ -64,64 +64,6 @@ alias -g trn="|tr '\n' ' '; echo"
 # show unique second column data
 alias -g ucs='| awk '\''{print $2}'\'' | sort -u'
 
-show_colors() {
-    for i in {0..255} ; do
-        let j=255-$i
-        printf "\x1b[38;5;${i}m ${i} \x1b[0m"
-        printf "\x1b[48;5;${i}m\x1b[38;5;${j}m ${i} \x1b[0m"
-    done
-    printf "\n"
-}
-
-urlencode() {
-    setopt localoptions extendedglob
-    input=( ${(s::)1} )
-    print ${(j::)input/(#b)([^A-Za-z0-9_.\!~*\'\(\)-])/%${(l:2::0:)$(([##16]#match))}}
-}
-
-# Using the AUTOCD option, you can simply type the name of a directory,
-# and it will become the current directory.
-setopt AUTOCD
-# If the argument to cd is the name of a parameter whose value is a valid directory,
-# it will become the current directory.
-setopt CDABLEVARS
-# INTERACTIVECOMMENTS turns on interactive comments; comments begin with a #.
-setopt INTERACTIVECOMMENTS
-
-show_colors() {
-    for i in {0..255} ; do
-        let j=255-$i
-        printf "\x1b[38;5;${i}m ${i} \x1b[0m"
-        printf "\x1b[48;5;${i}m\x1b[38;5;${j}m ${i} \x1b[0m"
-    done
-    printf "\n"
-}
-
-## History
-# + HIST_VERIFY :: don't execute history command immediately
-setopt HIST_VERIFY
-# + HIST_IGNORE_SPACE :: don't add command to history if it starts with space
-setopt HIST_IGNORE_SPACE
-# + HIST_IGNORE_ALL_DUPS :: ignore duplicate entries when showing results
-setopt HIST_IGNORE_ALL_DUPS
-# + HIST_FIND_NO_DUPS :: ignore duplicates when match has been found
-setopt HIST_FIND_NO_DUPS
-# + INC_APPEND_HISTORY :: adds entries to history as they are typed (don't wait for exit)
-# setopt INC_APPEND_HISTORY
-# + SHARE_HISTORY :: share history between different zsh processes
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-HIST_STAMPS="yyyy-mm-dd"
-
-unsetopt SHARE_HISTORY
-# Don't error out on zero matches
-setopt NULL_GLOB
-## Line editor
-setopt NO_BEEP
-
-# load Bash and zsh compatible aliases
-[[ -f $HOME/.aliases ]] && source $HOME/.aliases
 # For direct links to work in zsh, replace spaces with backslash spaces
 [[ -f ${BROWSER} ]] && alias -s htm="$(echo $BROWSER|sed -e 's/ /\\\ /g')"
 [[ -f ${BROWSER} ]] && alias -s html="$(echo $BROWSER|sed -e 's/ /\\\ /g')"
