@@ -1638,10 +1638,10 @@ Uses `current-date-time-format' for the formatting the date/time."
   (if (string= nil buffer-file-name)
       (dired nil)
     (progn (if (string= ";" path-separator)  ;; on Windows
-               (dired (replace-regexp-in-string "/" "\\\\"
-                                                (file-name-directory
-                                                 (buffer-file-name)) t t))
-             (dired (file-name-directory (buffer-file-name)))))))
+  (dired (replace-regexp-in-string "/" "\\\\"
+                                   (file-name-directory
+                                    (buffer-file-name)) t t))
+  (dired (file-name-directory (buffer-file-name)))))))
 
 (defun toggle-selective-display (column)
   (interactive "P")
