@@ -5,6 +5,17 @@ lsyntax() {
     source-highlight --failsafe -f esc --lang-def=${2:-log}.lang -i --style-file=esc.style $1 | less -RX
 }
 
+# When using ssh under tmux, automatically set (first part of) hostname as tmux window name
+ssh() {
+    if [ -n "$TMUX" ]; then
+        tmux rename-window "$(echo $* | cut -d . -f 1)"
+        command ssh "$@"
+        tmux set-window-option automatic-rename "on" 1>/dev/null
+    else
+        command ssh "$@"
+    fi
+}
+
 # Display all 256 colors on a terminal
 show_colors() {
     for i in {0..255} ; do
