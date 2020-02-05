@@ -623,6 +623,16 @@
   :pin "melpa"
   )
 
+(use-package shackle                   ;; Enforce opening of certain buffers in frames/windows/...
+  :config
+  (shackle-mode)
+  :init
+  (setq shackle-rules
+        '(
+          (compilation-mode :select t :align t :frame t)  ;; Open compilation mode in its own frame
+          ))
+  )
+
 (use-package tabbar                    ;; Display a tabbar in the header line
   :bind (("C-<tab>" . tabbar-forward)
          ("C-S-<tab>" . tabbar-backward)
