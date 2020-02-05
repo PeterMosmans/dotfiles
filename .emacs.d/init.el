@@ -1912,6 +1912,9 @@ Uses `current-date-time-format' for the formatting the date/time."
               (global-company-mode)
               (recentf-mode 1)                       ;; Enable recently opened files mode
               (tool-bar-mode 0)                      ;; Disable toolbar
+              (setq compilation-error-regexp-alist-alist (cons '(rest "^\\(ERROR\\|SEVERE\\|WARNING\\) \\([a-zA-Z]:/[-_a-zA-Z0-9/]+.[a-zA-Z]+\\):\\([0-9]+\\)" 2 3)
+                                                               compilation-error-regexp-alist-alist)
+                    compilation-error-regexp-alist (cons 'rest compilation-error-regexp-alist))
               ;; (desktop-save-mode 1)                  ;; Automatically save / restore 'desktop' (buffers)
               (if (bound-and-true-p initial-buffer-choice)
                   (if (get-buffer "*scratch*")
