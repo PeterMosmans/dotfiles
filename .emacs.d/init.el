@@ -761,8 +761,10 @@
  column-number-indicator-zero-based nil
  column-number-mode t                  ;; Show column-number
  comint-prompt-read-only t             ;; Read only prompt for shell mode
+ compilation-always-kill t             ;; Don't ask to kill previous compilation, just do it
  compilation-ask-about-save nil
  compilation-read-command nil
+ compilation-scroll-output t           ;; Follow the compilation messages along
  compile-command "make "
  completion-ignore-case t              ;; Ignore case when completing
  desktop-path '("~/.emacs.d/desktop/")    ;; Specify directory for desktop files
