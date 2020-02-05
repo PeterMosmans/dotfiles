@@ -1573,9 +1573,10 @@ Uses `current-date-time-format' for the formatting the date/time."
 (defun my-rstlint()
   "Perform a syntax check over reStructuredText files."
   (interactive)
-  ;; (compile (concat "python -mrstcheck " (buffer-file-name)))
+  (setq original-buffer (buffer-name))
   (compile (concat "rst-lint " (buffer-file-name))) ;; use rst-lint
-  )
+  (other-frame 1)
+  (switch-to-buffer original-buffer))
 
 (defun my-prettier-overwrite()
   "Automatically overwrite file with opinionated prettier formatting."
@@ -1587,8 +1588,11 @@ Uses `current-date-time-format' for the formatting the date/time."
 (defun my-prettier-diff()
   "Perform a diff with the opinionated prettier formatted version."
   (interactive)
+  (setq original-buffer (buffer-name))
   (compile (concat "diff " (buffer-file-name) " <(prettier " (buffer-file-name) ") "))
-  (with-current-buffer "*compilation*" (diff-mode)))
+  (with-current-buffer "*compilation*" (diff-mode))
+  (other-frame 1)
+  (switch-to-buffer original-buffer))
 
 (defun my-compilation-exit-autoclose (STATUS code msg)
   "Close the compilation window if there was no error at all."
