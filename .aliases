@@ -14,6 +14,7 @@ alias less='less -RX'
 alias ds='dirs -v -p'
 # programs
 [[ ! -z $EDITOR ]] && alias emacs=$EDITOR
+[[ ! -z $READER ]] && alias -s pdf=$READER
 # pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
 alias ee='emacs "$(fzf --height 50%)"'
