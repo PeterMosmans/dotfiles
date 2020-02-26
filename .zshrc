@@ -79,10 +79,11 @@ if [[ -n "$INSIDE_EMACS" ]]; then
 fi
 
 source $ZPLUG_HOME/init.zsh
+zplug "zplug/zplug", hook-build:"zplug --self-manage"
 zplug "plugins/tmux", from:oh-my-zsh
-zplug "MichaelAquilina/zsh-you-should-use"  # Check which aliases are being used
+# zplug "MichaelAquilina/zsh-you-should-use"  # Check which aliases are being used
 zplug "ael-code/zsh-colored-man-pages"
-zplug "b4b4r07/enhancd", use:init.sh
+# zplug "b4b4r07/enhancd", use:init.sh
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/sudo", from:oh-my-zsh
 zplug "themes/agnoster", as:theme, from:oh-my-zsh
