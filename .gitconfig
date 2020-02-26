@@ -8,6 +8,8 @@
   excludesfile = ~/.gitignore_global
 [rerere]
   enabled = true
+[diff]
+  algorithm = minimal
 [alias]
   st = status
   br = branch
