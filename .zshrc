@@ -44,7 +44,8 @@ export TMUX_THEME="dracula"
 [[ -f $HOME/.hashes ]] && source $HOME/.hashes  # Load directory hashes
 
 ## Aliases
-[[ -f $HOME/.aliases ]] && source $HOME/.aliases  # Load Bash and zsh compatible aliases
+[[ -f $HOME/.aliases ]] && source $HOME/.aliases  # Load Bash compatible aliases
+[[ -f $HOME/.zshaliases ]] && source $HOME/.zshaliases  # Load Zsh compatible aliases
 
 alias -g GW="grep -iHR"  # case insensitive matches, recursive, show filename
 alias -g GF="grep -ilR"  # case insensitive matches, recursive, filename only
