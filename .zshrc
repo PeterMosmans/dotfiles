@@ -23,6 +23,7 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000
 HIST_STAMPS="yyyy-mm-dd"  # Use ISO formatting
 SAVEHIST=1000
+setopt EXTENDED_GLOB  # Enable more advanced globs like ^*.*
 setopt HIST_FIND_NO_DUPS  # Ignore duplicates when match has been found
 setopt HIST_IGNORE_ALL_DUPS  # Ignore duplicate entries when showing results
 setopt HIST_IGNORE_SPACE  # Don't add command to history if it starts with space
