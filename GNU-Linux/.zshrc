@@ -89,7 +89,6 @@ zplug "plugins/pip", from:oh-my-zsh
 zplug "plugins/sudo", from:oh-my-zsh
 zplug "plugins/tmux", from:oh-my-zsh
 zplug "themes/agnoster", as:theme, from:oh-my-zsh
-zplug "zplug/zplug", hook-build:"zplug --self-manage" # This allows zplug to update itself
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting" # Should be last
 zplug load
