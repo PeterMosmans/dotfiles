@@ -10,10 +10,14 @@
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 
+# shellcheck disable=SC2034
+VERSION=1.3
+
 # For configuration, use the INIFILE
 INIFILE=.installerrc
 
 # Define associative arrays
+declare -A aliases
 declare -A copyfiles
 declare -A linkfiles
 declare -A osfiles
@@ -21,7 +25,18 @@ declare -A osfiles
 
 
 # The file .installerrc should contain all installer-specific files:
-# copyfiles, linkfiles, osfiles and executables.
+# aliases, copyfiles, linkfiles, osfiles and executables.
+
+# aliases: Aliases (links) to files. an array of targets and link names. The
+# targets are from the relative locations from where they will be installed.
+#
+# Example:
+# aliases=(
+#     ["lintjinja.py"]="lintjinja"
+# )
+#
+# This will link target lintjinja.py to link name lintjinja, both in the target
+# directory.
 
 # copyfiles: Files to copy.
 # An array of relative location from where the script is run, and files.
@@ -67,8 +82,6 @@ declare -A osfiles
 # This will search for lint-jenkins, and emits a warning if the file cannot be found/executed.
 # A warning will be shown if any of the files cannot be found (on the search paths)
 
-# shellcheck disable=SC2034
-VERSION=1.2
 
 os=$(uname -o|sed "s/\//-/")
 source="$(dirname "$(readlink -f "$0")")"
@@ -130,7 +143,19 @@ link_os_files() {
             fi
         done
     done
-    }
+}
+
+link_aliases() {
+    # Link files within the target directory
+    for targetfile in "${!aliases[@]}"; do
+        for linkname in ${aliases[$targetfile]}; do
+            if [[ -f "${target}/${targetfile}" ]]; then
+                ln -fv "${target}/${targetfile}" "${target}/${linkname}"
+            fi
+        done
+    done
+}
+
 
 check_executables() {
     # Check if executables are available
@@ -143,6 +168,8 @@ check_executables() {
         fi
     done
 }
+
+
 
 finish() {
     if [[ -n "$WARNING" ]]; then
@@ -159,5 +186,6 @@ echo "[*] Installing..."
 copy_files
 link_files
 link_os_files
+link_aliases
 check_executables
 finish
