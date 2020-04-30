@@ -1,11 +1,11 @@
 # OS-independent files to link
 linkfiles=(
-    [.]=".aliases .bashrc .functions .gitconfig .gitignore_global .tmux.conf .tmux.default.theme .tmux.dracula.theme .zshrc"
+    [.]=".aliases .bashrc .functions .gitconfig .gitignore_global .tmux.conf .tmux.default.theme .tmux.dracula.theme"
     [.emacs.d]="init.el"
 )
 
 # Files to link, depending on OS
 osfiles=(
-    [.]=".minttyrc .zshenv"
+    [.]=".minttyrc .zshenv .zshrc"
     [.ssh]="config"
 )
