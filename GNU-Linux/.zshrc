@@ -80,6 +80,10 @@ if [[ -n "$INSIDE_EMACS" ]]; then
 fi
 
 source $ZPLUG_HOME/init.zsh
+# set PATH so it includes user's private bin if it exists
+if [[ -d "$HOME/.local/bin" ]]; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
 
 zplug "ael-code/zsh-colored-man-pages"
 zplug "plugins/docker", from:oh-my-zsh
