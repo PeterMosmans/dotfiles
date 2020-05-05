@@ -5,7 +5,7 @@
 ### zplug settings
 export ZPLUG_HOME=~/.zplug
 ZPLUG_REPO=https://github.com/PeterMosmans/zplug
-[[ ! -d $ZPLUG_HOME ]] && git clone $ZPLUG_REPO $ZPLUG_HOME  # Bootstrap installation
+[[ ! -d "$ZPLUG_HOME" ]] && git clone "$ZPLUG_REPO" "$ZPLUG_HOME" # Bootstrap installation
 
 ### zsh setings
 setopt AUTOCD  # Type the name of a directory and it will become the current directory
@@ -41,12 +41,12 @@ export LS_COLORS='bd=38;5;68:ca=38;5;17:cd=38;5;113;1:di=38;5;30:do=38;5;127:ex=
 export NCURSES_NO_UTF8_ACS=1 # Tell ncurses to use UTF-8
 export TMUX_THEME="dracula"
 
-[[ -f $HOME/.functions ]] && source $HOME/.functions  # Load Bash and zsh compatible functions
-[[ -f $HOME/.hashes ]] && source $HOME/.hashes  # Load directory hashes
+[[ -f "$HOME/.functions" ]] && source "$HOME/.functions" # Load Bash and zsh compatible functions
+[[ -f "$HOME/.hashes" ]] && source "$HOME/.hashes" # Load directory hashes
 
 ## Aliases
-[[ -f $HOME/.aliases ]] && source $HOME/.aliases  # Load Bash compatible aliases
-[[ -f $HOME/.zshaliases ]] && source $HOME/.zshaliases  # Load Zsh compatible aliases
+[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases" # Load Bash compatible aliases
+[[ -f "$HOME/.zshaliases" ]] && source "$HOME/.zshaliases" # Load Zsh compatible aliases
 
 alias -g GW="grep -iHR"  # case insensitive matches, recursive, show filename
 alias -g GF="grep -ilR"  # case insensitive matches, recursive, filename only
@@ -79,7 +79,8 @@ if [[ -n "$INSIDE_EMACS" ]]; then
     return 0
 fi
 
-source $ZPLUG_HOME/init.zsh
+# shellcheck disable=SC1090
+source "$ZPLUG_HOME/init.zsh"
 # set PATH so it includes user's private bin if it exists
 if [[ -d "$HOME/.local/bin" ]]; then
     PATH="$HOME/.local/bin:$PATH"
@@ -89,7 +90,7 @@ zplug "ael-code/zsh-colored-man-pages"
 zplug "plugins/docker", from:oh-my-zsh
 zplug "plugins/docker-compose", from:oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
-#which pip &>/dev/null && zplug "plugins/pip", from:oh-my-zsh
+zplug "plugins/pip", from:oh-my-zsh
 zplug "plugins/sudo", from:oh-my-zsh
 zplug "plugins/tmux", from:oh-my-zsh
 zplug "themes/agnoster", as:theme, from:oh-my-zsh
