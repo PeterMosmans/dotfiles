@@ -156,9 +156,10 @@
          ("M-<f2>" . bm-next))
   )
 
-(use-package company
+(use-package company                   ;; Auto complete
   :config
   (defvar company-mode/enable-yas t "Enable yasnippet for all back ends.")
+  (setq company-tooltip-limit 15)
   :delight
   )
 
