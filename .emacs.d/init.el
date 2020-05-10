@@ -114,7 +114,7 @@
                            ("org" . "https://orgmode.org/elpa/"))
         use-package-always-defer t     ;; Use lazy loading wherever possible
         use-package-always-ensure t    ;; Enforce automatic installation of all packages
-        use-package-always-pin "melpa-stable"
+        use-package-always-pin "melpa"
         use-package-verbose t)         ;; Show package loading times
   )
 
@@ -169,7 +169,6 @@
 
 (use-package company-box
   :hook (company-mode . company-box-mode)
-  :pin melpa
   :disabled t
   )
 
@@ -266,12 +265,10 @@
 (use-package flymake-shellcheck  ;; Flymake handler for ShellCheck
   :init (flymake-shellcheck-load)
   :hook sh-mode
-  :pin "melpa"
   )
 
 (use-package flymd
   :commands flymd-flyit
-  :pin "melpa"
   )
 
 (use-package focus
@@ -351,7 +348,6 @@
   :after (flyspell helm)
   :bind (("C-;" . helm-flyspell-correct))
   :commands flyspell-mode
-  :pin "melpa"
   )
 
 (use-package helm-ls-git
@@ -390,7 +386,6 @@
   ;; Only try to set the dictionary manually when necessary
   (unless (bound-and-true-p helm-wordnet-wordnet-location)
     (setq helm-wordnet-wordnet-location my-wordnet-dictionary))
-  :pin "melpa"
   )
 
 (use-package highlight-indentation
@@ -427,7 +422,9 @@
   )
 
 (use-package lorem-ipsum               ;; Generate lorem ipsum from within Emacs
-  :pin "melpa"
+  )
+
+(use-package lv
   )
 
 (use-package magit
@@ -436,13 +433,11 @@
          ("C-c g g" . magit-status)
          ("C-c g c" . magit-commit)
          )
-  :pin "melpa"                         ;; Needs >2.11
   )
 
 (use-package magithub                  ;; Integrate github into Magit
   :after magit
   :config (magithub-feature-autoinject t)
-  :pin "melpa"
   :disabled t
   )
 
@@ -476,7 +471,6 @@
 (use-package ob-async                  ;; Asynchronous execution of org-babel source code blocks
   :after org                           ;; when using the :async keyword
   :demand t                            ;; (require 'ob-async)
-  :pin "melpa"
   )
 
 (use-package ob-http                   ;; Perform HTTP requests within org-mode
@@ -490,7 +484,6 @@
 (use-package org-wc                    ;; Count words in org mode documents
   :after org
   :bind ("C-c w" . my-org-wc-toggle-overlay)
-  :pin "melpa"
   )
 
 (use-package polymode                 ;; Use modes within modes
@@ -617,12 +610,12 @@
   (helm-projectile-on)
   (projectile-mode 1)
   ;; :commands projectile-mode
+  :delight
   :init
   (put 'projectile-project-name 'safe-local-variable #'stringp)
   )
 
 (use-package pylint
-  :pin "melpa"
   )
 
 (use-package rainbow-mode
@@ -639,7 +632,6 @@
 
 (use-package restclient-helm
   :after (helm restclient)
-  :pin "melpa"
   )
 
 (use-package shackle                   ;; Enforce opening of certain buffers in frames/windows/...
@@ -663,7 +655,6 @@
          ("S-<f9>" . tabbar-forward-group))
   :config (tabbar-mode t)              ;; Enable the tabbar by default
   :demand t
-  :pin "melpa"
   )
 
 (use-package undo-tree                 ;; Generate a nice visualization of undo
