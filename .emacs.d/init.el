@@ -470,7 +470,6 @@
 
 (use-package ob-async                  ;; Asynchronous execution of org-babel source code blocks
   :after org                           ;; when using the :async keyword
-  :demand t                            ;; (require 'ob-async)
   )
 
 (use-package ob-http                   ;; Perform HTTP requests within org-mode
@@ -654,7 +653,6 @@
          ("<f9>" . tabbar-forward)
          ("S-<f9>" . tabbar-forward-group))
   :config (tabbar-mode t)              ;; Enable the tabbar by default
-  :demand t
   )
 
 (use-package undo-tree                 ;; Generate a nice visualization of undo
