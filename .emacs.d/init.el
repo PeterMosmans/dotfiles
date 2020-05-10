@@ -587,7 +587,6 @@
                      (powerline-fill face2
                                      (powerline-width rhs))
                      (powerline-render rhs))))))
-  :pin "melpa"
   :requires mode-icons
   )
 
@@ -643,6 +642,7 @@
   )
 
 (use-package tabbar                    ;; Display a tabbar in the header line
+  :init (tabbar-mode)
   :bind (("C-<tab>" . tabbar-forward)
          ("C-S-<tab>" . tabbar-backward)
          ("C-S-<iso-lefttab>" . tabbar-backward)
