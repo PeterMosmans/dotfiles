@@ -1,6 +1,6 @@
 ;;; init.el --- Emacs initialization file
 
-;; Copyright (c) 2011-2018 Peter Mosmans
+;; Copyright (c) 2011-2020 Peter Mosmans
 
 ;; Author: Peter Mosmans <support AT go-forward.net>
 ;; Created: 2011
@@ -137,6 +137,7 @@
 ;; mode:      deferred binding
 ;;            :mode ("\\.py\\'" . python-mode)
 ;; pin:       pin to a specific repository
+
 
 (use-package ansible
   :after company
