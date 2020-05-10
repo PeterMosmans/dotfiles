@@ -1571,6 +1571,12 @@ Uses `current-date-time-format' for the formatting the date/time."
                      " ")
           ))
 
+(defun my-sort-words (&optional b e)
+  "Sort words on a line."
+  (interactive "r")
+  (shell-command-on-region b e "\|xargs -n1\|sort\|xargs" (current-buffer))
+  ;; (shell-command-on-region b e "xargs -n1 | sort | xargs") ; (current-buffer))
+  )
 
 (defun my-titlecase-converter ()
   "Convert region to titlecase."
