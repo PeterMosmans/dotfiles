@@ -252,6 +252,12 @@
   (global-flycheck-mode)
   )
 
+(use-package flymake-shellcheck  ;; Flymake handler for ShellCheck
+  :init (flymake-shellcheck-load)
+  :hook sh-mode
+  :pin "melpa"
+  )
+
 (use-package flymd
   :commands flymd-flyit
   :pin "melpa"
