@@ -643,13 +643,12 @@
   )
 
 (use-package shackle                   ;; Enforce opening of certain buffers in frames/windows/...
-  :config
-  (shackle-mode)
   :init
   (setq shackle-rules
         '(
-          (compilation-mode :select t :align t :frame t)  ;; Open compilation mode in its own frame
+          (compilation-mode :select t :align t :frame t :other t)  ;; Open compilation mode in its own frame
           ))
+  (shackle-mode)
   )
 
 (use-package tabbar                    ;; Display a tabbar in the header line
