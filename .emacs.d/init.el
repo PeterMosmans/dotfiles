@@ -398,13 +398,17 @@
   :config (setq imenu-list-position 'left)
   )
 
+(use-package jinja2-mode
+  )
+
 (use-package js2-mode
   :bind ("M-." . nil)
-  :hook ((js2-mode . company-mode)
-         (js2-mode . tern-mode)
-         (js2-mode . js2-imenu-extras-mode)
-         (xref-backend-functions . xref-js2-xref-backend))
+  :hook ((js2-mode . my-prettier-diff)
+         (js2-mode . (lambda ()
+                       (add-hook 'after-save-hook 'my-prettier-diff nil t)))
+         (js2-mode . highlight-indentation-mode))
   :mode ("\\.js\\'" . js2-mode)
+  :disabled t
   )
 
 (use-package let-alist
