@@ -431,11 +431,7 @@
   :after magit
   :config (magithub-feature-autoinject t)
   :pin "melpa"
-  )
-
-(use-package magit-gitflow             ;; Use Magit git flow plugin
-  :after magit
-  :hook (magit-mode . turn-on-magit-gitflow)
+  :disabled t
   )
 
 (use-package markdown-mode
