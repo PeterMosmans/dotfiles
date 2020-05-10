@@ -196,6 +196,7 @@
 (use-package company-tern
   :after company
   :config (add-to-list 'company-backends 'company-tern)
+  :disabled t
   )
 
 (use-package company-web               ;; Completion backend for web
@@ -447,12 +448,23 @@
 (use-package mode-icons                ;; Show pretty icons on the modeline
   :config
   (setq mode-icons-desaturate-active t  ;; Desarurate inactive XPM mode line icons
-        mode-icons-grayscale-transform t) ;; "re"color black and white images
-        
+        mode-icons-desaturate-inactive t  ;; Desarurate inactive XPM mode line icons
+        ;; mode-icons-line-height-adjust -5
+        mode-icons-grayscale-transform nil) ;; "re"color black and white images
+  (mode-icons-mode nil)
   (mode-icons-mode t)
-  :demand t
-  :pin "melpa"
+  :disabled t
   )
+
+;; Create a list of dedicated buffers
+;; (push '("\\*compilation\\*" . (nil (reusable-frames . t))) display-buffer-alist)
+
+(use-package major-mode-icons
+  :disabled t
+  )
+
+(use-package all-the-icons
+  :ensure t)
 
 (use-package neotree
   :bind (("M-<f8>" . neotree-toggle)
