@@ -162,13 +162,23 @@
   :delight
   )
 
-(use-package company-jedi             ;; Completion backend for Python (jedi)
-  :after company
+(use-package company-ansible          ;; Completion backend for Ansible
+  :config (add-to-list 'company-backends 'company-ansible)
   )
 
+(use-package company-box
+  :hook (company-mode . company-box-mode)
+  :pin melpa
+  :disabled t
+  )
+
+(use-package company-shell
+  )
+
+(use-package company-jedi             ;; Completion backend for Python (jedi)
+  )
 
 (use-package company-quickhelp
-  :after company
   :config (setq company-quickhelp-delay 0)
   :init (company-quickhelp-mode 1)
   )
