@@ -323,6 +323,7 @@
 
 (use-package helm-ag
   :after helm
+  :bind (("C-c h" . helm-ag))
   :commands helm-ag
   )
 
