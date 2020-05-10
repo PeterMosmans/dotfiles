@@ -1591,7 +1591,7 @@ Uses `current-date-time-format' for the formatting the date/time."
   "Perform a syntax check over reStructuredText files."
   (interactive)
   (setq original-buffer (buffer-name))
-  (compile (concat "rst-lint " (buffer-file-name))) ;; use rst-lint
+  (compile (concat "doc8 -q " (buffer-file-name))) ;; use rst-lint
   (other-frame 1)
   (switch-to-buffer original-buffer))
 
