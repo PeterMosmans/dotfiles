@@ -1626,9 +1626,9 @@ Uses `current-date-time-format' for the formatting the date/time."
     (delete-window (get-buffer-window (get-buffer "*compilation*"))))
   (cons msg code))
 
-(setq compilation-exit-message-function 'my-compilation-exit-autoclose)
-
-(defun compile-quietly ()
+;; (setq compilation-exit-message-function 'my-compilation-exit-autoclose)
+;;(setq compilation-exit-message-function nil)
+(defun my-compile-quietly ()
   "Re-compile without changing the window configuration."
   (interactive)
   (save-window-excursion
@@ -1679,10 +1679,10 @@ Uses `current-date-time-format' for the formatting the date/time."
   (if (string= nil buffer-file-name)
       (dired nil)
     (progn (if (string= ";" path-separator)  ;; on Windows
-  (dired (replace-regexp-in-string "/" "\\\\"
-                                   (file-name-directory
-                                    (buffer-file-name)) t t))
-  (dired (file-name-directory (buffer-file-name)))))))
+               (dired (replace-regexp-in-string "/" "\\\\"
+                                                (file-name-directory
+                                                 (buffer-file-name)) t t))
+             (dired (file-name-directory (buffer-file-name)))))))
 
 (defun toggle-selective-display (column)
   (interactive "P")
