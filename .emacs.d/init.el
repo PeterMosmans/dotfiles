@@ -116,6 +116,10 @@
         use-package-always-ensure t    ;; Enforce automatic installation of all packages
         use-package-always-pin "melpa"
         use-package-verbose t)         ;; Show package loading times
+  (if (string= system-type "gnu/linux")
+      (if (version< emacs-version "27")
+          ;; Workaround for gnutls bug, see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
+          (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")))
   )
 
 ;; define all necessary EXTERNAL alphabetically
@@ -223,7 +227,6 @@
   :disabled t
   :hook prog-mode
   )
-
 
 (use-package elpy
   :bind (:map elpy-mode-map ("M-." . elpy-goto-definition))
@@ -455,9 +458,6 @@
   (mode-icons-mode t)
   :disabled t
   )
-
-;; Create a list of dedicated buffers
-;; (push '("\\*compilation\\*" . (nil (reusable-frames . t))) display-buffer-alist)
 
 (use-package major-mode-icons
   :disabled t
@@ -732,9 +732,11 @@
         (add-to-list 'yas-snippet-dirs item)))
   (setq yas-indent-line 'fixed)        ;; Use fixed indentation instead of 'per mode'
   (yas-reload-all)
-  :hook ((prog-mode . yas-minor-mode)
+  :hook (
+         (prog-mode . yas-minor-mode)
          (bibtex-mode . yas-minor-mode)
-         (web-mode . (lambda () (yas-activate-extra-mode 'text-mode))))
+         ;; (web-mode . (lambda () (yas-activate-extra-mode 'text-mode)))
+         )
   )
 
 ;; define font for Unicode Private Use Area block
@@ -745,7 +747,6 @@
 (if (string= system-type "windows-nt")
     (setq w32-enable-caps-lock nil     ;; Free up the capslock key for something useful
           shell-file-name (executable-find "zsh.exe")
-          ;; explicit-shell-file-name (executable-find "zsh.exe")
           ))
 
 ;; generic settings
@@ -771,7 +772,7 @@
  bibtex-maintain-sorted-entries 'entry-class
  bookmark-default-file "~/.emacs.d/bookmarks.emacs"
  calendar-intermonth-text              ;; Show week numbers in the calendar
- '(propertize 
+ '(propertize
    (format "%2d" (car
                   (calendar-iso-from-absolute
                    (calendar-absolute-from-gregorian
@@ -844,8 +845,6 @@
 
 
 ;; org mode settings
-
-
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c c") 'org-capture)
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -1944,7 +1943,6 @@ Uses `current-date-time-format' for the formatting the date/time."
               (setq compilation-error-regexp-alist-alist (cons '(rest "^\\(ERROR\\|SEVERE\\|WARNING\\) \\([a-zA-Z]:/[-_a-zA-Z0-9/]+.[a-zA-Z]+\\):\\([0-9]+\\)" 2 3)
                                                                compilation-error-regexp-alist-alist)
                     compilation-error-regexp-alist (cons 'rest compilation-error-regexp-alist))
-              ;; (desktop-save-mode 1)                  ;; Automatically save / restore 'desktop' (buffers)
               (if (bound-and-true-p initial-buffer-choice)
                   (if (get-buffer "*scratch*")
                       (kill-buffer "*scratch*")))
