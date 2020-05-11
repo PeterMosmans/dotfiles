@@ -1598,9 +1598,15 @@ Uses `current-date-time-format' for the formatting the date/time."
   "Perform a syntax check over reStructuredText files."
   (interactive)
   (setq original-buffer (buffer-name))
-  (compile (concat "doc8 -q " (buffer-file-name))) ;; use rst-lint
+  (setq original-buffer-file-name (buffer-file-name))
+  (if (locate-dominating-file default-directory "doc8.ini")
+      (with-temp-buffer
+        (cd (locate-dominating-file default-directory "doc8.ini"))
+        (compile (concat "doc8 -q " original-buffer-file-name)))
+    (compile (concat "doc8 -q " original-buffer-file-name)))
   (other-frame 1)
-  (switch-to-buffer original-buffer))
+  (switch-to-buffer original-buffer)
+  )
 
 (defun my-prettier-overwrite()
   "Automatically overwrite file with opinionated prettier formatting."
