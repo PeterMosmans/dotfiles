@@ -1,2 +1,4 @@
 # Sphinx search indices
 searchindex.js
+# Image files
+*.svg
