@@ -79,13 +79,19 @@ if [[ -n "$INSIDE_EMACS" ]]; then
     return 0
 fi
 
+# Don't use cached plugin list if NO_SUGGESTIONS is set
+if [[ -n "$NO_SUGGESTIONS" ]]; then
+   touch $ZPLUG_HOME/empty
+   ZPLUG_LOADFILE=$ZPLUG_HOME/empty
+fi
 source $ZPLUG_HOME/init.zsh
+
 zplug "ael-code/zsh-colored-man-pages"
-zplug "b4b4r07/enhancd", use:init.sh
+[[ -z "$NO_SUGGESTIONS" ]] && zplug "b4b4r07/enhancd", use:init.sh
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/tmux", from:oh-my-zsh
 zplug "themes/agnoster", as:theme, from:oh-my-zsh
-zplug "zsh-users/zsh-autosuggestions"
+[[ -z "$NO_SUGGESTIONS" ]] && zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting" #  Should be last
 zplug load
 zplug check || zplug install && zplug load # If not okay, install and reload plugins
