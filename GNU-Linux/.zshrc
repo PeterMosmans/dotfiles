@@ -72,8 +72,14 @@ if [[ -n "$INSIDE_EMACS" ]]; then
     return 0
 fi
 
+# Don't use cached plugin list if NO_SUGGESTIONS is set
+if [[ -n "$NO_SUGGESTIONS" ]]; then
+   touch $ZPLUG_HOME/empty
+   ZPLUG_LOADFILE=$ZPLUG_HOME/empty
+fi
 # shellcheck disable=SC1090
 source "$ZPLUG_HOME/init.zsh"
+
 # set PATH so it includes user's private bin if it exists
 if [[ -d "$HOME/.local/bin" ]]; then
     PATH="$HOME/.local/bin:$PATH"
@@ -87,7 +93,7 @@ zplug "plugins/pip", from:oh-my-zsh
 zplug "plugins/sudo", from:oh-my-zsh
 zplug "plugins/tmux", from:oh-my-zsh
 zplug "themes/agnoster", as:theme, from:oh-my-zsh
-zplug "zsh-users/zsh-autosuggestions"
+[[ -z "$NO_SUGGESTIONS" ]] && zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-syntax-highlighting" # Should be last
 zplug load
 zplug check || zplug install && zplug load # If not okay, install and reload plugins
