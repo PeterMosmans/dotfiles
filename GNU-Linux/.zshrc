@@ -41,27 +41,20 @@ export LS_COLORS='bd=38;5;68:ca=38;5;17:cd=38;5;113;1:di=38;5;30:do=38;5;127:ex=
 export NCURSES_NO_UTF8_ACS=1 # Tell ncurses to use UTF-8
 export TMUX_THEME="dracula"
 
-[[ -f "$HOME/.functions" ]] && source "$HOME/.functions" # Load Bash and zsh compatible functions
-[[ -f "$HOME/.hashes" ]] && source "$HOME/.hashes" # Load directory hashes
+## Functions
+[[ -f "$HOME/.functions" ]] && source "$HOME/.functions" # Load functions
 
 ## Aliases
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases" # Load Bash compatible aliases
 [[ -f "$HOME/.zshaliases" ]] && source "$HOME/.zshaliases" # Load Zsh compatible aliases
 
-alias -g GW="grep -iHR"  # case insensitive matches, recursive, show filename
 alias -g GF="grep -ilR"  # case insensitive matches, recursive, filename only
-alias -g N=">/dev/null"  # redirect / pipe output"
+alias -g GW="grep -iHR"  # case insensitive matches, recursive, show filename
 alias -g L="|less"
 alias -g M="|more"
+alias -g N=">/dev/null"  # redirect / pipe output"
 alias -g trn="|tr '\n' ' '; echo"  # show output as one horizontal line
 alias -g ucs='| awk '\''{print $2}'\'' | sort -u'  # show unique second column data
-
-# For direct links to work in zsh, replace spaces with backslash spaces
-[[ -f "${EDITOR}" ]] && alias -s txt="$(echo $EDITOR|sed -e 's/ /\\\ /g')"
-[[ -f "${READER}" ]] && alias -s epub="$(echo $READER|sed -e 's/ /\\\ /g')"
-[[ -f "${READER}" ]] && alias -s pdf="$(echo $READER|sed -e 's/ /\\\ /g')"
-[[ -f ${BROWSER} ]] && alias -s htm="$(echo $BROWSER|sed -e 's/ /\\\ /g')"
-[[ -f ${BROWSER} ]] && alias -s html="$(echo $BROWSER|sed -e 's/ /\\\ /g')"
 
 # Check for and load terminal-specific keybindings
 [ -f ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ] && source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
