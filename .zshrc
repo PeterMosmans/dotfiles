@@ -47,9 +47,6 @@ setopt HIST_VERIFY  # Don't execute history command immediately
 setopt INC_APPEND_HISTORY  # Add entries to history as they are typed (don't wait for exit)
 unsetopt SHARE_HISTORY  # Don't share history between different zsh processes
 
-### zsh plugin settings
-ZSH_TMUX_AUTOSTART=true
-
 ## Various other settings
 export GIT_EDITOR=$EDITOR
 LESS="--quit-if-one-screen --quiet --raw-control-chars"
