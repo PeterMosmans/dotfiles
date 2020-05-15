@@ -56,13 +56,6 @@ alias -g M="|more"
 alias -g trn="|tr '\n' ' '; echo"  # show output as one horizontal line
 alias -g ucs='| awk '\''{print $2}'\'' | sort -u'  # show unique second column data
 
-# For direct links to work in zsh, replace spaces with backslash spaces
-[[ -f "${EDITOR}" ]] && alias -s txt="$(echo $EDITOR|sed -e 's/ /\\\ /g')"
-[[ -f "${READER}" ]] && alias -s epub="$(echo $READER|sed -e 's/ /\\\ /g')"
-[[ -f "${READER}" ]] && alias -s pdf="$(echo $READER|sed -e 's/ /\\\ /g')"
-[[ -f ${BROWSER} ]] && alias -s htm="$(echo $BROWSER|sed -e 's/ /\\\ /g')"
-[[ -f ${BROWSER} ]] && alias -s html="$(echo $BROWSER|sed -e 's/ /\\\ /g')"
-
 # Check for and load terminal-specific keybindings
 [ -f ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ] && source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#History-Control
