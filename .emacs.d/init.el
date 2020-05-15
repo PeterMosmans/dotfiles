@@ -740,8 +740,9 @@
   )
 
 ;; define font for Unicode Private Use Area block
-(when (member "Symbol" (font-family-list))
-  (set-fontset-font "fontset-default" '(#xf000 . #xffff) (font-spec :name "Symbol")))
+(when (member "Noto Emoji" (font-family-list))
+  (set-fontset-font t 'unicode "Noto Emoji" nil 'prepend))
+  ;; (set-fontset-font "fontset-default" '(#xf000 . #xffff) (font-spec :name "Symbol")))
 
 ;; OS-specific settings
 (if (string= system-type "windows-nt")
