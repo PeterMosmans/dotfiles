@@ -85,23 +85,11 @@
 (if (file-exists-p custom-file)
     (load custom-file))
 
-;; Check whether package-initialize has already been called
-(when (not (fboundp 'package-installed-p))
-  (package-initialize))
-
 ;; Bootstrap use-package
-(when (not (package-installed-p 'use-package))
-  (progn
-    (setq package-archives `(
-                             ("melpa" . "https://melpa.org/packages/")
-                             ("melpa-stable" . "https://stable.melpa.org/packages/")
-                             )
-          )
-    (when (not package-archive-contents)
-      (package-refresh-contents))
-    (package-install 'use-package)
-    ))
-
+(setq package-enable-at-startup nil)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 (eval-when-compile
   (require 'use-package))
 
