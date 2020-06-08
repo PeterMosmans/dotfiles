@@ -85,7 +85,16 @@
     (load custom-file))
 
 ;; Bootstrap use-package
-(setq package-enable-at-startup nil)
+(setq
+ package-archives `(("gnu" . "https://elpa.gnu.org/packages/")
+                    ("melpa" . "https://melpa.org/packages/")
+                    ("melpa-stable" . "https://stable.melpa.org/packages/")
+                    ("org" . "https://orgmode.org/elpa/")
+                    )
+ package-enable-at-startup nil
+ )
+(when (not (fboundp 'package-installed-p))
+  (package-initialize))
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -100,9 +109,9 @@
                            ("melpa-stable" . "https://stable.melpa.org/packages/")
                            ("org" . "https://orgmode.org/elpa/"))
         use-package-always-defer t     ;; Use lazy loading wherever possible
-        use-package-always-ensure t    ;; Enforce automatic installation of all packages
+        use-package-always-ensure t    ;; Enforce automatic installation of package
         use-package-always-pin "melpa"
-        use-package-verbose t)         ;; Show package loading times
+        use-package-verbose nil)         ;; Show package loading times
   (if (string= system-type "gnu/linux")
       (if (version< emacs-version "27")
           ;; Workaround for gnutls bug, see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
@@ -726,7 +735,7 @@
          )
   )
 
-;; define font for Unicode Private Use Area block
+;; define separate fonts for several code blocks
 (when (member "Noto Emoji" (font-family-list))
   (set-fontset-font t '(#x1f300 . #x1fad0) "Noto Emoji"))
 (when (member "Noto Sans" (font-family-list))
