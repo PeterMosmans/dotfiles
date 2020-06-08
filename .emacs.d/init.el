@@ -78,7 +78,6 @@
   :group 'my-customizations)
 
 ;; (setq debug-on-error t)             ;; Uncomment for debugging options
-(setq gc-cons-threshold 500000000)     ;; Improve startup time
 
 ;; Use custom-file to store all customizations (including the aforementioned parameters)
 (setq custom-file "~/.emacs.d/variables.el")
