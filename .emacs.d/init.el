@@ -483,6 +483,13 @@
 (use-package ob-http                   ;; Perform HTTP requests within org-mode
   )
 
+(use-package openwith                  ;; Open certain files using default system file handler
+  :config
+  (setq openwith-associations
+        '(("\\.\\(mp3\\|mp4\\|wav\\|xlsx\\)$" "open" (file))))
+  (openwith-mode)
+  )
+
 (use-package org-ref
   :after org
   :disabled t
