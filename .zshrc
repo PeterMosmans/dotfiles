@@ -1,4 +1,4 @@
-# MSYS2
+# https://github.com/PeterMosmans/dotfiles/.zshrc
 # Only sourced for interactive shell, last
 
 ## zsh settings
