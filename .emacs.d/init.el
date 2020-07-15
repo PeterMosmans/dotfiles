@@ -723,7 +723,8 @@
   :hook (yaml-mode . (lambda ()
                        (my-prettier-diff)
                        (add-hook 'after-save-hook 'my-prettier-diff nil t)
-                       (highlight-indentation-mode))
+                       (highlight-indentation-mode)
+                       )
                    )
   )
 
