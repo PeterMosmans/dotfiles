@@ -1602,15 +1602,22 @@ Uses `current-date-time-format' for the formatting the date/time."
 (defun my-rstlint()
   "Perform a syntax check over reStructuredText files."
   (interactive)
-  (setq original-buffer (buffer-name))
-  (setq original-buffer-file-name (buffer-file-name))
-  (if (locate-dominating-file default-directory "doc8.ini")
-      (with-temp-buffer
-        (cd (locate-dominating-file default-directory "doc8.ini"))
-        (compile (concat "doc8 -q " original-buffer-file-name)))
-    (compile (concat "doc8 -q " original-buffer-file-name)))
-  (other-frame 1)
-  (switch-to-buffer original-buffer)
+  (if (file-exists-p (buffer-file-name))
+      (progn
+        (setq original-buffer (buffer-name))
+        (setq original-buffer-file-name (buffer-file-name))
+        (message (buffer-file-name))
+        (if (locate-dominating-file default-directory "doc8.ini")
+            (with-temp-buffer
+              (cd (locate-dominating-file default-directory "doc8.ini"))
+              (compile (concat "doc8 -q " original-buffer-file-name))
+              )
+          (compile (concat "doc8 -q " original-buffer-file-name))
+          )
+        )
+    (other-frame 1)
+    (switch-to-buffer original-buffer)
+    )
   )
 
 (defun my-prettier-overwrite()
