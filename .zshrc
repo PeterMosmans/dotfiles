@@ -1,6 +1,9 @@
 # https://github.com/PeterMosmans/dotfiles/.zshrc
 # Only sourced for interactive shell, last
 
+export BAT_THEME="1337"
+export TMUX_THEME="dracula"
+
 ## zsh settings
 ### zplug settings
 ZPLUG_REPO=https://github.com/PeterMosmans/zplug
