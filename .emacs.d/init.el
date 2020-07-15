@@ -996,7 +996,9 @@
                       ("\\.mm\\'" . default)
                       ("\\.odt\\'" . system)
                       ("\\.pdf\\'" . default)
-                      ("\\.x?html?\\'" . default)))
+                      ("\\.x?html?\\'" . default)
+                      ("\\.xlsx\\'" . system)
+                      ))
       org-fontify-done-headline t      ;; change headline face when marked DONE
       org-global-properties '(("Effort_ALL" . "0 00:15 0:30 0:45 1:00 1:30 2:00 3:00 4:00 6:00 8:00 10:00 20:00"))
       org-hide-leading-stars t         ;; Only show one star per heading
