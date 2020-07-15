@@ -1860,13 +1860,17 @@ Uses `current-date-time-format' for the formatting the date/time."
             (copy-face font-lock-keyword-face 'calendar-iso-week-face)
             (setq calendar-week-start-day 1   ;; DD/MM/YYYY
                   calendar-date-style 'european ;; easy navigation
-                  )))
+                  )
+            )
+          )
 
 (add-hook 'comint-mode-hook
           (lambda ()                   ;; Reclaim keybindings for shell mode
             (define-key comint-mode-map (kbd "<up>") 'comint-previous-input)
             (define-key comint-mode-map (kbd "<down>") 'comint-next-input)
-            (setq comint-process-echoes t))) ;; prevent echoing
+            (setq comint-process-echoes t) ;; prevent echoing
+            )
+          )
 
 (add-hook 'ediff-keymap-setup-hook 'add-d-to-ediff-mode-map)
 
@@ -1894,26 +1898,32 @@ Uses `current-date-time-format' for the formatting the date/time."
           (lambda ()
             (my-prettier-diff)
             (add-hook 'after-save-hook 'my-prettier-diff nil t)
-            (auto-fill-mode 1)
-            ))
+            (turn-on-auto-fill)
+            )
+          )
 
 (add-hook 'nxml-mode-hook
           (lambda ()
-            (auto-fill-mode 1)
+            (turn-on-auto-fill)
             (highlight-indentation-mode t)
             (yas-minor-mode 1)
-            ))
+            )
+          )
 
 (add-hook 'prog-mode-hook (lambda ()
                             (flyspell-prog-mode)
                             (display-line-numbers-mode)
-                            (which-function-mode)))
+                            (which-function-mode)
+                            )
+          )
 
 (add-hook 'rst-mode-hook (lambda ()    ;; Automatically perform syntax check after saving
-                           (my-rstlint)
-                           (add-hook 'after-save-hook 'my-rstlint nil t)
-                           (auto-fill-mode 1)
-                           (yas-minor-mode)))
+;                           (my-rstlint)
+ ;                          (add-hook 'after-save-hook 'my-rstlint nil t)
+                           (turn-on-auto-fill)
+                           (yas-minor-mode)
+                           )
+          )
 
 (add-hook 'sh-mode-hook
           (lambda ()
