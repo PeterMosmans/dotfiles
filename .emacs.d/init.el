@@ -1951,22 +1951,24 @@ Uses `current-date-time-format' for the formatting the date/time."
             (setq-default default-buffer-file-coding-system 'utf-8-unix
                           buffer-file-coding-system 'utf-8-unix)
             (prefer-coding-system 'utf-8-unix)
+            (tool-bar-mode 0)          ;; Disable toolbar
             ;; Check if desktop mode is active or not
             (if (bound-and-true-p my-presentation-mode)
                 (progn
                   (blink-cursor-mode 0)
+                  (global-company-mode 0)
                   (menu-bar-mode 0)
-                  (tool-bar-mode 0)
                   (setq auto-save-default nil
-                        visible-cursor nil))
+                        visible-cursor nil)
+                  )
+              (global-company-mode t)
               (helm-mode t)
               (projectile-mode t)
-              (global-company-mode)
-              (recentf-mode 1)                       ;; Enable recently opened files mode
-              (tool-bar-mode 0)                      ;; Disable toolbar
+              (recentf-mode 1)         ;; Enable recently opened files mode
               (setq compilation-error-regexp-alist-alist (cons '(rest "^\\(ERROR\\|SEVERE\\|WARNING\\) \\([a-zA-Z]:/[-_a-zA-Z0-9/]+.[a-zA-Z]+\\):\\([0-9]+\\)" 2 3)
                                                                compilation-error-regexp-alist-alist)
-                    compilation-error-regexp-alist (cons 'rest compilation-error-regexp-alist))
+                    compilation-error-regexp-alist (cons 'rest compilation-error-regexp-alist)
+                    )
               (if (bound-and-true-p initial-buffer-choice)
                   (if (get-buffer "*scratch*")
                       (kill-buffer "*scratch*")
