@@ -1875,7 +1875,9 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'git-commit-mode-hook
           (lambda ()
-            (display-line-numbers-mode 0)))           ;; No need for line numbers within commit files
+            (display-line-numbers-mode 0) ;; No need for line numbers within commit files
+            )
+          )
 
 (add-hook 'imenu-list-minor-mode-hook
           (lambda ()                   ;; Activate newly generated buffer immediately
@@ -1886,7 +1888,9 @@ Uses `current-date-time-format' for the formatting the date/time."
             (my-prettier-diff)
             (add-hook 'after-save-hook 'my-prettier-diff nil t)
             (make-local-variable 'js-indent-level)
-            (setq js-indent-level 2)))
+            (setq js-indent-level 2)
+            )
+          )
 
 (add-hook 'markdown-mode-hook
           (lambda ()
@@ -1904,19 +1908,21 @@ Uses `current-date-time-format' for the formatting the date/time."
             )
           )
 
-(add-hook 'prog-mode-hook (lambda ()
-                            (flyspell-prog-mode)
-                            (display-line-numbers-mode)
-                            (which-function-mode)
-                            )
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (flyspell-prog-mode)
+            (display-line-numbers-mode)
+            (which-function-mode)
+            )
           )
 
-(add-hook 'rst-mode-hook (lambda ()    ;; Automatically perform syntax check after saving
-;                           (my-rstlint)
- ;                          (add-hook 'after-save-hook 'my-rstlint nil t)
-                           (turn-on-auto-fill)
-                           (yas-minor-mode)
-                           )
+(add-hook 'rst-mode-hook
+          (lambda ()                   ;; Automatically perform syntax check after saving
+            (my-rstlint)
+            (add-hook 'after-save-hook 'my-rstlint nil t)
+            (turn-on-auto-fill)
+            (yas-minor-mode)
+            )
           )
 
 (add-hook 'sh-mode-hook
@@ -1925,8 +1931,9 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'shell-mode-hook
           (lambda ()
-            (ansi-color-for-comint-mode-on)))
-;; (toggle-truncate-lines 1))) ;; turn off word wrap for shell mode
+            (ansi-color-for-comint-mode-on)
+            )
+          )
 
 (add-hook 'text-mode-hook
           (lambda ()
