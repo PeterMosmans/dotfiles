@@ -484,9 +484,9 @@
   )
 
 (use-package openwith                  ;; Open certain files using default system file handler
-  :config
+  :init                                ;; Ensure that the associations are set before starting the mode
   (setq openwith-associations
-        '(("\\.\\(mp3\\|mp4\\|wav\\|xlsx\\)$" "open" (file))))
+        '(("\\.\\(docx\\|mp3\\|mp4\\|pptx\\|wav\\|xlsx\\)$" "open" (file))))
   (openwith-mode)
   )
 
