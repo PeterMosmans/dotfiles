@@ -833,7 +833,7 @@
  scroll-step 1
  sentence-end-double-space nil         ;; consider single space a sentence break
  show-paren-delay 0
- show-paren-style 'expression          ;; highlight entire bracket expression
+ show-paren-style 'parenthesis         ;; Highlight only parentheses
  size-indication-mode nil              ;; disable file size mode
  tab-width 4                           ;; default tab width
  tramp-histfile-override t             ;; Disable histfile for tramp
