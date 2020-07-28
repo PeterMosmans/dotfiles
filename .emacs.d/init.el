@@ -743,11 +743,7 @@
          )
   )
 
-;; define separate fonts for several code blocks
-(when (member "Noto Emoji" (font-family-list))
-  (set-fontset-font t '(#x1f300 . #x1fad0) "Noto Emoji"))
-(when (member "Noto Sans" (font-family-list))
-  (set-fontset-font t '(#x17f . #x527) "Noto Sans"))
+
 
 ;; OS-specific settings
 (if (string= system-type "windows-nt")
@@ -1552,29 +1548,17 @@ Uses `current-date-time-format' for the formatting the date/time."
                         (concat "&" (car pair) ";")
                         nil start end)))))
 
-(defun my-reset-gc-threshold ()
-  "Reset `gc-cons-threshold' to its default value."
-  (setq gc-cons-threshold 800000))
-
-
 (defun my-set-default-font (my-font)
   "Set default font to MY-FONT for frames if the font has been installed."
-  (if window-system
-      (progn
-        (if (member my-font (font-family-list))
-            (progn
-              (set-face-attribute 'default nil :font my-font)
-              (set-frame-font my-font nil t))
-          (progn
-            (message "Font %s is not installed" my-font)
-            (if (font-family-list)
-                (print (font-family-list)))))
-        (if (daemonp)
-            (progn
-              (message "Removing daemon startup set-default-font hook")
-              (remove-hook 'window-configuration-change-hook
-                           (lambda ()
-                             (my/set-default-font my-font))))))))
+  ;; When started as daemon, the font-family-list will be nil.
+  ;; Therefore, "enforce" the font without proper checking whether it's available.
+  (message "Setting font to %s" my-font)
+  (add-to-list 'default-frame-alist '(font . "Source Code Pro"))
+  (set-face-attribute 'default nil :height 100)
+  ;; define separate fonts for several code blocks
+  (set-fontset-font t '(#x1f300 . #x1fad0) "Noto Emoji")
+  (set-fontset-font t '(#x17f . #x527) "Noto Sans")
+  )
 
 (defun my-sort-words-on-line ()
   "Sort words in a line."
@@ -1978,28 +1962,36 @@ Uses `current-date-time-format' for the formatting the date/time."
                     compilation-error-regexp-alist (cons 'rest compilation-error-regexp-alist))
               (if (bound-and-true-p initial-buffer-choice)
                   (if (get-buffer "*scratch*")
-                      (kill-buffer "*scratch*")))
+                      (kill-buffer "*scratch*")
+                    )
+                )
               (when (bound-and-true-p my-start-with-agenda)
-                (my-open-custom-agenda))
-              (raise-frame)
-              (require 'server)
-              (or (server-running-p)     ;; Start server if not already running
-                  (server-start))
-              (setq gc-cons-threshold 800000) ;; Reset to default value
+                (my-open-custom-agenda)
+                )
               )
             )
           )
+
 (if (fboundp 'my-align-org-tags)
     (add-hook 'window-configuration-change-hook
               (lambda()
-                (my-align-org-tags))))
+                (my-align-org-tags)
+                )
+              )
+  )
 
-;; workaround to make sure that font is being set when running in daemon mode
-(if (daemonp)
-    (add-hook 'window-configuration-change-hook
-              (lambda ()
-                (my-set-default-font my-font))))
-
+(add-hook 'window-setup-hook  ;; Runs after emacs-startup-hook, after setting the frame parameters
+          (lambda ()
+            (message "Firing window-setup-hook with font %s and theme %s" my-font my-theme)
+            (my-set-default-font my-font)
+            (if (bound-and-true-p my-theme)
+                (progn
+                  (message "Loading theme %s" my-theme)
+                  (load-theme my-theme t)
+                  )
+              )
+            )
+          )
 
 (defvar after-load-theme-hook nil
   "Hook run after a color theme is loaded using `load-theme'.")
