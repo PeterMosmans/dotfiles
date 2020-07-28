@@ -1946,23 +1946,20 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'text-mode-hook
           (lambda ()
-            (flyspell-mode 1)
+            (if (executable-find ispell-program-name)
+                (flyspell-mode 1)
+              )
             (display-line-numbers-mode)
             (visual-line-mode 0)       ;; show a symbol for wrapping lines,
             (setq word-wrap 1)))       ;; but still wrap words nicely
 
-
-
-;; builtin hooks
-(add-hook 'emacs-startup-hook          ;; After loading init file and packages
+;; Standard hooks
+(add-hook 'emacs-startup-hook          ;; Fires after loading init file, packages and after handling command line aruments
           (lambda ()
-            (if (bound-and-true-p my-theme)
-                (load-theme my-theme t))
             ;; make sure that utf8 Unix line endings (LF) are default
             (setq-default default-buffer-file-coding-system 'utf-8-unix
                           buffer-file-coding-system 'utf-8-unix)
             (prefer-coding-system 'utf-8-unix)
-            (my-set-default-font my-font)
             ;; Check if desktop mode is active or not
             (if (bound-and-true-p my-presentation-mode)
                 (progn
