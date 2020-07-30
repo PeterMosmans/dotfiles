@@ -5,6 +5,7 @@
   fontdiff = -family \"Source Code Pro\" -size 10 -weight normal -slant roman -underline 0 -overstrike 0
 [core]
   autocrlf = false
+  editor = "emacsclient"
   excludesfile = ~/.gitignore_global
 [rerere]
   enabled = true
