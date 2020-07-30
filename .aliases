@@ -1,4 +1,14 @@
-# unicode support for tmux
+# ag: use a pager by default
+alias ag="ag --pager='less --no-init --RAW-CONTROL-CHARS'"
+# git: pipe diff through bat
+alias gdbat="git diff|bat --plain"
+# fd: always use fd alias for fd-find
+which fd-find &>/dev/null && alias fd='fd-find'
+# grep: assume everything is text
+alias grep='grep --text --color=auto'
+# less: don't refresh screen when less exits and allow raw ANSI color characters
+alias less='less --no-init --RAW-CONTROL-CHARS'
+# tmux: unicode support
 alias tmux='tmux -u'
 # pretty file/directory listings
 alias ll='ls -als --color=auto'
@@ -6,15 +16,7 @@ alias la='ls -A --color=auto'
 alias ls='ls --color=auto'
 alias lt='ls -ltr --color=auto'
 alias l='ls -CF'
-# assume everything is text
-alias grep='grep --text --color=auto'
-# don't refresh screen when less exits and allow raw ANSI color characters
-alias less='less -RX'
-# show numbered directory stack
-alias ds='dirs -v -p'
-# programs
-[[ ! -z $EDITOR ]] && alias emacs=$EDITOR
-[[ ! -z $READER ]] && alias -s pdf=$READER
 # pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
-alias ee='emacs "$(fzf --height 50%)"'
+# show numbered directory stack
+alias ds='dirs -v -p'
