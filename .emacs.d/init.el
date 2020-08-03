@@ -855,9 +855,7 @@
 (global-set-key (kbd "C-<f12>") 'org-clock-out)
 (global-set-key (kbd "M-<f12>") 'my-org-clock-show-list)
 (if (file-exists-p my-org-directory)  ;; use my-org-directory if it exists
-    (setq org-directory my-org-directory)
-  (message "Please specify correct my-org-directory: The directory %s does not exist."
-           my-org-directory))
+    (setq org-directory my-org-directory))
 (org-babel-do-load-languages
  'org-babel-load-languages
  '(
