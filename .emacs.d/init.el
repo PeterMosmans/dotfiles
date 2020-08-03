@@ -1908,7 +1908,8 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'prog-mode-hook
           (lambda ()
-            (flyspell-prog-mode)
+            (if (executable-find ispell-program-name)
+                (flyspell-prog-mode))
             (display-line-numbers-mode)
             (which-function-mode)
             )
