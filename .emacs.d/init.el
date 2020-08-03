@@ -1990,14 +1990,11 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'window-setup-hook  ;; Runs after emacs-startup-hook, after setting the frame parameters
           (lambda ()
-            (message "Firing window-setup-hook with font %s and theme %s" my-font my-theme)
             (when (fboundp 'set-fontset-font)
-              (my-set-default-font my-font))
+              (my-set-default-font my-font)
+              )
             (if (bound-and-true-p my-theme)
-                (progn
-                  (message "Loading theme %s" my-theme)
-                  (load-theme my-theme t)
-                  )
+                (load-theme my-theme t)
               )
             )
           )
