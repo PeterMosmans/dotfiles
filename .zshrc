@@ -49,8 +49,6 @@ export NCURSES_NO_UTF8_ACS=1 # Tell ncurses to use UTF-8
 [[ -f $HOME/.aliases ]] && source $HOME/.aliases  # Load Bash compatible aliases
 [[ -f $HOME/.zshaliases ]] && source $HOME/.zshaliases  # Load Zsh compatible aliases
 
-alias -g GW="grep -iHR"  # case insensitive matches, recursive, show filename
-alias -g GF="grep -ilR"  # case insensitive matches, recursive, filename only
 alias -g N=">/dev/null"  # redirect / pipe output"
 alias -g L="|less"
 alias -g M="|more"
