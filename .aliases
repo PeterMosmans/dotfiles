@@ -1,5 +1,5 @@
 # ag: use a pager by default
-alias ag="ag --pager='less --no-init --RAW-CONTROL-CHARS'"
+alias ag="ag --pager='less --no-init --quit-at-eof --quit-if-one-screen --RAW-CONTROL-CHARS'"
 # git: pipe diff through bat
 alias gdbat="git diff|bat --plain"
 # fd: always use fd alias for fd-find
@@ -7,7 +7,7 @@ which fd-find &>/dev/null && alias fd='fd-find'
 # grep: assume everything is text
 alias grep='grep --text --color=auto'
 # less: don't refresh screen when less exits and allow raw ANSI color characters
-alias less='less --no-init --RAW-CONTROL-CHARS'
+alias less='less --no-init --quit-at-eof --quit-if-one-screen --RAW-CONTROL-CHARS'
 # tmux: unicode support
 alias tmux='tmux -u'
 # pretty file/directory listings
