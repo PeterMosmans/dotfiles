@@ -9,21 +9,7 @@ export TMUX_THEME="dracula"
 ZPLUG_REPO=https://github.com/PeterMosmans/zplug
 ZPLUG_HOME=~/.zplug
 
-# If the environment variable ZPLUG_PROFILE is set,
-# use an alternative zplug configuration
-if [[ -n "$ZPLUG_PROFILE" ]]; then
-    ZPLUG_HOME="$HOME/.zplug-$ZPLUG_PROFILE"
-    unset zplugs
-    unset ZPLUG_BIN
-    unset ZPLUG_CACHE_DIR
-    unset ZPLUG_ERROR_LOG
-    unset ZPLUG_FILTER
-    unset ZPLUG_LOADFILE
-    unset ZPLUG_REPOS
-    unset ZSH_CACHE_DIR
-fi
-
-# Bootstrap installation
+# Bootstrap installation of zplug
 [[ ! -d "$ZPLUG_HOME" ]] && git clone "$ZPLUG_REPO" "$ZPLUG_HOME"
 
 ### zsh setings
@@ -92,9 +78,8 @@ if [[ -n "$INSIDE_EMACS" ]]; then
     return 0
 fi
 
-source "$ZPLUG_HOME/init.zsh"
 # Load all plugins
-[[ -f "$HOME/.zplug-$ZPLUG_PROFILE-packages.zsh" ]] && ZPLUG_LOADFILE="$HOME/.zplug-$ZPLUG_PROFILE-packages.zsh"
-[[ -f "$ZPLUG_LOADFILE" ]] && source "$ZPLUG_LOADFILE"
+[[ -f "$HOME/.zplug-packages.zsh" ]] && ZPLUG_LOADFILE="$HOME/.zplug-packages.zsh"
+source "$ZPLUG_HOME/init.zsh"
 zplug load
 zplug check || zplug install && zplug load # If not okay, install and reload plugins
