@@ -6,6 +6,6 @@ linkfiles=(
 
 # Files to link, depending on OS
 osfiles=(
-    [.]=".minttyrc .zplug--packages.zsh .zshenv"
+    [.]=".minttyrc .zplug-packages.zsh .zshenv"
     [.ssh]="config"
 )
