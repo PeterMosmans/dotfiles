@@ -8,6 +8,7 @@ export TMUX_THEME="dracula"
 ### zplug settings
 ZPLUG_REPO=https://github.com/PeterMosmans/zplug
 ZPLUG_HOME=~/.zplug
+ZSH=$ZPLUG_HOME/repos/robbyrussell/oh-my-zsh
 
 # Bootstrap installation of zplug
 [[ ! -d "$ZPLUG_HOME" ]] && git clone "$ZPLUG_REPO" "$ZPLUG_HOME"
