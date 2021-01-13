@@ -93,6 +93,11 @@
                     )
  package-enable-at-startup nil
  )
+(if (string= system-type "gnu/linux")
+    (if (version< emacs-version "27")
+        ;; Workaround for gnutls bug, see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
+        (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")))
+
 (when (not (fboundp 'package-installed-p))
   (package-initialize))
 (unless (package-installed-p 'use-package)
@@ -112,10 +117,6 @@
         use-package-always-ensure t    ;; Enforce automatic installation of package
         use-package-always-pin "melpa"
         use-package-verbose nil)         ;; Show package loading times
-  (if (string= system-type "gnu/linux")
-      (if (version< emacs-version "27")
-          ;; Workaround for gnutls bug, see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
-          (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")))
   )
 
 ;; define all necessary EXTERNAL alphabetically
@@ -137,7 +138,6 @@
 ;; mode:      deferred binding
 ;;            :mode ("\\.py\\'" . python-mode)
 ;; pin:       pin to a specific repository
-
 
 (use-package ansible
   :after company
