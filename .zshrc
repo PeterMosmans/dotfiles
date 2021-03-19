@@ -66,10 +66,8 @@ alias -g ucs='| awk '\''{print $2}'\'' | sort -u'  # show unique second column d
 [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-history
 bindkey '\e[3~' delete-char  # Map the delete key
 
-# set PATH so it includes user's private bin if it exists
-if [[ -d "$HOME/.local/bin" ]]; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
+# set PATH so it includes user's private bin directory
+PATH="$HOME/.local/bin:$PATH"
 
 # Don't start zplug while running in Emacs
 if [[ -n "$INSIDE_EMACS" ]]; then
