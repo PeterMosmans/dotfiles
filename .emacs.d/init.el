@@ -1876,6 +1876,12 @@ Uses `current-date-time-format' for the formatting the date/time."
             )
           )
 
+(add-hook 'image-mode-hook
+          (lambda ()
+            (auto-revert-mode 1)
+            )
+          )
+
 (add-hook 'imenu-list-minor-mode-hook
           (lambda ()                   ;; Activate newly generated buffer immediately
             (switch-to-buffer-other-window "*Ilist*")))
