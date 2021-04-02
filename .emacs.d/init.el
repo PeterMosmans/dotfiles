@@ -441,7 +441,7 @@
   :bind (
          ([f1] . magit-status)
          ("C-c g g" . magit-status)
-         ("C-c g c" . magit-commit)
+         ("C-c g c" . magit-commit-create)
          )
   )
 
