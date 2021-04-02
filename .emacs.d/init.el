@@ -206,11 +206,15 @@
   :disabled t
   )
 
-(use-package delight                   ;; Hide package (icons) in the modeline
+(use-package delight                   ;; Hide modes (icons) in the modeline
   :pin "gnu"                           ;; Only available on GNU Elpa
   :config                              ;; Automatically hide some modes in the modelie
   (delight '((global-whitespace-mode nil "whitespace")
-             (helm-mode nil "helm-mode")))
+             (helm-mode nil "helm-mode")
+             (yas-minor-mode nil "")
+             (git-gutter-mode nil "")
+             )
+           )
   )
 
 (use-package dracula-theme)
