@@ -396,8 +396,15 @@
   :config
   (set-face-background 'highlight-indentation-face "light slate grey")
   (set-face-background 'highlight-indentation-current-column-face "light slate grey")
-  :hook (prog-mode . highlight-indentation-mode)
+  :hook (
+         (js2-mode . highlight-indentation-mode)
+         (prog-mode . highlight-indentation-mode)
+         (web-mode . highlight-indentation-mode)
+         (yaml-mode . highlight-indentation-mode)
+         (nxml-mode . highlight-indentation-mode)
+         )
   :delight
+  :ensure t
   )
 
 (use-package hydra
