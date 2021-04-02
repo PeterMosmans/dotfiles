@@ -1,6 +1,6 @@
 ;;; init.el --- Emacs initialization file
 
-;; Copyright (c) 2011-2020 Peter Mosmans
+;; Copyright (c) 2011-2021 Peter Mosmans
 
 ;; Author: Peter Mosmans <support AT go-forward.net>
 ;; Created: 2011
@@ -93,11 +93,10 @@
                     )
  package-enable-at-startup nil
  )
-(if (string= system-type "gnu/linux")
-    (if (version< emacs-version "27")
-        ;; Workaround for gnutls bug, see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
-        (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")))
-
+(if (version< emacs-version "28")
+    ;; Workaround for gnutls bug, see https://debbugs.gnu.org/cgi/bugreport.cgi?bug=34341
+    (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+  )
 (when (not (fboundp 'package-installed-p))
   (package-initialize))
 (unless (package-installed-p 'use-package)
