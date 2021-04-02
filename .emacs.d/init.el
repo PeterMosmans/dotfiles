@@ -1763,7 +1763,20 @@ Uses `current-date-time-format' for the formatting the date/time."
   "When LANG is trusted, return false (don't ask for confirmation).
    If true, ask for confirmation to evaluate code."
   (message "Check language %s" lang)
-  (not (member lang '("bash" "dot" "http" "plantuml" "python" "restclient" "sh" "shell"))))
+  (not (member lang '
+               (
+                "bash"
+                "dot"
+                "http"
+                "plantuml"
+                "python"
+                "restclient"
+                "sh"
+                "shell"
+                )
+               )
+       )
+  )
 
 (defun my-xml-formatter ()
   "Pretty format XML file."
