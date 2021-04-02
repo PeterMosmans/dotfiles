@@ -220,11 +220,15 @@
 (use-package dracula-theme)
 
 (use-package dumb-jump
+  :after helm
+  :ensure
   :config
   (setq dumb-jump-selector 'helm
         dump-jump-force-searcher 'ag)
+  :hook (prog-mode
+         (xref-backend-functions . #'dumb-jump-xref-activate)
+         )
   :disabled t
-  :hook prog-mode
   )
 
 (use-package elpy
