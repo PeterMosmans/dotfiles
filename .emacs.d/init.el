@@ -1604,6 +1604,21 @@ Uses `current-date-time-format' for the formatting the date/time."
     )
   )
 
+(defun my-xmllint()
+  "Perform a syntax check over XML files."
+  (interactive)
+  (if (file-exists-p (buffer-file-name))
+      (progn
+        (setq original-buffer (buffer-name))
+        (setq original-buffer-file-name (buffer-file-name))
+        (message (buffer-file-name))
+        (compile (concat "xmllint --noout " original-buffer-file-name))
+        )
+    (other-frame 1)
+    (switch-to-buffer original-buffer)
+    )
+  )
+
 (defun my-prettier-overwrite()
   "Automatically overwrite file with opinionated prettier formatting."
   (interactive)
