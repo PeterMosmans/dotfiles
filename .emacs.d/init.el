@@ -509,10 +509,16 @@
   :disabled t
   )
 
-(use-package org-wc                    ;; Count words in org mode documents
-  :after org
-  :bind ("C-c w" . my-org-wc-toggle-overlay)
+(use-package org-superstar             ;; Prettify bullets
+  :hook (
+         (org-mode . org-superstar-mode)
+         )
   )
+
+  (use-package org-wc                    ;; Count words in org mode documents
+    :after org
+    :bind ("C-c w" . my-org-wc-toggle-overlay)
+    )
 
 (use-package polymode                 ;; Use modes within modes
   :disabled t
