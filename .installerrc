@@ -1,6 +1,6 @@
 # OS-independent files to link
 linkfiles=(
-    [.]=".aliases .agignore .bashrc .functions .gitconfig .gitignore_global .tmux.conf .tmux.default.theme .tmux.dracula.theme .zshrc"
+    [.]=".aliases .agignore .bashrc .functions .gitconfig .gitignore_global .tmux.conf .tmux.default.theme .tmux.dracula.theme .zshaliases .zshrc"
     [.emacs.d]="init.el"
 )
 
