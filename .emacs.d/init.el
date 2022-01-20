@@ -220,11 +220,15 @@
 (use-package dracula-theme)
 
 (use-package dumb-jump
+  :after helm
+  :ensure
   :config
   (setq dumb-jump-selector 'helm
         dump-jump-force-searcher 'ag)
+  :hook (prog-mode
+         (xref-backend-functions . #'dumb-jump-xref-activate)
+         )
   :disabled t
-  :hook prog-mode
   )
 
 (use-package elpy
@@ -505,10 +509,16 @@
   :disabled t
   )
 
-(use-package org-wc                    ;; Count words in org mode documents
-  :after org
-  :bind ("C-c w" . my-org-wc-toggle-overlay)
+(use-package org-superstar             ;; Prettify bullets
+  :hook (
+         (org-mode . org-superstar-mode)
+         )
   )
+
+  (use-package org-wc                    ;; Count words in org mode documents
+    :after org
+    :bind ("C-c w" . my-org-wc-toggle-overlay)
+    )
 
 (use-package polymode                 ;; Use modes within modes
   :disabled t
@@ -1239,6 +1249,18 @@ Return a list of one element based on major mode."
          mode-name
        (symbol-name major-mode))
      ))))
+
+
+(defun my-set-capslock-key-under-x ()
+  "Set the caps lock key to helm-M-x when using X."
+  (if (eq window-system 'x)
+      (progn
+        (shell-command "xmodmap -e 'clear Lock' -e 'keycode 66 = F13'")
+        (global-set-key (kbd "<f13>") 'helm-M-x)
+        (toggle-scroll-bar -1)
+        )
+    )
+  )
 
 (defun my-org-mode-ask-effort ()
   "Ask for an effort estimate when clocking in."
@@ -1987,42 +2009,61 @@ Uses `current-date-time-format' for the formatting the date/time."
             (visual-line-mode 0)       ;; show a symbol for wrapping lines,
             (setq word-wrap 1)))       ;; but still wrap words nicely
 
-;; Standard hooks
-(add-hook 'emacs-startup-hook          ;; Fires after loading init file, packages and after handling command line aruments
+(add-hook 'web-mode-hook
           (lambda ()
-            ;; make sure that utf8 Unix line endings (LF) are default
-            (setq-default default-buffer-file-coding-system 'utf-8-unix
-                          buffer-file-coding-system 'utf-8-unix)
-            (prefer-coding-system 'utf-8-unix)
-            (tool-bar-mode 0)          ;; Disable toolbar
-            ;; Check if desktop mode is active or not
-            (if (bound-and-true-p my-presentation-mode)
-                (progn
-                  (blink-cursor-mode 0)
-                  (global-company-mode 0)
-                  (menu-bar-mode 0)
-                  (setq auto-save-default nil
-                        visible-cursor nil)
-                  )
-              (global-company-mode t)
-              (helm-mode t)
-              (projectile-mode t)
-              (recentf-mode 1)         ;; Enable recently opened files mode
-              (setq compilation-error-regexp-alist-alist (cons '(rest "^\\(ERROR\\|SEVERE\\|WARNING\\) \\([a-zA-Z]:/[-_a-zA-Z0-9/]+.[a-zA-Z]+\\):\\([0-9]+\\)" 2 3)
-                                                               compilation-error-regexp-alist-alist)
-                    compilation-error-regexp-alist (cons 'rest compilation-error-regexp-alist)
-                    )
-              (if (bound-and-true-p initial-buffer-choice)
-                  (if (get-buffer "*scratch*")
-                      (kill-buffer "*scratch*")
-                    )
-                )
-              (when (bound-and-true-p my-start-with-agenda)
-                (my-open-custom-agenda)
-                )
+            (turn-on-auto-fill)
+            (yas-minor-mode 1)
+            (add-hook 'after-save-hook 'my-prettier-overwrite nil t)
+            (if (executable-find "xmllint")
+                (add-hook 'after-save-hook 'my-xmllint nil t)
               )
             )
           )
+
+;; Standard hooks
+;;  A normal hook run when the Emacs server creates a client frame
+(add-hook 'server-after-make-frame-hook
+          (lambda ()
+            (my-set-capslock-key-under-x)
+            )
+          )
+
+;; Fires after loading init file, packages and after handling command line arguments
+(add-hook 'emacs-startup-hook
+(lambda ()
+  ;; make sure that utf8 Unix line endings (LF) are default
+  (setq-default default-buffer-file-coding-system 'utf-8-unix
+                buffer-file-coding-system 'utf-8-unix)
+  (prefer-coding-system 'utf-8-unix)
+  (tool-bar-mode 0)          ;; Disable toolbar
+  ;; Check if desktop mode is active or not
+  (if (bound-and-true-p my-presentation-mode)
+      (progn
+        (blink-cursor-mode 0)
+        (global-company-mode 0)
+        (menu-bar-mode 0)
+        (setq auto-save-default nil
+              visible-cursor nil)
+        )
+    (global-company-mode t)
+    (helm-mode t)
+                                        ;              (projectile-mode t)
+    (recentf-mode 1)         ;; Enable recently opened files mode
+    (setq compilation-error-regexp-alist-alist (cons '(rest "^\\(ERROR\\|SEVERE\\|WARNING\\) \\([a-zA-Z]:/[-_a-zA-Z0-9/]+.[a-zA-Z]+\\):\\([0-9]+\\)" 2 3)
+                                                     compilation-error-regexp-alist-alist)
+          compilation-error-regexp-alist (cons 'rest compilation-error-regexp-alist)
+          )
+    (if (bound-and-true-p initial-buffer-choice)
+        (if (get-buffer "*scratch*")
+            (kill-buffer "*scratch*")
+          )
+      )
+    (when (bound-and-true-p my-start-with-agenda)
+      (my-open-custom-agenda)
+      )
+    )
+  )
+)
 
 (if (fboundp 'my-align-org-tags)
     (add-hook 'window-configuration-change-hook
