@@ -155,10 +155,24 @@
          ("M-<f2>" . bm-next))
   )
 
-(use-package company                   ;; Auto complete
+(use-package centaur-tabs              ;; Improved tabbar
+  :demand
   :config
+  (centaur-tabs-mode t)
+  (setq centaur-tabs-set-bar 'over
+        centaur-tabs-style "bar"
+        centaur-tabs-set-icons t)
+  :bind
+  ("C-<prior>" . centaur-tabs-backward)
+  ("C-<next>" . centaur-tabs-forward)
+  :delight
+  )
+
+(use-package company                   ;; Auto complete
+  :config                              ;; https://company-mode.github.io/
   (defvar company-mode/enable-yas t "Enable yasnippet for all back ends.")
-  (setq company-tooltip-limit 15)
+  (setq company-tooltip-limit 5
+        company-idle-delay 2)
   :delight
   )
 
