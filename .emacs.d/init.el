@@ -694,20 +694,6 @@
   (shackle-mode)
   )
 
-(use-package tabbar                    ;; Display a tabbar in the header line
-  :init (tabbar-mode)
-  :bind (("C-<tab>" . tabbar-forward)
-         ("C-S-<tab>" . tabbar-backward)
-         ("C-S-<iso-lefttab>" . tabbar-backward)
-         ("M-<down>" . tabbar-forward-group)
-         ("M-<up>" . tabbar-backward-group)
-         ("<f8>" . tabbar-backward)
-         ("S-<f8>" . tabbar-backward-group)
-         ("<f9>" . tabbar-forward)
-         ("S-<f9>" . tabbar-forward-group))
-  :config (tabbar-mode t)              ;; Enable the tabbar by default
-  )
-
 (use-package undo-tree                 ;; Generate a nice visualization of undo
   :bind (
          ("C-x U" . undo-tree-visualize)
@@ -717,7 +703,6 @@
            )
   :pin "gnu"
   )
-
 
 (use-package web-mode
   :config (setq web-mode-markup-indent-offset 2
