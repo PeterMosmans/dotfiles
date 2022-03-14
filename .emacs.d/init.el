@@ -217,6 +217,10 @@
            )
   )
 
+(use-package dockerfile-mode           ;; Syntax highlighting for Dockerfiles
+  :mode ("Dockerfile\\'" . dockerfile-mode)
+  )
+
 (use-package dracula-theme)
 
 (use-package dumb-jump
