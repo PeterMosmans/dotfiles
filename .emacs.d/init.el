@@ -1684,6 +1684,7 @@ Uses `current-date-time-format' for the formatting the date/time."
 (defun my-prettier-overwrite()
   "Automatically overwrite file with opinionated prettier formatting."
   (interactive)
+  (save-buffer)
   (shell-command (concat "prettier --write " (buffer-file-name)))
   (revert-buffer :ignore-auto :noconfirm)
   )
