@@ -722,6 +722,12 @@
          )
   :init (setq web-mode-enable-current-element-highlight t
               web-mode-enable-current-column-highlight t)
+  :hook  (web-mode . auto-fill-mode)
+  ;; (add-hook 'after-save-hook 'my-prettier-overwrite nil t)
+  ;; (if (executable-find "xmllint")
+  ;;     (add-hook 'after-save-hook 'my-xmllint nil t)
+  ;;   )
+  ;; )
   )
 
 (use-package which-key
@@ -745,12 +751,12 @@
   :config
   (setq tab-width 2)
   :init
-  :hook (yaml-mode . (lambda ()
-                       (my-prettier-diff)
-                       (add-hook 'after-save-hook 'my-prettier-diff nil t)
-                       (highlight-indentation-mode)
-                       )
-                   )
+  ;; :hook (yaml-mode . (lambda ()
+  ;;                                       ;      (my-prettier-diff)
+  ;;                      ;;                       (add-hook 'after-save-hook 'my-prettier-diff nil t)
+  ;;                      (highlight-indentation-mode)
+  ;;                      )
+  ;;                  )
   )
 
 (use-package yasnippet
@@ -1972,8 +1978,8 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'json-mode-hook
           (lambda ()
-            (my-prettier-diff)
-            (add-hook 'after-save-hook 'my-prettier-diff nil t)
+            ;; (my-prettier-diff)
+            ;; (add-hook 'after-save-hook 'my-prettier-diff nil t)
             (make-local-variable 'js-indent-level)
             (setq js-indent-level 2)
             )
@@ -2006,8 +2012,8 @@ Uses `current-date-time-format' for the formatting the date/time."
 
 (add-hook 'rst-mode-hook
           (lambda ()                   ;; Automatically perform syntax check after saving
-            (my-rstlint)
-            (add-hook 'after-save-hook 'my-rstlint nil t)
+            ;;            (my-rstlint)
+            ;;            (add-hook 'after-save-hook 'my-rstlint nil t)
             (turn-on-auto-fill)
             (yas-minor-mode)
             )
@@ -2031,17 +2037,6 @@ Uses `current-date-time-format' for the formatting the date/time."
             (display-line-numbers-mode)
             (visual-line-mode 0)       ;; show a symbol for wrapping lines,
             (setq word-wrap 1)))       ;; but still wrap words nicely
-
-(add-hook 'web-mode-hook
-          (lambda ()
-            (turn-on-auto-fill)
-            (yas-minor-mode 1)
-            (add-hook 'after-save-hook 'my-prettier-overwrite nil t)
-            (if (executable-find "xmllint")
-                (add-hook 'after-save-hook 'my-xmllint nil t)
-              )
-            )
-          )
 
 ;; Standard hooks
 ;;  A normal hook run when the Emacs server creates a client frame
