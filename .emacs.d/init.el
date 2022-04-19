@@ -172,7 +172,7 @@
   :config                              ;; https://company-mode.github.io/
   (defvar company-mode/enable-yas t "Enable yasnippet for all back ends.")
   (setq company-tooltip-limit 5
-        company-idle-delay 2)
+        company-idle-delay 1)
   :delight
   )
 
