@@ -182,7 +182,6 @@
 
 (use-package company-box
   :hook (company-mode . company-box-mode)
-  :disabled t
   )
 
 (use-package company-shell
