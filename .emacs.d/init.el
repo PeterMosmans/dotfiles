@@ -1255,6 +1255,24 @@ Return a list of one element based on major mode."
        (symbol-name major-mode))
      ))))
 
+(defun my-presenting (&optional disable)
+  (interactive)
+  (unless disable (setq disable nil))
+  (if (bound-and-true-p disable)
+      (progn
+        (blink-cursor-mode 1)
+        (highlight-indentation-mode 1)
+        (set-face-attribute 'default nil :height 100)
+        (global-company-mode 1)
+        )
+    (progn
+      (blink-cursor-mode 0)
+      (highlight-indentation-mode 0)
+      (set-face-attribute 'default nil :height 160)
+      (global-company-mode 0)
+      )
+    )
+  )
 
 (defun my-set-capslock-key-under-x ()
   "Set the caps lock key to helm-M-x when using X."
