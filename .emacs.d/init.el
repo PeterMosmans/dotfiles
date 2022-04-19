@@ -521,6 +521,9 @@
   (openwith-mode)
   )
 
+(use-package org-modern                ;; Enable modern styling for Org mode
+  )
+
 (use-package org-ref
   :after org
   :disabled t
