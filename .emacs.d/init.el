@@ -328,7 +328,7 @@
          ([M-f10] . helm-buffers-list)
          ("C-x C-f" . helm-find-files)
          ([M-x] . helm-M-x)
-         ([S-f10] . helm-mini)
+         ("C-c m" . helm-mini)
          ([capslock] . helm-M-x)
          :map helm-map
          ("C-z" . helm-select-action)
