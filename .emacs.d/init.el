@@ -770,6 +770,8 @@
   :hook (
          (prog-mode . yas-minor-mode)
          (bibtex-mode . yas-minor-mode)
+         (rst-mode . yas-minor-mode)
+         (web-mode . yas-minor-mode)
          ;; (web-mode . (lambda () (yas-activate-extra-mode 'text-mode)))
          )
   )
